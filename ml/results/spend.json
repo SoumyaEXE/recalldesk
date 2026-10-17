@@ -9,15 +9,23 @@
       "at": "2026-10-17T04:44:50+00:00"
     },
     "serp_scan": {
-      "searches_spent": 150,
-      "searches_indexed": 150,
-      "unique_listings": 8098,
+      "searches_spent": 235,
+      "searches_indexed": 237,
+      "unique_listings": 12562,
       "est_usd": 0.0,
       "stopped": null,
-      "at": "2026-10-17T04:57:31+00:00"
+      "at": "2026-10-17T05:04:31+00:00"
+    },
+    "teacher_label": {
+      "model": "Qwen/Qwen3.5-397B-A17B",
+      "rows": 3300,
+      "prompt_tokens": 3628158,
+      "completion_tokens": 197730,
+      "est_usd": 7.4694,
+      "at": "2026-10-17T05:17:46+00:00"
     }
   },
-  "total_est_usd": 2.206,
-  "serpapi_searches_spent": 150,
+  "total_est_usd": 9.6754,
+  "serpapi_searches_spent": 235,
   "note": "Tinker $ = token counts x list prices (models.json snapshot 2026-10-17); not an invoice. SerpApi searches are counted, not priced (plan-dependent)."
 }

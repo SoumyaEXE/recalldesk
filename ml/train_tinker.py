@@ -27,7 +27,9 @@ from shared.schema import MatchVerdict, verdict_json
 
 def build_conversations(split: str) -> list[dict]:
     rows = read_jsonl(SPLITS / f"{split}.jsonl")
-    teacher = {r["pair_id"]: r for r in read_jsonl(LABELED / "teacher.jsonl") if r.get("valid")}
+    # targets.jsonl = teacher labels with rule 7 enforced by code (ml.enforce_rules); fall back to raw teacher labels
+    src = LABELED / "targets.jsonl" if (LABELED / "targets.jsonl").exists() else LABELED / "teacher.jsonl"
+    teacher = {r["pair_id"]: r for r in read_jsonl(src) if r.get("valid")}
     specs, listings = load_specs(), load_listings()
     out = []
     for r in rows:

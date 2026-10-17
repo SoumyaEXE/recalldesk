@@ -1,0 +1,13 @@
+{
+  "pairs": 3300,
+  "corrected_rule7": 391,
+  "corrected_by": {
+    "check->no_match (train)": 357,
+    "check->no_match (test)": 34
+  },
+  "target_distribution": {
+    "no_match": 2797,
+    "check": 481,
+    "match": 22
+  }
+}
