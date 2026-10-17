@@ -1,0 +1,84 @@
+/* RecallDesk blog visuals: shared tokens. Mirrors web/styles/recalldesk.css (light theme):
+   manila paper neutrals, ledger-ink blue accent, DO NOT SELL red (octagon), CHECK LABEL amber (triangle). */
+:root {
+  --n50: #fbfaf5;  --n100: #f5f2e9; --n200: #e9e4d6; --n300: #d7d0be; --n400: #a9a190;
+  --n500: #797262; --n600: #5b5548; --n700: #423e35; --n800: #2a2823; --n900: #1d1c19;
+  --a50: #eef3fa;  --a100: #d9e4f3; --a200: #b3c8e6; --a300: #85a6d4; --a400: #5682bf;
+  --a500: #3565a8; --a600: #28508c; --a700: #213f6f; --a800: #1c3358; --a900: #172946;
+  --paper: #fffdf8;
+  --ink: var(--n900); --ink-2: var(--n600); --ink-3: var(--n500);
+  --grid: #ece7da; --rule: var(--n200);
+  --stop: #c8102e; --stop-surface: #fdeaea; --stop-text: #8a0c1f; --stop-border: #f1b3b8;
+  --caution: #e8a200; --caution-surface: #fff4d6; --caution-text: #6b4700; --caution-border: #efcf78;
+  --clear: #2e7d4f; --clear-surface: #e5f3ea; --clear-text: #1b5233; --clear-border: #acd6bb;
+  --ours: #2b5fab; --other: #b9b2a2; --s1: #2a78d6; --s2: #eb6834;
+  --sans: "Public Sans", ui-sans-serif, system-ui, "Segoe UI", sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+  --notice: "Barlow Condensed", "Arial Narrow", "Roboto Condensed", sans-serif;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { background: var(--n50); }
+body { font-family: var(--sans); color: var(--ink); -webkit-font-smoothing: antialiased; }
+#frame {
+  position: relative; overflow: hidden;
+  width: 800px; background: var(--paper);
+  border: 1px solid var(--n200);
+  padding: 30px 40px 20px;
+}
+/* hazard-tape edge on the frame top, used on every visual */
+#frame::before {
+  content: ""; position: absolute; left: 0; right: 0; top: 0; height: 5px;
+  background-image: repeating-linear-gradient(-45deg, var(--caution) 0 9px, var(--n900) 9px 18px);
+}
+.kicker {
+  font-family: var(--mono); font-size: 11.5px; font-weight: 600; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--a600); margin-bottom: 7px;
+}
+h1 {
+  font-family: var(--notice); font-size: 31px; line-height: 1.08; font-weight: 700;
+  letter-spacing: 0.002em; color: var(--ink);
+}
+.sub { margin-top: 7px; font-size: 14px; line-height: 1.5; color: var(--ink-2); max-width: 700px; }
+.chart { margin-top: 20px; }
+.foot { margin-top: 12px; font-size: 12.5px; line-height: 1.5; color: var(--ink-2); }
+.src {
+  margin-top: 16px; padding-top: 9px; border-top: 1px solid var(--rule);
+  font-family: var(--mono); font-size: 10.5px; line-height: 1.5; color: var(--ink-3);
+  display: flex; justify-content: space-between; gap: 16px;
+}
+.src .brand { color: var(--a700); font-weight: 600; white-space: nowrap; letter-spacing: 0.04em; }
+svg { font-family: var(--sans); overflow: visible; }
+.mono { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+.fig { font-family: var(--notice); font-weight: 600; font-variant-numeric: tabular-nums; line-height: 1; }
+.notice { font-family: var(--notice); font-weight: 700; letter-spacing: 0.03em; text-transform: uppercase; }
+
+/* stamps (card labels) */
+.stamp { display: inline-flex; align-items: center; gap: 6px; padding: 3px 9px 3px 7px; border-radius: 4px;
+  font-family: var(--notice); font-weight: 700; font-size: 15px; letter-spacing: 0.05em; text-transform: uppercase;
+  white-space: nowrap; line-height: 1.2; }
+.stamp.stop { background: var(--stop); color: #fff; }
+.stamp.check { background: var(--caution); color: var(--n900); }
+.stamp.clear { background: var(--clear); color: #fff; }
+.stamp.ghost { background: transparent; color: var(--ink-3); border: 1.5px dashed var(--n400); }
+
+/* number tiles */
+.tiles { display: grid; gap: 10px; margin-top: 18px; }
+.tile { border: 1px solid var(--rule); background: #fff; border-radius: 8px; padding: 10px 12px 11px; }
+.tile b { display: block; font-family: var(--notice); font-weight: 700; font-size: 34px; letter-spacing: 0; color: var(--ink); line-height: 1; font-variant-numeric: tabular-nums; }
+.tile > span { display: block; margin-top: 5px; font-size: 12px; line-height: 1.35; color: var(--ink-2); }
+.tile.key { border-color: var(--a200); background: var(--a50); }
+.tile.stop { border-color: var(--stop-border); background: var(--stop-surface); }
+.tile.stop b { color: var(--stop-text); }
+.tile.check { border-color: var(--caution-border); background: var(--caution-surface); }
+.tile.check b { color: var(--caution-text); }
+
+/* placeholder / provisional watermark (added by common.js) */
+.wm { position: absolute; inset: 0; pointer-events: none; z-index: 50; }
+.wm-badge {
+  position: absolute; top: 14px; right: 14px; z-index: 51;
+  font-family: var(--mono); font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+  padding: 5px 9px; border-radius: 4px; color: #fff; background: var(--stop);
+  box-shadow: 0 1px 0 rgba(0,0,0,.12);
+}
+.wm-badge.prov { background: var(--caution); color: var(--n900); }
+.wm-badge small { display: block; font-weight: 500; letter-spacing: 0.02em; text-transform: none; font-size: 10px; opacity: .92; margin-top: 2px; }

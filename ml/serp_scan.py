@@ -187,8 +187,9 @@ def plan(corpus: str) -> list[dict]:
         params = ebay_params(q)
         rows.append({"recall_number": r["recall_number"], "query": q, "cached": is_cached(params),
                      "cache_key": cache_key(params), "is_childrens": r.get("is_childrens", False),
-                     "corpus": r.get("corpus", [])})
-    # A first (newest recalls), then B; dedupe identical queries
+                     "corpus": r.get("corpus", []), "recall_date": r.get("recall_date", "")})
+    # A first, then B; newest recall first within each, so a capped budget spends on the most recent recalls
+    rows.sort(key=lambda x: x["recall_date"], reverse=True)
     rows.sort(key=lambda x: (0 if "A" in x["corpus"] else 1))
     return rows
 

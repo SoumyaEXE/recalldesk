@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>RecallDesk cover</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600;700&family=Public+Sans:wght@400..700&display=block" rel="stylesheet">
+<link rel="stylesheet" href="base.css">
+<style>
+  /* The card rows below come from the real published card (agent/cards/latest_little-loop.json). */
+  #frame {
+    width: 1000px; height: 420px; padding: 0; border: 0;
+    background-color: #f5f2e9;
+    background-image:
+      linear-gradient(to right, transparent 0 58px, rgb(200 16 46 / .28) 58px 59px, transparent 59px 63px, rgb(200 16 46 / .28) 63px 64px, transparent 64px),
+      repeating-linear-gradient(to bottom, transparent 0 29px, rgb(53 101 168 / .10) 29px 30px);
+  }
+  #frame::before { height: 9px; }
+  .left { position: absolute; left: 92px; top: 62px; width: 470px; }
+  .k { font-family: var(--mono); font-size: 13px; font-weight: 700; letter-spacing: .2em; color: var(--a600); }
+  .h { margin-top: 12px; font-family: var(--notice); font-weight: 800; font-size: 78px; line-height: .92; letter-spacing: -.005em; color: var(--n900); text-transform: uppercase; }
+  .h span { color: var(--stop); }
+  .m { margin-top: 18px; font-size: 18px; line-height: 1.4; color: var(--n700); font-weight: 500; max-width: 440px; }
+  .m b { color: var(--n900); }
+  .t { margin-top: 14px; font-family: var(--mono); font-size: 12.5px; color: var(--n600); letter-spacing: .01em; }
+  .card {
+    position: absolute; left: 592px; top: 74px; width: 372px;
+    background: #fffdf8; border-radius: 4px; transform: rotate(2.6deg);
+    box-shadow: 0 1px 0 rgba(0,0,0,.06), 0 18px 36px rgba(66,62,53,.28), 0 4px 10px rgba(66,62,53,.16);
+    overflow: hidden; border: 1px solid #e9e4d6;
+  }
+  .card .top { gap: 10px; display: flex; justify-content: space-between; align-items: baseline; padding: 12px 16px 9px; border-bottom: 2px solid var(--n900); }
+  .card .top b { font-family: var(--notice); font-weight: 800; font-size: 18px; letter-spacing: .03em; white-space: nowrap; }
+  .card .top span { font-family: var(--mono); font-size: 10px; color: var(--n600); white-space: nowrap; }
+  .sec { padding: 9px 16px 4px; }
+  .sec .stamp { font-size: 15px; }
+  .row { padding: 7px 0 7px; border-bottom: 1px dashed #d7d0be; }
+  .row:last-child { border-bottom: 0; }
+  .row .i { font-size: 13.5px; font-weight: 650; color: var(--n900); line-height: 1.25; }
+  .row .d { margin-top: 2px; font-family: var(--mono); font-size: 10.5px; color: var(--n600); }
+  .card .foot2 { padding: 7px 16px 10px; font-family: var(--mono); font-size: 9.5px; color: var(--n500); border-top: 1px solid #e9e4d6; }
+</style>
+</head>
+<body>
+<div id="frame">
+  <div class="left">
+    <div class="k">RECALLDESK</div>
+    <div class="h">Before you list it,<br><span>check it.</span></div>
+    <div class="m" id="m"></div>
+    <div class="t">397B teaches · 4B LoRA reads · runs every Thursday</div>
+  </div>
+  <div class="card" id="card"></div>
+</div>
+<script src="data.js"></script>
+<script src="common.js"></script>
+<script>
+(function () {
+  const K = RD.card, S = RD.scan, CO = RD.corpus, esc = RDV.esc;
+  document.getElementById("m").innerHTML = S.status === "real" && S.listings_seen
+    ? `<b>${RDV.n(S.listings_seen)}</b> live eBay listings checked against <b>${CO.recalls}</b> CPSC recalls. One printable card a week for resale shops.`
+    : `<b>${CO.recalls}</b> CPSC recalls since July, <b>${CO.childrens}</b> for kids. One printable card a week for resale shops.`;
+  const split = (item) => { const m = item.match(/^(.*?)\s*\(model ([^)]+)\)\s*$/); return m ? [m[1], m[2]] : [item, null]; };
+  const dns = (K.do_not_sell || []).slice(0, 2), chk = (K.check_label || []).slice(0, 1);
+  const week = K.week_of ? new Date(K.week_of + "T12:00:00Z").toLocaleDateString("en-US", { month: "short", day: "numeric", timeZone: "UTC" }) : "";
+  let h = `<div class="top"><b>${esc((K.shop_name || "Your shop").toUpperCase())}</b><span>week of ${esc(week)}</span></div>`;
+  h += `<div class="sec">${RDV.stamp("match")}` + dns.map((r) => {
+    const [name, id] = split(r.item);
+    return `<div class="row"><div class="i">${esc(RDV.short(name, 46))}</div><div class="d">${id ? "model " + esc(id) + " · " : ""}CPSC ${esc(r.recall_number)}</div></div>`;
+  }).join("") + `</div>`;
+  h += `<div class="sec">${RDV.stamp("check")}` + chk.map((r) => {
+    const look = (r.look_for || "").split(";")[0];
+    return `<div class="row"><div class="i">${esc(RDV.short(r.item, 46))}</div><div class="d">look for: ${esc(RDV.short(look, 44))}</div></div>`;
+  }).join("") + `</div>`;
+  h += `<div class="foot2">${K.items_checked || ""} items checked · ${(K.do_not_sell || []).length} do not sell · ${(K.check_label || []).length} check label</div>`;
+  document.getElementById("card").innerHTML = h;
+  RDV.mark(["card"]);
+})();
+</script>
+</body>
+</html>

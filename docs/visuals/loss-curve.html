@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Training loss</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&family=Public+Sans:wght@400..700&display=block" rel="stylesheet">
+<link rel="stylesheet" href="base.css">
+<style>
+  .legend { display: flex; gap: 20px; font-size: 12.5px; color: var(--ink-2); margin-top: 14px; }
+  .legend i { display: inline-block; width: 18px; height: 3px; vertical-align: 3px; margin-right: 6px; border-radius: 2px; }
+</style>
+</head>
+<body>
+<div id="frame">
+  <div class="kicker" id="kicker"></div>
+  <h1 id="h1"></h1>
+  <p class="sub" id="sub"></p>
+  <div class="legend" id="legend"></div>
+  <div class="chart" id="chart" style="margin-top:10px"></div>
+  <p class="foot" id="foot"></p>
+  <div class="src"><span>Source: ml/results/training.json (python -m ml.train_tinker) · NLL per target token on the teacher's JSON</span><span class="brand">RECALLDESK</span></div>
+</div>
+<script src="data.js"></script>
+<script src="common.js"></script>
+<script>
+(function () {
+  const T = RD.training, C = RDV.C;
+  const lc = T.loss_curve || [], tn = T.test_nll || [];
+  const first = tn.length ? tn[0][1] : null, best = tn.length ? Math.min(...tn.map((d) => d[1])) : null, last = tn.length ? tn[tn.length - 1][1] : null;
+  document.getElementById("kicker").textContent = `Tinker LoRA SFT · ${T.base_model} · rank ${T.rank} · ${T.steps} steps · ${T.epochs} epochs · batch ${T.batch_size}`;
+  document.getElementById("h1").textContent = first != null
+    ? `Held-out loss went from ${first.toFixed(3)} before training to ${last.toFixed(3)} after the last epoch`
+    : "Training loss";
+  document.getElementById("sub").textContent =
+    `Train NLL per step on ${RDV.n(T.train_examples)} teacher-labelled pairs; held-out NLL on the test recalls' pairs, measured before training and after each epoch. Learning rate ${T.lr ? Number(T.lr).toExponential(1) : "n/a"}, linear decay.`;
+  document.getElementById("legend").innerHTML =
+    `<span><i style="background:${C.s1}"></i>train NLL (per step)</span><span><i style="background:${C.s2}"></i>held-out NLL (per epoch)</span>`;
+
+  const W = 718, H = 300, x0 = 44, x1 = W - 10, y0 = 12, y1 = H - 34;
+  const xs = lc.map((d) => d[0]).concat(tn.map((d) => d[0])), ys = lc.map((d) => d[1]).concat(tn.map((d) => d[1]));
+  const xMax = Math.max(1, ...xs), yMax = Math.max(0.1, ...ys) * 1.08;
+  const sx = (v) => x0 + (v / xMax) * (x1 - x0), sy = (v) => y1 - (v / yMax) * (y1 - y0);
+  const step = yMax > 2 ? 0.5 : yMax > 1 ? 0.25 : 0.1;
+  let s = `<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="Train and held-out NLL by step">`;
+  for (let v = 0; v <= yMax + 1e-9; v += step) {
+    s += `<line x1="${x0}" x2="${x1}" y1="${sy(v)}" y2="${sy(v)}" stroke="${v ? C.grid : "#a9a190"}"/>`;
+    s += `<text x="${x0 - 6}" y="${sy(v) + 3.5}" text-anchor="end" ${RDV.MONO} font-size="10.5" fill="${C.ink3}">${v.toFixed(step < 0.25 ? 1 : 2)}</text>`;
+  }
+  tn.forEach(([st]) => { if (st > 0) s += `<line x1="${sx(st)}" x2="${sx(st)}" y1="${y0}" y2="${y1}" stroke="#e1dccd" stroke-dasharray="3 3"/>`; });
+  const xt = Math.max(1, Math.round(xMax / 6 / 5) * 5);
+  for (let v = 0; v <= xMax; v += xt) s += `<text x="${sx(v)}" y="${y1 + 16}" text-anchor="middle" ${RDV.MONO} font-size="10.5" fill="${C.ink3}">${v}</text>`;
+  s += `<text x="${x1}" y="${y1 + 30}" text-anchor="end" font-size="11.5" fill="${C.ink3}">optimizer step</text>`;
+  if (lc.length) s += `<polyline points="${lc.map(([a, b]) => sx(a).toFixed(1) + "," + sy(b).toFixed(1)).join(" ")}" fill="none" stroke="${C.s1}" stroke-width="2" stroke-linejoin="round"/>`;
+  if (tn.length) {
+    s += `<polyline points="${tn.map(([a, b]) => sx(a).toFixed(1) + "," + sy(b).toFixed(1)).join(" ")}" fill="none" stroke="${C.s2}" stroke-width="2" stroke-dasharray="5 4"/>`;
+    tn.forEach(([a, b], i) => {
+      s += `<circle cx="${sx(a)}" cy="${sy(b)}" r="4.5" fill="${C.s2}" stroke="#fffdf8" stroke-width="2"/>`;
+      s += `<text x="${sx(a) + (i === 0 ? 8 : 0)}" y="${sy(b) - 10}" text-anchor="${i === 0 ? "start" : "middle"}" ${RDV.MONO} font-size="11" font-weight="600" fill="#a8441a">${b.toFixed(3)}</text>`;
+    });
+  }
+  s += `</svg>`;
+  document.getElementById("chart").innerHTML = s;
+  const rose = tn.length > 2 && last > best + 1e-9;
+  document.getElementById("foot").innerHTML =
+    (rose ? `Held-out loss bottomed at ${best.toFixed(3)} and ended at ${last.toFixed(3)}: mild overfitting in the last epoch. The final-epoch weights are the ones evaluated; no checkpoint was picked using the test set. ` : `The final-epoch weights are the ones evaluated; no checkpoint was picked using the test set. `) +
+    (T.wall_seconds ? `Wall time ${Math.floor(T.wall_seconds / 60)} min ${Math.round(T.wall_seconds % 60)} s on Tinker.` : "");
+  RDV.mark(["training"]);
+})();
+</script>
+</body>
+</html>

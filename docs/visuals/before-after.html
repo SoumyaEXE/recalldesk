@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Base vs LoRA on one test pair</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&family=Public+Sans:wght@400..700&display=block" rel="stylesheet">
+<link rel="stylesheet" href="base.css">
+<style>
+  .pair { margin-top: 18px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .box { border: 1px solid var(--rule); border-radius: 8px; background: #fff; padding: 12px 14px; }
+  .box .k { font-family: var(--mono); font-size: 10.5px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-3); }
+  .box .t { margin-top: 5px; font-size: 14px; line-height: 1.4; font-weight: 600; color: var(--ink); }
+  .box .t.mono { font-family: var(--mono); font-size: 13px; font-weight: 500; }
+  .gold { margin-top: 12px; display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--ink-2); }
+  .cols { margin-top: 14px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .col { border-radius: 8px; overflow: hidden; border: 1px solid var(--rule); display: flex; flex-direction: column; }
+  .col.ours { border-color: var(--a300); }
+  .col .hd { display: flex; justify-content: space-between; align-items: center; padding: 9px 12px; background: var(--n100); border-bottom: 1px solid var(--rule); }
+  .col.ours .hd { background: var(--a50); border-color: var(--a200); }
+  .col .hd b { font-family: var(--notice); font-size: 18px; font-weight: 700; }
+  .col.ours .hd b { color: var(--a700); }
+  pre { margin: 0; padding: 12px 12px 14px; font-family: var(--mono); font-size: 12px; line-height: 1.55; color: var(--ink); background: #fff; white-space: pre-wrap; word-break: break-word; min-height: 150px; flex: 1; }
+  pre .hl { background: var(--caution-surface); border-radius: 2px; }
+  pre .k { color: var(--a700); }
+  .res { padding: 8px 12px; font-size: 12.5px; font-weight: 600; border-top: 1px solid var(--rule); }
+  .res.ok { color: var(--clear-text); background: var(--clear-surface); }
+  .res.bad { color: var(--stop-text); background: var(--stop-surface); }
+</style>
+</head>
+<body>
+<div id="frame">
+  <div class="kicker" id="kicker"></div>
+  <h1 id="h1"></h1>
+  <div class="pair">
+    <div class="box"><div class="k" id="rk"></div><div class="t" id="rt"></div></div>
+    <div class="box"><div class="k">eBay listing title (test pair)</div><div class="t mono" id="lt"></div></div>
+  </div>
+  <div class="gold" id="gold"></div>
+  <div class="cols">
+    <div class="col"><div class="hd"><b>Qwen3.5-4B base</b><span id="bs"></span></div><pre id="bj"></pre><div class="res" id="br"></div></div>
+    <div class="col ours"><div class="hd"><b>Qwen3.5-4B + RecallDesk LoRA</b><span id="ls"></span></div><pre id="lj"></pre><div class="res" id="lr"></div></div>
+  </div>
+  <p class="foot" id="foot"></p>
+  <div class="src"><span>Source: ml/results/eval.json → examples[] (first pair the LoRA fixed) · same short prompt for both</span><span class="brand">RECALLDESK</span></div>
+</div>
+<script src="data.js"></script>
+<script src="common.js"></script>
+<script>
+(function () {
+  const X = RD.eval.example, esc = RDV.esc;
+  const vk = (v) => (v && v.verdict) || v;
+  document.getElementById("kicker").textContent = `One held-out pair · ${X.pair_id}`;
+  document.getElementById("h1").textContent = vk(X.base_verdict) !== X.gold && vk(X.lora_verdict) === X.gold
+    ? `Same listing, same prompt. The base said ${vk(X.base_verdict)}; the fine-tuned model said ${vk(X.lora_verdict)}, like the human.`
+    : `Same listing, same prompt: base vs fine-tuned`;
+  document.getElementById("rk").textContent = `CPSC recall ${X.recall_number || ""}`;
+  document.getElementById("rt").textContent = X.recall_title;
+  document.getElementById("lt").textContent = X.listing_title;
+  document.getElementById("gold").innerHTML = `Human label (blind): ${RDV.stamp(X.gold, X.gold === "no_match" ? "no match" : null)} <span class="mono" style="color:#797262">${X.gold}</span>`;
+  const pretty = (v) => {
+    let t = esc(JSON.stringify(v, null, 2));
+    t = t.replace(/(&quot;[a-z_]+&quot;):/g, '<span class="k">$1</span>:');
+    return t.replace(/(<span class="k">&quot;verdict&quot;<\/span>: &quot;[a-z_]+&quot;)/, '<span class="hl">$1</span>');
+  };
+  [["b", X.base_verdict], ["l", X.lora_verdict]].forEach(([p, v]) => {
+    const k = vk(v);
+    document.getElementById(p + "j").innerHTML = pretty(v);
+    document.getElementById(p + "s").innerHTML = RDV.stamp(k, k === "no_match" ? "clear" : null);
+    const ok = k === X.gold;
+    const r = document.getElementById(p + "r");
+    r.className = "res " + (ok ? "ok" : "bad");
+    r.textContent = ok ? "✓ agrees with the human label" : (X.gold !== "no_match" && k === "no_match" ? "✗ clears a risky listing" : "✗ disagrees with the human label");
+  });
+  document.getElementById("foot").textContent =
+    `The model sees only the compact recall spec and the listing text (title, subtitle, condition, eBay extensions), never the gold label. Code, not the model, then maps match → DO NOT SELL and check → CHECK LABEL.`;
+  RDV.mark(["example"]);
+})();
+</script>
+</body>
+</html>

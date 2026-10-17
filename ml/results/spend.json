@@ -1,0 +1,15 @@
+{
+  "stages": {
+    "spec_extract": {
+      "model": "Qwen/Qwen3.5-397B-A17B",
+      "recalls": 591,
+      "prompt_tokens": 495512,
+      "completion_tokens": 185117,
+      "est_usd": 2.206,
+      "at": "2026-10-17T04:44:50+00:00"
+    }
+  },
+  "total_est_usd": 2.206,
+  "serpapi_searches_spent": 0,
+  "note": "Tinker $ = token counts x list prices (models.json snapshot 2026-10-17); not an invoice. SerpApi searches are counted, not priced (plan-dependent)."
+}

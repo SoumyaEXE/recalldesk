@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>eBay scan headline</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&family=Public+Sans:wght@400..700&display=block" rel="stylesheet">
+<link rel="stylesheet" href="base.css">
+<style>
+  .tiles { grid-template-columns: repeat(5, 1fr); }
+  .tile b { font-size: 38px; }
+  .tile .lab { display: flex; align-items: center; gap: 6px; margin-top: 7px; }
+  h2 { font-family: var(--notice); font-weight: 700; font-size: 19px; letter-spacing: .01em; margin-top: 22px; color: var(--ink); }
+  .legend { display: flex; gap: 16px; font-size: 12px; color: var(--ink-2); margin-top: 4px; }
+</style>
+</head>
+<body>
+<div id="frame">
+  <div class="kicker" id="kicker"></div>
+  <h1 id="h1"></h1>
+  <p class="sub" id="sub"></p>
+  <div class="tiles" id="tiles"></div>
+  <h2>Recalls with the most flagged live listings</h2>
+  <div class="legend" id="legend"></div>
+  <div class="chart" id="chart" style="margin-top:10px"></div>
+  <p class="foot" id="foot"></p>
+  <div class="src"><span>Source: ml/results/scan_summary.json (python -m ml.scan_summary) · listings via SerpApi engine=ebay, cached in data/serp/</span><span class="brand">RECALLDESK</span></div>
+</div>
+<script src="data.js"></script>
+<script src="common.js"></script>
+<script>
+(function () {
+  const S = RD.scan, C = RDV.C, n = RDV.n;
+  const flagged = (S.flagged_match || 0) + (S.flagged_check || 0);
+  document.getElementById("kicker").textContent = `SerpApi eBay scan · ${n(S.searches_spent)} searches · ${n(S.recalls_scanned)} CPSC recalls since July 18`;
+  document.getElementById("h1").textContent =
+    `${n(S.listings_seen)} live eBay listings, checked against ${n(S.recalls_scanned)} recalls. ${n(S.human_verified_match)} are the recalled product, confirmed by a human.`;
+  document.getElementById("sub").textContent =
+    `One eBay search per recall, built from the teacher's spec (brand + product + model number). Every listing was read by the classifier; the flagged ones were then reviewed by a person, blind to the model's answer.`;
+  const tiles = [
+    [n(S.listings_seen), "live listings seen", "", null],
+    [n(S.flagged_match), "flagged by the model", "stop", "match"],
+    [n(S.flagged_check), "flagged by the model", "check", "check"],
+    [n(S.human_verified_match), `confirmed recalled by a human${S.human_reviewed_flags ? ` (of ${n(S.human_reviewed_flags)} reviewed)` : ""}`, "key", null],
+    [n(S.childrens_flagged), `flags on children's recalls${S.childrens_recalls_with_flags ? `, across ${n(S.childrens_recalls_with_flags)} recalls` : ""}`, "", null],
+  ];
+  document.getElementById("tiles").innerHTML = tiles.map(([v, l, k, kind]) =>
+    `<div class="tile ${k}"><b>${v}</b>${kind ? `<div class="lab">${RDV.stamp(kind)}</div>` : ""}<span>${l}</span></div>`).join("");
+  document.getElementById("legend").innerHTML =
+    `<span>${RDV.icon("match", 11)} DO NOT SELL (model says match)</span><span>${RDV.icon("check", 11)} CHECK LABEL (model says check)</span><span style="color:#797262">bar end = listings returned for that recall</span>`;
+
+  const rows = S.top || [];
+  const W = 718, LW = 300, x0 = LW, x1 = W - 54, rowH = 34, H = rows.length * rowH + 4;
+  const max = Math.max(1, ...rows.map((r) => r.listings || r.match + r.check));
+  const sx = (v) => ((x1 - x0) * v) / max;
+  let s = `<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="Top recalls by flagged listings">`;
+  rows.forEach((r, i) => {
+    const y = i * rowH + 6, yMid = y + 11;
+    const t = RDV.short(r.title.replace(/ Due to .*$/i, "").replace(/ Recall(s|ed)? /, " "), 40);
+    s += `<text x="0" y="${yMid - 1}" font-size="13" font-weight="600" fill="${C.ink}">${RDV.esc(t)}</text>`;
+    s += `<text x="0" y="${yMid + 13}" ${RDV.MONO} font-size="10.5" fill="${C.ink3}">CPSC ${r.recall_number}${r.is_childrens ? " · children's" : ""}</text>`;
+    const tot = r.listings || r.match + r.check;
+    s += `<rect x="${x0}" y="${y}" width="${sx(tot)}" height="20" rx="3" fill="#f5f2e9" stroke="#e9e4d6"/>`;
+    s += `<rect x="${x0}" y="${y}" width="${sx(r.match)}" height="20" fill="${C.match}"/>`;
+    s += `<rect x="${x0 + sx(r.match)}" y="${y}" width="${sx(r.check)}" height="20" fill="${C.check}"/>`;
+    s += `<text x="${x0 + sx(tot) + 7}" y="${yMid + 4}" ${RDV.MONO} font-size="11.5" fill="${C.ink2}"><tspan font-weight="700" fill="${C.matchT}">${r.match}</tspan> + <tspan font-weight="700" fill="${C.checkT}">${r.check}</tspan> / ${tot}</text>`;
+  });
+  s += `</svg>`;
+  document.getElementById("chart").innerHTML = rows.length ? s : `<p class="foot">No flagged listings.</p>`;
+  const cls = S.classifier || {};
+  document.getElementById("foot").innerHTML =
+    `Flags are model verdicts (classifier: ${RDV.esc(cls.model || cls.provider || "n/a")}). Only the "confirmed by a human" number was checked by a person, and it is the only one the post quotes as recalled stock. Seller usernames are hashed; no listing is linked.`;
+  RDV.mark(["scan"]);
+})();
+</script>
+</body>
+</html>

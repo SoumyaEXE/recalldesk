@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Risky listings caught</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&family=Public+Sans:wght@400..700&display=block" rel="stylesheet">
+<link rel="stylesheet" href="base.css">
+<style>
+  .legend { display: flex; flex-wrap: wrap; gap: 18px; font-size: 12.5px; color: var(--ink-2); margin-top: 14px; }
+  .legend span { display: inline-flex; align-items: center; gap: 6px; }
+</style>
+</head>
+<body>
+<div id="frame">
+  <div class="kicker" id="kicker"></div>
+  <h1 id="h1"></h1>
+  <p class="sub" id="sub"></p>
+  <div class="legend" id="legend"></div>
+  <div class="chart" id="chart"></div>
+  <p class="foot" id="foot"></p>
+  <div class="src"><span>Source: ml/results/eval.json → confusion (rows = human gold, cols = model) · risky = gold match or check</span><span class="brand">RECALLDESK</span></div>
+</div>
+<script src="data.js"></script>
+<script src="common.js"></script>
+<script>
+(function () {
+  const E = RD.eval, R = E.risky, C = RDV.C;
+  const roles = ["base", "lora"].filter((r) => R[r]);
+  const name = { base: "Qwen3.5-4B base", lora: "Qwen3.5-4B + RecallDesk LoRA" };
+  const tot = (r) => R[r].gold_match + R[r].gold_check, hit = (r) => R[r].match_caught + R[r].check_caught;
+  const b = R.base, l = R.lora;
+  document.getElementById("kicker").textContent = `Held-out test · ${tot(roles[0])} risky (recall, listing) pairs · one shape per pair`;
+  document.getElementById("h1").textContent = b && l
+    ? `The base 4B waved through ${tot("base") - hit("base")} of ${tot("base")} risky listings. After fine-tuning, ${tot("lora") - hit("lora")}.`
+    : `Risky listings caught`;
+  document.getElementById("sub").textContent =
+    `A listing is risky when the human said it is the recalled product (match) or needs a label check (check). "Caught" means the model put it on the card as DO NOT SELL or CHECK LABEL instead of clearing it.`;
+  document.getElementById("legend").innerHTML =
+    `<span>${RDV.icon("match", 13)} gold match, caught</span><span>${RDV.icon("check", 13)} gold check, caught</span>` +
+    `<span>${RDV.icon("match", 13, "outline")}${RDV.icon("check", 13, "outline")} missed: model said no_match</span>`;
+
+  const W = 718, LW = 0, per = 40, gap = 17.4, r = 6.4;
+  let y = 0, s = "";
+  roles.forEach((role) => {
+    const d = R[role];
+    const units = [];
+    for (let i = 0; i < d.gold_match; i++) units.push(["match", i < d.match_caught]);
+    for (let i = 0; i < d.gold_check; i++) units.push(["check", i < d.check_caught]);
+    const hi = role === "lora";
+    s += `<text x="0" y="${y + 16}" ${RDV.NOTICE} font-size="20" font-weight="700" fill="${hi ? C.ours : C.ink}">${name[role]}</text>`;
+    s += `<text x="${W}" y="${y + 16}" text-anchor="end" ${RDV.MONO} font-size="13" fill="${C.ink2}"><tspan font-weight="700" fill="${C.ink}">${hit(role)}</tspan> of ${tot(role)} caught · ${d.match_caught}/${d.gold_match} match · ${d.check_caught}/${d.gold_check} check</text>`;
+    y += 34;
+    units.forEach(([k, caught], i) => {
+      const cx = LW + r + 1 + (i % per) * gap, cy = y + Math.floor(i / per) * gap + r;
+      s += RDV.shape(k, cx, cy, r, caught ? "fill" : "outline");
+    });
+    y += Math.ceil(units.length / per) * gap + 22;
+  });
+  document.getElementById("chart").innerHTML = `<svg width="${W}" height="${y}" viewBox="0 0 ${W} ${y}" role="img" aria-label="Risky pairs caught: ${roles.map((r) => name[r] + " " + hit(r) + " of " + tot(r)).join("; ")}">${s}</svg>`;
+  const fa = (role) => (E.models[role] ? E.models[role].false_alarms : null);
+  document.getElementById("foot").innerHTML =
+    `The price of catching more: false alarms (gold no_match put on the card) go from ${fa("base") || "n/a"} for the base to ${fa("lora") || "n/a"} for the LoRA. For a resale shop a false alarm costs a look at a label; a miss can put a recalled product back on a shelf.`;
+  RDV.mark(["eval"]);
+})();
+</script>
+</body>
+</html>

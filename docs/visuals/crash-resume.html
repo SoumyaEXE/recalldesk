@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Crash and resume</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&family=Public+Sans:wght@400..700&display=block" rel="stylesheet">
+<link rel="stylesheet" href="base.css">
+<style>
+  .tiles { grid-template-columns: repeat(5, 1fr); }
+  .tile b { font-size: 30px; }
+  .foot { font-size: 11.5px; color: var(--ink-3); }
+</style>
+</head>
+<body>
+<div id="frame">
+  <div class="kicker" id="kicker"></div>
+  <h1>I hard-killed the worker in the middle of the shop check. A fresh process finished it, and nothing ran twice.</h1>
+  <p class="sub" id="sub"></p>
+  <div class="chart" id="chart"></div>
+  <div class="tiles" id="tiles"></div>
+  <p class="foot" id="foot"></p>
+  <div class="src"><span>Source: agent/demo_logs/04_crash_resume.txt (python -m agent.demo_crash) · proof read from Temporal's event history</span><span class="brand">RECALLDESK</span></div>
+</div>
+<script src="data.js"></script>
+<script src="common.js"></script>
+<script>
+(function () {
+  const K = RD.crash, C = RDV.C;
+  if (K.status !== "real") { RDV.mark(["crash"]); return; }
+  const ev = K.events;
+  const find = (re) => ev.find((e) => re.test(e.msg));
+  const retries = ev.filter((e) => e.kind === "check_item" && e.attempt >= 2);
+  const w2up = ev.find((e) => e.w === 2 && e.kind === "up");
+  const retrieve = find(/\[retrieve_candidates\]/), compose = find(/\[compose_card\]/), publish = find(/\[publish_card\]/);
+  const loads = ev.filter((e) => /^load_/.test(e.kind));
+  document.getElementById("kicker").textContent = `Temporal crash test · ${K.workflow_id}`;
+  document.getElementById("sub").textContent =
+    `InventoryCheckWorkflow for a ${K.items}-item kids' consignment inventory (${K.pairs} item × recall pairs). Worker #1 was killed with no graceful shutdown at ${K.progress_at_kill} items. Temporal kept the workflow RUNNING; worker #2 replayed the event history.`;
+
+  const W = 718, LW = 150, x0 = LW, x1 = W - 6, tMax = Math.ceil(K.t_done + 1);
+  const sx = (t) => x0 + (t / tMax) * (x1 - x0);
+  const lanes = ["Worker #1", "Worker #2", "Workflow", "load_* ×3", `check_item ×${K.scheduled}`, "compose → publish"];
+  const subs = [`pid ${K.worker1_pid}`, `pid ${K.worker2_pid}, fresh process`, "Temporal server", "inventory, specs, memories", "one activity per item", ""];
+  const top0 = 16, LH = 48, H = top0 + lanes.length * LH + 40;
+  const ly = (i) => top0 + i * LH + LH / 2;
+  let s = `<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="Timeline: worker 1 killed at t+${K.t_kill}s, worker 2 started at t+${K.t_worker2_start}s, ${K.retried} activities retried, workflow completed at t+${K.t_done}s">`;
+  s += `<defs><pattern id="hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#c8102e" stroke-opacity="0.22" stroke-width="2.5"/></pattern></defs>`;
+  for (let t = 0; t <= tMax; t += 5) {
+    s += `<line x1="${sx(t)}" x2="${sx(t)}" y1="${top0}" y2="${top0 + lanes.length * LH}" stroke="#f1ede2"/>`;
+    s += `<text x="${sx(t)}" y="${top0 + lanes.length * LH + 16}" text-anchor="middle" ${RDV.MONO} font-size="10.5" fill="${C.ink3}">${t}s</text>`;
+  }
+  s += `<text x="${x1}" y="${top0 + lanes.length * LH + 33}" text-anchor="end" font-size="11.5" fill="${C.ink3}">seconds since the demo started (t+)</text>`;
+  const kx = sx(K.t_kill), dw = sx(K.t_worker2_start) - kx;
+  s += `<rect x="${kx}" y="${top0}" width="${dw}" height="${lanes.length * LH}" fill="url(#hatch)"/><rect x="${kx}" y="${top0}" width="${dw}" height="${lanes.length * LH}" fill="#c8102e" fill-opacity="0.035"/>`;
+  lanes.forEach((l, i) => {
+    const y = ly(i);
+    s += `<text x="0" y="${subs[i] ? y - 2 : y + 4.5}" font-size="${i >= 3 ? 12 : 13}" font-weight="600" fill="${C.ink}" ${i >= 3 ? RDV.MONO : ""}>${l}</text>`;
+    if (subs[i]) s += `<text x="0" y="${y + 14}" font-size="11" fill="${C.ink3}">${subs[i]}</text>`;
+    if (i) s += `<line x1="0" x2="${W}" y1="${top0 + i * LH}" y2="${top0 + i * LH}" stroke="#e9e4d6"/>`;
+  });
+  const bar = (i, a, b, fill, label, txt = "#ffffff", h = 18) => {
+    const y = ly(i) - h / 2;
+    let o = `<rect x="${sx(a)}" y="${y}" width="${Math.max(2, sx(b) - sx(a))}" height="${h}" rx="4" fill="${fill}"/>`;
+    if (label) o += `<text x="${sx(a) + 7}" y="${ly(i) + 4.3}" font-size="11.5" font-weight="600" fill="${txt}">${label}</text>`;
+    return o;
+  };
+  // worker 1
+  s += bar(0, K.t_worker1_start, K.t_kill, C.ours, "running");
+  const ky = ly(0);
+  s += `<g stroke="#c8102e" stroke-width="3" stroke-linecap="round"><line x1="${kx - 7}" y1="${ky - 7}" x2="${kx + 7}" y2="${ky + 7}"/><line x1="${kx - 7}" y1="${ky + 7}" x2="${kx + 7}" y2="${ky - 7}"/></g>`;
+  s += `<text x="${kx + 13}" y="${ky + 4.5}" font-size="12" font-weight="650" fill="#8a0c1f">killed at t+${K.t_kill.toFixed(1)}s (no graceful shutdown)</text>`;
+  // worker 2
+  s += bar(1, K.t_worker2_start, K.t_done, C.ours, `started t+${K.t_worker2_start}s, replays the history`);
+  // workflow
+  s += bar(2, K.t_wf_start, publish.t, "#213f6f", "RUNNING");
+  s += `<text x="${kx + dw / 2}" y="${ly(2) + 4.3}" text-anchor="middle" font-size="11" font-weight="650" fill="#ffffff">still RUNNING</text>`;
+  s += `<text x="${sx(publish.t) - 8}" y="${ly(2) + 4.3}" text-anchor="end" font-size="11.5" font-weight="650" fill="#ffffff">COMPLETED ✓</text>`;
+  // loads
+  loads.forEach((e) => { s += `<rect x="${sx(e.t) - 2}" y="${ly(3) - 9}" width="5" height="18" rx="2" fill="${C.ours}"/>`; });
+  if (retrieve) s += `<text x="${sx(retrieve.t) + 8}" y="${ly(3) + 4.3}" font-size="11.5" fill="${C.ink}">all on attempt 1 · retrieval: <tspan font-weight="600">${K.pairs} pairs</tspan></text>`;
+  // check_item
+  const c0 = retrieve ? retrieve.t : K.t_wf_start;
+  s += bar(4, c0, K.t_kill, "#d9e4f3", "");
+  s += `<text x="${sx(c0) + 6}" y="${ly(4) - 13}" font-size="11" font-weight="600" fill="${C.a700}">${K.kept} done, kept</text>`;
+  s += `<text x="${kx + 6}" y="${ly(4) - 13}" font-size="11" font-weight="600" fill="#8a0c1f">${K.in_flight} orphaned in flight</text>`;
+  if (w2up) s += bar(4, w2up.t, compose.t, "#d9e4f3", "");
+  ev.filter((e) => e.kind === "check_item" && e.attempt === 1 && e.verdict !== "clear").forEach((e) => {
+    s += RDV.shape(e.verdict === "match" ? "match" : "check", sx(e.t), ly(4), 4.2);
+  });
+  retries.forEach((r) => {
+    const x = sx(r.t), y = ly(4);
+    s += `<polygon points="${x},${y - 7.5} ${x + 7.5},${y} ${x},${y + 7.5} ${x - 7.5},${y}" fill="#ffffff" stroke="#1d1c19" stroke-width="1.8"/>`;
+  });
+  if (retries.length) s += `<text x="${(sx(retries[0].t) + sx(retries[retries.length - 1].t)) / 2}" y="${ly(4) + 22}" text-anchor="middle" font-size="11" font-weight="600" fill="${C.ink}">${K.retried} retried on attempt 2 (after the ${K.heartbeat_s}s heartbeat timeout)</text>`;
+  // compose/publish
+  s += `<rect x="${sx(compose.t) - 3}" y="${ly(5) - 9}" width="6" height="18" rx="2" fill="${C.ours}"/>`;
+  s += `<text x="${sx(compose.t) - 10}" y="${ly(5) + 4.5}" text-anchor="end" font-size="11.5" fill="${C.ink}">card published at t+${publish.t.toFixed(1)}s</text>`;
+  s += `<text x="${kx + dw / 2}" y="${ly(5) + 4.5}" text-anchor="middle" font-size="11" font-weight="600" fill="#8a0c1f">no worker</text>`;
+  s += `</svg>`;
+  document.getElementById("chart").innerHTML = s;
+
+  const tiles = [
+    [K.scheduled, "check_item activities scheduled, one per item", ""],
+    [K.twice, "completed twice", "key"],
+    [K.kept, "finished before the kill: kept, not re-run", "key"],
+    [K.retried, "in flight at the kill: retried by worker #2", ""],
+    [K.history_events, "events in the workflow's history", ""],
+  ];
+  document.getElementById("tiles").innerHTML = tiles.map(([v, l, k]) => `<div class="tile ${k}"><b>${v}</b><span>${l}</span></div>`).join("");
+  document.getElementById("foot").innerHTML =
+    `Small octagons/triangles = items the log shows going to DO NOT SELL / CHECK LABEL (clear items are not logged); diamonds = the retried activities. Classifier for this run: ${RDV.esc(K.model)}, so the kill reliably lands mid-run. ${RDV.esc(K.anchor_note.charAt(0).toUpperCase() + K.anchor_note.slice(1))}. Card: ${RDV.esc(K.card_line)}.`;
+  RDV.mark(["crash"]);
+})();
+</script>
+</body>
+</html>

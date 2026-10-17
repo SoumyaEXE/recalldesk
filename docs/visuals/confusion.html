@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Confusion matrices</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&family=Public+Sans:wght@400..700&display=block" rel="stylesheet">
+<link rel="stylesheet" href="base.css">
+</head>
+<body>
+<div id="frame">
+  <div class="kicker" id="kicker"></div>
+  <h1 id="h1"></h1>
+  <p class="sub" id="sub"></p>
+  <div class="chart" id="chart"></div>
+  <p class="foot" id="foot"></p>
+  <div class="src"><span>Source: ml/results/eval.json → confusion.base, confusion.lora</span><span class="brand">RECALLDESK</span></div>
+</div>
+<script src="data.js"></script>
+<script src="common.js"></script>
+<script>
+(function () {
+  const E = RD.eval, C = RDV.C;
+  const roles = ["base", "lora"].filter((r) => E.confusion[r] && E.confusion[r].matrix);
+  const NAME = { base: "Qwen3.5-4B base", lora: "Qwen3.5-4B + RecallDesk LoRA" };
+  const LAB = ["match", "check", "no_match"];
+  const diag = (m) => m[0][0] + m[1][1] + m[2][2], sum = (m) => m.flat().reduce((a, b) => a + b, 0);
+  document.getElementById("kicker").textContent = `Held-out test · ${E.test_size} pairs · rows = human label, columns = model verdict`;
+  const b = E.confusion.base && E.confusion.base.matrix, l = E.confusion.lora && E.confusion.lora.matrix;
+  document.getElementById("h1").textContent = b && l
+    ? `Where the errors go: the base clears ${b[0][2] + b[1][2]} risky listings; the LoRA clears ${l[0][2] + l[1][2]}`
+    : "Confusion matrices";
+  document.getElementById("sub").textContent =
+    `Each cell counts pairs. Shading is the share of that row, so a dark diagonal means the model agrees with the human. The right-hand column of the top two rows is the dangerous one: a risky listing marked clear.`;
+
+  const cell = 66, gx = 92, gy = 54, Wm = gx + cell * 3;
+  const blue = (t) => { // ink-blue sequential, 0 -> paper, 1 -> #2b5fab
+    const a = [255, 253, 248], z = [43, 95, 171];
+    return `rgb(${a.map((v, i) => Math.round(v + (z[i] - v) * t)).join(",")})`;
+  };
+  let s = "";
+  roles.forEach((role, k) => {
+    const m = E.confusion[role].matrix, ox = k * (Wm + 44);
+    const hi = role === "lora";
+    s += `<text x="${ox + gx}" y="16" ${RDV.NOTICE} font-size="19" font-weight="700" fill="${hi ? C.ours : C.ink}">${NAME[role]}</text>`;
+    s += `<text x="${ox + gx}" y="34" ${RDV.MONO} font-size="11" fill="${C.ink3}">${diag(m)}/${sum(m)} on the diagonal</text>`;
+    LAB.forEach((c, j) => {
+      s += `<text x="${ox + gx + cell * j + cell / 2}" y="${gy - 6}" text-anchor="middle" ${RDV.MONO} font-size="10.5" font-weight="600" fill="${C.ink2}">${c}</text>`;
+    });
+    LAB.forEach((rl, i) => {
+      const rowSum = m[i].reduce((a, b) => a + b, 0) || 1;
+      s += RDV.shape(rl, ox + 10, gy + cell * i + cell / 2, 6.5);
+      s += `<text x="${ox + 22}" y="${gy + cell * i + cell / 2 + 4}" ${RDV.MONO} font-size="11" font-weight="600" fill="${C.ink}">${rl}</text>`;
+      m[i].forEach((v, j) => {
+        const t = v / rowSum, x = ox + gx + cell * j, y = gy + cell * i;
+        const danger = i < 2 && j === 2;
+        s += `<rect x="${x + 1}" y="${y + 1}" width="${cell - 2}" height="${cell - 2}" rx="4" fill="${blue(Math.min(1, t * 1.05))}" stroke="${danger ? C.match : i === j ? C.a700 : "#e9e4d6"}" stroke-width="${danger || i === j ? 1.6 : 1}" ${danger ? 'stroke-dasharray="4 3"' : ""}/>`;
+        s += `<text x="${x + cell / 2}" y="${y + cell / 2 + 3}" text-anchor="middle" ${RDV.NOTICE} font-size="24" font-weight="700" fill="${t > 0.5 ? "#fff" : C.ink}">${v}</text>`;
+        s += `<text x="${x + cell / 2}" y="${y + cell / 2 + 18}" text-anchor="middle" ${RDV.MONO} font-size="9.5" fill="${t > 0.5 ? "#e8eef8" : C.ink3}">${Math.round(t * 100)}%</text>`;
+      });
+    });
+  });
+  const H = gy + cell * 3 + 10, W = roles.length * (Wm + 44);
+  document.getElementById("chart").innerHTML = `<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="Confusion matrices for ${roles.join(" and ")}">${s}</svg>`;
+  document.getElementById("foot").innerHTML = b && l
+    ? `Dashed red = a recalled or check-worthy listing cleared. Gold no_match marked risky (bottom row, first two columns): base ${b[2][0] + b[2][1]}, LoRA ${l[2][0] + l[2][1]}. Gold match called check still lands on the card, as CHECK LABEL.`
+    : "";
+  RDV.mark(["eval"]);
+})();
+</script>
+</body>
+</html>

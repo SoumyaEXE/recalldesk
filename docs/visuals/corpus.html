@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>CPSC recall corpus</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&family=Public+Sans:wght@400..700&display=block" rel="stylesheet">
+<link rel="stylesheet" href="base.css">
+<style>
+  .tiles { grid-template-columns: repeat(4, 1fr); }
+  .legend { display: flex; gap: 18px; font-size: 12.5px; color: var(--ink-2); margin-top: 14px; }
+  .legend i { display: inline-block; width: 11px; height: 11px; border-radius: 2px; vertical-align: -1px; margin-right: 6px; }
+</style>
+</head>
+<body>
+<div id="frame">
+  <div class="kicker" id="kicker"></div>
+  <h1 id="h1"></h1>
+  <p class="sub" id="sub"></p>
+  <div class="legend" id="legend"></div>
+  <div class="chart" id="chart" style="margin-top:8px"></div>
+  <div class="tiles" id="tiles"></div>
+  <p class="foot" id="foot"></p>
+  <div class="src"><span>Source: CPSC Recalls API (saferproducts.gov) → data/recalls/recalls.jsonl, stats.json · ids: ml/regex_ids.py</span><span class="brand">RECALLDESK</span></div>
+</div>
+<script src="data.js"></script>
+<script src="common.js"></script>
+<script>
+(function () {
+  const K = RD.corpus, C = RDV.C;
+  const days = K.by_day;
+  const fmt = (d) => new Date(d + "T12:00:00Z").toLocaleDateString("en-US", { month: "short", day: "numeric", timeZone: "UTC" });
+  const sinceTxt = new Date(K.since + "T12:00:00Z").toLocaleDateString("en-US", { month: "long", day: "numeric", timeZone: "UTC" });
+  const dayWord = K.all_same_weekday ? K.weekday + "s" : "posting days";
+  document.getElementById("kicker").textContent = `CPSC recalls · since ${sinceTxt} · every one posted on a ${K.weekday}`;
+  document.getElementById("h1").textContent =
+    `${K.recalls} recalls in ${days.length} ${dayWord}. ${K.childrens} were for children. In ${K.buried}, the model number is only in the fine print.`;
+  document.getElementById("sub").textContent =
+    `Each bar is one ${K.weekday}'s batch from the U.S. Consumer Product Safety Commission. The identifiers a reseller needs (model, item, style, SKU numbers) sit inside a ${Math.round(K.description_words / K.recalls)}-word description, not the title.`;
+  document.getElementById("legend").innerHTML =
+    `<span><i style="background:${C.ours}"></i>children's products</span><span><i style="background:${C.other}"></i>everything else</span>`;
+
+  const W = 718, H = 230, x0 = 26, top = 18, base = H - 30;
+  const max = Math.max(...days.map((d) => d.n)), yMax = Math.ceil(max / 5) * 5;
+  const sy = (v) => base - (v / yMax) * (base - top);
+  const slot = (W - x0) / days.length, bw = Math.min(38, slot * 0.66);
+  let s = `<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="Recalls per ${K.weekday}: ${days.map((d) => fmt(d.date) + " " + d.n).join(", ")}">`;
+  for (let v = 0; v <= yMax; v += 5) {
+    s += `<line x1="${x0}" x2="${W}" y1="${sy(v)}" y2="${sy(v)}" stroke="${v ? C.grid : "#a9a190"}"/>`;
+    s += `<text x="${x0 - 6}" y="${sy(v) + 3.5}" text-anchor="end" ${RDV.MONO} font-size="10.5" fill="${C.ink3}">${v}</text>`;
+  }
+  days.forEach((d, i) => {
+    const cx = x0 + slot * i + slot / 2, x = cx - bw / 2;
+    const yc = sy(d.childrens), yt = sy(d.n);
+    s += `<rect x="${x}" y="${yt}" width="${bw}" height="${yc - yt}" fill="${C.other}"/>`;
+    s += `<rect x="${x}" y="${yc}" width="${bw}" height="${base - yc}" fill="${C.ours}"/>`;
+    if (base - yc >= 15) s += `<text x="${cx}" y="${base - 6}" text-anchor="middle" ${RDV.MONO} font-size="10.5" font-weight="600" fill="#fff">${d.childrens}</text>`;
+    s += `<text x="${cx}" y="${yt - 6}" text-anchor="middle" ${RDV.NOTICE} font-size="16" font-weight="700" fill="${C.ink}">${d.n}</text>`;
+    s += `<text x="${cx}" y="${base + 16}" text-anchor="middle" ${RDV.MONO} font-size="10.5" fill="${C.ink2}">${fmt(d.date)}</text>`;
+  });
+  s += `</svg>`;
+  document.getElementById("chart").innerHTML = s;
+
+  const pc = (a, b) => Math.round((100 * a) / b) + "%";
+  const tiles = [
+    [K.recalls, `recalls since ${fmt(K.since)}, about ${Math.round(K.recalls / days.length)} a week`, ""],
+    [K.childrens, `for children's products (${pc(K.childrens, K.recalls)}), the core stock of a kids' resale shop`, "key"],
+    [K.with_model_ids, `name a model, item, style, SKU or part number`, ""],
+    [K.buried, `name it only in the description, never in the title or product name (${pc(K.buried, K.recalls)} of all)`, "check"],
+  ];
+  document.getElementById("tiles").innerHTML = tiles.map(([v, l, k]) => `<div class="tile ${k}"><b>${v}</b><span>${l}</span></div>`).join("");
+  document.getElementById("foot").innerHTML =
+    `Children's = keyword detector on the title, product names and first sentences (ml/fetch_recalls.py), with child-resistant-packaging and similar phrases stripped. Identifiers = typed regex extraction, excluded models dropped. ${K.total_unique ? `With children's recalls back to 2023 added (${RDV.n(K.corpus_b)}), the corpus is ${RDV.n(K.total_unique)} unique recalls.` : ""}`;
+  RDV.mark(["corpus"]);
+})();
+</script>
+</body>
+</html>
