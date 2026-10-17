@@ -213,17 +213,33 @@ async def search(shop_id: str, query: str, limit: int = 5, client: httpx.AsyncCl
                       backend=backend()) for s, m in scored[:limit] if s >= 0.25]
 
 
+def _covers(hit: MemoryHit, item_text: str) -> bool:
+    mem_item = set(tokens(str((hit.metadata or {}).get("item") or "")))
+    return bool(mem_item) and len(mem_item & set(tokens(item_text))) / len(mem_item) >= 0.6
+
+
+def merge_listed(by_item: dict[str, list[MemoryHit]], item_texts: list[str], listed: list[MemoryHit]) -> int:
+    """Safety net for semantic search: Backboard's search sometimes omits the very memory for an item (seen
+    2026-10-17: "Melissa & Doug Lights & Sounds Fire Truck Activity Board" did not return its own correction,
+    "Melissa & Doug Fire Truck Activity Board" did). Memories from one list call whose remembered item covers
+    >= 60% of an item's tokens are added to that item. Returns how many (item, memory) pairs were added."""
+    added = 0
+    for i, text in enumerate(item_texts):
+        have = {h.memory_id for h in by_item.get(str(i), [])}
+        extra = [h for h in listed if h.memory_id not in have and _covers(h, text)]
+        if extra:
+            by_item.setdefault(str(i), []).extend(extra)
+            added += len(extra)
+    return added
+
+
 def applies_to(hit: MemoryHit, recall_number: str, item_text: str) -> bool:
     """Code decides: same recall AND the remembered item is (nearly) this item."""
     md = hit.metadata or {}
     if str(md.get("recall_number", "")) != str(recall_number) or md.get("correct_verdict") not in (
             "match", "check", "no_match"):
         return False
-    mem_item = set(tokens(str(md.get("item") or "")))
-    if not mem_item:
-        return False
-    here = set(tokens(item_text))
-    return len(mem_item & here) / len(mem_item) >= 0.6
+    return _covers(hit, item_text)
 
 
 # ------------------------------------------------------------------------------------------ seed

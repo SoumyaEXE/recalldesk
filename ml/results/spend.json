@@ -51,9 +51,17 @@
       "completion_tokens": 16528,
       "est_usd": 0.0553,
       "at": "2026-10-17T06:46:02+00:00"
+    },
+    "spec_extract_live": {
+      "model": "Qwen/Qwen3.5-397B-A17B",
+      "recalls": 1,
+      "prompt_tokens": 843,
+      "completion_tokens": 258,
+      "est_usd": 0.0033,
+      "at": "2026-10-17T06:57:41+00:00"
     }
   },
-  "total_est_usd": 12.2895,
+  "total_est_usd": 12.2928,
   "serpapi_searches_spent": 235,
   "note": "Tinker $ = token counts x list prices (models.json snapshot 2026-10-17); not an invoice. SerpApi searches are counted, not priced (plan-dependent)."
 }

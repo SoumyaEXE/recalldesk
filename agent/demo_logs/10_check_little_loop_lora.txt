@@ -1,0 +1,193 @@
+$ python -m agent.run_check little-loop   # provider=tinker (LoRA), memory=backboard, SERPAPI_API_KEY blank
+started check-little-loop-2026-10-17-817a
+--- t+  2.0s
+[OK] load_inventory         completed attempt=1  60 items from the shop's inventory file
+[OK] load_specs             completed attempt=1  591 recalls (corpus AB); data/recalls/recalls.jsonl; specs: 591 teacher + 0 heuristic
+[..] load_shop_memories     running   attempt=1
+[  ] check_items            pending   attempt=0
+[  ] scan_ebay_store        pending   attempt=0
+[  ] compose_card           pending   attempt=0
+[  ] publish_card           pending   attempt=0
+--- t+ 10.2s
+[OK] load_inventory         completed attempt=1  60 items from the shop's inventory file
+[OK] load_specs             completed attempt=1  591 recalls (corpus AB); data/recalls/recalls.jsonl; specs: 591 teacher + 0 heuristic
+[OK] load_shop_memories     completed attempt=1  1 relevant memories; backend=backboard
+[..] check_items            running   attempt=1  retrieving candidates for 60 items
+[  ] scan_ebay_store        pending   attempt=0
+[  ] compose_card           pending   attempt=0
+[  ] publish_card           pending   attempt=0
+--- t+ 16.5s
+[OK] load_inventory         completed attempt=1  60 items from the shop's inventory file
+[OK] load_specs             completed attempt=1  591 recalls (corpus AB); data/recalls/recalls.jsonl; specs: 591 teacher + 0 heuristic
+[OK] load_shop_memories     completed attempt=1  1 relevant memories; backend=backboard
+[..] check_items            running   attempt=1  0/60 items (179 item x recall pairs)
+[  ] scan_ebay_store        pending   attempt=0
+[  ] compose_card           pending   attempt=0
+[  ] publish_card           pending   attempt=0
+--- t+ 61.0s
+[OK] load_inventory         completed attempt=1  60 items from the shop's inventory file
+[OK] load_specs             completed attempt=1  591 recalls (corpus AB); data/recalls/recalls.jsonl; specs: 591 teacher + 0 heuristic
+[OK] load_shop_memories     completed attempt=1  1 relevant memories; backend=backboard
+[..] check_items            running   attempt=1  6/60 items (179 item x recall pairs)
+[  ] scan_ebay_store        pending   attempt=0
+[  ] compose_card           pending   attempt=0
+[  ] publish_card           pending   attempt=0
+--- t+ 67.1s
+[OK] load_inventory         completed attempt=1  60 items from the shop's inventory file
+[OK] load_specs             completed attempt=1  591 recalls (corpus AB); data/recalls/recalls.jsonl; specs: 591 teacher + 0 heuristic
+[OK] load_shop_memories     completed attempt=1  1 relevant memories; backend=backboard
+[..] check_items            running   attempt=1  10/60 items (179 item x recall pairs)
+[  ] scan_ebay_store        pending   attempt=0
+[  ] compose_card           pending   attempt=0
+[  ] publish_card           pending   attempt=0
+--- t+ 69.2s
+[OK] load_inventory         completed attempt=1  60 items from the shop's inventory file
+[OK] load_specs             completed attempt=1  591 recalls (corpus AB); data/recalls/recalls.jsonl; specs: 591 teacher + 0 heuristic
+[OK] load_shop_memories     completed attempt=1  1 relevant memories; backend=backboard
+[..] check_items            running   attempt=1  12/60 items (179 item x recall pairs)
+[  ] scan_ebay_store        pending   attempt=0
+[  ] compose_card           pending   attempt=0
+[  ] publish_card           pending   attempt=0
+--- t+ 75.2s
+[OK] load_inventory         completed attempt=1  60 items from the shop's inventory file
+[OK] load_specs             completed attempt=1  591 recalls (corpus AB); data/recalls/recalls.jsonl; specs: 591 teacher + 0 heuristic
+[OK] load_shop_memories     completed attempt=1  1 relevant memories; backend=backboard
+[..] check_items            running   attempt=1  18/60 items (179 item x recall pairs)
+[  ] scan_ebay_store        pending   attempt=0
+[  ] compose_card           pending   attempt=0
+[  ] publish_card           pending   attempt=0
+--- t+ 83.3s
+[OK] load_inventory         completed attempt=1  60 items from the shop's inventory file
+[OK] load_specs             completed attempt=1  591 recalls (corpus AB); data/recalls/recalls.jsonl; specs: 591 teacher + 0 heuristic
+[OK] load_shop_memories     completed attempt=1  1 relevant memories; backend=backboard
+[..] check_items            running   attempt=1  24/60 items (179 item x recall pairs)
+[  ] scan_ebay_store        pending   attempt=0
+[  ] compose_card           pending   attempt=0
+[  ] publish_card           pending   attempt=0
+--- t+ 91.3s
+[OK] load_inventory         completed attempt=1  60 items from the shop's inventory file
+[OK] load_specs             completed attempt=1  591 recalls (corpus AB); data/recalls/recalls.jsonl; specs: 591 teacher + 0 heuristic
+[OK] load_shop_memories     completed attempt=1  1 relevant memories; backend=backboard
+[..] check_items            running   attempt=1  30/60 items (179 item x recall pairs)
+[  ] scan_ebay_store        pending   attempt=0
+[  ] compose_card           pending   attempt=0
+[  ] publish_card           pending   attempt=0
+--- t+ 97.4s
+[OK] load_inventory         completed attempt=1  60 items from the shop's inventory file
+[OK] load_specs             completed attempt=1  591 recalls (corpus AB); data/recalls/recalls.jsonl; specs: 591 teacher + 0 heuristic
+[OK] load_shop_memories     completed attempt=1  1 relevant memories; backend=backboard
+[..] check_items            running   attempt=1  33/60 items (179 item x recall pairs)
+[  ] scan_ebay_store        pending   attempt=0
+[  ] compose_card           pending   attempt=0
+[  ] publish_card           pending   attempt=0
+--- t+ 99.4s
+[OK] load_inventory         completed attempt=1  60 items from the shop's inventory file
+[OK] load_specs             completed attempt=1  591 recalls (corpus AB); data/recalls/recalls.jsonl; specs: 591 teacher + 0 heuristic
+[OK] load_shop_memories     completed attempt=1  1 relevant memories; backend=backboard
+[..] check_items            running   attempt=1  36/60 items (179 item x recall pairs)
+[  ] scan_ebay_store        pending   attempt=0
+[  ] compose_card           pending   attempt=0
+[  ] publish_card           pending   attempt=0
+--- t+107.5s
+[OK] load_inventory         completed attempt=1  60 items from the shop's inventory file
+[OK] load_specs             completed attempt=1  591 recalls (corpus AB); data/recalls/recalls.jsonl; specs: 591 teacher + 0 heuristic
+[OK] load_shop_memories     completed attempt=1  1 relevant memories; backend=backboard
+[..] check_items            running   attempt=1  42/60 items (179 item x recall pairs)
+[  ] scan_ebay_store        pending   attempt=0
+[  ] compose_card           pending   attempt=0
+[  ] publish_card           pending   attempt=0
+--- t+115.6s
+[OK] load_inventory         completed attempt=1  60 items from the shop's inventory file
+[OK] load_specs             completed attempt=1  591 recalls (corpus AB); data/recalls/recalls.jsonl; specs: 591 teacher + 0 heuristic
+[OK] load_shop_memories     completed attempt=1  1 relevant memories; backend=backboard
+[..] check_items            running   attempt=1  48/60 items (179 item x recall pairs)
+[  ] scan_ebay_store        pending   attempt=0
+[  ] compose_card           pending   attempt=0
+[  ] publish_card           pending   attempt=0
+--- t+121.6s
+[OK] load_inventory         completed attempt=1  60 items from the shop's inventory file
+[OK] load_specs             completed attempt=1  591 recalls (corpus AB); data/recalls/recalls.jsonl; specs: 591 teacher + 0 heuristic
+[OK] load_shop_memories     completed attempt=1  1 relevant memories; backend=backboard
+[..] check_items            running   attempt=1  49/60 items (179 item x recall pairs)
+[  ] scan_ebay_store        pending   attempt=0
+[  ] compose_card           pending   attempt=0
+[  ] publish_card           pending   attempt=0
+--- t+123.6s
+[OK] load_inventory         completed attempt=1  60 items from the shop's inventory file
+[OK] load_specs             completed attempt=1  591 recalls (corpus AB); data/recalls/recalls.jsonl; specs: 591 teacher + 0 heuristic
+[OK] load_shop_memories     completed attempt=1  1 relevant memories; backend=backboard
+[..] check_items            running   attempt=1  54/60 items (179 item x recall pairs)
+[  ] scan_ebay_store        pending   attempt=0
+[  ] compose_card           pending   attempt=0
+[  ] publish_card           pending   attempt=0
+--- t+129.7s
+[OK] load_inventory         completed attempt=1  60 items from the shop's inventory file
+[OK] load_specs             completed attempt=1  591 recalls (corpus AB); data/recalls/recalls.jsonl; specs: 591 teacher + 0 heuristic
+[OK] load_shop_memories     completed attempt=1  1 relevant memories; backend=backboard
+[..] check_items            running   attempt=1  55/60 items (179 item x recall pairs)
+[  ] scan_ebay_store        pending   attempt=0
+[  ] compose_card           pending   attempt=0
+[  ] publish_card           pending   attempt=0
+--- t+131.9s
+[OK] load_inventory         completed attempt=1  60 items from the shop's inventory file
+[OK] load_specs             completed attempt=1  591 recalls (corpus AB); data/recalls/recalls.jsonl; specs: 591 teacher + 0 heuristic
+[OK] load_shop_memories     completed attempt=1  1 relevant memories; backend=backboard
+[OK] check_items            completed attempt=1  60/60 items, 179 pairs; retrieval: ml.infer.retrieve
+[--] scan_ebay_store        skipped   attempt=1  source=skipped (no eBay store configured for this shop)
+[OK] compose_card           completed attempt=1  8 DO NOT SELL, 7 CHECK LABEL
+[OK] publish_card           completed attempt=1  card_2026-10-15_little-loop
+--- t+132.2s  workflow=completed
+[OK] load_inventory         completed attempt=1  60 items from the shop's inventory file
+[OK] load_specs             completed attempt=1  591 recalls (corpus AB); data/recalls/recalls.jsonl; specs: 591 teacher + 0 heuristic
+[OK] load_shop_memories     completed attempt=1  1 relevant memories; backend=backboard
+[OK] check_items            completed attempt=1  60/60 items, 179 pairs; retrieval: ml.infer.retrieve
+[--] scan_ebay_store        skipped   attempt=1  source=skipped (no eBay store configured for this shop)
+[OK] compose_card           completed attempt=1  8 DO NOT SELL, 7 CHECK LABEL
+[OK] publish_card           completed attempt=1  card_2026-10-15_little-loop
+
+=== RECALL CARD card_2026-10-15_little-loop  Little Loop Kids Consignment  (week of 2026-10-15) ===
+  6 new recalls this week | 60 items checked | model: qwen3.5-4b-recalldesk-lora
+  DO NOT SELL (8)
+    x Papablic Convertible Bedside Sleeper with Play Yard (model PAPA03001AI)  -> CPSC 27027: Papablic, of USA Recalls Convertible Bedside Sleepers Due to Risk of S
+        why: Listing matches recalled brand, product type, and explicitly states the recalled model number. Hazard: Entrapment, suffocation, and fall hazards from 
+        remedy: Stop use, destroy product, email photos for refund
+    x Primark 101 Dalmatians Faux Leather Coin Purse (model 2595301)  -> CPSC 27028: Primark Recalls 101 Dalmatians Faux Leather Children’s Coin Purses Due
+        why: Listing matches recalled brand, product name, and explicitly states the recalled model number. Hazard: High phthalate levels risk ingestion harm.
+        remedy: Return to Primark store for full refund
+    x ONTHEWEI Baby Bath Seat with Suction Cups (model MY002)  -> CPSC 27018: ONTHEWEI Recalls Baby Bath Seats Due to Risk of Serious Injury or Deat
+        why: Listing matches brand and explicitly states the recalled model number MY002. Hazard: Unstable, can tip over causing drowning.
+        remedy: Stop use, contact firm for refund, destroy unit
+    x Skip Hop Baby Sesame Street Elmo Silicone Teether (model 9R263210)  -> CPSC 26739: Skip Hop Recalls Baby Sesame Street Elmo Silicone Teethers Due to Risk
+        why: Listing matches recalled brand, product name, and explicitly states the recalled model number. Hazard: Black eyes detach if frozen, causing choking.
+        remedy: Stop use, contact Skip Hop for gift card refund
+    x Taleco Gear Baby Swing (model swing-1)  -> CPSC 26688: Taleco Gear Recalls Baby Jumpers, Baby Swings and 2-in-1 Baby Jumper &
+        why: Listing names the recalled product line and explicitly includes the recalled model number swing-1. Hazard: Fall, impact, and strangulation hazards.
+        remedy: Stop use, destroy product, and contact for full refund
+    x Mangohood Kids Kitchen Standing Tower (model LT003)  -> CPSC 26655: Mangohood Direct Kids Kitchen Standing Towers Recalled Due to Risk of 
+        why: Listing matches brand and explicitly states the recalled model number LT003. Hazard: Collapse, tip over, and entrapment hazards.
+        remedy: Stop use; contact importer for free repair parts
+    x Love To Dream Portable Sleep Machine with Night Light (model LTD-SM23)  -> CPSC 26798: Love To Dream Recalls Portable Sleep Machines Due to Risk of Injury fr
+        why: Listing matches brand and explicitly states the recalled model number LTD-SM23. Hazard: Battery overheats causing fire and burn hazards.
+        remedy: Stop use immediately and register online for full refund
+    x Romorgniz 6-Drawer Kids Dresser  -> CPSC 27020: Romorgniz Recalls Six-Drawer Dressers Due to Risk of Serious Injury or
+        why: Recall covers all units of this product name and the listing matches the brand and product type exactly. Hazard: Tip-over and entrapment hazards if un
+        remedy: Stop use, mark RECALLED, disassemble, and send photos for refund
+  CHECK LABEL (7)
+    ? Sweet Cubby Kids Loungewear Set (shirt + shorts)  -> CPSC 26752
+        look for: lot/date code Batch No.: 272779; sold 2025-06 to 2026-05. "Batch No.: 272779" and the size are printed on the sewn-in neck label and on the seam label.
+    ? Melissa & Doug Lights & Sounds Fire Truck Activity Board  -> CPSC 26780
+        look for: lot/date code package date code OET 25100, package date code OET 25150, package date code OET 26064; sold 2025-07 to 2026-08. On the bottom of the toy, "Melissa
+    ? HABA Rainbow Rattle Grasping Toy  -> CPSC 26719
+        look for: model no. 2012261001; lot/date code batch code 0925; sold 2025-12 to 2026-07. Each HABA Rainbow Rattle Grasping and Teething Toy can be identified by the produc
+    ? 5Color Kids Bike Helmet and Pads Set  -> CPSC 26789
+        look for: model no. YD-001; lot/date code Lot/Ref: YD-260320, Date 2026/03/20; sold 2026-05 to 2026-05. “Model No.: YD-001,” “Lot/Ref: YD-260320” and “Date 2026/03/20” ar
+    ? Little Loves & Co. Kids Drawstring Jogger Set  -> CPSC 26724
+        look for: sold 2025-05 to 2026-07. The model number and date code are printed on the neck tag.
+    ? OCOOPA Rechargeable Hand Warmer  -> CPSC 26659
+        look for: model no. UT3053, UT3056, ZLS-118, ZLS-118S...; sold 2018-09 to 2026-05. The model number and three-digit batch number are printed on the hand warmers' undersid
+    ? Woodure Wooden Toddler Learning Tower  -> CPSC 26658
+        look for: model no. WD1764, WD1357, WD1720; sold 2024-07 to 2026-06. The model number is engraved on the underside of the bottom step.
+  SHOP MEMORIES APPLIED (1)
+    * beeeda90-bb74-4681-b1fa-bfdacd9ef8e6: Shop correction: 'HARPPA Nordi Foldable Toddler Tower' is NOT the recalled product for CPSC recall 26651. Ours is the 2022 one - consignor's receipt s
+  model usage: 179 classify calls for 60 items | p50 7797 ms/item (p90 8835, mean 2624 ms/call) | tokens 71242 in + 11190 out | est. $0.0348 at Tinker list price
+  workflow: check-little-loop-2026-10-17-817a   memory: backboard

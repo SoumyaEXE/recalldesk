@@ -1,0 +1,176 @@
+$ python -m agent.run_check flip-garage   # provider=tinker (LoRA), memory=backboard, SERPAPI_API_KEY blank
+started check-flip-garage-2026-10-17-153c
+--- t+  2.0s
+[OK] load_inventory         completed attempt=1  30 items from the shop's inventory file
+[OK] load_specs             completed attempt=1  151 recalls (corpus A); data/recalls/recalls.jsonl; specs: 151 teacher + 0 heuristic
+[..] load_shop_memories     running   attempt=1
+[  ] check_items            pending   attempt=0
+[  ] scan_ebay_store        pending   attempt=0
+[  ] compose_card           pending   attempt=0
+[  ] publish_card           pending   attempt=0
+--- t+  6.1s
+[OK] load_inventory         completed attempt=1  30 items from the shop's inventory file
+[OK] load_specs             completed attempt=1  151 recalls (corpus A); data/recalls/recalls.jsonl; specs: 151 teacher + 0 heuristic
+[OK] load_shop_memories     completed attempt=1  0 relevant memories; backend=backboard
+[..] check_items            running   attempt=1  0/30 items (87 item x recall pairs)
+[  ] scan_ebay_store        pending   attempt=0
+[  ] compose_card           pending   attempt=0
+[  ] publish_card           pending   attempt=0
+--- t+ 10.1s
+[OK] load_inventory         completed attempt=1  30 items from the shop's inventory file
+[OK] load_specs             completed attempt=1  151 recalls (corpus A); data/recalls/recalls.jsonl; specs: 151 teacher + 0 heuristic
+[OK] load_shop_memories     completed attempt=1  0 relevant memories; backend=backboard
+[..] check_items            running   attempt=1  1/30 items (87 item x recall pairs)
+[  ] scan_ebay_store        pending   attempt=0
+[  ] compose_card           pending   attempt=0
+[  ] publish_card           pending   attempt=0
+--- t+ 12.1s
+[OK] load_inventory         completed attempt=1  30 items from the shop's inventory file
+[OK] load_specs             completed attempt=1  151 recalls (corpus A); data/recalls/recalls.jsonl; specs: 151 teacher + 0 heuristic
+[OK] load_shop_memories     completed attempt=1  0 relevant memories; backend=backboard
+[..] check_items            running   attempt=1  4/30 items (87 item x recall pairs)
+[  ] scan_ebay_store        pending   attempt=0
+[  ] compose_card           pending   attempt=0
+[  ] publish_card           pending   attempt=0
+--- t+ 14.1s
+[OK] load_inventory         completed attempt=1  30 items from the shop's inventory file
+[OK] load_specs             completed attempt=1  151 recalls (corpus A); data/recalls/recalls.jsonl; specs: 151 teacher + 0 heuristic
+[OK] load_shop_memories     completed attempt=1  0 relevant memories; backend=backboard
+[..] check_items            running   attempt=1  6/30 items (87 item x recall pairs)
+[  ] scan_ebay_store        pending   attempt=0
+[  ] compose_card           pending   attempt=0
+[  ] publish_card           pending   attempt=0
+--- t+ 18.1s
+[OK] load_inventory         completed attempt=1  30 items from the shop's inventory file
+[OK] load_specs             completed attempt=1  151 recalls (corpus A); data/recalls/recalls.jsonl; specs: 151 teacher + 0 heuristic
+[OK] load_shop_memories     completed attempt=1  0 relevant memories; backend=backboard
+[..] check_items            running   attempt=1  7/30 items (87 item x recall pairs)
+[  ] scan_ebay_store        pending   attempt=0
+[  ] compose_card           pending   attempt=0
+[  ] publish_card           pending   attempt=0
+--- t+ 20.2s
+[OK] load_inventory         completed attempt=1  30 items from the shop's inventory file
+[OK] load_specs             completed attempt=1  151 recalls (corpus A); data/recalls/recalls.jsonl; specs: 151 teacher + 0 heuristic
+[OK] load_shop_memories     completed attempt=1  0 relevant memories; backend=backboard
+[..] check_items            running   attempt=1  9/30 items (87 item x recall pairs)
+[  ] scan_ebay_store        pending   attempt=0
+[  ] compose_card           pending   attempt=0
+[  ] publish_card           pending   attempt=0
+--- t+ 22.2s
+[OK] load_inventory         completed attempt=1  30 items from the shop's inventory file
+[OK] load_specs             completed attempt=1  151 recalls (corpus A); data/recalls/recalls.jsonl; specs: 151 teacher + 0 heuristic
+[OK] load_shop_memories     completed attempt=1  0 relevant memories; backend=backboard
+[..] check_items            running   attempt=1  12/30 items (87 item x recall pairs)
+[  ] scan_ebay_store        pending   attempt=0
+[  ] compose_card           pending   attempt=0
+[  ] publish_card           pending   attempt=0
+--- t+ 28.2s
+[OK] load_inventory         completed attempt=1  30 items from the shop's inventory file
+[OK] load_specs             completed attempt=1  151 recalls (corpus A); data/recalls/recalls.jsonl; specs: 151 teacher + 0 heuristic
+[OK] load_shop_memories     completed attempt=1  0 relevant memories; backend=backboard
+[..] check_items            running   attempt=1  16/30 items (87 item x recall pairs)
+[  ] scan_ebay_store        pending   attempt=0
+[  ] compose_card           pending   attempt=0
+[  ] publish_card           pending   attempt=0
+--- t+ 30.2s
+[OK] load_inventory         completed attempt=1  30 items from the shop's inventory file
+[OK] load_specs             completed attempt=1  151 recalls (corpus A); data/recalls/recalls.jsonl; specs: 151 teacher + 0 heuristic
+[OK] load_shop_memories     completed attempt=1  0 relevant memories; backend=backboard
+[..] check_items            running   attempt=1  18/30 items (87 item x recall pairs)
+[  ] scan_ebay_store        pending   attempt=0
+[  ] compose_card           pending   attempt=0
+[  ] publish_card           pending   attempt=0
+--- t+ 36.3s
+[OK] load_inventory         completed attempt=1  30 items from the shop's inventory file
+[OK] load_specs             completed attempt=1  151 recalls (corpus A); data/recalls/recalls.jsonl; specs: 151 teacher + 0 heuristic
+[OK] load_shop_memories     completed attempt=1  0 relevant memories; backend=backboard
+[..] check_items            running   attempt=1  20/30 items (87 item x recall pairs)
+[  ] scan_ebay_store        pending   attempt=0
+[  ] compose_card           pending   attempt=0
+[  ] publish_card           pending   attempt=0
+--- t+ 38.3s
+[OK] load_inventory         completed attempt=1  30 items from the shop's inventory file
+[OK] load_specs             completed attempt=1  151 recalls (corpus A); data/recalls/recalls.jsonl; specs: 151 teacher + 0 heuristic
+[OK] load_shop_memories     completed attempt=1  0 relevant memories; backend=backboard
+[..] check_items            running   attempt=1  24/30 items (87 item x recall pairs)
+[  ] scan_ebay_store        pending   attempt=0
+[  ] compose_card           pending   attempt=0
+[  ] publish_card           pending   attempt=0
+--- t+ 42.4s
+[OK] load_inventory         completed attempt=1  30 items from the shop's inventory file
+[OK] load_specs             completed attempt=1  151 recalls (corpus A); data/recalls/recalls.jsonl; specs: 151 teacher + 0 heuristic
+[OK] load_shop_memories     completed attempt=1  0 relevant memories; backend=backboard
+[..] check_items            running   attempt=1  25/30 items (87 item x recall pairs)
+[  ] scan_ebay_store        pending   attempt=0
+[  ] compose_card           pending   attempt=0
+[  ] publish_card           pending   attempt=0
+--- t+ 44.4s
+[OK] load_inventory         completed attempt=1  30 items from the shop's inventory file
+[OK] load_specs             completed attempt=1  151 recalls (corpus A); data/recalls/recalls.jsonl; specs: 151 teacher + 0 heuristic
+[OK] load_shop_memories     completed attempt=1  0 relevant memories; backend=backboard
+[..] check_items            running   attempt=1  26/30 items (87 item x recall pairs)
+[  ] scan_ebay_store        pending   attempt=0
+[  ] compose_card           pending   attempt=0
+[  ] publish_card           pending   attempt=0
+--- t+ 46.4s
+[OK] load_inventory         completed attempt=1  30 items from the shop's inventory file
+[OK] load_specs             completed attempt=1  151 recalls (corpus A); data/recalls/recalls.jsonl; specs: 151 teacher + 0 heuristic
+[OK] load_shop_memories     completed attempt=1  0 relevant memories; backend=backboard
+[..] check_items            running   attempt=1  29/30 items (87 item x recall pairs)
+[  ] scan_ebay_store        pending   attempt=0
+[  ] compose_card           pending   attempt=0
+[  ] publish_card           pending   attempt=0
+--- t+ 48.5s
+[OK] load_inventory         completed attempt=1  30 items from the shop's inventory file
+[OK] load_specs             completed attempt=1  151 recalls (corpus A); data/recalls/recalls.jsonl; specs: 151 teacher + 0 heuristic
+[OK] load_shop_memories     completed attempt=1  0 relevant memories; backend=backboard
+[OK] check_items            completed attempt=1  30/30 items, 87 pairs; retrieval: ml.infer.retrieve
+[--] scan_ebay_store        skipped   attempt=1  source=skipped (no eBay store configured for this shop)
+[OK] compose_card           completed attempt=1  5 DO NOT SELL, 8 CHECK LABEL
+[OK] publish_card           completed attempt=1  card_2026-10-15_flip-garage
+--- t+ 48.7s  workflow=completed
+[OK] load_inventory         completed attempt=1  30 items from the shop's inventory file
+[OK] load_specs             completed attempt=1  151 recalls (corpus A); data/recalls/recalls.jsonl; specs: 151 teacher + 0 heuristic
+[OK] load_shop_memories     completed attempt=1  0 relevant memories; backend=backboard
+[OK] check_items            completed attempt=1  30/30 items, 87 pairs; retrieval: ml.infer.retrieve
+[--] scan_ebay_store        skipped   attempt=1  source=skipped (no eBay store configured for this shop)
+[OK] compose_card           completed attempt=1  5 DO NOT SELL, 8 CHECK LABEL
+[OK] publish_card           completed attempt=1  card_2026-10-15_flip-garage
+
+=== RECALL CARD card_2026-10-15_flip-garage  Flip Garage (eBay household & tools flipper)  (week of 2026-10-15) ===
+  6 new recalls this week | 30 items checked | model: qwen3.5-4b-recalldesk-lora
+  DO NOT SELL (5)
+    x Scotch Thermal Laminator 13 inch (model TL1302Z)  -> CPSC 27024: 3M Company Recalls Scotch™ Thermal Laminators Due to Risk of Serious I
+        why: Listing matches recalled brand, product type, and explicitly states the recalled model number TL1302Z. Hazard: Overheats, posing fire hazard.
+        remedy: Stop use, unplug, contact 3M for refund
+    x Goal Zero YETI 3000X Portable Power Station  -> CPSC 26712: Goal Zero Recalls YETI 3000X Power Stations Due to Serious Risk of Inj
+        why: Listing names the exact recalled model number and brand, which is covered entirely by the recall. Hazard: Circuit board overheating causes fire and bu
+        remedy: Stop use immediately; install free firmware update via app
+    x BenQ GV31 Portable Projector (model GV31)  -> CPSC 26647: BenQ America Recalls GV31 Portable Projectors Due to Risk of Serious I
+        why: Listing matches recalled brand and model number GV31 exactly. Hazard: Battery overheats causing fire and burn hazards.
+        remedy: Stop use; contact BenQ for free battery repair or replacement
+    x HotHands Rechargeable Hand Warmer (model H163650)  -> CPSC 27011: Kobayashi Recalls Rechargeable Hand Warmers Due to Risk of Serious Inj
+        why: Listing matches recalled brand, product type, and explicitly states the recalled model number H163650. Hazard: Battery overheats causing fire and burn
+        remedy: Stop use, contact Kobayashi for refund, destroy product
+    x Romorgniz Six-Drawer Dresser  -> CPSC 27020: Romorgniz Recalls Six-Drawer Dressers Due to Risk of Serious Injury or
+        why: Recall covers all units of this product name and the listing matches the brand and product line exactly. Hazard: Tip-over and entrapment hazards if un
+        remedy: Stop use, mark RECALLED, disassemble, and send photos for refund
+  CHECK LABEL (8)
+    ? Char-Broil Bistro Pro Electric Grill  -> CPSC 26773
+        look for: model no. 25302145, 25302146, 25302147, 25302148...; lot/date code date code 2510, date code 2511, date code 2512; sold 2025-10 to 2026-06. The product label li
+    ? Cambridge Audio Yoyo (M) Portable Bluetooth Speaker  -> CPSC 26731
+        look for: sold 2016-01 to 2022-12
+    ? Hampton Bay Halwin 52-Inch Ceiling Fan  -> CPSC 26702
+        look for: model no. AK396H-MBK, AK396H-BN; UPC 840059614922, 840059615370; sold 2023-01 to 2025-10. UPCs "840059614922" or "840059615370" are located on the product packa
+    ? Galanz Retro Mini Refrigerator 3.1 cu ft  -> CPSC 26649
+        look for: model no. BCD-215V-62H, GLR76TRDER, GLR76TBKER, GLR76TBEER...; sold 2019-01 to 2022-09. "Galanz," the model number and the date code, in YYYYMM format, are prin
+    ? Louisville Ladder Attic Stairway Ladder  -> CPSC 26661
+        look for: sold 2012-11 to 2026-07. The brand name and model number are located on the inside of the attic door.
+    ? Cuisinart Grill Brush Wire Bristle  -> CPSC 26717
+        look for: model no. CCB-100, CCB-4125, CCB-5014, CCB-6450...; lot/date code sold prior to 2020 (unlisted models), stamped 'Cuisinart' on handle (except FCB-501 and CB-395
+    ? DR Power Equipment Pilot Trimmer Mower  -> CPSC 27016
+        look for: model no. T4X1076DMN, T4X1076DMNR, T4X1076DMNSD, T4X1176DMN...; sold 2022-11 to 2026-07. The model numbers are printed on a label located on the side of the pro
+    ? Cooluli 10-Liter Mini Fridge  -> CPSC 26685
+        look for: lot/date code batch numbers 1535 through 1545, batch numbers 1200000 through 1202080; sold 2019-01 to 2024-10. The model (ITEM #:) and batch numbers are printed
+  model usage: 87 classify calls for 30 items | p50 8422 ms/item (p90 8650, mean 2722 ms/call) | tokens 35324 in + 5496 out | est. $0.0172 at Tinker list price
+  workflow: check-flip-garage-2026-10-17-153c   memory: backboard

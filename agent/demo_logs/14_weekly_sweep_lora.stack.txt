@@ -1,0 +1,36 @@
+12:25:28.991 [dev] starting Temporal dev server on :7233 (UI http://localhost:8233) - first run downloads the CLI...
+Temporal CLI 1.9.1 (Server 1.32.0, UI 2.54.1)
+
+Temporal Server:      localhost:7233
+Temporal Persistence: C:\Users\Soumya\Desktop\DEV\recalldesk\agent\state\temporal-dev.db
+Temporal UI:          http://localhost:8233
+Temporal Metrics:     http://localhost:52950/metrics
+12:25:29.682 [dev] Temporal dev server ready on localhost:7233
+12:25:29.682 [dev] spawning worker: -m agent.worker
+12:25:29.689 [dev] spawning api: -m uvicorn agent.api:app --host 0.0.0.0 --port 8000 --log-level warning
+12:25:29.696 [dev] API on http://localhost:8000  (try /api/health, /api/recalls, POST /api/check)
+schedule recalldesk-weekly-sweep already exists
+12:25:33.855 [worker] worker pid=1632 up: temporal=localhost:7233 queue=recalldesk provider=tinker model=qwen3.5-4b-recalldesk-lora memory=backboard chaos=off sentry=off
+12:25:35.946 [api] connected to Temporal at localhost:7233
+12:25:43.518 [worker] [fetch_new_recalls] since=2026-10-08 attempt=1
+12:25:44.002 [worker] [fetch_new_recalls] OK: 14 recalls since 2026-10-08 (source=cpsc-live)
+12:25:44.402 [worker] [load_inventory] shop=little-loop: 60 items
+12:25:51.684 [worker] [load_shop_memories] shop=little-loop backend=backboard: 1 relevant memories for 60 items
+12:25:51.776 [worker] [retrieve_candidates] 60 items -> 66 (item, recall) pairs (top-3)
+12:25:59.546 [worker] ServiceClient initialized for session 5e7a5d6e-ec99-56ed-8ba7-3c899360e4f9
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+12:26:05.655 [worker] Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+12:26:11.409 [worker] [check_item] #1 101 Dalmatians Faux Leather Coin Purse -> 27028:match
+12:26:11.411 [worker] [check_item] #0 Convertible Bedside Sleeper with Play Ya -> 27027:match
+12:26:16.112 [worker] [check_item] #2 Baby Bath Seat with Suction Cups -> 27018:match
+12:26:38.989 [worker] [check_item] #56 6-Drawer Kids Dresser -> 27020:match
+12:26:43.143 [worker] [compose_card] card_2026-10-15_little-loop: 4 DO NOT SELL, 0 CHECK LABEL, 0 memories applied
+12:26:43.178 [worker] [publish_card] wrote agent/cards/weekly-sweep-manual-1792220143-little-loop.json
+12:26:43.336 [worker] [load_inventory] shop=flip-garage: 30 items
+12:26:48.277 [worker] [load_shop_memories] shop=flip-garage backend=backboard: 0 relevant memories for 0 items
+12:26:48.318 [worker] [retrieve_candidates] 30 items -> 26 (item, recall) pairs (top-3)
+12:26:53.497 [worker] [check_item] #0 Thermal Laminator 13 inch -> 27024:match
+12:26:53.504 [worker] [check_item] #9 Pilot Trimmer Mower -> 27016:check
+12:27:00.595 [worker] [check_item] #28 Six-Drawer Dresser -> 27020:match
+12:27:05.664 [worker] [compose_card] card_2026-10-15_flip-garage: 2 DO NOT SELL, 1 CHECK LABEL, 0 memories applied
+12:27:05.703 [worker] [publish_card] wrote agent/cards/weekly-sweep-manual-1792220143-flip-garage.json

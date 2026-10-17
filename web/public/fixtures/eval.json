@@ -1,10 +1,10 @@
 {
  "test_size": 293,
- "generated_at": "2026-10-17T05:23:01+00:00",
- "gold": "teacher (PROVISIONAL - not human gold)",
+ "generated_at": "2026-10-17T07:12:25+00:00",
+ "gold": "teacher + rule 7 by code (not human)",
  "gold_dist": {
-  "no_match": 221,
-  "check": 72
+  "no_match": 255,
+  "check": 38
  },
  "test_recalls": 20,
  "test_childrens_pairs": 180,
@@ -16,20 +16,20 @@
    "role": "teacher",
    "model": "Qwen/Qwen3.5-397B-A17B",
    "n": 293,
-   "acc": 1.0,
+   "acc": 0.884,
    "acc_ci": [
-    1.0,
-    1.0
+    0.8464,
+    0.9181
    ],
-   "macro_f1": 0.6667,
+   "macro_f1": 0.5398,
    "f1_by_class": {
     "match": 0.0,
-    "check": 1.0,
-    "no_match": 1.0
+    "check": 0.6909,
+    "no_match": 0.9286
    },
-   "risky_caught": "72/72",
-   "false_alarms": "0/221",
-   "childrens_acc": 1.0,
+   "risky_caught": "38/38",
+   "false_alarms": "34/255",
+   "childrens_acc": 0.85,
    "json_valid": 1.0,
    "p50_latency_ms": 2710.4,
    "p95_latency_ms": 3497.0,
@@ -45,20 +45,20 @@
    "role": "base",
    "model": "Qwen/Qwen3.5-4B",
    "n": 293,
-   "acc": 0.6007,
+   "acc": 0.5119,
    "acc_ci": [
-    0.5427,
-    0.6553
+    0.4573,
+    0.57
    ],
-   "macro_f1": 0.4052,
+   "macro_f1": 0.3166,
    "f1_by_class": {
     "match": 0.0,
-    "check": 0.5278,
-    "no_match": 0.6879
+    "check": 0.3077,
+    "no_match": 0.6421
    },
-   "risky_caught": "65/72",
-   "false_alarms": "89/221",
-   "childrens_acc": 0.5611,
+   "risky_caught": "34/38",
+   "false_alarms": "120/255",
+   "childrens_acc": 0.4278,
    "json_valid": 0.9522,
    "p50_latency_ms": 2699.4,
    "p95_latency_ms": 3709.22,
@@ -73,20 +73,20 @@
    "role": "base_guided",
    "model": "Qwen/Qwen3.5-4B",
    "n": 293,
-   "acc": 0.7065,
+   "acc": 0.6246,
    "acc_ci": [
-    0.6552,
-    0.7577
+    0.57,
+    0.6792
    ],
-   "macro_f1": 0.4571,
+   "macro_f1": 0.3727,
    "f1_by_class": {
     "match": 0.0,
-    "check": 0.5972,
-    "no_match": 0.7742
+    "check": 0.3842,
+    "no_match": 0.734
    },
-   "risky_caught": "65/72",
-   "false_alarms": "77/221",
-   "childrens_acc": 0.6556,
+   "risky_caught": "36/38",
+   "false_alarms": "106/255",
+   "childrens_acc": 0.5278,
    "json_valid": 1.0,
    "p50_latency_ms": 2292.4,
    "p95_latency_ms": 3206.94,
@@ -97,24 +97,53 @@
    "prompt": "guided"
   },
   {
+   "name": "Qwen3.5-4B + RecallDesk LoRA",
+   "role": "lora",
+   "model": "Qwen/Qwen3.5-4B",
+   "n": 293,
+   "acc": 0.9181,
+   "acc_ci": [
+    0.884,
+    0.9488
+   ],
+   "macro_f1": 0.5457,
+   "f1_by_class": {
+    "match": 0.0,
+    "check": 0.6842,
+    "no_match": 0.9529
+   },
+   "risky_caught": "26/38",
+   "false_alarms": "12/255",
+   "childrens_acc": 0.9333,
+   "json_valid": 1.0,
+   "p50_latency_ms": 2766.3,
+   "p95_latency_ms": 3575.64,
+   "avg_tokens_in": 399.8,
+   "avg_tokens_out": 56.4,
+   "cost_per_1k_usd": 0.1886,
+   "pending": false,
+   "model_path": "tinker://c4c0c911-d403-5444-970e-fb3ed1874ed2:train:0/sampler_weights/recalldesk-qwen3.5-4b-lora",
+   "prompt": "student"
+  },
+  {
    "name": "identifier/keyword rules (no model)",
    "role": "heuristic",
    "model": "heuristic",
    "n": 293,
-   "acc": 0.7747,
+   "acc": 0.8635,
    "acc_ci": [
-    0.727,
-    0.8225
+    0.8225,
+    0.901
    ],
-   "macro_f1": 0.4283,
+   "macro_f1": 0.4749,
    "f1_by_class": {
     "match": 0.0,
-    "check": 0.4211,
-    "no_match": 0.8638
+    "check": 0.5,
+    "no_match": 0.9246
    },
-   "risky_caught": "26/72",
-   "false_alarms": "18/221",
-   "childrens_acc": 0.7333,
+   "risky_caught": "22/38",
+   "false_alarms": "22/255",
+   "childrens_acc": 0.8611,
    "json_valid": 1.0,
    "p50_latency_ms": 0.1,
    "p95_latency_ms": 0.23,
@@ -122,39 +151,80 @@
    "avg_tokens_out": 0.0,
    "cost_per_1k_usd": 0.0,
    "pending": false
-  },
-  {
-   "name": "Qwen3.5-4B + RecallDesk LoRA",
-   "role": "lora",
-   "model": "Qwen/Qwen3.5-4B",
-   "pending": true,
-   "acc": null
   }
  ],
  "paired": [
   {
+   "a": "lora",
+   "b": "base",
+   "gain": 0.4061,
+   "ci": [
+    0.3379,
+    0.471
+   ],
+   "only_a": 132,
+   "only_b": 13,
+   "p": 0.0
+  },
+  {
+   "a": "lora",
+   "b": "base_guided",
+   "gain": 0.2935,
+   "ci": [
+    0.232,
+    0.3549
+   ],
+   "only_a": 99,
+   "only_b": 13,
+   "p": 0.0
+  },
+  {
+   "a": "lora",
+   "b": "teacher",
+   "gain": 0.0341,
+   "ci": [
+    -0.0137,
+    0.0819
+   ],
+   "only_a": 30,
+   "only_b": 20,
+   "p": 0.202639
+  },
+  {
+   "a": "lora",
+   "b": "heuristic",
+   "gain": 0.0546,
+   "ci": [
+    0.0273,
+    0.0819
+   ],
+   "only_a": 17,
+   "only_b": 1,
+   "p": 0.000145
+  },
+  {
    "a": "base_guided",
    "b": "base",
-   "gain": 0.1058,
+   "gain": 0.1126,
    "ci": [
-    0.0683,
-    0.1468
+    0.0751,
+    0.1536
    ],
    "only_a": 35,
-   "only_b": 4,
+   "only_b": 2,
    "p": 0.0
   },
   {
    "a": "teacher",
    "b": "heuristic",
-   "gain": 0.2253,
+   "gain": 0.0205,
    "ci": [
-    0.1775,
-    0.273
+    -0.0341,
+    0.0751
    ],
-   "only_a": 66,
-   "only_b": 0,
-   "p": 0.0
+   "only_a": 36,
+   "only_b": 30,
+   "p": 0.538583
   }
  ],
  "confusion": {
@@ -172,12 +242,12 @@
     ],
     [
      0,
-     72,
+     38,
      0
     ],
     [
      0,
-     0,
+     34,
      221
     ]
    ],
@@ -196,14 +266,14 @@
      0
     ],
     [
-     8,
-     57,
-     6
+     6,
+     28,
+     3
     ],
     [
-     2,
-     87,
-     119
+     4,
+     116,
+     122
     ]
    ],
    "invalid": 14
@@ -222,13 +292,38 @@
     ],
     [
      2,
-     63,
-     7
+     34,
+     2
     ],
     [
      1,
-     76,
-     144
+     105,
+     149
+    ]
+   ],
+   "invalid": 0
+  },
+  "lora": {
+   "labels": [
+    "match",
+    "check",
+    "no_match"
+   ],
+   "matrix": [
+    [
+     0,
+     0,
+     0
+    ],
+    [
+     0,
+     26,
+     12
+    ],
+    [
+     0,
+     12,
+     243
     ]
    ],
    "invalid": 0
@@ -247,13 +342,13 @@
     ],
     [
      2,
-     24,
-     46
+     20,
+     16
     ],
     [
      0,
-     18,
-     203
+     22,
+     233
     ]
    ],
    "invalid": 0
@@ -262,34 +357,1534 @@
  "training": {
   "base_model": "Qwen/Qwen3.5-4B",
   "rank": 32,
-  "steps": 0,
-  "epochs": 0,
-  "lr": null,
-  "batch_size": null,
-  "train_examples": null,
-  "loss_curve": [],
-  "test_nll": [],
-  "model_path": null
+  "steps": 376,
+  "epochs": 2,
+  "lr": 0.0004905250962784578,
+  "batch_size": 16,
+  "train_examples": 3007,
+  "loss_curve": [
+   [
+    1,
+    0.68121
+   ],
+   [
+    2,
+    0.88156
+   ],
+   [
+    3,
+    0.55854
+   ],
+   [
+    4,
+    0.4363
+   ],
+   [
+    5,
+    0.40939
+   ],
+   [
+    6,
+    0.43961
+   ],
+   [
+    7,
+    0.4713
+   ],
+   [
+    8,
+    0.3345
+   ],
+   [
+    9,
+    0.29802
+   ],
+   [
+    10,
+    0.3734
+   ],
+   [
+    11,
+    0.33612
+   ],
+   [
+    12,
+    0.20557
+   ],
+   [
+    13,
+    0.32168
+   ],
+   [
+    14,
+    0.27379
+   ],
+   [
+    15,
+    0.3534
+   ],
+   [
+    16,
+    0.31544
+   ],
+   [
+    17,
+    0.29877
+   ],
+   [
+    18,
+    0.34324
+   ],
+   [
+    19,
+    0.3109
+   ],
+   [
+    20,
+    0.31583
+   ],
+   [
+    21,
+    0.35524
+   ],
+   [
+    22,
+    0.2995
+   ],
+   [
+    23,
+    0.34711
+   ],
+   [
+    24,
+    0.21923
+   ],
+   [
+    25,
+    0.27352
+   ],
+   [
+    26,
+    0.20797
+   ],
+   [
+    27,
+    0.23777
+   ],
+   [
+    28,
+    0.27408
+   ],
+   [
+    29,
+    0.3626
+   ],
+   [
+    30,
+    0.32781
+   ],
+   [
+    31,
+    0.28471
+   ],
+   [
+    32,
+    0.29639
+   ],
+   [
+    33,
+    0.22274
+   ],
+   [
+    34,
+    0.28106
+   ],
+   [
+    35,
+    0.32957
+   ],
+   [
+    36,
+    0.28798
+   ],
+   [
+    37,
+    0.27318
+   ],
+   [
+    38,
+    0.26805
+   ],
+   [
+    39,
+    0.27158
+   ],
+   [
+    40,
+    0.2575
+   ],
+   [
+    41,
+    0.25577
+   ],
+   [
+    42,
+    0.34597
+   ],
+   [
+    43,
+    0.32938
+   ],
+   [
+    44,
+    0.21313
+   ],
+   [
+    45,
+    0.26726
+   ],
+   [
+    46,
+    0.27511
+   ],
+   [
+    47,
+    0.24689
+   ],
+   [
+    48,
+    0.28137
+   ],
+   [
+    49,
+    0.33671
+   ],
+   [
+    50,
+    0.277
+   ],
+   [
+    51,
+    0.26526
+   ],
+   [
+    52,
+    0.30661
+   ],
+   [
+    53,
+    0.38484
+   ],
+   [
+    54,
+    0.27846
+   ],
+   [
+    55,
+    0.24945
+   ],
+   [
+    56,
+    0.25
+   ],
+   [
+    57,
+    0.32936
+   ],
+   [
+    58,
+    0.23912
+   ],
+   [
+    59,
+    0.29701
+   ],
+   [
+    60,
+    0.26622
+   ],
+   [
+    61,
+    0.28954
+   ],
+   [
+    62,
+    0.23608
+   ],
+   [
+    63,
+    0.23772
+   ],
+   [
+    64,
+    0.18937
+   ],
+   [
+    65,
+    0.30497
+   ],
+   [
+    66,
+    0.21285
+   ],
+   [
+    67,
+    0.2162
+   ],
+   [
+    68,
+    0.41085
+   ],
+   [
+    69,
+    0.23711
+   ],
+   [
+    70,
+    0.30277
+   ],
+   [
+    71,
+    0.27004
+   ],
+   [
+    72,
+    0.23483
+   ],
+   [
+    73,
+    0.29206
+   ],
+   [
+    74,
+    0.25549
+   ],
+   [
+    75,
+    0.20912
+   ],
+   [
+    76,
+    0.2622
+   ],
+   [
+    77,
+    0.2775
+   ],
+   [
+    78,
+    0.27333
+   ],
+   [
+    79,
+    0.30023
+   ],
+   [
+    80,
+    0.18188
+   ],
+   [
+    81,
+    0.22475
+   ],
+   [
+    82,
+    0.27847
+   ],
+   [
+    83,
+    0.26166
+   ],
+   [
+    84,
+    0.25231
+   ],
+   [
+    85,
+    0.24635
+   ],
+   [
+    86,
+    0.22688
+   ],
+   [
+    87,
+    0.26562
+   ],
+   [
+    88,
+    0.27379
+   ],
+   [
+    89,
+    0.25699
+   ],
+   [
+    90,
+    0.20333
+   ],
+   [
+    91,
+    0.25239
+   ],
+   [
+    92,
+    0.26136
+   ],
+   [
+    93,
+    0.2469
+   ],
+   [
+    94,
+    0.27037
+   ],
+   [
+    95,
+    0.26241
+   ],
+   [
+    96,
+    0.18379
+   ],
+   [
+    97,
+    0.16725
+   ],
+   [
+    98,
+    0.21979
+   ],
+   [
+    99,
+    0.24417
+   ],
+   [
+    100,
+    0.23186
+   ],
+   [
+    101,
+    0.23708
+   ],
+   [
+    102,
+    0.22174
+   ],
+   [
+    103,
+    0.24243
+   ],
+   [
+    104,
+    0.24484
+   ],
+   [
+    105,
+    0.16376
+   ],
+   [
+    106,
+    0.23007
+   ],
+   [
+    107,
+    0.15053
+   ],
+   [
+    108,
+    0.22966
+   ],
+   [
+    109,
+    0.31129
+   ],
+   [
+    110,
+    0.26771
+   ],
+   [
+    111,
+    0.29206
+   ],
+   [
+    112,
+    0.19065
+   ],
+   [
+    113,
+    0.20243
+   ],
+   [
+    114,
+    0.25368
+   ],
+   [
+    115,
+    0.28717
+   ],
+   [
+    116,
+    0.15608
+   ],
+   [
+    117,
+    0.28711
+   ],
+   [
+    118,
+    0.27477
+   ],
+   [
+    119,
+    0.24093
+   ],
+   [
+    120,
+    0.22881
+   ],
+   [
+    121,
+    0.21709
+   ],
+   [
+    122,
+    0.26234
+   ],
+   [
+    123,
+    0.18857
+   ],
+   [
+    124,
+    0.28241
+   ],
+   [
+    125,
+    0.2435
+   ],
+   [
+    126,
+    0.21297
+   ],
+   [
+    127,
+    0.21707
+   ],
+   [
+    128,
+    0.25467
+   ],
+   [
+    129,
+    0.21666
+   ],
+   [
+    130,
+    0.30595
+   ],
+   [
+    131,
+    0.20251
+   ],
+   [
+    132,
+    0.20315
+   ],
+   [
+    133,
+    0.25613
+   ],
+   [
+    134,
+    0.19148
+   ],
+   [
+    135,
+    0.19565
+   ],
+   [
+    136,
+    0.3148
+   ],
+   [
+    137,
+    0.22381
+   ],
+   [
+    138,
+    0.16789
+   ],
+   [
+    139,
+    0.17684
+   ],
+   [
+    140,
+    0.19892
+   ],
+   [
+    141,
+    0.20606
+   ],
+   [
+    142,
+    0.21918
+   ],
+   [
+    143,
+    0.2144
+   ],
+   [
+    144,
+    0.19166
+   ],
+   [
+    145,
+    0.26715
+   ],
+   [
+    146,
+    0.13809
+   ],
+   [
+    147,
+    0.26534
+   ],
+   [
+    148,
+    0.24032
+   ],
+   [
+    149,
+    0.18865
+   ],
+   [
+    150,
+    0.20155
+   ],
+   [
+    151,
+    0.22207
+   ],
+   [
+    152,
+    0.26636
+   ],
+   [
+    153,
+    0.19094
+   ],
+   [
+    154,
+    0.14569
+   ],
+   [
+    155,
+    0.25774
+   ],
+   [
+    156,
+    0.19854
+   ],
+   [
+    157,
+    0.2402
+   ],
+   [
+    158,
+    0.1947
+   ],
+   [
+    159,
+    0.19924
+   ],
+   [
+    160,
+    0.2009
+   ],
+   [
+    161,
+    0.34121
+   ],
+   [
+    162,
+    0.28202
+   ],
+   [
+    163,
+    0.25052
+   ],
+   [
+    164,
+    0.20512
+   ],
+   [
+    165,
+    0.30975
+   ],
+   [
+    166,
+    0.18638
+   ],
+   [
+    167,
+    0.20922
+   ],
+   [
+    168,
+    0.15712
+   ],
+   [
+    169,
+    0.23908
+   ],
+   [
+    170,
+    0.12559
+   ],
+   [
+    171,
+    0.23186
+   ],
+   [
+    172,
+    0.1787
+   ],
+   [
+    173,
+    0.14908
+   ],
+   [
+    174,
+    0.18382
+   ],
+   [
+    175,
+    0.19584
+   ],
+   [
+    176,
+    0.16055
+   ],
+   [
+    177,
+    0.23149
+   ],
+   [
+    178,
+    0.17422
+   ],
+   [
+    179,
+    0.22683
+   ],
+   [
+    180,
+    0.18304
+   ],
+   [
+    181,
+    0.1874
+   ],
+   [
+    182,
+    0.17154
+   ],
+   [
+    183,
+    0.28541
+   ],
+   [
+    184,
+    0.21442
+   ],
+   [
+    185,
+    0.19626
+   ],
+   [
+    186,
+    0.20944
+   ],
+   [
+    187,
+    0.23664
+   ],
+   [
+    188,
+    0.25888
+   ],
+   [
+    189,
+    0.13864
+   ],
+   [
+    190,
+    0.15417
+   ],
+   [
+    191,
+    0.13731
+   ],
+   [
+    192,
+    0.14823
+   ],
+   [
+    193,
+    0.07789
+   ],
+   [
+    194,
+    0.12154
+   ],
+   [
+    195,
+    0.11195
+   ],
+   [
+    196,
+    0.15329
+   ],
+   [
+    197,
+    0.12229
+   ],
+   [
+    198,
+    0.12861
+   ],
+   [
+    199,
+    0.14968
+   ],
+   [
+    200,
+    0.13094
+   ],
+   [
+    201,
+    0.11574
+   ],
+   [
+    202,
+    0.09868
+   ],
+   [
+    203,
+    0.12289
+   ],
+   [
+    204,
+    0.17389
+   ],
+   [
+    205,
+    0.11719
+   ],
+   [
+    206,
+    0.14091
+   ],
+   [
+    207,
+    0.12437
+   ],
+   [
+    208,
+    0.13504
+   ],
+   [
+    209,
+    0.12617
+   ],
+   [
+    210,
+    0.1148
+   ],
+   [
+    211,
+    0.11258
+   ],
+   [
+    212,
+    0.1002
+   ],
+   [
+    213,
+    0.12981
+   ],
+   [
+    214,
+    0.12118
+   ],
+   [
+    215,
+    0.13207
+   ],
+   [
+    216,
+    0.12797
+   ],
+   [
+    217,
+    0.13732
+   ],
+   [
+    218,
+    0.1439
+   ],
+   [
+    219,
+    0.12909
+   ],
+   [
+    220,
+    0.13181
+   ],
+   [
+    221,
+    0.12499
+   ],
+   [
+    222,
+    0.11326
+   ],
+   [
+    223,
+    0.11625
+   ],
+   [
+    224,
+    0.10495
+   ],
+   [
+    225,
+    0.11183
+   ],
+   [
+    226,
+    0.07245
+   ],
+   [
+    227,
+    0.13357
+   ],
+   [
+    228,
+    0.12477
+   ],
+   [
+    229,
+    0.10153
+   ],
+   [
+    230,
+    0.11844
+   ],
+   [
+    231,
+    0.14833
+   ],
+   [
+    232,
+    0.17861
+   ],
+   [
+    233,
+    0.15195
+   ],
+   [
+    234,
+    0.11007
+   ],
+   [
+    235,
+    0.11585
+   ],
+   [
+    236,
+    0.11437
+   ],
+   [
+    237,
+    0.12595
+   ],
+   [
+    238,
+    0.09542
+   ],
+   [
+    239,
+    0.12532
+   ],
+   [
+    240,
+    0.12487
+   ],
+   [
+    241,
+    0.13701
+   ],
+   [
+    242,
+    0.09645
+   ],
+   [
+    243,
+    0.15598
+   ],
+   [
+    244,
+    0.1454
+   ],
+   [
+    245,
+    0.14209
+   ],
+   [
+    246,
+    0.14211
+   ],
+   [
+    247,
+    0.11736
+   ],
+   [
+    248,
+    0.10411
+   ],
+   [
+    249,
+    0.0991
+   ],
+   [
+    250,
+    0.11996
+   ],
+   [
+    251,
+    0.16971
+   ],
+   [
+    252,
+    0.11836
+   ],
+   [
+    253,
+    0.10488
+   ],
+   [
+    254,
+    0.15771
+   ],
+   [
+    255,
+    0.10996
+   ],
+   [
+    256,
+    0.12209
+   ],
+   [
+    257,
+    0.11192
+   ],
+   [
+    258,
+    0.13504
+   ],
+   [
+    259,
+    0.10475
+   ],
+   [
+    260,
+    0.16007
+   ],
+   [
+    261,
+    0.08317
+   ],
+   [
+    262,
+    0.15368
+   ],
+   [
+    263,
+    0.14319
+   ],
+   [
+    264,
+    0.09919
+   ],
+   [
+    265,
+    0.11378
+   ],
+   [
+    266,
+    0.10084
+   ],
+   [
+    267,
+    0.14423
+   ],
+   [
+    268,
+    0.13099
+   ],
+   [
+    269,
+    0.12174
+   ],
+   [
+    270,
+    0.12536
+   ],
+   [
+    271,
+    0.09198
+   ],
+   [
+    272,
+    0.12779
+   ],
+   [
+    273,
+    0.14253
+   ],
+   [
+    274,
+    0.10224
+   ],
+   [
+    275,
+    0.14522
+   ],
+   [
+    276,
+    0.13605
+   ],
+   [
+    277,
+    0.10786
+   ],
+   [
+    278,
+    0.11937
+   ],
+   [
+    279,
+    0.13637
+   ],
+   [
+    280,
+    0.11471
+   ],
+   [
+    281,
+    0.11492
+   ],
+   [
+    282,
+    0.14239
+   ],
+   [
+    283,
+    0.10304
+   ],
+   [
+    284,
+    0.19256
+   ],
+   [
+    285,
+    0.10065
+   ],
+   [
+    286,
+    0.0911
+   ],
+   [
+    287,
+    0.16335
+   ],
+   [
+    288,
+    0.12149
+   ],
+   [
+    289,
+    0.10739
+   ],
+   [
+    290,
+    0.11413
+   ],
+   [
+    291,
+    0.13141
+   ],
+   [
+    292,
+    0.15687
+   ],
+   [
+    293,
+    0.14308
+   ],
+   [
+    294,
+    0.10083
+   ],
+   [
+    295,
+    0.09977
+   ],
+   [
+    296,
+    0.08691
+   ],
+   [
+    297,
+    0.13635
+   ],
+   [
+    298,
+    0.1143
+   ],
+   [
+    299,
+    0.1097
+   ],
+   [
+    300,
+    0.1301
+   ],
+   [
+    301,
+    0.10582
+   ],
+   [
+    302,
+    0.11138
+   ],
+   [
+    303,
+    0.13083
+   ],
+   [
+    304,
+    0.11121
+   ],
+   [
+    305,
+    0.10357
+   ],
+   [
+    306,
+    0.0882
+   ],
+   [
+    307,
+    0.0732
+   ],
+   [
+    308,
+    0.108
+   ],
+   [
+    309,
+    0.10887
+   ],
+   [
+    310,
+    0.15773
+   ],
+   [
+    311,
+    0.10391
+   ],
+   [
+    312,
+    0.09342
+   ],
+   [
+    313,
+    0.12191
+   ],
+   [
+    314,
+    0.08576
+   ],
+   [
+    315,
+    0.17218
+   ],
+   [
+    316,
+    0.11004
+   ],
+   [
+    317,
+    0.09896
+   ],
+   [
+    318,
+    0.11942
+   ],
+   [
+    319,
+    0.11218
+   ],
+   [
+    320,
+    0.08174
+   ],
+   [
+    321,
+    0.09477
+   ],
+   [
+    322,
+    0.13858
+   ],
+   [
+    323,
+    0.09827
+   ],
+   [
+    324,
+    0.0841
+   ],
+   [
+    325,
+    0.10041
+   ],
+   [
+    326,
+    0.13321
+   ],
+   [
+    327,
+    0.10234
+   ],
+   [
+    328,
+    0.08926
+   ],
+   [
+    329,
+    0.08137
+   ],
+   [
+    330,
+    0.0927
+   ],
+   [
+    331,
+    0.09694
+   ],
+   [
+    332,
+    0.146
+   ],
+   [
+    333,
+    0.14088
+   ],
+   [
+    334,
+    0.09953
+   ],
+   [
+    335,
+    0.11375
+   ],
+   [
+    336,
+    0.05274
+   ],
+   [
+    337,
+    0.10464
+   ],
+   [
+    338,
+    0.07938
+   ],
+   [
+    339,
+    0.09313
+   ],
+   [
+    340,
+    0.10458
+   ],
+   [
+    341,
+    0.06043
+   ],
+   [
+    342,
+    0.13019
+   ],
+   [
+    343,
+    0.10121
+   ],
+   [
+    344,
+    0.13897
+   ],
+   [
+    345,
+    0.1098
+   ],
+   [
+    346,
+    0.08878
+   ],
+   [
+    347,
+    0.12226
+   ],
+   [
+    348,
+    0.08052
+   ],
+   [
+    349,
+    0.12599
+   ],
+   [
+    350,
+    0.11756
+   ],
+   [
+    351,
+    0.12254
+   ],
+   [
+    352,
+    0.09506
+   ],
+   [
+    353,
+    0.1226
+   ],
+   [
+    354,
+    0.11234
+   ],
+   [
+    355,
+    0.09419
+   ],
+   [
+    356,
+    0.14094
+   ],
+   [
+    357,
+    0.08091
+   ],
+   [
+    358,
+    0.08026
+   ],
+   [
+    359,
+    0.09939
+   ],
+   [
+    360,
+    0.10532
+   ],
+   [
+    361,
+    0.11624
+   ],
+   [
+    362,
+    0.08012
+   ],
+   [
+    363,
+    0.11404
+   ],
+   [
+    364,
+    0.09426
+   ],
+   [
+    365,
+    0.0929
+   ],
+   [
+    366,
+    0.08261
+   ],
+   [
+    367,
+    0.11307
+   ],
+   [
+    368,
+    0.09048
+   ],
+   [
+    369,
+    0.10311
+   ],
+   [
+    370,
+    0.10369
+   ],
+   [
+    371,
+    0.15059
+   ],
+   [
+    372,
+    0.1005
+   ],
+   [
+    373,
+    0.12815
+   ],
+   [
+    374,
+    0.06712
+   ],
+   [
+    375,
+    0.09093
+   ],
+   [
+    376,
+    0.07718
+   ]
+  ],
+  "test_nll": [
+   [
+    0,
+    0.72383
+   ],
+   [
+    188,
+    0.24227
+   ],
+   [
+    376,
+    0.22752
+   ]
+  ],
+  "model_path": "tinker://c4c0c911-d403-5444-970e-fb3ed1874ed2:train:0/sampler_weights/recalldesk-qwen3.5-4b-lora"
  },
  "examples": [
-  {
-   "pair_id": "p_26298_287393243046",
-   "listing_title": "Floating Hover Soccer Ball LED Light Up Kids Toy Foam Bumpers Rechargeable",
-   "recall_title": "TheKiddoSpace Recalls LED Soccer Hover Balls Due to Serious Risk of Injury from Burn Hazard; Violates Mandatory Standard for Toys",
-   "recall_number": "26298",
-   "gold": "check",
-   "base": "match",
-   "lora": null,
-   "teacher": "check",
-   "heuristic": "no_match",
-   "base_verdict": {
-    "verdict": "match",
-    "identifiers_found": [],
-    "conflicts": [],
-    "reason": "The listing describes the exact product name and key features of the recalled item, and since the recall covers all units of this product name, it is a match."
-   },
-   "lora_verdict": null
-  },
   {
    "pair_id": "p_26499_406893895821",
    "listing_title": "ORB Funkee Rac Shape Shifting Car Purple Squishy Stretch Squeeze Stress Toy NEW",
@@ -297,7 +1892,7 @@
    "recall_number": "26499",
    "gold": "check",
    "base": "no_match",
-   "lora": null,
+   "lora": "check",
    "teacher": "check",
    "heuristic": "check",
    "base_verdict": {
@@ -309,7 +1904,12 @@
     ],
     "reason": "The listed product is a different toy (a car) than the recalled product (a monkey squeeze toy)."
    },
-   "lora_verdict": null
+   "lora_verdict": {
+    "verdict": "check",
+    "identifiers_found": [],
+    "conflicts": [],
+    "reason": "Same brand and product line, but listing lacks specific model number or date code to confirm recall status."
+   }
   },
   {
    "pair_id": "p_26562_117324066741",
@@ -318,7 +1918,7 @@
    "recall_number": "26562",
    "gold": "check",
    "base": "match",
-   "lora": null,
+   "lora": "check",
    "teacher": "check",
    "heuristic": "check",
    "base_verdict": {
@@ -329,7 +1929,12 @@
     "conflicts": [],
     "reason": "The listing matches the recalled brand and product type, and since the recall covers all units of this product line, the seller must verify the specific batch number before listing."
    },
-   "lora_verdict": null
+   "lora_verdict": {
+    "verdict": "check",
+    "identifiers_found": [],
+    "conflicts": [],
+    "reason": "Listing matches brand and product type but lacks specific batch number or date code to confirm recall status."
+   }
   },
   {
    "pair_id": "p_26672_137848611003",
@@ -338,7 +1943,7 @@
    "recall_number": "26672",
    "gold": "check",
    "base": "match",
-   "lora": null,
+   "lora": "check",
    "teacher": "check",
    "heuristic": "no_match",
    "base_verdict": {
@@ -351,27 +1956,37 @@
     "conflicts": [],
     "reason": "The listing matches the recalled product name, type, and specific sold window (28-pack) despite the absence of a specific model number."
    },
-   "lora_verdict": null
+   "lora_verdict": {
+    "verdict": "check",
+    "identifiers_found": [],
+    "conflicts": [],
+    "reason": "Listing matches brand and product type but lacks sale date or specific card count to confirm recall status."
+   }
   },
   {
-   "pair_id": "p_26672_147593890148",
-   "listing_title": "Lot of 14 Astronaut LED Light Up Finger Lights Space Party Favors Novelty READ",
+   "pair_id": "p_26672_267734809201",
+   "listing_title": "Lot of 28 Astronaut LED Finger Lights Space Party Favors Novelty Light Up Rings",
    "recall_title": "Syera Projecting Finger Light Toys Recalled Due to Risk of Serious Injury from Battery Ingestion; Violate Mandatory Standard for Toys; Sold on TEMU by Senyu",
    "recall_number": "26672",
    "gold": "check",
    "base": "match",
-   "lora": null,
+   "lora": "check",
    "teacher": "check",
    "heuristic": "no_match",
    "base_verdict": {
     "verdict": "match",
     "identifiers_found": [
-     "Astronaut LED Light Up Finger Lights"
+     "Lot of 28"
     ],
     "conflicts": [],
-    "reason": "The listing describes the exact recalled product line without any excluded variants or missing identifiers."
+    "reason": "The listing explicitly states a quantity of 28, which matches the specific recall identifier for this product line."
    },
-   "lora_verdict": null
+   "lora_verdict": {
+    "verdict": "check",
+    "identifiers_found": [],
+    "conflicts": [],
+    "reason": "Same product type and count but missing brand name and sale date to confirm recall status."
+   }
   },
   {
    "pair_id": "p_26688_237111743985",
@@ -380,7 +1995,7 @@
    "recall_number": "26688",
    "gold": "check",
    "base": "match",
-   "lora": null,
+   "lora": "check",
    "teacher": "check",
    "heuristic": "no_match",
    "base_verdict": {
@@ -391,7 +2006,12 @@
     "conflicts": [],
     "reason": "The listing describes a '2 in 1 Baby Jumper Swing' which matches the recalled product line and model type, and the color 'Pink' is within the specified recalled variants."
    },
-   "lora_verdict": null
+   "lora_verdict": {
+    "verdict": "check",
+    "identifiers_found": [],
+    "conflicts": [],
+    "reason": "Listing matches product type and color but lacks brand name and specific model number to confirm recall status."
+   }
   },
   {
    "pair_id": "p_26688_356640277201",
@@ -400,7 +2020,7 @@
    "recall_number": "26688",
    "gold": "check",
    "base": "no_match",
-   "lora": null,
+   "lora": "check",
    "teacher": "check",
    "heuristic": "check",
    "base_verdict": {
@@ -413,28 +2033,53 @@
     ],
     "reason": "The listing describes a different product (outdoor 3-in-1 swing set) than the recalled items (baby jumper/swing)."
    },
-   "lora_verdict": null
+   "lora_verdict": {
+    "verdict": "check",
+    "identifiers_found": [],
+    "conflicts": [],
+    "reason": "Same brand and product line, but listing lacks specific model number or date code to confirm recall status."
+   }
   },
   {
-   "pair_id": "p_26727_237122765571",
-   "listing_title": "4-in-1 Montessori Baby Toy Set with Pull-String Teether Stacking Blocks | Sta...",
-   "recall_title": "Montessori Baby Toy Sets Recalled Due to Risk of Serious Injury or Death from Choking; Violate Mandatory Standard for Toys; Sold on Amazon by Chillife Official",
-   "recall_number": "26727",
+   "pair_id": "p_26775_800800222878",
+   "listing_title": "Esjay Busy Board Montessori Toys Purple Multipages",
+   "recall_title": "Esjay US Recalls Toddler Busy Board Montessori Toys Due to Risk of Serious Injury or Death from Choking; Violates Small Parts Ban",
+   "recall_number": "26775",
    "gold": "check",
-   "base": "no_match",
-   "lora": null,
+   "base": null,
+   "lora": "check",
    "teacher": "check",
+   "heuristic": "match",
+   "base_verdict": null,
+   "lora_verdict": {
+    "verdict": "check",
+    "identifiers_found": [],
+    "conflicts": [],
+    "reason": "Same brand and product line, but listing lacks sale date or specific visual details to confirm recall status."
+   }
+  },
+  {
+   "pair_id": "p_26298_127611966403",
+   "listing_title": "Rechargeable Hover Soccer Ball LED Lights Air Power Indoor Outdoor Toy Kids 3+",
+   "recall_title": "TheKiddoSpace Recalls LED Soccer Hover Balls Due to Serious Risk of Injury from Burn Hazard; Violates Mandatory Standard for Toys",
+   "recall_number": "26298",
+   "gold": "no_match",
+   "base": "check",
+   "lora": "no_match",
+   "teacher": "no_match",
    "heuristic": "no_match",
    "base_verdict": {
+    "verdict": "check",
+    "identifiers_found": [],
+    "conflicts": [],
+    "reason": "The listing matches the brand and general product type but lacks specific identifiers like model number, size, or color to confirm if it falls within the recalled 5.5-inch range."
+   },
+   "lora_verdict": {
     "verdict": "no_match",
     "identifiers_found": [],
-    "conflicts": [
-     "Listing specifies a '4-in-1' set while the recall covers a '5-in-1' set, and the listing title does not contain the recalled model number 'CHILLIFE01' or the specific 'off-white disc with blue ball' description.",
-     "The listing title ends abruptly ('Sta...') but lacks the specific recalled identifiers or the exact product description required to confirm it is the recalled item."
-    ],
-    "reason": "The listing describes a different product configuration (4-in-1 vs 5-in-1) and lacks the specific recalled model number or visual identifiers."
-   },
-   "lora_verdict": null
+    "conflicts": [],
+    "reason": "Generic look-alike: no brand and no recalled identifier in the listing."
+   }
   }
  ],
  "split": {
@@ -459,7 +2104,7 @@
   "listing_overlap_train_test": 0
  },
  "notes": [
-  "Gold = blind human labels from ml/label_ui (no model output shown); test recalls never appear in train.",
+  "Answer key = teacher (Qwen3.5-397B-A17B) labels + LABELING.md rule 7 enforced by code (ml/enforce_rules.py -> data/labeled/targets.jsonl), the same definition as the training targets - NOT human labels. The blind label UI (ml.label_ui) exists for a human audit but was not used for these numbers. Test recalls never appear in train.",
   "Single attempt, temperature 0; invalid JSON counts as wrong. risky = gold in {match, check}.",
   "acc_ci = 10,000-sample bootstrap 95% CI; paired p = exact two-sided McNemar on discordant pairs.",
   "base/lora use the short student prompt; base_guided adds the teacher's long rulebook; the teacher also sees the CPSC description.",

@@ -1,1 +1,64 @@
 $ SERPAPI_API_KEY= python -m agent.run_check sweep --since 2026-10-08   # live CPSC, provider=tinker (LoRA), memory=backboard
+started weekly-sweep-manual-1792220143
+--- t+  2.0s
+[OK] fetch_new_recalls      completed attempt=1  14 recalls; source=cpsc-live
+[OK] extract_specs          completed attempt=1  14/14 specs; 14 cached teacher spec
+[..] check_shop:little-loop running   attempt=1
+[  ] check_shop:flip-garage pending   attempt=0
+--- t+ 60.7s
+[OK] fetch_new_recalls      completed attempt=1  14 recalls; source=cpsc-live
+[OK] extract_specs          completed attempt=1  14/14 specs; 14 cached teacher spec
+[OK] check_shop:little-loop completed attempt=1  card_2026-10-15_little-loop: 4 DO NOT SELL, 0 CHECK LABEL (child weekly-sweep-manual-1792220143-little-loop)
+[..] check_shop:flip-garage running   attempt=1
+--- t+ 82.9s
+[OK] fetch_new_recalls      completed attempt=1  14 recalls; source=cpsc-live
+[OK] extract_specs          completed attempt=1  14/14 specs; 14 cached teacher spec
+[OK] check_shop:little-loop completed attempt=1  card_2026-10-15_little-loop: 4 DO NOT SELL, 0 CHECK LABEL (child weekly-sweep-manual-1792220143-little-loop)
+[OK] check_shop:flip-garage completed attempt=1  card_2026-10-15_flip-garage: 2 DO NOT SELL, 1 CHECK LABEL (child weekly-sweep-manual-1792220143-flip-garage)
+--- t+ 82.9s  workflow=completed
+[OK] fetch_new_recalls      completed attempt=1  14 recalls; source=cpsc-live
+[OK] extract_specs          completed attempt=1  14/14 specs; 14 cached teacher spec
+[OK] check_shop:little-loop completed attempt=1  card_2026-10-15_little-loop: 4 DO NOT SELL, 0 CHECK LABEL (child weekly-sweep-manual-1792220143-little-loop)
+[OK] check_shop:flip-garage completed attempt=1  card_2026-10-15_flip-garage: 2 DO NOT SELL, 1 CHECK LABEL (child weekly-sweep-manual-1792220143-flip-garage)
+{'since': '2026-10-08', 'new_recalls': 14, 'cards': {'little-loop': 'card_2026-10-15_little-loop', 'flip-garage': 'card_2026-10-15_flip-garage'}, 'children': ['weekly-sweep-manual-1792220143-little-loop', 'weekly-sweep-manual-1792220143-flip-garage']}
+
+=== RECALL CARD card_2026-10-15_little-loop  Little Loop Kids Consignment  (week of 2026-10-15) ===
+  14 new recalls this week | 60 items checked | model: qwen3.5-4b-recalldesk-lora
+  DO NOT SELL (4)
+    x Papablic Convertible Bedside Sleeper with Play Yard (model PAPA03001AI)  -> CPSC 27027: Papablic, of USA Recalls Convertible Bedside Sleepers Due to Risk of S
+        why: Listing matches recalled brand, product type, and explicitly states the recalled model number. Hazard: Entrapment, suffocation, and fall hazards from 
+        remedy: Stop use, destroy product, email photos for refund
+    x Primark 101 Dalmatians Faux Leather Coin Purse (model 2595301)  -> CPSC 27028: Primark Recalls 101 Dalmatians Faux Leather Children’s Coin Purses Due
+        why: Listing matches recalled brand, product name, and explicitly states the recalled model number. Hazard: High phthalate levels risk ingestion harm.
+        remedy: Return to Primark store for full refund
+    x ONTHEWEI Baby Bath Seat with Suction Cups (model MY002)  -> CPSC 27018: ONTHEWEI Recalls Baby Bath Seats Due to Risk of Serious Injury or Deat
+        why: Listing matches brand and explicitly states the recalled model number MY002. Hazard: Unstable, can tip over causing drowning.
+        remedy: Stop use, contact firm for refund, destroy unit
+    x Romorgniz 6-Drawer Kids Dresser  -> CPSC 27020: Romorgniz Recalls Six-Drawer Dressers Due to Risk of Serious Injury or
+        why: Recall covers all units of this product name and the listing matches the brand and product type exactly. Hazard: Tip-over and entrapment hazards if un
+        remedy: Stop use, mark RECALLED, disassemble, and send photos for refund
+  CHECK LABEL (0)
+  model usage: 66 classify calls for 60 items | p50 3294 ms/item (p90 7806, mean 2995 ms/call) | tokens 27756 in + 4076 out | est. $0.0133 at Tinker list price
+  workflow: weekly-sweep-manual-1792220143-little-loop   memory: backboard
+
+=== RECALL CARD card_2026-10-15_flip-garage  Flip Garage (eBay household & tools flipper)  (week of 2026-10-15) ===
+  14 new recalls this week | 30 items checked | model: qwen3.5-4b-recalldesk-lora
+  DO NOT SELL (2)
+    x Scotch Thermal Laminator 13 inch (model TL1302Z)  -> CPSC 27024: 3M Company Recalls Scotch™ Thermal Laminators Due to Risk of Serious I
+        why: Listing matches recalled brand, product type, and explicitly states the recalled model number TL1302Z. Hazard: Overheats, posing fire hazard.
+        remedy: Stop use, unplug, contact 3M for refund
+    x Romorgniz Six-Drawer Dresser  -> CPSC 27020: Romorgniz Recalls Six-Drawer Dressers Due to Risk of Serious Injury or
+        why: Recall covers all units of this product name and the listing matches the brand and product line exactly. Hazard: Tip-over and entrapment hazards if un
+        remedy: Stop use, mark RECALLED, disassemble, and send photos for refund
+  CHECK LABEL (1)
+    ? DR Power Equipment Pilot Trimmer Mower  -> CPSC 27016
+        look for: model no. T4X1076DMN, T4X1076DMNR, T4X1076DMNSD, T4X1176DMN...; sold 2022-11 to 2026-07. The model numbers are printed on a label located on the side of the pro
+  model usage: 26 classify calls for 30 items | p50 3331 ms/item (p90 6939, mean 2972 ms/call) | tokens 11890 in + 1636 out | est. $0.0056 at Tinker list price
+  workflow: weekly-sweep-manual-1792220143-flip-garage   memory: backboard
+
+# addendum: all 14 recalls above already had a cached teacher spec, so the sweep made no teacher call.
+# To prove the live teacher path (what a brand-new Thursday recall goes through), one direct call:
+$ python -c 'from ml.spec_extract import extract_one; extract_one(<CPSC 27029 from the live API>)'
+extract_one(27029) on the teacher (provider=tinker, Qwen3.5-397B-A17B): 16.7s
+{"brand": "Xalirium (usOpal)", "product_name": "Xalirium Adult Portable Bed Rails", "model_numbers": [], "sold_from": "2026-02", "sold_to": "2026-08", "hazard_short": "Entrapment, asphyxiation, and fall hazards", "remedy_short": "Stop use, cut product, photo email for full refund"}
+spend stage spec_extract_live: {"model": "Qwen/Qwen3.5-397B-A17B", "recalls": 1, "prompt_tokens": 843, "completion_tokens": 258, "est_usd": 0.0033, "at": "2026-10-17T06:57:41+00:00"}

@@ -169,9 +169,10 @@ async def load_shop_memories(inp: MemoryInput) -> MemorySet:
                 async def one(i: int, it: Item):
                     async with sem:
                         activity.heartbeat(i)
-                        return str(i), await backboard_memory.search(inp.shop_id, pipeline.item_text(it), limit=3,
+                        return str(i), await backboard_memory.search(inp.shop_id, pipeline.memory_query(it), limit=3,
                                                                      client=client)
                 pairs = await asyncio.gather(*(one(i, it) for i, it in enumerate(inp.items)))
+            listed = await backboard_memory.list_memories(inp.shop_id)  # one call: safety net for search misses
         except httpx.HTTPStatusError as e:
             code = e.response.status_code
             record_event("load_shop_memories", info.attempt, "error", f"Backboard HTTP {code}")
@@ -183,9 +184,11 @@ async def load_shop_memories(inp: MemoryInput) -> MemorySet:
             record_event("load_shop_memories", info.attempt, "error", type(e).__name__)
             raise ApplicationError(f"Backboard network error: {type(e).__name__}", type="BackboardUnavailable") from None
     by_item = {k: v for k, v in pairs if v}
+    n_search = len({h.memory_id for v in by_item.values() for h in v})
+    added = backboard_memory.merge_listed(by_item, [pipeline.item_text(it) for it in inp.items], listed)
     total = len({h.memory_id for v in by_item.values() for h in v})
-    log.info("[load_shop_memories] shop=%s backend=%s: %d relevant memories for %d items", inp.shop_id, be, total,
-             len(by_item))
+    log.info("[load_shop_memories] shop=%s backend=%s: %d relevant memories for %d items (%d via search, +%d item "
+             "match(es) from the memory list)", inp.shop_id, be, total, len(by_item), n_search, added)
     record_event("load_shop_memories", info.attempt, "ok", f"{total} memories, backend={be}")
     return MemorySet(by_item=by_item, backend=be, total=total, attempt=info.attempt)
 

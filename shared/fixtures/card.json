@@ -10,149 +10,136 @@
    "item": "Papablic Convertible Bedside Sleeper with Play Yard (model PAPA03001AI)",
    "recall_number": "27027",
    "recall_title": "Papablic, of USA Recalls Convertible Bedside Sleepers Due to Risk of Serious Injury or Death from Entrapment, Suffocation and Fall Hazards; Violate Mandatory Standard for Play Yards",
-   "why": "Recalled identifier PAPA03001AI appears in the listing. Hazard: The bedside sleepers with play yard extensions violate the mandatory.",
-   "remedy": "Stop using; refund",
-   "source": "heuristic"
+   "why": "Listing matches recalled brand, product type, and explicitly states the recalled model number. Hazard: Entrapment, suffocation, and fall hazards from collapse.",
+   "remedy": "Stop use, destroy product, email photos for refund",
+   "source": "model"
   },
   {
    "item": "Primark 101 Dalmatians Faux Leather Coin Purse (model 2595301)",
    "recall_number": "27028",
    "recall_title": "Primark Recalls 101 Dalmatians Faux Leather Children’s Coin Purses Due to Phthalate Levels and Risk of Ingestion",
-   "why": "Recalled identifier 2595301 appears in the listing. Hazard: The coin purses contain higher phthalate concentration levels. Phthalates can.",
-   "remedy": "Stop using; refund",
-   "source": "heuristic"
+   "why": "Listing matches recalled brand, product name, and explicitly states the recalled model number. Hazard: High phthalate levels risk ingestion harm.",
+   "remedy": "Return to Primark store for full refund",
+   "source": "model"
   },
   {
    "item": "ONTHEWEI Baby Bath Seat with Suction Cups (model MY002)",
    "recall_number": "27018",
    "recall_title": "ONTHEWEI Recalls Baby Bath Seats Due to Risk of Serious Injury or Death to Children from Drowning; Violate Mandatory Standard for Infant Bath Seats",
-   "why": "Recalled identifier MY002 appears in the listing. Hazard: tip over while in use, posing a risk of serious.",
-   "remedy": "Stop using; refund",
-   "source": "heuristic"
+   "why": "Listing matches brand and explicitly states the recalled model number MY002. Hazard: Unstable, can tip over causing drowning.",
+   "remedy": "Stop use, contact firm for refund, destroy unit",
+   "source": "model"
   },
   {
    "item": "Skip Hop Baby Sesame Street Elmo Silicone Teether (model 9R263210)",
    "recall_number": "26739",
    "recall_title": "Skip Hop Recalls Baby Sesame Street Elmo Silicone Teethers Due to Risk of Serious Injury or Death from Choking Hazard",
-   "why": "Recalled identifier 9R263210 appears in the listing. Hazard: The black eyes can detach from the recalled teether if.",
-   "remedy": "Stop using; refund",
-   "source": "heuristic"
+   "why": "Listing matches recalled brand, product name, and explicitly states the recalled model number. Hazard: Black eyes detach if frozen, causing choking.",
+   "remedy": "Stop use, contact Skip Hop for gift card refund",
+   "source": "model"
   },
   {
    "item": "Taleco Gear Baby Swing (model swing-1)",
    "recall_number": "26688",
    "recall_title": "Taleco Gear Recalls Baby Jumpers, Baby Swings and 2-in-1 Baby Jumper & Swings Due to Risk of Serious Injury or Death from Fall and Strangulation Hazards",
-   "why": "Recalled identifier swing-1 appears in the listing. Hazard: The baby jumper, baby swing and 2-in-1 baby jumper &.",
-   "remedy": "Stop using; refund",
-   "source": "heuristic"
+   "why": "Listing names the recalled product line and explicitly includes the recalled model number swing-1. Hazard: Fall, impact, and strangulation hazards.",
+   "remedy": "Stop use, destroy product, and contact for full refund",
+   "source": "model"
   },
   {
    "item": "Mangohood Kids Kitchen Standing Tower (model LT003)",
    "recall_number": "26655",
    "recall_title": "Mangohood Direct Kids Kitchen Standing Towers Recalled Due to Risk of Serious Injury and Death from Entrapment and Fall Hazards; Imported by Hangzhou Xinyanchuangxin",
-   "why": "Recalled identifier LT003 appears in the listing. Hazard: collapse or tip over while in use, and a child's.",
-   "remedy": "Stop using; repair",
-   "source": "heuristic"
+   "why": "Listing matches brand and explicitly states the recalled model number LT003. Hazard: Collapse, tip over, and entrapment hazards.",
+   "remedy": "Stop use; contact importer for free repair parts",
+   "source": "model"
+  },
+  {
+   "item": "Love To Dream Portable Sleep Machine with Night Light (model LTD-SM23)",
+   "recall_number": "26798",
+   "recall_title": "Love To Dream Recalls Portable Sleep Machines Due to Risk of Injury from Fire and Burn Hazards",
+   "why": "Listing matches brand and explicitly states the recalled model number LTD-SM23. Hazard: Battery overheats causing fire and burn hazards.",
+   "remedy": "Stop use immediately and register online for full refund",
+   "source": "model"
   },
   {
    "item": "Romorgniz 6-Drawer Kids Dresser",
    "recall_number": "27020",
    "recall_title": "Romorgniz Recalls Six-Drawer Dressers Due to Risk of Serious Injury or Death from Tip-Over and Entrapment Hazards; Violate Mandatory Standard for Clothing Storage Units",
-   "why": "Names the recalled Romorgniz product; recall covers all units. Hazard: The recalled dressers are unstable if they are not anchored.",
-   "remedy": "Stop using; refund",
-   "source": "heuristic"
+   "why": "Recall covers all units of this product name and the listing matches the brand and product type exactly. Hazard: Tip-over and entrapment hazards if unanchored.",
+   "remedy": "Stop use, mark RECALLED, disassemble, and send photos for refund",
+   "source": "model"
   }
  ],
  "check_label": [
   {
    "item": "Sweet Cubby Kids Loungewear Set (shirt + shorts)",
    "recall_number": "26752",
-   "look_for": "lot/date code 272779; sold 2025-06 to 2026-05. \"Batch No.: 272779\" and the size are printed on the sewn-in neck label and on the seam label.",
+   "look_for": "lot/date code Batch No.: 272779; sold 2025-06 to 2026-05. \"Batch No.: 272779\" and the size are printed on the sewn-in neck label and on the seam label.",
    "recall_title": "Sweet Cubby Recalls Children's Loungewear Sets Due to Risk of Serious Injury or Death from Burn Hazard; Violate Mandatory Standard for Children's Sleepwear",
-   "source": "heuristic"
-  },
-  {
-   "item": "Love To Dream Portable Sleep Machine with Night Light (model LTD-SM23)",
-   "recall_number": "26798",
-   "look_for": "model no. LTD-SM23; lot/date code 7W15TN; sold 2025-02 to 2026-09",
-   "recall_title": "Love To Dream Recalls Portable Sleep Machines Due to Risk of Injury from Fire and Burn Hazards",
-   "source": "heuristic"
+   "source": "model"
   },
   {
    "item": "HABA Rainbow Rattle Grasping Toy",
    "recall_number": "26719",
-   "look_for": "model no. 2012261001; lot/date code 0925; sold 2025-12 to 2026-07. Each HABA Rainbow Rattle Grasping and Teething Toy can be identified by the product batch code in black on one of the natural wooden hemisphere pieces and the item number found on the back side of the backer card above the barcode.",
+   "look_for": "model no. 2012261001; lot/date code batch code 0925; sold 2025-12 to 2026-07. Each HABA Rainbow Rattle Grasping and Teething Toy can be identified by the product batch code in black on one of the natural wooden hemisphere pieces and the item number found on the back side of the backer card above the",
    "recall_title": "HABA USA Recalls Rainbow Rattle Grasping and Teething Toys Due to Risk of Serious Injury or Death from Choking and Ingestion Hazards",
-   "source": "heuristic"
+   "source": "model"
   },
   {
    "item": "5Color Kids Bike Helmet and Pads Set",
    "recall_number": "26789",
-   "look_for": "model no. YD-001; lot/date code YD-260320. “Model No.: YD-001,” “Lot/Ref: YD-260320” and “Date 2026/03/20” are printed on a label on the inside of the helmet and on the product packaging.",
+   "look_for": "model no. YD-001; lot/date code Lot/Ref: YD-260320, Date 2026/03/20; sold 2026-05 to 2026-05. “Model No.: YD-001,” “Lot/Ref: YD-260320” and “Date 2026/03/20” are printed on a label on the inside of the helmet and on the product packaging.",
    "recall_title": "5Color Recalls Children’s Bicycle Helmet and Pads Sets Due to Risk of Serious Injury or Death from Head Injury; Violate Mandatory Standard for Bicycle Helmets",
-   "source": "heuristic"
-  },
-  {
-   "item": "Skip Hop Explore & More Baby's View 3-Stage Activity Center",
-   "recall_number": "23117",
-   "look_for": "model no. 307150; UPC 879674025721; sold 2016-06 to 2022-12. The style number for the Silver Lining Cloud Activity Gym is 307150 and the UPC number is 879674025721 and is printed on the Silver Lining Cloud Activity Gym playmat.",
-   "recall_title": "Skip Hop Recalls Silver Lining Cloud Activity Gyms Due to Choking Hazard",
-   "source": "heuristic"
-  },
-  {
-   "item": "Generic Pull String Silicone Busy Toy",
-   "recall_number": "26635",
-   "look_for": "lot/date code DS250238; sold 2025-05 to 2026-04. The brand name and \"Pulling Toy\" is printed on the front of the product packaging, and the batch number DS250238 on the back of packaging.",
-   "recall_title": "Aojieni Silicone Recalls Sili Factory Pull String Teething Toys Due to Risk of Serious Injury or Death from Choking; Violate Mandatory Standard for Toys",
-   "source": "heuristic"
+   "source": "model"
   },
   {
    "item": "Little Loves & Co. Kids Drawstring Jogger Set",
    "recall_number": "26724",
    "look_for": "sold 2025-05 to 2026-07. The model number and date code are printed on the neck tag.",
    "recall_title": "Little Loves & Co. Recalls Youth Clothing with Drawstrings Due to Risk of Serious Injury or Death from Entrapment Hazard",
-   "source": "heuristic"
+   "source": "model"
   },
   {
    "item": "OCOOPA Rechargeable Hand Warmer",
    "recall_number": "26659",
    "look_for": "model no. UT3053, UT3056, ZLS-118, ZLS-118S...; sold 2018-09 to 2026-05. The model number and three-digit batch number are printed on the hand warmers' underside.",
    "recall_title": "OCOOPA Direct Recalls 1.5 Million Rechargeable Hand Warmers Due to Risk of Serious Injury or Death from Fire and Burn Hazards; One Death Reported; Imported by Shenzhen Street Cat Technology",
-   "source": "heuristic"
+   "source": "model"
   },
   {
    "item": "Woodure Wooden Toddler Learning Tower",
    "recall_number": "26658",
-   "look_for": "model no. WD1764, WD1357, WD1720; sold 2024-07 to 2026-06",
+   "look_for": "model no. WD1764, WD1357, WD1720; sold 2024-07 to 2026-06. The model number is engraved on the underside of the bottom step.",
    "recall_title": "Woodure Toddler Kitchen Step Stools Recalled Due to Risk of Serious Injury and Death from Entrapment and Fall Hazards; Imported by Shenzhen Muqiqu Creative Development",
-   "source": "heuristic"
+   "source": "model"
   }
  ],
  "applied_memories": [
   {
-   "memory_id": "local_c6322c2c9d",
+   "memory_id": "beeeda90-bb74-4681-b1fa-bfdacd9ef8e6",
    "text": "Shop correction: 'HARPPA Nordi Foldable Toddler Tower' is NOT the recalled product for CPSC recall 26651. Ours is the 2022 one - consignor's receipt shows it was bought new in March 2022, before the Sept 2023 - June 2026 sale window in the recall. Checked by Maya at intake. [recall=26651 verdict=no_match]",
    "item": "HARPPA Nordi Foldable Toddler Tower",
    "recall_number": "26651",
    "model_verdict": "check",
    "applied_verdict": "no_match",
-   "backend": "local (no BACKBOARD_API_KEY)"
+   "backend": "backboard"
   },
   {
-   "memory_id": "local_92d2eba779",
-   "text": "Shop correction: 'Melissa & Doug Lights & Sounds Fire Truck Activity Board' is NOT the recalled product for CPSC recall 26780. Date wheel reads 24/11, outside the recalled 25/4, 25/5, 26/3. [recall=26780 verdict=no_match]",
+   "memory_id": "063081d1-f283-41ca-a9cd-4fea350617d8",
+   "text": "Shop correction: 'Melissa & Doug Lights & Sounds Fire Truck Activity Board' is NOT the recalled product for CPSC recall 26780. Date wheels on the battery box read 24 / 11 (Nov 2024), not the recalled 25/4, 25/5 or 26/3, and it was bought before the July 2025 Target sale window. Checked by Maya at intake. [recall=26780 verdict=no_match]",
    "item": "Melissa & Doug Lights & Sounds Fire Truck Activity Board",
    "recall_number": "26780",
    "model_verdict": "check",
    "applied_verdict": "no_match",
-   "backend": "local (no BACKBOARD_API_KEY)"
+   "backend": "backboard"
   }
  ],
- "workflow_id": "check-little-loop-2026-10-17-4aa7",
- "model": "heuristic-rules-v1 (heuristic, no model key)",
- "generated_at": "2026-10-17T04:19:12.300Z",
+ "workflow_id": "check-little-loop-2026-10-17-64ff",
+ "model": "qwen3.5-4b-recalldesk-lora",
+ "generated_at": "2026-10-17T07:19:46.100Z",
  "notes": [],
- "memory_backend": "local (no BACKBOARD_API_KEY)",
+ "memory_backend": "backboard",
  "store_scan": {
   "source": "skipped (no eBay store configured for this shop)",
   "listings_seen": 0,
@@ -163,5 +150,15 @@
  "actions": {
   "match": "DO NOT SELL",
   "check": "CHECK LABEL"
+ },
+ "usage": {
+  "items": 60,
+  "model_calls": 179,
+  "tokens_in": 71242,
+  "tokens_out": 11191,
+  "cost_usd": 0.03476,
+  "p50_item_latency_ms": 7406,
+  "p90_item_latency_ms": 7861,
+  "mean_call_latency_ms": 2460
  }
 }

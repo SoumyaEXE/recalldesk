@@ -66,9 +66,11 @@ def run_inline(wid: str, shop_id: str, items: list[dict], corpus: str | None = N
         mem: dict[str, list] = {}
         try:
             for i, it in enumerate(its):
-                hits = asyncio.run(backboard_memory.search(shop_id, pipeline.item_text(it), limit=3))
+                hits = asyncio.run(backboard_memory.search(shop_id, pipeline.memory_query(it), limit=3))
                 if hits:
                     mem[str(i)] = hits
+            backboard_memory.merge_listed(mem, [pipeline.item_text(it) for it in its],
+                                          asyncio.run(backboard_memory.list_memories(shop_id)))
             done("load_shop_memories", f"backend={backboard_memory.backend()}")
         except Exception as e:
             done("load_shop_memories", status="failed", error=type(e).__name__)

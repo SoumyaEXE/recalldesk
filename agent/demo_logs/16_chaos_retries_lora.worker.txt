@@ -1,0 +1,49 @@
+12:27:52.329 [worker] worker pid=23940 up: temporal=localhost:7233 queue=recalldesk-chaos provider=tinker model=qwen3.5-4b-recalldesk-lora memory=backboard chaos=ON sentry=off
+12:27:55.189 [worker] [load_inventory] shop=little-loop: 60 items
+12:27:55.394 [worker] [load_spec_set] shop=little-loop corpus=AB: 591 recalls (data/recalls/recalls.jsonl; specs: 591 teacher + 0 heuristic)
+12:27:58.321 [worker] [load_shop_memories] shop=little-loop backend=backboard: 1 relevant memories for 60 items
+12:28:00.495 [worker] [retrieve_candidates] 60 items -> 179 (item, recall) pairs (top-3)
+12:28:00.548 [worker] [check_item] #2 attempt=1 invalid model output -> retry
+12:28:06.293 [worker] ServiceClient initialized for session bbb62f84-9ccd-533e-afac-31a11e09b76a
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+12:28:11.139 [worker] Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+12:28:22.048 [worker] [check_item] #4 Baby Swing -> 26688:match
+12:28:22.048 [worker] [check_item] #5 Kids Loungewear Set (shirt + shorts) -> 26752:check
+12:28:22.049 [worker] [check_item] #1 101 Dalmatians Faux Leather Coin Purse -> 27028:match
+12:28:22.096 [worker] [check_item] #6 attempt=1 model hung (chaos) - stops heartbeating
+12:28:22.468 [worker] [check_item] #3 Baby Sesame Street Elmo Silicone Teether -> 26739:match
+12:28:22.469 [worker] [check_item] #0 Convertible Bedside Sleeper with Play Ya -> 27027:match
+12:28:22.850 [worker] [check_item] #2 Baby Bath Seat with Suction Cups -> 27018:match (attempt 2)
+12:28:30.567 [worker] [check_item] #9 Lights & Sounds Fire Truck Activity Boar -> 26780:check
+12:28:30.569 [worker] [check_item] #8 Portable Sleep Machine with Night Light -> 26798:match
+12:28:30.570 [worker] [check_item] #11 Kids Bike Helmet and Pads Set -> 26789:check
+12:28:30.633 [worker] [check_item] #14 attempt=1 invalid model output -> retry
+12:28:31.076 [worker] [check_item] #10 Rainbow Rattle Grasping Toy -> 26719:check
+12:28:31.131 [worker] [check_item] #16 attempt=1 invalid model output -> retry
+12:28:31.699 [worker] [check_item] #14 attempt=2 model hung (chaos) - stops heartbeating
+12:28:32.608 [worker] [check_item] #6 attempt=2 invalid model output -> retry
+12:28:38.105 [worker] [check_item] #17 attempt=1 invalid model output -> retry
+12:28:39.056 [worker] [check_item] #17 attempt=2 invalid model output -> retry
+12:28:40.106 [worker] [check_item] #17 attempt=3 invalid model output -> retry
+12:28:40.244 [worker] [check_item] #16 Pack 'n Play On the Go Playard -> clear (attempt 2)
+12:28:42.125 [worker] [check_item] #17 Vista V2 Stroller -> clear (attempt 4, HEURISTIC FALLBACK)
+12:28:42.162 [worker] [check_item] #6 Kids Kitchen Standing Tower -> 26655:match (attempt 3)
+12:28:52.290 [worker] [check_item] #14 Wooden Shape Sorting Cube -> clear (attempt 3)
+12:29:19.791 [worker] [check_item] #43 attempt=1 invalid model output -> retry
+12:29:19.805 [worker] [check_item] #46 attempt=1 model hung (chaos) - stops heartbeating
+12:29:20.799 [worker] [check_item] #43 attempt=2 invalid model output -> retry
+12:29:21.826 [worker] [check_item] #43 attempt=3 invalid model output -> retry
+12:29:23.882 [worker] [check_item] #43 Frozen II Elsa Coin Purse -> clear (attempt 4, HEURISTIC FALLBACK)
+12:29:30.749 [worker] [check_item] #46 attempt=2 model hung (chaos) - stops heartbeating
+12:29:30.963 [worker] [check_item] #52 attempt=1 model hung (chaos) - stops heartbeating
+12:29:36.698 [worker] [check_item] #55 attempt=1 invalid model output -> retry
+12:29:41.745 [worker] [check_item] #46 attempt=3 invalid model output -> retry
+12:29:43.769 [worker] [check_item] #46 KeyFit 30 Infant Car Seat Base -> clear (attempt 4, HEURISTIC FALLBACK)
+12:29:44.005 [worker] [check_item] #59 attempt=1 model hung (chaos) - stops heartbeating
+12:29:46.619 [worker] [check_item] #55 Kids Drawstring Jogger Set -> 26724:check (attempt 2)
+12:29:46.626 [worker] [check_item] #56 6-Drawer Kids Dresser -> 27020:match
+12:29:50.236 [worker] [check_item] #52 Snuzpod 4 Bedside Crib -> clear (attempt 2)
+12:29:51.122 [worker] [check_item] #57 Rechargeable Hand Warmer -> 26659:check
+12:30:03.814 [worker] [check_item] #59 Wooden Toddler Learning Tower -> 26658:check (attempt 2)
+12:30:03.896 [worker] [compose_card] card_2026-10-15_little-loop: 8 DO NOT SELL, 7 CHECK LABEL, 1 memories applied
+12:30:03.938 [worker] [publish_card] wrote agent/cards/check-little-loop-2026-10-17-6b31.json

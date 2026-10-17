@@ -34,6 +34,13 @@ def item_text(item: Item) -> str:
     return " ".join(x for x in (item.brand, item.name, item.model, item.notes) if x)
 
 
+def memory_query(item: Item) -> str:
+    """Memory search query: brand + name + model only. Backboard's search dropped the matching correction entirely
+    when the item's free-text notes ("red, ladder rotates, batteries included") were in the query (2026-10-17);
+    the notes still count in applies_to(), which matches against item_text()."""
+    return " ".join(x for x in (item.brand, item.name, item.model) if x)
+
+
 def item_label(item: Item) -> str:
     s = item.name if (not item.brand or item.brand.lower() in item.name.lower()) else f"{item.brand} {item.name}"
     return s + (f" (model {item.model})" if item.model else "")

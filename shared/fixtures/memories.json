@@ -1,5 +1,16 @@
 [
  {
+  "memory_id": "063081d1-f283-41ca-a9cd-4fea350617d8",
+  "shop_id": "little-loop",
+  "text": "Shop correction: 'Melissa & Doug Lights & Sounds Fire Truck Activity Board' is NOT the recalled product for CPSC recall 26780. Date wheels on the battery box read 24 / 11 (Nov 2024), not the recalled 25/4, 25/5 or 26/3, and it was bought before the July 2025 Target sale window. Checked by Maya at intake. [recall=26780 verdict=no_match]",
+  "recall_number": "26780",
+  "correct_verdict": "no_match",
+  "item": "Melissa & Doug Lights & Sounds Fire Truck Activity Board",
+  "note": "Date wheels on the battery box read 24 / 11 (Nov 2024), not the recalled 25/4, 25/5 or 26/3, and it was bought before the July 2025 Target sale window. Checked by Maya at intake.",
+  "created_at": "2026-10-17T07:17:46Z",
+  "backend": "backboard"
+ },
+ {
   "memory_id": "beeeda90-bb74-4681-b1fa-bfdacd9ef8e6",
   "shop_id": "little-loop",
   "text": "Shop correction: 'HARPPA Nordi Foldable Toddler Tower' is NOT the recalled product for CPSC recall 26651. Ours is the 2022 one - consignor's receipt shows it was bought new in March 2022, before the Sept 2023 - June 2026 sale window in the recall. Checked by Maya at intake. [recall=26651 verdict=no_match]",
