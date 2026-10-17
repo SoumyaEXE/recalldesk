@@ -1,0 +1,12 @@
+.env
+.env.*
+!.env.example
+**/.venv/
+__pycache__/
+*.pyc
+node_modules/
+.next/
+out/
+data/serp/
+*.log
+.DS_Store
