@@ -1,0 +1,21 @@
+{
+  "seed": 0,
+  "per_recall_cap": 15,
+  "recalls_with_listings": 237,
+  "groups": 233,
+  "train_recalls": 217,
+  "test_recalls": 20,
+  "train_pairs": 3007,
+  "test_pairs": 293,
+  "test_childrens_recalls": 12,
+  "train_childrens_recalls": 122,
+  "test_childrens_pairs": 180,
+  "train_pairs_dropped_listing_overlap": 115,
+  "test_recalls_by_corpus": {
+    "B": 6,
+    "A+B": 6,
+    "A": 8
+  },
+  "recall_overlap_train_test": 0,
+  "listing_overlap_train_test": 0
+}
