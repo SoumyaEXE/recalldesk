@@ -10,3 +10,12 @@ out/
 data/serp/
 *.log
 .DS_Store
+
+# Blog drafts and writing-style material: local only, never published to the repo
+docs/POST*.md
+docs/OUTLINE*.md
+docs/MEDIA*.md
+docs/*_FILL*.md
+docs/drafts/
+docs/writing/
+*.post.md
