@@ -25,6 +25,9 @@ from ml.prompts import student_messages
 from shared.schema import MatchVerdict, verdict_json
 
 
+RESULT_TIMEOUT_S = 300
+
+
 def build_conversations(split: str) -> list[dict]:
     rows = read_jsonl(SPLITS / f"{split}.jsonl")
     # targets.jsonl = teacher labels with rule 7 enforced by code (ml.enforce_rules); fall back to raw teacher labels
@@ -107,7 +110,7 @@ def main() -> None:
         lps, ws = [], []
         for i in range(0, len(test_data), 64):
             batch = test_data[i : i + 64]
-            out = tc.forward(batch, "cross_entropy").result()
+            out = tc.forward(batch, "cross_entropy").result(timeout=RESULT_TIMEOUT_S)
             lps += [o["logprobs"] for o in out.loss_fn_outputs]
             ws += [d.loss_fn_inputs["weights"] for d in batch]
         nll = compute_mean_nll(lps, ws)
@@ -128,8 +131,9 @@ def main() -> None:
             cur_lr = lr * max(0.0, 1.0 - step / total_steps)
             fwd_f = tc.forward_backward(batch, "cross_entropy")
             opt_f = tc.optim_step(tinker.AdamParams(learning_rate=cur_lr, beta1=0.9, beta2=0.95, eps=1e-8))
-            fwd = fwd_f.result()
-            opt_f.result()
+            # a lost request once hung this loop forever (2026-10-17): fail loudly instead
+            fwd = fwd_f.result(timeout=RESULT_TIMEOUT_S)
+            opt_f.result(timeout=RESULT_TIMEOUT_S)
             nll = compute_mean_nll([o["logprobs"] for o in fwd.loss_fn_outputs],
                                    [d.loss_fn_inputs["weights"] for d in batch])
             step += 1
@@ -139,7 +143,11 @@ def main() -> None:
                       f"({time.time() - t0:.0f}s)")
         eval_test(step)
         log["steps"] = step
+        # per-epoch sampler weights, so a later hang/crash still leaves a usable adapter
+        ep_path = tc.save_weights_for_sampler(name=f"{args.name}-e{epoch + 1}").result(timeout=RESULT_TIMEOUT_S).path
+        log.setdefault("epoch_model_paths", []).append([epoch + 1, step, ep_path])
         write_json(RESULTS / "training.json", log)
+        print(f"  saved epoch {epoch + 1} weights -> {ep_path}")
 
     print("saving sampler weights ...")
     model_path = tc.save_weights_for_sampler(name=args.name).result().path
