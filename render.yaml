@@ -16,7 +16,7 @@ services:
   - type: web
     name: recalldesk-agent
     runtime: python
-    plan: starter            # dev server + worker + API fit in 512 MB; the Tinker client + tokenizer may need standard
+    plan: standard           # 2 GB: Temporal dev server + worker + API + Tinker client/tokenizer (torch CPU); starter (512 MB) OOMs
     region: oregon
     buildCommand: >-
       pip install --upgrade pip &&
@@ -36,6 +36,9 @@ services:
         sync: false
       # Unset = tinker when TINKER_API_KEY + a model path exist, else heuristic. Set "heuristic" for zero spend.
       - key: RECALLDESK_MODEL_PROVIDER
+        sync: false
+      # Optional override; defaults to the trained LoRA sampler path committed in ml/results/model_path.txt
+      - key: RECALLDESK_TINKER_MODEL_PATH
         sync: false
       # *.onrender.com origins are already allowed by CORS; add exact extra origins (comma-separated) here.
       - key: RECALLDESK_CORS_ORIGINS
