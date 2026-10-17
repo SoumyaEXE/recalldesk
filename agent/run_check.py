@@ -43,6 +43,11 @@ def print_card(card: dict, out=print) -> None:
         out(f"  SHOP MEMORIES APPLIED ({len(card['applied_memories'])})")
         for m in card["applied_memories"]:
             out(f"    * {m['memory_id']}: {m.get('text', '')[:150]}")
+    u = card.get("usage") or {}
+    if u.get("model_calls"):
+        out(f"  model usage: {u['model_calls']} classify calls for {u['items']} items | p50 {u['p50_item_latency_ms']} ms/item "
+            f"(p90 {u['p90_item_latency_ms']}, mean {u['mean_call_latency_ms']} ms/call) | tokens {u['tokens_in']} in + "
+            f"{u['tokens_out']} out | est. ${u['cost_usd']:.4f} at Tinker list price")
     for n in card.get("notes") or []:
         out(f"  note: {n}")
     out(f"  workflow: {card['workflow_id']}   memory: {card.get('memory_backend')}")

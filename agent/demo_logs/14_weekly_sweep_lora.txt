@@ -1,0 +1,1 @@
+$ SERPAPI_API_KEY= python -m agent.run_check sweep --since 2026-10-08   # live CPSC, provider=tinker (LoRA), memory=backboard

@@ -192,8 +192,9 @@ async def main_async(a) -> int:
         await env.shutdown()
     ok = st["scheduled"] == st["distinct"] and st["completed_twice"] == 0 and st["before"] + st["after"] == st["distinct"]
     say(f"RESULT: {'PASS' if ok else 'FAIL'} - no activity ran to completion twice")
-    out = DEMO_LOGS / "04_crash_resume.txt"
-    out.write_text(f"$ python -m agent.demo_crash --shop {a.shop} --kill-after {a.kill_after} --delay {a.delay}\n"
+    out = DEMO_LOGS / a.out
+    out.write_text(f"$ python -m agent.demo_crash --shop {a.shop} --kill-after {a.kill_after} --delay {a.delay}"
+                   f" --out {a.out}\n"
                    + "\n".join(LINES) + "\n", encoding="utf-8")
     print(f"transcript saved to {out}")
     return 0 if ok else 1
@@ -206,6 +207,7 @@ def main() -> None:
     ap.add_argument("--delay", type=float, default=None,
                     help="simulated model latency per item (s); default 0 with a real model, 1.2 with heuristic")
     ap.add_argument("--downtime", type=float, default=3.0)
+    ap.add_argument("--out", default="04_crash_resume.txt", help="transcript file name under agent/demo_logs/")
     setup_logging("demo", "WARNING")
     a = ap.parse_args()
     if a.delay is None:

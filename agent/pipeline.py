@@ -151,11 +151,15 @@ def check_one(shop_id: str, index: int, item: Item, candidates: list[CandidateSp
     listing = item_to_listing(shop_id, index, item)
     text = item_text(item)
     pairs: list[PairResult] = []
-    total_ms = 0
+    total_ms = calls = tin = tout = 0
+    cost = 0.0
     for c in candidates:
         beat(f"{index}:{c.spec.recall_number}")
         v, meta = classify_pair(c, listing, use_heuristic)
         total_ms += int(meta.get("latency_ms") or 0)
+        calls += 1
+        tin, tout = tin + int(meta.get("tokens_in") or 0), tout + int(meta.get("tokens_out") or 0)
+        cost += float(meta.get("cost_usd") or 0.0)
         src = "heuristic-fallback" if (use_heuristic and fallback_note) else (
             "heuristic" if meta.get("provider") == "heuristic" else "model")
         pr = PairResult(recall_number=c.spec.recall_number, recall_title=c.title, verdict=v, model_verdict=v.verdict,
@@ -178,12 +182,29 @@ def check_one(shop_id: str, index: int, item: Item, candidates: list[CandidateSp
                 break
         if pr.verdict.verdict != "no_match" or pr.applied_memory or pr.guard:
             pairs.append(pr)
-    return ItemResult(index=index, item=item, pairs=pairs, latency_ms=total_ms)
+    return ItemResult(index=index, item=item, pairs=pairs, latency_ms=total_ms, model_calls=calls, tokens_in=tin,
+                      tokens_out=tout, cost_usd=round(cost, 6))
 
 
 # ---------------------------------------------------------------------------------------- compose
 def last_thursday(d: date) -> date:
     return d - timedelta(days=(d.weekday() - 3) % 7)
+
+
+def usage(results: list[ItemResult]) -> dict:
+    """Model usage of the inventory check (store-scan listings not included): per-item latency = sum of that
+    item's (item, recall) classify calls; cost = tokens x Tinker list price (ml.common.PRICING)."""
+    lat = sorted(r.latency_ms for r in results if r.model_calls)
+
+    def pct(q: float) -> int:
+        return lat[min(len(lat) - 1, int(q * len(lat)))] if lat else 0
+    calls = sum(r.model_calls for r in results)
+    tin, tout = sum(r.tokens_in for r in results), sum(r.tokens_out for r in results)
+    return {"items": len(results), "model_calls": calls, "tokens_in": tin, "tokens_out": tout,
+            "cost_usd": round(sum(r.cost_usd for r in results), 5),
+            "p50_item_latency_ms": (lat[len(lat) // 2] if len(lat) % 2 else (lat[len(lat) // 2 - 1] + lat[len(lat) // 2]) // 2)
+            if lat else 0, "p90_item_latency_ms": pct(0.9),
+            "mean_call_latency_ms": (sum(lat) // calls) if calls else 0}
 
 
 def compose(inp: ComposeInput) -> dict:
@@ -232,4 +253,5 @@ def compose(inp: ComposeInput) -> dict:
     out["memory_backend"] = inp.memory_backend
     out["store_scan"] = inp.store.model_dump(exclude={"flagged"}) if inp.store else None
     out["actions"] = {"match": CARD_ACTION["match"], "check": CARD_ACTION["check"]}
+    out["usage"] = usage(inp.results)
     return out

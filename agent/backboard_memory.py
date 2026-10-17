@@ -41,6 +41,7 @@ log = logging.getLogger("recalldesk")
 BASE = os.environ.get("BACKBOARD_BASE_URL", "https://app.backboard.io/api").rstrip("/")
 _ASSISTANTS_FILE = STATE_DIR / "backboard_assistants.json"
 _TAG = re.compile(r"\[recall=(\w+) verdict=(match|check|no_match)\]")
+_ITEM = re.compile(r"^Shop correction: '(.+?)' (?:is NOT|IS|needs)")
 FACT_PROMPT = ("Each message is a shop owner's correction to a product-recall check. Store it as ONE fact, verbatim, "
                "including the bracketed [recall=... verdict=...] tag. Do not summarize, merge or infer anything.")
 
@@ -93,9 +94,22 @@ def _headers() -> dict:
     return {"X-API-Key": os.environ["BACKBOARD_API_KEY"].strip()}
 
 
-async def _assistant_id(client: httpx.AsyncClient, shop_id: str) -> str:
+async def _bb(client: httpx.AsyncClient, shop_id: str, method: str, suffix: str, **kw) -> httpx.Response:
+    """Request against this shop's assistant. A 404 means the cached assistant id is stale (key/account changed,
+    assistant deleted): drop it from the cache, find/create the assistant again, retry once."""
+    for fresh in (False, True):
+        aid = await _assistant_id(client, shop_id, fresh=fresh)
+        r = await client.request(method, f"{BASE}/assistants/{aid}{suffix}", headers=_headers(), **kw)
+        if r.status_code != 404 or fresh:
+            r.raise_for_status()
+            return r
+        log.warning("[backboard] assistant %s for %s not found - looking it up again", aid, shop_id)
+    raise AssertionError("unreachable")
+
+
+async def _assistant_id(client: httpx.AsyncClient, shop_id: str, fresh: bool = False) -> str:
     cache = _read(_ASSISTANTS_FILE) or {}
-    if shop_id in cache:
+    if shop_id in cache and not fresh:
         return cache[shop_id]
     name = f"recalldesk-{shop_id}"
     r = await client.get(f"{BASE}/assistants", params={"skip": 0, "limit": 100}, headers=_headers())
@@ -127,6 +141,11 @@ def _hit_from(m: dict, ledger: dict, backend_name: str) -> MemoryHit:
     t = _TAG.search(text)
     if t and not md.get("recall_number"):
         md.update(recall_number=t.group(1), correct_verdict=t.group(2))
+    # Backboard's search results carry no metadata: without the local ledger (another machine, a fresh deploy)
+    # the item must come from the content itself, or applies_to() can never match.
+    it = _ITEM.search(text)
+    if it and not md.get("item"):
+        md["item"] = it.group(1)
     return MemoryHit(memory_id=mid, text=text, metadata=md, score=m.get("score"), backend=backend_name)
 
 
@@ -138,10 +157,7 @@ async def add_correction(shop_id: str, text: str, metadata: dict) -> tuple[str, 
     metadata.setdefault("created_at", _now())
     if backend() == "backboard":
         async with httpx.AsyncClient(timeout=30) as client:
-            aid = await _assistant_id(client, shop_id)
-            r = await client.post(f"{BASE}/assistants/{aid}/memories", headers=_headers(),
-                                  json={"content": text, "metadata": metadata})
-            r.raise_for_status()
+            r = await _bb(client, shop_id, "POST", "/memories", json={"content": text, "metadata": metadata})
             body = r.json() if r.content else {}
             mid = str(body.get("memory_id") or body.get("id") or "")
             op = body.get("operation_id")
@@ -169,9 +185,7 @@ async def add_correction(shop_id: str, text: str, metadata: dict) -> tuple[str, 
 async def list_memories(shop_id: str) -> list[MemoryHit]:
     if backend() == "backboard":
         async with httpx.AsyncClient(timeout=30) as client:
-            aid = await _assistant_id(client, shop_id)
-            r = await client.get(f"{BASE}/assistants/{aid}/memories", headers=_headers())
-            r.raise_for_status()
+            r = await _bb(client, shop_id, "GET", "/memories")
             body = r.json()
             ms = body.get("memories", body) if isinstance(body, dict) else body
             led = _read(_ledger_path(shop_id)) or {}
@@ -185,10 +199,7 @@ async def search(shop_id: str, query: str, limit: int = 5, client: httpx.AsyncCl
         own = client is None
         client = client or httpx.AsyncClient(timeout=30)
         try:
-            aid = await _assistant_id(client, shop_id)
-            r = await client.post(f"{BASE}/assistants/{aid}/memories/search", headers=_headers(),
-                                  json={"query": query, "limit": limit})
-            r.raise_for_status()
+            r = await _bb(client, shop_id, "POST", "/memories/search", json={"query": query, "limit": limit})
             body = r.json()
             ms = body.get("memories", body.get("results", [])) if isinstance(body, dict) else body
             led = _read(_ledger_path(shop_id)) or {}

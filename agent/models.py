@@ -112,6 +112,10 @@ class ItemResult(BaseModel):
     attempt: int = 1
     fallback: bool = False
     latency_ms: int = 0
+    model_calls: int = 0
+    tokens_in: int = 0
+    tokens_out: int = 0
+    cost_usd: float = 0.0
 
 
 class StoreScanInput(BaseModel):
