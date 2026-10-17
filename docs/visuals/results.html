@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <title>Accuracy by model</title>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&family=Public+Sans:wght@400..700&display=block" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Public+Sans:wght@400..800&family=Roboto+Mono:wght@400;500;700&display=block" rel="stylesheet">
 <link rel="stylesheet" href="base.css">
 </head>
 <body>
@@ -44,7 +44,7 @@
   s += `<text x="${costX}" y="12" text-anchor="end" font-size="11" font-weight="600" fill="${C.ink3}" letter-spacing="0.06em">$ / 1K PAIRS</text>`;
   for (let v = 0; v <= 1.0001; v += 0.25) {
     const x = sx(v);
-    s += `<line x1="${x}" y1="${top0 - 6}" x2="${x}" y2="${top0 + rows.length * rowH - 6}" stroke="${v === 0 ? "#a9a190" : C.grid}"/>`;
+    s += `<line x1="${x}" y1="${top0 - 6}" x2="${x}" y2="${top0 + rows.length * rowH - 6}" stroke="${v === 0 ? "#a9aeb1" : C.grid}"/>`;
     s += `<text x="${x}" y="${top0 + rows.length * rowH + 10}" text-anchor="middle" ${RDV.MONO} font-size="10.5" fill="${C.ink3}">${v.toFixed(2)}</text>`;
   }
   rows.forEach((d, i) => {
@@ -62,7 +62,7 @@
     s += `<text x="${lx}" y="${yMid + 4.5}" ${RDV.MONO} font-size="13" font-weight="${hi ? 700 : 500}" fill="${hi ? C.ink : C.ink2}">${d.acc.toFixed(3)}</text>`;
     if (d.acc_ci) s += `<text x="${lx}" y="${yMid + 18}" ${RDV.MONO} font-size="10" fill="${C.ink3}">${d.acc_ci[0].toFixed(2)}–${d.acc_ci[1].toFixed(2)}</text>`;
     s += `<text x="${costX}" y="${yMid + 4.5}" text-anchor="end" ${RDV.MONO} font-size="13" font-weight="${hi ? 700 : 500}" fill="${hi ? C.ink : C.ink2}">${d.cost_per_1k_usd == null ? "credits" : RDV.money(d.cost_per_1k_usd)}</text>`;
-    if (i < rows.length - 1) s += `<line x1="0" x2="${W}" y1="${top0 + (i + 1) * rowH - 6}" y2="${top0 + (i + 1) * rowH - 6}" stroke="#f1ede2"/>`;
+    if (i < rows.length - 1) s += `<line x1="0" x2="${W}" y1="${top0 + (i + 1) * rowH - 6}" y2="${top0 + (i + 1) * rowH - 6}" stroke="#edeff0"/>`;
   });
   s += `</svg>`;
   document.getElementById("chart").innerHTML = s;

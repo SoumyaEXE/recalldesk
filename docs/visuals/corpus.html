@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <title>CPSC recall corpus</title>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&family=Public+Sans:wght@400..700&display=block" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Public+Sans:wght@400..800&family=Roboto+Mono:wght@400;500;700&display=block" rel="stylesheet">
 <link rel="stylesheet" href="base.css">
 <style>
   .tiles { grid-template-columns: repeat(4, 1fr); }
@@ -45,7 +45,7 @@
   const slot = (W - x0) / days.length, bw = Math.min(38, slot * 0.66);
   let s = `<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="Recalls per ${K.weekday}: ${days.map((d) => fmt(d.date) + " " + d.n).join(", ")}">`;
   for (let v = 0; v <= yMax; v += 5) {
-    s += `<line x1="${x0}" x2="${W}" y1="${sy(v)}" y2="${sy(v)}" stroke="${v ? C.grid : "#a9a190"}"/>`;
+    s += `<line x1="${x0}" x2="${W}" y1="${sy(v)}" y2="${sy(v)}" stroke="${v ? C.grid : "#a9aeb1"}"/>`;
     s += `<text x="${x0 - 6}" y="${sy(v) + 3.5}" text-anchor="end" ${RDV.MONO} font-size="10.5" fill="${C.ink3}">${v}</text>`;
   }
   days.forEach((d, i) => {

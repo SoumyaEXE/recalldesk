@@ -3,16 +3,16 @@
 // clear / no match = circle (green). Charts use emphasis encoding: ours in ink blue, everything else neutral.
 window.RDV = (function () {
   const C = {
-    match: "#c8102e", check: "#e8a200", no_match: "#2e7d4f",
-    matchS: "#fdeaea", checkS: "#fff4d6", no_matchS: "#e5f3ea",
-    matchT: "#8a0c1f", checkT: "#6b4700", no_matchT: "#1b5233",
-    ink: "#1d1c19", ink2: "#5b5548", ink3: "#797262", grid: "#ece7da", rule: "#e9e4d6",
-    ours: "#2b5fab", other: "#b9b2a2", s1: "#2a78d6", s2: "#eb6834", a700: "#213f6f", a50: "#eef3fa",
+    match: "#b50909", check: "#e5a000", no_match: "#216e1f",
+    matchS: "#f8e1de", checkS: "#faf3d1", no_matchS: "#e3f5e1",
+    matchT: "#8b0a03", checkT: "#5c410a", no_matchT: "#154c21",
+    ink: "#1b1b1b", ink2: "#565c65", ink3: "#71767a", grid: "#e6e8ea", rule: "#dfe1e2",
+    ours: "#1a4480", other: "#c6cace", s1: "#005ea2", s2: "#c05600", a700: "#162e51", a50: "#eff6fb",
   };
   const LABEL = { match: "DO NOT SELL", check: "CHECK LABEL", no_match: "clear" };
   const VERDICT = { match: "match", check: "check", no_match: "no_match" };
-  const MONO = 'font-family="IBM Plex Mono, monospace"';
-  const NOTICE = 'font-family="Barlow Condensed, sans-serif"';
+  const MONO = 'font-family="Roboto Mono, monospace"';
+  const NOTICE = 'font-family="Public Sans, sans-serif"';
 
   function octPts(cx, cy, r) {
     const pts = [];
@@ -40,9 +40,9 @@ window.RDV = (function () {
   function glyph(kind, size = 13) {
     const r = size / 2;
     if (kind === "match")
-      return `<svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" style="vertical-align:-1px;flex:none"><polygon points="${octPts(r, r, r * 0.98)}" fill="#fff"/><rect x="${r * 0.45}" y="${r * 0.82}" width="${r * 1.1}" height="${r * 0.36}" fill="#c8102e"/></svg>`;
+      return `<svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" style="vertical-align:-1px;flex:none"><polygon points="${octPts(r, r, r * 0.98)}" fill="#fff"/><rect x="${r * 0.45}" y="${r * 0.82}" width="${r * 1.1}" height="${r * 0.36}" fill="#b50909"/></svg>`;
     if (kind === "check")
-      return `<svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" style="vertical-align:-1px"><polygon points="${triPts(r, r * 1.08, r * 1.02)}" fill="#1d1c19"/><rect x="${r - 0.8}" y="${r * 0.62}" width="1.6" height="${r * 0.62}" fill="#e8a200"/><rect x="${r - 0.8}" y="${r * 1.42}" width="1.6" height="1.6" fill="#e8a200"/></svg>`;
+      return `<svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" style="vertical-align:-1px"><polygon points="${triPts(r, r * 1.08, r * 1.02)}" fill="#1b1b1b"/><rect x="${r - 0.8}" y="${r * 0.62}" width="1.6" height="${r * 0.62}" fill="#e5a000"/><rect x="${r - 0.8}" y="${r * 1.42}" width="1.6" height="1.6" fill="#e5a000"/></svg>`;
     return `<svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" style="vertical-align:-1px"><circle cx="${r}" cy="${r}" r="${r * 0.95}" fill="#fff"/></svg>`;
   }
   function stamp(kind, text) {
@@ -83,7 +83,7 @@ window.RDV = (function () {
     if (worst === "real") return worst;
     const ph = worst === "placeholder";
     const word = ph ? "PLACEHOLDER · NOT REAL DATA" : "PROVISIONAL · RAW TEACHER LABELS";
-    const col = ph ? "#c8102e" : "#b07a00";
+    const col = ph ? "#b50909" : "#936f38";
     const w = frame.offsetWidth, h = frame.offsetHeight;
     let t = "";
     for (let y = -h; y < h * 2; y += 92) for (let x = -w; x < w * 2; x += 430)

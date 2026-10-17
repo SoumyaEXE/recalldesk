@@ -54,9 +54,9 @@ _FONTS: dict[tuple[str, int], ImageFont.FreeTypeFont] = {}
 _FILES = {
     "sans": ROOT / "docs/charts/fonts/PublicSans-400.ttf", "sans6": ROOT / "docs/charts/fonts/PublicSans-600.ttf",
     "sans7": ROOT / "docs/charts/fonts/PublicSans-700.ttf",
-    "serif": HERE / "fonts/merriweather-latin-400-normal.woff2",
-    "serif7": HERE / "fonts/merriweather-latin-700-normal.woff2",
-    "mono": HERE / "fonts/roboto-mono-latin-400-normal.woff2", "mono5": HERE / "fonts/roboto-mono-latin-500-normal.woff2",
+    "serif": HERE / "fonts/Merriweather-400.ttf",
+    "serif7": HERE / "fonts/Merriweather-700.ttf",
+    "mono": HERE / "fonts/RobotoMono-400.ttf", "mono5": HERE / "fonts/RobotoMono-500.ttf",
 }
 
 

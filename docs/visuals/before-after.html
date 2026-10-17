@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <title>Base vs LoRA on one test pair</title>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&family=Public+Sans:wght@400..700&display=block" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Public+Sans:wght@400..800&family=Roboto+Mono:wght@400;500;700&display=block" rel="stylesheet">
 <link rel="stylesheet" href="base.css">
 <style>
   .pair { margin-top: 18px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
@@ -56,7 +56,7 @@
   document.getElementById("rk").textContent = `CPSC recall ${X.recall_number || ""}`;
   document.getElementById("rt").textContent = X.recall_title;
   document.getElementById("lt").textContent = X.listing_title;
-  document.getElementById("gold").innerHTML = `Answer key (teacher + rule 7): ${RDV.stamp(X.gold, X.gold === "no_match" ? "no match" : null)} <span class="mono" style="color:#797262">${X.gold}</span>`;
+  document.getElementById("gold").innerHTML = `Answer key (teacher + rule 7): ${RDV.stamp(X.gold, X.gold === "no_match" ? "no match" : null)} <span class="mono" style="color:#71767a">${X.gold}</span>`;
   const pretty = (v) => {
     let t = esc(JSON.stringify(v, null, 2));
     t = t.replace(/(&quot;[a-z_]+&quot;):/g, '<span class="k">$1</span>:');

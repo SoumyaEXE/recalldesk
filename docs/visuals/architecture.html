@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <title>RecallDesk architecture</title>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&family=Public+Sans:wght@400..700&display=block" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Public+Sans:wght@400..800&family=Roboto+Mono:wght@400;500;700&display=block" rel="stylesheet">
 <link rel="stylesheet" href="base.css">
 </head>
 <body>
@@ -20,15 +20,15 @@
   const C = RDV.C, n = RDV.n;
   const real = (sec) => RD[sec] && RD[sec].status === "real";
   const sc = RD.scan, ev = RD.eval, tr = RD.training, sp = RD.spend, co = RD.corpus;
-  const W = 718, H = 624;
+  const W = 718, H = 644;
   const TAG = {
-    CPSC: ["#e9e4d6", "#423e35"], TINKER: ["#d9e4f3", "#213f6f"], SERPAPI: ["#fff4d6", "#6b4700"],
-    BACKBOARD: ["#dcefee", "#175f5f"], CODE: ["#f5f2e9", "#5b5548"], PAPER: ["#fdeaea", "#8a0c1f"],
+    CPSC: ["#dfe1e2", "#3d4551"], TINKER: ["#d9e8f6", "#162e51"], SERPAPI: ["#faf3d1", "#5c410a"],
+    BACKBOARD: ["#e7f6f8", "#00687d"], CODE: ["#f1f3f6", "#565c65"], PAPER: ["#f8e1de", "#8b0a03"],
   };
   const T_ = (x, y, txt, o = {}) => `<text x="${x}" y="${y}" font-size="${o.size || 12}" font-weight="${o.w || 400}" fill="${o.fill || C.ink}" ${o.anchor ? `text-anchor="${o.anchor}"` : ""} ${o.mono ? RDV.MONO : ""} ${o.notice ? RDV.NOTICE : ""} ${o.ls ? `letter-spacing="${o.ls}"` : ""}>${txt}</text>`;
   function box(x, y, w, h, tag, title, lines, o = {}) {
     const [tb, tf] = TAG[tag];
-    let g = `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="7" fill="#ffffff" stroke="${o.hi ? C.ours : "#d7d0be"}" stroke-width="${o.hi ? 1.8 : 1}"/>`;
+    let g = `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="7" fill="#ffffff" stroke="${o.hi ? C.ours : "#c6cace"}" stroke-width="${o.hi ? 1.8 : 1}"/>`;
     const tw = tag.length * 6.6 + 12;
     g += `<rect x="${x + 9}" y="${y + 9}" width="${tw}" height="15" rx="3" fill="${tb}"/>`;
     g += T_(x + 15, y + 20, tag, { size: 9.5, w: 700, fill: tf, mono: true, ls: "0.05em" });
@@ -36,16 +36,16 @@
     lines.forEach((l, i) => { g += T_(x + 9, y + 58 + i * 14.5, l, { size: 11, fill: C.ink2 }); });
     return g;
   }
-  const defs = `<defs>${["#5b5548", C.ours, "#175f5f", C.match].map((c, i) =>
+  const defs = `<defs>${["#565c65", C.ours, "#00687d", C.match].map((c, i) =>
     `<marker id="ah${i}" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,1 L9,5 L0,9 Z" fill="${c}"/></marker>`).join("")}</defs>`;
   const arrow = (x1, y1, x2, y2, o = {}) =>
-    `<path d="${o.d || `M${x1},${y1} L${x2},${y2}`}" fill="none" stroke="${o.col || "#5b5548"}" stroke-width="1.5" ${o.dash ? 'stroke-dasharray="4 3"' : ""} marker-end="url(#ah${o.m || 0})"/>` +
+    `<path d="${o.d || `M${x1},${y1} L${x2},${y2}`}" fill="none" stroke="${o.col || "#565c65"}" stroke-width="1.5" ${o.dash ? 'stroke-dasharray="4 3"' : ""} marker-end="url(#ah${o.m || 0})"/>` +
     (o.label ? T_(o.lx, o.ly, o.label, { size: 10.5, fill: o.lcol || C.ink3, anchor: o.la || "middle", w: o.lw || 400 }) : "");
   let s = `<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="Offline: CPSC recalls, teacher specs on Tinker, SerpApi eBay search, pairs, teacher labels, Tinker LoRA on Qwen3.5-4B, graded vs teacher + rule 7 (code) on held-out recalls. Weekly Temporal schedule: fetch_new_recalls, extract_spec, load_shop_memories from Backboard, retrieve and check_item, scan_ebay_store, compose_card, publish_card; the shop's corrections go back into Backboard.">${defs}`;
 
   // ---------------- zone A: once, offline
   const zAh = 318;
-  s += `<rect x="0" y="0" width="${W}" height="${zAh}" rx="10" fill="#f5f2e9"/>`;
+  s += `<rect x="0" y="0" width="${W}" height="${zAh}" rx="10" fill="#f1f3f6"/>`;
   s += T_(14, 22, "ONCE, OFFLINE · THE BIG MODEL TEACHES", { size: 11, w: 700, fill: C.ink2, mono: true, ls: "0.06em" });
   const bw = 212, bh = 92, gx = (W - 28 - 3 * bw) / 2, r1 = 36, r2 = 172;
   const X = (i) => 14 + i * (bw + gx);
@@ -64,17 +64,17 @@
   s += arrow(X(1), my2, X(0) + bw + 3, my2, { label: "train", lx: (X(0) + bw + X(1)) / 2, ly: my2 - 7, col: C.ours, m: 1, lcol: C.ours, lw: 600 });
   // grading: answer key = teacher labels + rule 7 enforced by code (no human grader)
   const hy = r2 + bh + 12;
-  s += `<rect x="${X(1)}" y="${hy}" width="${X(2) + bw - X(1)}" height="30" rx="6" fill="#1d1c19"/>`;
-  s += T_(X(1) + 10, hy + 19.5, "EVAL", { size: 9.5, w: 700, fill: "#efcf78", mono: true, ls: "0.05em" });
+  s += `<rect x="${X(1)}" y="${hy}" width="${X(2) + bw - X(1)}" height="30" rx="6" fill="#1b1b1b"/>`;
+  s += T_(X(1) + 10, hy + 19.5, "EVAL", { size: 9.5, w: 700, fill: "#e6c74c", mono: true, ls: "0.05em" });
   s += T_(X(1) + 52, hy + 19.5, real("eval") && ev.test_recalls ? `graded vs teacher + rule 7 (code) on ${n(ev.test_recalls)} held-out recalls` : "graded vs teacher + rule 7 (code) on held-out recalls", { size: 11.5, w: 600, fill: "#ffffff" });
-  s += arrow(X(1) - 3, hy + 15, X(0) + bw / 2, r2 + bh + 3, { d: `M${X(1) - 3},${hy + 15} L${X(0) + bw / 2},${hy + 15} L${X(0) + bw / 2},${r2 + bh + 3}`, col: "#1d1c19", label: "grade", lx: X(0) + bw / 2 + 30, ly: hy + 11 });
+  s += arrow(X(1) - 3, hy + 15, X(0) + bw / 2, r2 + bh + 3, { d: `M${X(1) - 3},${hy + 15} L${X(0) + bw / 2},${hy + 15} L${X(0) + bw / 2},${r2 + bh + 3}`, col: "#1b1b1b", label: "grade", lx: X(0) + bw / 2 + 30, ly: hy + 11 });
 
   // ---------------- zone B: weekly Temporal sweep
   const zB = zAh + 34, zBh = H - zB;
-  s += `<rect x="0" y="${zB}" width="${W}" height="${zBh}" rx="10" fill="#eef3fa" stroke="#d9e4f3"/>`;
+  s += `<rect x="0" y="${zB}" width="${W}" height="${zBh}" rx="10" fill="#eff6fb" stroke="#d9e8f6"/>`;
   s += T_(14, zB + 22, "EVERY THURSDAY 14:00 ET · TEMPORAL SCHEDULE → WeeklyRecallSweep", { size: 11, w: 700, fill: C.a700, mono: true, ls: "0.05em" });
   s += T_(14, zB + 38, "each step is an activity with its own retry policy; a crashed worker resumes from the event history", { size: 11, fill: C.ink2 });
-  const cw = 163, ch = 74, cg = (W - 28 - 4 * cw) / 3, q1 = zB + 54, q2 = zB + 176;
+  const cw = 163, ch = 84, cg = (W - 28 - 4 * cw) / 3, q1 = zB + 54, q2 = zB + 186;
   const CX = (i) => 14 + i * (cw + cg);
   const chip = (i, y, title, lines, tag, o = {}) => box(CX(i), y, cw, ch, tag, title, lines, { monoTitle: true, ts: 12, ...o });
   s += chip(0, q1, "fetch_new_recalls", ["CPSC since last run", "5xx → backoff"], "CPSC");
@@ -86,13 +86,13 @@
   s += chip(1, q2, "publish_card", ["one card per shop", "then it goes quiet"], "CODE");
   // printed card
   const px = CX(0), pw = cw;
-  s += `<rect x="${px}" y="${q2 - 6}" width="${pw}" height="${ch + 12}" rx="4" fill="#fffdf8" stroke="#a9a190" transform="rotate(-2 ${px + pw / 2} ${q2 + ch / 2})"/>`;
-  s += `<g transform="rotate(-2 ${px + pw / 2} ${q2 + ch / 2})">`;
+  s += `<rect x="${px}" y="${q2 - 6}" width="${pw}" height="${ch + 12}" rx="4" fill="#ffffff" stroke="#a9aeb1"/>`;
+  s += `<g>`;
   s += T_(px + 10, q2 + 12, "THE PRINTED CARD", { size: 9.5, w: 700, mono: true, fill: C.ink3, ls: "0.05em" });
   s += `<rect x="${px + 10}" y="${q2 + 20}" width="${pw - 20}" height="19" rx="3" fill="${C.match}"/>` + RDV.shape("match", px + 21, q2 + 29.5, 5.5, "fill", "#ffffff");
-  s += T_(px + 32, q2 + 34, "DO NOT SELL", { size: 14, w: 700, fill: "#fff", notice: true, ls: "0.04em" });
-  s += `<rect x="${px + 10}" y="${q2 + 44}" width="${pw - 20}" height="19" rx="3" fill="${C.check}"/>` + RDV.shape("check", px + 21, q2 + 54.5, 5.2, "fill", "#1d1c19");
-  s += T_(px + 32, q2 + 58, "CHECK LABEL", { size: 14, w: 700, fill: "#1d1c19", notice: true, ls: "0.04em" });
+  s += T_(px + 32, q2 + 34, "DO NOT SELL", { size: 12, w: 700, fill: "#fff", notice: true, ls: "0.04em" });
+  s += `<rect x="${px + 10}" y="${q2 + 44}" width="${pw - 20}" height="19" rx="3" fill="${C.check}"/>` + RDV.shape("check", px + 21, q2 + 54.5, 5.2, "fill", "#1b1b1b");
+  s += T_(px + 32, q2 + 58, "CHECK LABEL", { size: 12, w: 700, fill: "#1b1b1b", notice: true, ls: "0.04em" });
   s += T_(px + 10, q2 + 77, "look for: model no.", { size: 10, fill: C.ink3, mono: true });
   s += `</g>`;
   const m1 = q1 + ch / 2, m2 = q2 + ch / 2;
@@ -104,8 +104,8 @@
   s += arrow(0, 0, 0, 0, { d: `M${X(0) + 34},${r2 + bh + 1} L${X(0) + 34},${zAh + 17} L${CX(3) + cw / 2},${zAh + 17} L${CX(3) + cw / 2},${q1 - 3}`, col: C.ours, dash: true, m: 1, label: "the LoRA serves every check (Tinker sampler, or any OpenAI-compatible server)", lx: CX(3) + cw / 2 - 8, ly: zAh + 13, la: "end", lcol: C.ours, lw: 600 });
   // shop correction loop
   const ly = q1 + ch + 30;
-  s += arrow(0, 0, 0, 0, { d: `M${CX(0) + pw / 2},${q2 - 10} L${CX(0) + pw / 2},${ly} L${CX(2) + cw / 2},${ly} L${CX(2) + cw / 2},${q1 + ch + 3}`, col: "#175f5f", dash: true, m: 2 });
-  s += T_(CX(0) + pw / 2 + 8, ly - 6, "the shop corrects a verdict → Backboard memory → next run", { size: 11, w: 600, fill: "#175f5f" });
+  s += arrow(0, 0, 0, 0, { d: `M${CX(0) + pw / 2},${q2 - 10} L${CX(0) + pw / 2},${ly} L${CX(2) + cw / 2},${ly} L${CX(2) + cw / 2},${q1 + ch + 3}`, col: "#00687d", dash: true, m: 2 });
+  s += T_(CX(0) + pw / 2 + 8, ly - 6, "the shop corrects a verdict → Backboard memory → next run", { size: 11, w: 600, fill: "#00687d" });
   s += `</svg>`;
   document.getElementById("chart").innerHTML = s;
 })();

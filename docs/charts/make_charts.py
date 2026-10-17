@@ -15,7 +15,7 @@ Seller names never leave this script: only titles, conditions and counts are rea
 Setup (once):
     python -m uv venv --python 3.12 docs/charts/.venv
     python -m uv pip install --python docs/charts/.venv/Scripts/python.exe matplotlib numpy
-Fonts: docs/charts/fonts/*.ttf (Barlow Condensed, Public Sans, IBM Plex Mono from Google Fonts / Fontsource);
+Fonts: docs/charts/fonts/*.ttf (Merriweather, Public Sans, Roboto Mono: the USWDS set, from Google Fonts / Fontsource);
 missing fonts fall back to DejaVu.
 """
 from __future__ import annotations
@@ -53,16 +53,20 @@ LABELS = ["match", "check", "no_match"]
 
 # ------------------------------------------------------------------------------------------------ tokens
 C = dict(
-    bg="#faf7f0", paper="#fffdf8", ink="#1d1c19", ink2="#5b5548", ink3="#797262", grid="#e6e0d1", rule="#d7d0be",
-    blue="#2b5fab", blue_l="#85a6d4", blue_xl="#d9e4f3", other="#b9b2a2", other_l="#e2ddd0", stop="#c8102e",
-    stop_l="#f1b3b8", amber="#e8a200", amber_l="#efcf78", clear="#2e7d4f", clear_l="#acd6bb", s1="#2a78d6",
-    s2="#eb6834", kicker="#28508c", n900="#1d1c19",
+    # U.S. Web Design System (USWDS) system colors, shared with docs/blog-shots/make_blog_shots.py
+    bg="#ffffff", paper="#ffffff", ink="#1b1b1b", ink2="#565c65", ink3="#71767a", grid="#dfe1e2", rule="#a9aeb1",
+    blue="#1a4480", blue_l="#73b3e7", blue_xl="#d9e8f6", other="#c6cace", other_l="#dfe1e2", stop="#b50909",
+    stop_l="#f4b2a6", amber="#e5a000", amber_l="#ffbe2e", clear="#216e1f", clear_l="#a8cfa5", s1="#005ea2",
+    s2="#c05600", kicker="#1a4480", n900="#162e51",
 )
 
 FONTS = {"sans": "DejaVu Sans", "notice": "DejaVu Sans", "mono": "DejaVu Sans Mono"}
+TITLE_FONT: fm.FontProperties | None = None  # Merriweather Bold, by file (its family name is not unique)
 
 
 def load_fonts() -> None:
+    """USWDS type: Merriweather titles, Public Sans text and figures, Roboto Mono identifiers."""
+    global TITLE_FONT
     fdir = HERE / "fonts"
     for f in sorted(fdir.glob("*.ttf")):
         try:
@@ -70,12 +74,12 @@ def load_fonts() -> None:
             name = fm.FontProperties(fname=str(f)).get_name()
         except Exception:  # noqa: BLE001
             continue
-        if name.startswith("Barlow"):
-            FONTS["notice"] = name
-        elif name.startswith("IBM Plex Mono"):
+        if f.stem == "Merriweather-700":
+            TITLE_FONT = fm.FontProperties(fname=str(f))
+        elif name.startswith("Roboto Mono"):
             FONTS["mono"] = name
         elif name.startswith("Public Sans"):
-            FONTS["sans"] = name
+            FONTS["sans"] = FONTS["notice"] = name
     plt.rcParams.update({
         "font.family": [FONTS["sans"], "DejaVu Sans"], "font.size": 10, "axes.edgecolor": C["rule"], "axes.labelcolor": C["ink2"],
         "xtick.color": C["ink2"], "ytick.color": C["ink2"], "axes.linewidth": 0.8, "xtick.major.width": 0.8,
@@ -110,32 +114,39 @@ W = 8.0  # inches; at 200 dpi -> 1600 px wide (2x of an 800 css-px column)
 
 
 class Frame:
-    """Header (hazard tape, kicker, title, subtitle), a content rect, and a footer (source + brand)."""
+    """Header (navy rule, kicker, title, subtitle), a content rect, and a footer (source + brand)."""
 
     def __init__(self, h: float, kicker: str, title: str, sub: str, source: str, status: str = "real",
                  notes: str = ""):
         self.fig = plt.figure(figsize=(W, h), facecolor=C["bg"])
-        self.h = h
         f = self.fig
-        # hazard tape
-        tape = f.add_axes([0, 1 - 0.07 / h, 1, 0.07 / h])
-        tape.set_xlim(0, 160)
-        tape.set_ylim(0, 1)
-        tape.axis("off")
-        for i in range(-2, 170, 2):
-            tape.add_patch(plt.Polygon([[i, 0], [i + 1, 0], [i + 2, 1], [i + 1, 1]], color=C["amber"], lw=0))
-            tape.add_patch(plt.Polygon([[i + 1, 0], [i + 2, 0], [i + 3, 1], [i + 2, 1]], color=C["n900"], lw=0))
-        y = h - 0.32
-        f.text(0.5 / W, y / h, kicker.upper(), fontfamily=FONTS["mono"], fontsize=8, fontweight=600,
-               color=C["kicker"], va="baseline")
-        y -= 0.40
-        t = f.text(0.5 / W, y / h, title, fontfamily=FONTS["notice"], fontsize=19, fontweight=700, color=C["ink"],
-                   va="baseline")
+        # title at 17 pt; a title too long for one line wraps to two and the figure grows by one line
+        title = title.replace("'", "’")
+        tf = {"fontproperties": TITLE_FONT.copy()} if TITLE_FONT else {"fontweight": 700}
         r = f.canvas.get_renderer()
-        size = 19.0
-        while size > 12 and t.get_window_extent(r).width > (W - 1.0) * f.dpi:
-            size -= 0.5
-            t.set_fontsize(size)
+        probe = f.text(0, 0, title, **tf)
+        lines, tsize = [title], 17.0
+        probe.set_fontsize(tsize)
+        while tsize > 15 and probe.get_window_extent(r).width > (W - 1.0) * f.dpi:  # small overruns: tighten
+            tsize -= 0.5
+            probe.set_fontsize(tsize)
+        if probe.get_window_extent(r).width > (W - 1.0) * f.dpi:  # long titles: two lines at full size
+            tsize = 17.0
+            words = title.split()
+            cut = min(range(1, len(words)), key=lambda i: abs(len(" ".join(words[:i])) - len(title) / 2))
+            lines = [" ".join(words[:cut]), " ".join(words[cut:])]
+            h += 0.34
+            f.set_size_inches(W, h)
+        probe.remove()
+        self.h = h
+        f.patches.append(Rectangle((0, 1 - 0.04 / h), 1, 0.04 / h, transform=f.transFigure, fc=C["n900"], ec="none"))
+        y = h - 0.34
+        f.text(0.48 / W, y / h, kicker.upper(), fontsize=7.4, fontweight=600, color=C["kicker"], va="baseline")
+        for i, line in enumerate(lines):
+            y -= 0.40 if i == 0 else 0.34
+            t = f.text(0.48 / W, y / h, line, color=C["ink"], va="baseline", **{k: (v.copy() if k ==
+                       "fontproperties" else v) for k, v in tf.items()})
+            t.set_fontsize(tsize)
         y -= 0.10
         for line in textwrap.wrap(sub, 118):
             y -= 0.21
@@ -144,9 +155,9 @@ class Frame:
         foot_lines = textwrap.wrap(notes, 130) if notes else []
         fy = 0.22
         f.add_artist(plt.Line2D([0.5 / W, 1 - 0.5 / W], [(fy + 0.17) / h] * 2, color=C["rule"], lw=0.8))
-        f.text(0.5 / W, fy / h, source, fontfamily=FONTS["mono"], fontsize=6.6, color=C["ink3"], va="baseline")
-        f.text(1 - 0.5 / W, fy / h, "RECALLDESK", fontfamily=FONTS["mono"], fontsize=6.6, fontweight=600,
-               color=C["kicker"], ha="right", va="baseline")
+        f.text(0.5 / W, fy / h, source, fontsize=7, color=C["ink3"], va="baseline")
+        f.text(1 - 0.5 / W, fy / h, "RecallDesk", fontsize=7, fontweight=700, color=C["n900"], ha="right",
+               va="baseline")
         ny = fy + 0.17 + 0.12
         for line in reversed(foot_lines):
             f.text(0.5 / W, ny / h, line, fontsize=7.4, color=C["ink2"], va="baseline")
@@ -332,7 +343,7 @@ def ids_buried_counts(rows: list[dict]) -> dict:
 def chart_ids_buried(_):
     a = ids_buried_counts(D.A)
     k = ids_buried_counts([r for r in D.A if r.get("is_childrens")])
-    fr = Frame(3.9, "Where the model number lives",
+    fr = Frame(4.2, "Where the model number lives",
                f"In {a['buried']} of {a['n']} recalls, the model number is only in the fine print",
                f"{a['with_model_id']} recalls since {SINCE_A} name a model, item, style, SKU or part number. In "
                f"{a['buried']} of them it appears only in the description paragraph, never in the title or "
@@ -509,18 +520,21 @@ def chart_listings_per_recall(ss: dict):
 def chart_condition_mix(ss: dict):
     order = ["New", "Open box", "Refurbished", "Pre-Owned", "For parts", "Not stated"]
     cols = {"New": C["other"], "Open box": C["other_l"], "Refurbished": C["blue_xl"], "Pre-Owned": C["blue"],
-            "For parts": C["ink3"], "Not stated": "#efebe1", "Other": "#efebe1"}
-    rec = ss["_rec"]
+            "For parts": C["ink3"], "Not stated": C["grid"], "Other": C["grid"]}
     groups = []
-    allc = Counter(norm_condition(i["condition"]) for i in ss["_unique"].values())
+    if "_counts" in ss:  # SerpApi cache absent: the counts recorded the last time it was present
+        allc, kc, hc = (Counter(ss["_counts"][k]) for k in ("all", "childrens", "exact_id_hits"))
+    else:
+        rec = ss["_rec"]
+        allc = Counter(norm_condition(i["condition"]) for i in ss["_unique"].values())
+        kids_keys = set()
+        for rn, v in ss["_per_recall"].items():
+            if rec.get(rn, {}).get("is_childrens"):
+                kids_keys.update(v["keys"])
+        kc = Counter(norm_condition(ss["_unique"][k]["condition"]) for k in kids_keys)
+        hc = Counter(norm_condition(i["condition"]) for i in ss["_hits"].values())
     groups.append((f"All unique listings ({sum(allc.values()):,})", allc))
-    kids_keys = set()
-    adult_keys = set()
-    for rn, v in ss["_per_recall"].items():
-        (kids_keys if rec.get(rn, {}).get("is_childrens") else adult_keys).update(v["keys"])
-    kc = Counter(norm_condition(ss["_unique"][k]["condition"]) for k in kids_keys)
     groups.append((f"Listings for children's recalls ({sum(kc.values()):,})", kc))
-    hc = Counter(norm_condition(i["condition"]) for i in ss["_hits"].values())
     groups.append((f"Exact identifier in title ({sum(hc.values())})", hc))
     pre = {g: 100 * c["Pre-Owned"] / max(sum(c.values()), 1) for g, c in groups}
     g0, g1, g2 = (g for g, _ in groups)
@@ -971,6 +985,13 @@ def main(argv: list[str]) -> None:
     load_data()
     P = placeholder_values()
     ss = scan_stats()
+    if not D.searches:
+        # data/serp/ (raw SerpApi responses) is not committed; redraw from the numbers saved in chart_data.json
+        saved = load_json(OUT / "chart_data.json") or {}
+        lp, cm = saved.get("listings-per-recall") or {}, saved.get("condition-mix") or {}
+        if lp.get("unique_listings"):
+            print("data/serp/ missing: listings-per-recall and condition-mix use the saved chart_data.json counts")
+            ss = {k: v for k, v in lp.items() if k not in ("status", "histogram")} | {"_counts": cm}
     stats = load_json(DATA / "recalls" / "stats.json") or {}
     charts = {
         "recalls-per-thursday": lambda: chart_recalls_per_thursday(stats),
@@ -997,7 +1018,8 @@ def main(argv: list[str]) -> None:
         st = (info or {}).get("status", "real")
         summary[name] = {"status": st, **(info or {})}
         print(f"{p.name}" + ("" if st == "real" else f"  [{st.upper()}]"))
-    summary["generated_from"] = {"recalls": len(D.recalls), "specs": len(D.specs), "searches": len(D.searches)}
+    summary["generated_from"] = {"recalls": len(D.recalls), "specs": len(D.specs),
+                                 "searches": len(D.searches) or ss.get("searches", 0)}
     data_p.write_text(json.dumps(summary, indent=1, ensure_ascii=False, default=str) + "\n", encoding="utf-8")
     print(f"wrote {data_p.relative_to(ROOT).as_posix()}")
 

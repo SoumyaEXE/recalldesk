@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <title>Confusion matrices</title>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&family=Public+Sans:wght@400..700&display=block" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Public+Sans:wght@400..800&family=Roboto+Mono:wght@400;500;700&display=block" rel="stylesheet">
 <link rel="stylesheet" href="base.css">
 </head>
 <body>
@@ -33,7 +33,7 @@
     `Each cell counts pairs. Shading is the share of that row, so a dark diagonal means the model agrees with the answer key. The right-hand column of the top two rows is the dangerous one: a risky listing marked clear.`;
 
   const cell = 66, gx = 92, gy = 54, Wm = gx + cell * 3;
-  const blue = (t) => { // ink-blue sequential, 0 -> paper, 1 -> #2b5fab
+  const blue = (t) => { // ink-blue sequential, 0 -> paper, 1 -> #1a4480
     const a = [255, 253, 248], z = [43, 95, 171];
     return `rgb(${a.map((v, i) => Math.round(v + (z[i] - v) * t)).join(",")})`;
   };
@@ -53,9 +53,9 @@
       m[i].forEach((v, j) => {
         const t = v / rowSum, x = ox + gx + cell * j, y = gy + cell * i;
         const danger = i < 2 && j === 2;
-        s += `<rect x="${x + 1}" y="${y + 1}" width="${cell - 2}" height="${cell - 2}" rx="4" fill="${blue(Math.min(1, t * 1.05))}" stroke="${danger ? C.match : i === j ? C.a700 : "#e9e4d6"}" stroke-width="${danger || i === j ? 1.6 : 1}" ${danger ? 'stroke-dasharray="4 3"' : ""}/>`;
+        s += `<rect x="${x + 1}" y="${y + 1}" width="${cell - 2}" height="${cell - 2}" rx="4" fill="${blue(Math.min(1, t * 1.05))}" stroke="${danger ? C.match : i === j ? C.a700 : "#dfe1e2"}" stroke-width="${danger || i === j ? 1.6 : 1}" ${danger ? 'stroke-dasharray="4 3"' : ""}/>`;
         s += `<text x="${x + cell / 2}" y="${y + cell / 2 + 3}" text-anchor="middle" ${RDV.NOTICE} font-size="24" font-weight="700" fill="${t > 0.5 ? "#fff" : C.ink}">${v}</text>`;
-        s += `<text x="${x + cell / 2}" y="${y + cell / 2 + 18}" text-anchor="middle" ${RDV.MONO} font-size="9.5" fill="${t > 0.5 ? "#e8eef8" : C.ink3}">${Math.round(t * 100)}%</text>`;
+        s += `<text x="${x + cell / 2}" y="${y + cell / 2 + 18}" text-anchor="middle" ${RDV.MONO} font-size="9.5" fill="${t > 0.5 ? "#eff6fb" : C.ink3}">${Math.round(t * 100)}%</text>`;
       });
     });
   });

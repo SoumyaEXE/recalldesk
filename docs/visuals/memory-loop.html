@@ -3,24 +3,24 @@
 <head>
 <meta charset="utf-8">
 <title>Shop memory loop</title>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&family=Public+Sans:wght@400..700&display=block" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Public+Sans:wght@400..800&family=Roboto+Mono:wght@400;500;700&display=block" rel="stylesheet">
 <link rel="stylesheet" href="base.css">
 <style>
   .flow { margin-top: 20px; display: grid; grid-template-columns: 1fr 26px 1fr 26px 1fr; align-items: stretch; }
   .arrow { display: flex; align-items: center; justify-content: center; }
-  .step { border: 1px solid var(--rule); border-radius: 8px; background: #fff; display: flex; flex-direction: column; overflow: hidden; }
-  .step .n { font-family: var(--mono); font-size: 10.5px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-3); padding: 10px 12px 0; }
-  .step h3 { font-family: var(--notice); font-size: 20px; font-weight: 700; line-height: 1.05; padding: 3px 12px 0; }
+  .step { border: 1px solid var(--n300); border-top: 2px solid var(--ink); border-radius: 0; background: #fff; display: flex; flex-direction: column; overflow: hidden; }
+  .step .n { font-family: var(--sans); font-size: 10px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3); padding: 10px 12px 0; }
+  .step h3 { font-family: var(--serif); font-size: 16.5px; font-weight: 700; line-height: 1.3; padding: 3px 12px 0; }
   .step .body { padding: 10px 12px 12px; font-size: 12.5px; line-height: 1.45; color: var(--ink-2); flex: 1; }
   .item { font-weight: 650; color: var(--ink); font-size: 13px; margin-bottom: 7px; }
   .quote { border-left: 3px solid var(--a300); padding: 2px 0 2px 9px; color: var(--ink); font-size: 13px; line-height: 1.45; margin: 4px 0 9px; }
   .mono { font-size: 11px; color: var(--ink-3); }
-  .counts { display: flex; gap: 8px; padding: 9px 12px; border-top: 1px dashed var(--n300); background: var(--n50); font-family: var(--mono); font-size: 11px; color: var(--ink-2); align-items: center; flex-wrap: wrap; }
-  .counts b { font-family: var(--notice); font-size: 17px; color: var(--ink); }
+  .counts { display: flex; gap: 8px; padding: 9px 12px; border-top: 1px solid var(--n200); background: var(--n100); font-family: var(--sans); font-size: 11.5px; color: var(--ink-2); align-items: center; flex-wrap: wrap; }
+  .counts b { font-family: var(--sans); font-size: 16px; font-weight: 700; color: var(--ink); }
   .was { display: grid; grid-template-columns: 74px auto; gap: 7px 6px; align-items: center; font-size: 11.5px; color: var(--ink-3); }
   .was .faded { opacity: .42; filter: grayscale(.5); }
-  .step.mem { border-color: var(--a200); background: var(--a50); }
-  .step.mem .counts { background: #e4ecf8; border-top-color: var(--a200); }
+  .step.mem { border-color: var(--a200); border-top-color: var(--a600); background: var(--a50); }
+  .step.mem .counts { background: #eff6fb; border-top-color: var(--a200); }
   .rule { margin-top: 14px; display: grid; grid-template-columns: auto 1fr; gap: 10px 14px; align-items: start; font-size: 12.5px; line-height: 1.45; color: var(--ink-2); }
   .rule b { color: var(--ink); }
   .note { margin-top: 12px; padding: 9px 12px; border-radius: 6px; border: 1px solid var(--caution-border); background: var(--caution-surface); color: var(--caution-text); font-size: 12px; line-height: 1.45; }
@@ -43,7 +43,7 @@
   const M = RD.memory, esc = RDV.esc;
   if (M.status !== "real") { RDV.mark(["memory"]); return; }
   const B = M.before, A = M.after, row = B.rows[0] || {};
-  const arrow = `<div class="arrow"><svg width="22" height="18" viewBox="0 0 22 18"><path d="M1 9 H17 M11 3 L18 9 L11 15" fill="none" stroke="#5b5548" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>`;
+  const arrow = `<div class="arrow"><svg width="22" height="18" viewBox="0 0 22 18"><path d="M1 9 H17 M11 3 L18 9 L11 15" fill="none" stroke="#565c65" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>`;
   document.getElementById("kicker").textContent = `Shop memory · ${M.shop_name} · CPSC ${M.recall_number}`;
   document.getElementById("h1").textContent = `The shop corrects a verdict once. Next run, the card already knows.`;
   document.getElementById("sub").textContent =
@@ -53,7 +53,7 @@
   const steps = [
     `<div class="step"><div class="n">Run 1 · memories read ${esc(B.memories_loaded || B.started || B.published)}</div><h3>The card says check it</h3>
       <div class="body"><div class="item">${esc(M.item)}</div>${RDV.stamp(kind)}
-      <div style="margin-top:8px"><b style="color:#1d1c19">look for:</b> ${esc(look)}</div></div>
+      <div style="margin-top:8px"><b style="color:#1b1b1b">look for:</b> ${esc(look)}</div></div>
       <div class="counts"><span><b>${B.do_not_sell}</b> do not sell</span><span><b>${B.check_label}</b> check label</span><span><b>${B.memories_applied}</b> memory</span></div></div>`,
     `<div class="step mem"><div class="n">Correction · ${esc(M.added_at)}</div><h3>One sentence from the shop</h3>
       <div class="body"><div class="quote">"${esc(M.note || "")}"</div>
@@ -62,7 +62,7 @@
     `<div class="step"><div class="n">Run 2 · started ${esc(A.started || A.published)}</div><h3>Cleared, with the reason on the card</h3>
       <div class="body"><div class="item">${esc(M.item)}</div>
       <div class="was"><span>model said</span><span class="faded">${RDV.stamp(A.model_verdict === "match" ? "match" : "check")}</span><span>card shows</span><span>${RDV.stamp("no_match", "cleared")}</span></div>
-      <div style="margin-top:8px">model still said <b style="color:#1d1c19">${esc(A.model_verdict)}</b>; the shop memory set <b style="color:#1d1c19">${esc(A.applied_verdict)}</b>, listed under "shop memories applied".</div></div>
+      <div style="margin-top:8px">model still said <b style="color:#1b1b1b">${esc(A.model_verdict)}</b>; the shop memory set <b style="color:#1b1b1b">${esc(A.applied_verdict)}</b>, listed under "shop memories applied".</div></div>
       <div class="counts"><span><b>${A.do_not_sell}</b> do not sell</span><span><b>${A.check_label}</b> check label</span><span><b>${A.memories_applied}</b> memories</span></div></div>`,
   ];
   document.getElementById("flow").innerHTML = steps[0] + arrow + steps[1] + arrow + steps[2];

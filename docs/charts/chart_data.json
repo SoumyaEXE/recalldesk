@@ -1,8 +1,8 @@
 {
  "fonts": {
   "sans": "Public Sans Thin",
-  "notice": "Barlow Condensed",
-  "mono": "IBM Plex Mono"
+  "notice": "Public Sans Thin",
+  "mono": "Roboto Mono"
  },
  "recalls-per-thursday": {
   "status": "real",

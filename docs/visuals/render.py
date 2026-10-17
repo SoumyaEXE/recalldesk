@@ -10,7 +10,7 @@ docs/visuals/.venv (create it once):
     python -m uv venv --python 3.12 docs/visuals/.venv
     python -m uv pip install --python docs/visuals/.venv/Scripts/python.exe playwright
     docs/visuals/.venv/Scripts/python.exe -m playwright install chromium
-Fonts (Barlow Condensed, Public Sans, IBM Plex Mono) load from Google Fonts, so rendering needs a network.
+Fonts (Merriweather, Public Sans, Roboto Mono: the USWDS set) load from Google Fonts, so rendering needs a network.
 """
 import os
 import subprocess
