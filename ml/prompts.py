@@ -39,6 +39,11 @@ Blitz 777 air rifles") and the listing names that exact product by brand and nam
 could be an older non-recalled version) -> check.
 6. Different brand, different product type, or only a loosely similar generic product -> no_match. A brand-only \
 overlap (same brand, different kind of product) is no_match.
+7. Unbranded listings. If the listing names NO brand and shows no recalled identifier, it is a generic look-alike \
+-> no_match (e.g. "Bed rail for elderly adults", "13 inch thermal laminator"). Exception -> check: the listing names \
+something distinctive to the recalled product that a generic item would not have (a licensed character/design such \
+as "101 Dalmatians coin purse", a unique product name, or a distinctive feature combination from the recall). \
+Product type plus generic features (size, colour, "foldable", "with storage pouch") is NOT distinctive.
 Notes: eBay condition text such as "for parts or not working", "used" or "lot of 2" does not change the product - \
 judge the item itself. Never invent identifiers: identifiers_found must be copied from the recall list AND appear in \
 the listing. Keep "reason" under 25 words, plain English, for a reseller.

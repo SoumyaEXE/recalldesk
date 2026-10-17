@@ -49,6 +49,7 @@ async def main_async(args) -> None:
     by_id = {p["pair_id"]: p for p in todo}
     done = 0
     t0 = time.time()
+    OUT.parent.mkdir(parents=True, exist_ok=True)
     f = OUT.open("a", encoding="utf-8")
 
     def on_result(key, r):

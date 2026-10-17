@@ -1,0 +1,31 @@
+{
+  "stages": {
+    "spec_extract": {
+      "model": "Qwen/Qwen3.5-397B-A17B",
+      "recalls": 591,
+      "prompt_tokens": 495512,
+      "completion_tokens": 185117,
+      "est_usd": 2.206,
+      "at": "2026-10-17T04:44:50+00:00"
+    },
+    "serp_scan": {
+      "searches_spent": 235,
+      "searches_indexed": 237,
+      "unique_listings": 12562,
+      "est_usd": 0.0,
+      "stopped": null,
+      "at": "2026-10-17T05:04:31+00:00"
+    },
+    "teacher_label": {
+      "model": "Qwen/Qwen3.5-397B-A17B",
+      "rows": 3300,
+      "prompt_tokens": 3218958,
+      "completion_tokens": 199065,
+      "est_usd": 6.8043,
+      "at": "2026-10-17T05:10:30+00:00"
+    }
+  },
+  "total_est_usd": 9.0103,
+  "serpapi_searches_spent": 235,
+  "note": "Tinker $ = token counts x list prices (models.json snapshot 2026-10-17); not an invoice. SerpApi searches are counted, not priced (plan-dependent)."
+}

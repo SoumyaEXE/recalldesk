@@ -30,6 +30,12 @@ One rulebook for the human gold labels (`python -m ml.label_ui`) and the teacher
 5. If it is the same brand and product type but the deciding detail is missing, label it **check**.
 6. If it is a different brand, a different product type, or only a loosely similar generic item, label it
    **no_match**. The same brand on a different kind of product is also **no_match**.
+7. **Unbranded listings.** If the listing names no brand at all and shows no recalled identifier, it is a
+   generic look-alike, so label it **no_match** ("Bed rail for elderly adults", "13 inch thermal laminator").
+   The one exception is when the listing names something *distinctive to the recalled product* that a generic
+   item would not have: a licensed character or design ("101 Dalmatians coin purse" for the Primark recall), a
+   unique product name, or a distinctive feature combination from the recall. Then label it **check**.
+   Product type plus generic features (size, colour, "foldable", "with storage pouch") is not distinctive.
 
 Notes:
 - eBay conditions like "for parts or not working", "used" or "lot of 2" do not change what the product is.
