@@ -1,0 +1,656 @@
+{
+ "fonts": {
+  "sans": "Public Sans Thin",
+  "notice": "Barlow Condensed",
+  "mono": "IBM Plex Mono"
+ },
+ "recalls-per-thursday": {
+  "status": "real",
+  "recalls": 151,
+  "childrens": 48,
+  "posting_days": 13,
+  "weekday": "Thursday",
+  "all_same_weekday": true,
+  "by_day": [
+   {
+    "date": "2026-07-23",
+    "childrens": 3,
+    "other": 4
+   },
+   {
+    "date": "2026-07-30",
+    "childrens": 7,
+    "other": 8
+   },
+   {
+    "date": "2026-08-06",
+    "childrens": 7,
+    "other": 10
+   },
+   {
+    "date": "2026-08-13",
+    "childrens": 5,
+    "other": 13
+   },
+   {
+    "date": "2026-08-20",
+    "childrens": 0,
+    "other": 7
+   },
+   {
+    "date": "2026-08-27",
+    "childrens": 4,
+    "other": 7
+   },
+   {
+    "date": "2026-09-03",
+    "childrens": 4,
+    "other": 9
+   },
+   {
+    "date": "2026-09-10",
+    "childrens": 5,
+    "other": 7
+   },
+   {
+    "date": "2026-09-17",
+    "childrens": 5,
+    "other": 9
+   },
+   {
+    "date": "2026-09-24",
+    "childrens": 2,
+    "other": 9
+   },
+   {
+    "date": "2026-10-01",
+    "childrens": 3,
+    "other": 9
+   },
+   {
+    "date": "2026-10-08",
+    "childrens": 1,
+    "other": 7
+   },
+   {
+    "date": "2026-10-15",
+    "childrens": 2,
+    "other": 4
+   }
+  ]
+ },
+ "ids-buried": {
+  "status": "real",
+  "all": {
+   "n": 151,
+   "buried": 73,
+   "in_title": 11,
+   "no_model_id": 67,
+   "with_model_id": 84,
+   "with_any_regex_id": 90,
+   "teacher": {
+    "buried": 88,
+    "in_title": 14,
+    "no_model_id": 49
+   }
+  },
+  "childrens": {
+   "n": 48,
+   "buried": 24,
+   "in_title": 3,
+   "no_model_id": 21,
+   "with_model_id": 27,
+   "with_any_regex_id": 30,
+   "teacher": {
+    "buried": 26,
+    "in_title": 4,
+    "no_model_id": 18
+   }
+  },
+  "writer_figure": "73 of 151",
+  "contract_figure": "69 of 151 (stale)"
+ },
+ "where-sold": {
+  "status": "real",
+  "A": {
+   "Amazon": 86,
+   "Etsy": 2,
+   "Walmart": 19,
+   "Target": 8,
+   "Home Depot": 5,
+   "TJX stores": 4,
+   "Temu": 6,
+   "Wayfair": 7,
+   "Costco": 3,
+   "SHEIN": 4,
+   "Lowe's": 3,
+   "eBay": 1,
+   "Burlington": 1,
+   "Best Buy": 2,
+   "Kohl's": 1
+  },
+  "A_n": 151,
+  "A_sold_online": 119,
+  "B": {
+   "Amazon": 288,
+   "SHEIN": 12,
+   "Target": 37,
+   "Walmart": 67,
+   "Temu": 15,
+   "Wayfair": 9,
+   "Etsy": 7,
+   "Best Buy": 2,
+   "TJX stores": 6,
+   "TikTok Shop": 4,
+   "Home Depot": 2,
+   "AliExpress": 5,
+   "Costco": 2,
+   "eBay": 2,
+   "Kohl's": 5,
+   "Burlington": 2,
+   "Lowe's": 1,
+   "Five Below": 1
+  },
+  "B_n": 488,
+  "B_sold_online": 346
+ },
+ "listings-per-recall": {
+  "status": "real",
+  "searches": 237,
+  "recalls_searched": 237,
+  "searched_A": 151,
+  "searched_B_only": 86,
+  "recalls_with_results": 237,
+  "recalls_with_ids": 150,
+  "results_total": 14068,
+  "unique_listings": 12562,
+  "per_recall_counts": [
+   60,
+   62,
+   6,
+   60,
+   60,
+   60,
+   62,
+   81,
+   60,
+   60,
+   60,
+   60,
+   68,
+   60,
+   60,
+   62,
+   60,
+   60,
+   60,
+   67,
+   60,
+   22,
+   75,
+   75,
+   60,
+   60,
+   9,
+   60,
+   73,
+   60,
+   58,
+   142,
+   62,
+   79,
+   60,
+   69,
+   60,
+   60,
+   72,
+   60,
+   5,
+   60,
+   61,
+   69,
+   60,
+   70,
+   60,
+   58,
+   60,
+   42,
+   88,
+   60,
+   60,
+   5,
+   63,
+   55,
+   62,
+   60,
+   60,
+   61,
+   82,
+   60,
+   61,
+   60,
+   60,
+   60,
+   60,
+   60,
+   60,
+   95,
+   90,
+   60,
+   62,
+   63,
+   60,
+   54,
+   62,
+   56,
+   60,
+   8,
+   77,
+   60,
+   60,
+   69,
+   62,
+   62,
+   77,
+   65,
+   60,
+   60,
+   60,
+   68,
+   60,
+   60,
+   60,
+   8,
+   61,
+   91,
+   87,
+   62,
+   60,
+   60,
+   60,
+   72,
+   60,
+   45,
+   60,
+   70,
+   61,
+   78,
+   65,
+   51,
+   65,
+   69,
+   62,
+   2,
+   5,
+   65,
+   35,
+   86,
+   61,
+   79,
+   61,
+   70,
+   60,
+   1,
+   19,
+   61,
+   62,
+   60,
+   86,
+   65,
+   61,
+   60,
+   62,
+   21,
+   60,
+   61,
+   10,
+   57,
+   73,
+   60,
+   54,
+   60,
+   1,
+   22,
+   77,
+   69,
+   60,
+   146,
+   60,
+   60,
+   60,
+   60,
+   34,
+   68,
+   61,
+   60,
+   60,
+   16,
+   60,
+   76,
+   60,
+   48,
+   60,
+   60,
+   61,
+   61,
+   60,
+   79,
+   60,
+   65,
+   60,
+   51,
+   62,
+   62,
+   60,
+   67,
+   1,
+   67,
+   63,
+   66,
+   61,
+   60,
+   52,
+   33,
+   82,
+   60,
+   60,
+   60,
+   61,
+   60,
+   61,
+   60,
+   85,
+   60,
+   70,
+   65,
+   60,
+   7,
+   63,
+   60,
+   68,
+   62,
+   60,
+   66,
+   60,
+   76,
+   2,
+   65,
+   66,
+   105,
+   51,
+   63,
+   60,
+   60,
+   60,
+   67,
+   100,
+   60,
+   35,
+   60,
+   60,
+   65,
+   64,
+   60,
+   56,
+   60,
+   60,
+   60,
+   19,
+   60,
+   75,
+   60,
+   60,
+   60,
+   60
+  ],
+  "recalls_with_exact_id_hit": 13,
+  "childrens_recalls_with_exact_id_hit": 2,
+  "exact_id_hit_listings": 45,
+  "exact_id_hits_by_recall": [
+   {
+    "recall_number": "26536",
+    "title": "Joyin Recalls Sloosh Dive Sticks Due to Risk of Serious Injury from Impalement; Violate Federal Dive Sticks Ban",
+    "is_childrens": true,
+    "hits": 1,
+    "ids": [
+     "40041",
+     "812355036227"
+    ]
+   },
+   {
+    "recall_number": "26637",
+    "title": "OeyUoc Pool Drain Covers Recalled Due to Risk of Serious Injury or Death from Entrapment and Drowning Hazards; Violate Virginia Graeme Baker Pool & Spa Safety Act; Sold Exclusively on Amazon by Yuanxinxiang",
+    "is_childrens": false,
+    "hits": 8,
+    "ids": [
+     "X00501CQ7P",
+     "OY-WG1048E-1P",
+     "WG1048",
+     "SP1030"
+    ]
+   },
+   {
+    "recall_number": "26647",
+    "title": "BenQ America Recalls GV31 Portable Projectors Due to Risk of Serious Injury or Death from Fire and Burn Hazards",
+    "is_childrens": false,
+    "hits": 2,
+    "ids": [
+     "GV31"
+    ]
+   },
+   {
+    "recall_number": "26654",
+    "title": "Joyin Expands Recall of Sloosh Dive Sticks Due to Risk of Serious Injury from Impalement; Violate Federal Dive Sticks Ban",
+    "is_childrens": true,
+    "hits": 1,
+    "ids": [
+     "40041",
+     "40003",
+     "16154",
+     "812355036227"
+    ]
+   },
+   {
+    "recall_number": "26659",
+    "title": "OCOOPA Direct Recalls 1.5 Million Rechargeable Hand Warmers Due to Risk of Serious Injury or Death from Fire and Burn Hazards; One Death Reported; Imported by Shenzhen Street Cat Technology",
+    "is_childrens": false,
+    "hits": 2,
+    "ids": [
+     "UT3053",
+     "UT3056",
+     "ZLS-118",
+     "ZLS-118S",
+     "ZLS-118D",
+     "H01",
+     "H01(PD.)"
+    ]
+   },
+   {
+    "recall_number": "26710",
+    "title": "KTM North America Recalls Off-Road Motorcycles Due to Risk of Serious Injury or Death from Crash Hazard",
+    "is_childrens": false,
+    "hits": 2,
+    "ids": [
+     "150i",
+     "250i",
+     "300i",
+     "250F",
+     "350F",
+     "450F",
+     "500F"
+    ]
+   },
+   {
+    "recall_number": "26723",
+    "title": "Steelite Pressure Washers Recalled Due to Risk of Serious Injury or Death from Shock and Electrocution Hazards; Sold on Amazon by Longer 3D",
+    "is_childrens": false,
+    "hits": 3,
+    "ids": [
+     "AZ6041VC"
+    ]
+   },
+   {
+    "recall_number": "26773",
+    "title": "Char-Broil Recalls Bistro Pro Electric Grills Due to Risk of Electric Shock",
+    "is_childrens": false,
+    "hits": 2,
+    "ids": [
+     "25302145",
+     "25302146",
+     "25302147",
+     "25302148",
+     "25302149",
+     "25302150",
+     "25302151",
+     "25302159",
+     "25302163"
+    ]
+   },
+   {
+    "recall_number": "26791",
+    "title": "The Blue Cactus Company Reclining Chair Battery Packs Recalled Due to Fire and Burn Hazards; Sold on Amazon",
+    "is_childrens": false,
+    "hits": 7,
+    "ids": [
+     "RWX-RBP02"
+    ]
+   },
+   {
+    "recall_number": "26797",
+    "title": "INMO International Technology Limited Recalls INMO Air3 Smart Glasses Due to Risk of Serious Injury or Death from Burn Hazard",
+    "is_childrens": false,
+    "hits": 7,
+    "ids": [
+     "AIR3"
+    ]
+   },
+   {
+    "recall_number": "27021",
+    "title": "Snow Peak Recalls Propane Fireplace Inserts and Lava Rocks Due to Risk of Serious Injury or Death from Burn and Fire Hazards",
+    "is_childrens": false,
+    "hits": 1,
+    "ids": [
+     "ST-332-US"
+    ]
+   },
+   {
+    "recall_number": "27024",
+    "title": "3M Company Recalls Scotch™ Thermal Laminators Due to Risk of Serious Injury or Death from Fire Hazard",
+    "is_childrens": false,
+    "hits": 2,
+    "ids": [
+     "TL1302Z"
+    ]
+   },
+   {
+    "recall_number": "27025",
+    "title": "HatsanUSA Recalls Blitz Air Rifles Due to Risk of Serious Injury or Death from Projectile Hazard",
+    "is_childrens": false,
+    "hits": 8,
+    "ids": [
+     "Blitz",
+     "Blitz 777"
+    ]
+   }
+  ],
+  "histogram": {
+   "0": 0,
+   "1-9": 13,
+   "10-24": 7,
+   "25-49": 7,
+   "50+": 210
+  }
+ },
+ "condition-mix": {
+  "status": "real",
+  "all": {
+   "New": 9860,
+   "Pre-Owned": 2144,
+   "Open box": 434,
+   "Not stated": 60,
+   "Refurbished": 37,
+   "For parts": 25,
+   "Other": 2
+  },
+  "childrens": {
+   "New": 5424,
+   "Pre-Owned": 1396,
+   "Open box": 42,
+   "For parts": 6,
+   "Not stated": 31,
+   "Other": 2
+  },
+  "exact_id_hits": {
+   "New": 35,
+   "Open box": 6,
+   "Pre-Owned": 4
+  },
+  "pre_owned_pct": {
+   "All unique listings (12,562)": 17.1,
+   "Listings for children's recalls (6,901)": 20.2,
+   "Exact identifier in title (45)": 8.9
+  }
+ },
+ "hazard-types": {
+  "status": "real",
+  "n": 151,
+  "childrens": {
+   "Ingestion (magnets, batteries, beads)": 19,
+   "Poisoning / chemical (lead, phthalates)": 13,
+   "Fall / tip-over": 10,
+   "Entrapment / suffocation / strangulation": 9,
+   "Drowning": 1,
+   "Choking": 18,
+   "Fire / burn": 9,
+   "Impact / projectile / crush": 2
+  },
+  "other": {
+   "Fall / tip-over": 27,
+   "Entrapment / suffocation / strangulation": 20,
+   "Ingestion (magnets, batteries, beads)": 13,
+   "Laceration / cut": 6,
+   "Fire / burn": 48,
+   "Impact / projectile / crush": 5,
+   "Poisoning / chemical (lead, phthalates)": 14,
+   "Electric shock": 11,
+   "Carbon monoxide": 1,
+   "Choking": 1,
+   "Drowning": 3
+  },
+  "top": "Fire / burn"
+ },
+ "results-bars": {
+  "status": "placeholder"
+ },
+ "risky-caught-units": {
+  "status": "placeholder"
+ },
+ "confusion-pair": {
+  "status": "placeholder"
+ },
+ "cost-per-1k": {
+  "status": "placeholder"
+ },
+ "loss-curve": {
+  "status": "placeholder"
+ },
+ "latency": {
+  "status": "placeholder"
+ },
+ "flagged-by-recall": {
+  "status": "placeholder"
+ },
+ "label-distribution": {
+  "status": "placeholder",
+  "counts": {
+   "match": 40,
+   "check": 60,
+   "no_match": 120
+  }
+ },
+ "generated_from": {
+  "recalls": 591,
+  "specs": 591,
+  "searches": 237
+ }
+}

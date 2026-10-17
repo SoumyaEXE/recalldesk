@@ -12,7 +12,7 @@ We do NOT target Gemma (174 entries), TabPFN, Copilot.
 ## Story in one paragraph
 Reselling a recalled product is a federal violation in the US, and recalled baby gear keeps showing up on eBay, Marketplace and Craigslist
 (Consumer Reports, 2026-10-06). CPSC publishes ~12 recalls every Thursday as walls of text; the model numbers that matter are buried
-in the description (69 of the 151 recalls since 2026-07-18). Kids' consignment shops and eBay flippers check by hand, or don't.
+in the description (73 of the 151 recalls since 2026-07-18). Kids' consignment shops and eBay flippers check by hand, or don't.
 RecallDesk: (1) a **big open-weight teacher** (Qwen3.5-397B-A17B on Tinker) turns each recall into an identification spec and labels
 (recall, listing) pairs; (2) we **LoRA-fine-tune Qwen3.5-4B on Tinker** to decide `match | check | no_match` for a listing/inventory item
 against a recall; (3) **SerpApi's eBay engine** finds live listings for every recall — the headline number; (4) a **Temporal** schedule
