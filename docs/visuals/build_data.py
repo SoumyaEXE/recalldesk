@@ -433,6 +433,7 @@ def build_memory() -> dict:
         "status": "real", "transcript": rel(p), "memory_id": mem_id, "shop_id": shop,
         "shop_name": ac.get("shop_name"), "backend": backend, "recall_number": rn, "correct_verdict": verdict,
         "item": item or applied.get("item"), "note": note, "memory_text": applied.get("text"),
+        "api_transcript": rel(api) if api.exists() else None,
         "added_at": a.group(1),
         "before": {"workflow_id": before[0], "published": before[1], **times(before[0]), "rows": card_rows(bc, rn),
                    "do_not_sell": len(bc.get("do_not_sell") or []), "check_label": len(bc.get("check_label") or []),

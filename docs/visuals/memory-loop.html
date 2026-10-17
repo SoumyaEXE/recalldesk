@@ -73,7 +73,7 @@
     n.style.display = "block";
     n.textContent = `This transcript ran without BACKBOARD_API_KEY, so the memory lived in RecallDesk's local fallback store (agent/state/memories/). With the key set, the same endpoint writes a Backboard memory per shop and retrieval uses Backboard's semantic search; the override rule above is identical.`;
   }
-  document.getElementById("src").textContent = `Source: ${RD.sources.memory.path} · correction text: agent/demo_logs/05_api_endpoints.txt`;
+  document.getElementById("src").textContent = `Source: ${RD.sources.memory.path} · correction text: ${RD.memory.api_transcript || "agent/demo_logs/05_api_endpoints.txt"}`;
   RDV.mark(["memory"]);
 })();
 </script>

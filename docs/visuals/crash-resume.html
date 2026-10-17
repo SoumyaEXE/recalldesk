@@ -19,7 +19,7 @@
   <div class="chart" id="chart"></div>
   <div class="tiles" id="tiles"></div>
   <p class="foot" id="foot"></p>
-  <div class="src"><span>Source: agent/demo_logs/04_crash_resume.txt (python -m agent.demo_crash) · proof read from Temporal's event history</span><span class="brand">RECALLDESK</span></div>
+  <div class="src"><span id="crash-src">Source: agent/demo_logs/04_crash_resume.txt (python -m agent.demo_crash) · proof read from Temporal's event history</span><span class="brand">RECALLDESK</span></div>
 </div>
 <script src="data.js"></script>
 <script src="common.js"></script>
@@ -45,7 +45,8 @@
   const ly = (i) => top0 + i * LH + LH / 2;
   let s = `<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="Timeline: worker 1 killed at t+${K.t_kill}s, worker 2 started at t+${K.t_worker2_start}s, ${K.retried} activities retried, workflow completed at t+${K.t_done}s">`;
   s += `<defs><pattern id="hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#c8102e" stroke-opacity="0.22" stroke-width="2.5"/></pattern></defs>`;
-  for (let t = 0; t <= tMax; t += 5) {
+  const step = tMax > 120 ? 20 : tMax > 60 ? 10 : 5;  // keep tick labels apart on long (real-model) runs
+  for (let t = 0; t <= tMax; t += step) {
     s += `<line x1="${sx(t)}" x2="${sx(t)}" y1="${top0}" y2="${top0 + lanes.length * LH}" stroke="#f1ede2"/>`;
     s += `<text x="${sx(t)}" y="${top0 + lanes.length * LH + 16}" text-anchor="middle" ${RDV.MONO} font-size="10.5" fill="${C.ink3}">${t}s</text>`;
   }
@@ -111,6 +112,7 @@
     `Small octagons/triangles = items the log shows going to DO NOT SELL / CHECK LABEL (clear items are not logged); diamonds = the retried activities. Classifier for this run: ${RDV.esc(K.model)}, so the kill reliably lands mid-run. ${RDV.esc(K.anchor_note.charAt(0).toUpperCase() + K.anchor_note.slice(1))}. Card: ${RDV.esc(K.card_line)}.`;
   RDV.mark(["crash"]);
 })();
+  { const e = document.getElementById("crash-src"); if (e && RD.sources && RD.sources.crash) e.textContent = `Source: ${RD.sources.crash.path} (python -m agent.demo_crash) · proof read from Temporal's event history`; }
 </script>
 </body>
 </html>
