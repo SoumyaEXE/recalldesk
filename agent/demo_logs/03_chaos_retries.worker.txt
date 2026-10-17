@@ -1,0 +1,98 @@
+09:40:15.364 [worker] worker pid=9732 up: temporal=localhost:7233 queue=recalldesk-chaos provider=heuristic model=heuristic-rules-v1 (heuristic, no model key) memory=local (no BACKBOARD_API_KEY) chaos=ON sentry=off
+09:40:17.720 [worker] [load_inventory] shop=little-loop: 60 items
+09:40:17.953 [worker] [load_spec_set] shop=little-loop corpus=AB: 591 recalls (data/recalls/recalls.jsonl; specs: heuristic)
+09:40:18.303 [worker] [load_shop_memories] shop=little-loop backend=local (no BACKBOARD_API_KEY): 1 relevant memories for 1 items
+09:40:26.031 [worker] [retrieve_candidates] 60 items -> 176 (item, recall) pairs (top-3)
+09:40:26.141 [worker] [check_item] #0 Convertible Bedside Sleeper with Play Ya -> 27027:match
+09:40:26.147 [worker] [check_item] #1 101 Dalmatians Faux Leather Coin Purse -> 27028:match
+09:40:26.150 [worker] [check_item] #2 attempt=1 invalid model output -> retry
+09:40:26.155 [worker] [check_item] #5 attempt=1 model hung (chaos) - stops heartbeating
+09:40:26.160 [worker] [check_item] #3 Baby Sesame Street Elmo Silicone Teether -> 26739:match
+09:40:26.166 [worker] [check_item] #4 Baby Swing -> 26688:match
+09:40:26.379 [worker] [check_item] #6 Kids Kitchen Standing Tower -> 26655:match
+09:40:26.387 [worker] [check_item] #8 Portable Sleep Machine with Night Light -> 26798:check
+09:40:26.388 [worker] [check_item] #9 attempt=1 model hung (chaos) - stops heartbeating
+09:40:26.491 [worker] [check_item] #10 Rainbow Rattle Grasping Toy -> 26719:check
+09:40:26.495 [worker] [check_item] #11 Kids Bike Helmet and Pads Set -> 26789:check
+09:40:26.581 [worker] [check_item] #13 attempt=1 invalid model output -> retry
+09:40:27.007 [worker] [check_item] #23 attempt=1 invalid model output -> retry
+09:40:27.154 [worker] [check_item] #2 attempt=2 invalid model output -> retry
+09:40:27.478 [worker] [check_item] #30 attempt=1 model hung (chaos) - stops heartbeating
+09:40:27.534 [worker] [check_item] #13 attempt=2 model hung (chaos) - stops heartbeating
+09:40:27.885 [worker] [check_item] #23 attempt=2 invalid model output -> retry
+09:40:28.168 [worker] [check_item] #2 Baby Bath Seat with Suction Cups -> 27018:match (attempt 3)
+09:40:28.841 [worker] [check_item] #47 attempt=1 invalid model output -> retry
+09:40:28.897 [worker] [check_item] #23 attempt=3 invalid model output -> retry
+09:40:29.823 [worker] [check_item] #47 attempt=2 invalid model output -> retry
+09:40:30.837 [worker] [check_item] #47 attempt=3 invalid model output -> retry
+09:40:30.913 [worker] [check_item] #23 Rest Sound Machine & Night Light -> clear (attempt 4, HEURISTIC FALLBACK)
+09:40:31.086 [worker] [check_item] #50 attempt=1 invalid model output -> retry
+09:40:32.086 [worker] [check_item] #50 Wooden Rainbow Stacker -> clear (attempt 2)
+09:40:32.385 [worker] [check_item] #54 Pull String Silicone Busy Toy -> 26635:check
+09:40:32.449 [worker] [check_item] #55 Kids Drawstring Jogger Set -> 26724:check
+09:40:32.510 [worker] [check_item] #56 6-Drawer Kids Dresser -> 27020:match
+09:40:32.575 [worker] [check_item] #57 Rechargeable Hand Warmer -> 26659:check
+09:40:32.715 [worker] [check_item] #59 Wooden Toddler Learning Tower -> 26658:check
+09:40:32.882 [worker] [check_item] #47 Snuggle Kitty Soothing Plush -> clear (attempt 4, HEURISTIC FALLBACK)
+09:40:37.084 [worker] [check_item] #5 Kids Loungewear Set (shirt + shorts) -> 26752:check (attempt 2)
+09:40:38.082 [worker] [check_item] #9 Lights & Sounds Fire Truck Activity Boar -> 26780:check (attempt 2)
+09:40:38.123 [worker] [check_item] #30 Dump Truck -> clear (attempt 2)
+09:40:39.014 [worker] [check_item] #13 attempt=3 invalid model output -> retry
+09:40:41.031 [worker] [check_item] #13 Explore & More Baby's View 3-Stage Activ -> 23117:check (attempt 4, HEURISTIC FALLBACK)
+09:40:41.129 [worker] [compose_card] card_2026-10-15_little-loop: 7 DO NOT SELL, 10 CHECK LABEL, 1 memories applied
+09:40:41.175 [worker] [publish_card] wrote agent/cards/check-little-loop-2026-10-17-9772.json
+09:40:43.794 [worker] [fetch_new_recalls] since=2026-10-08 attempt=1
+09:40:44.760 [worker] [fetch_new_recalls] OK: 14 recalls since 2026-10-08 (source=cpsc-live)
+09:40:45.121 [worker] [load_inventory] shop=little-loop: 60 items
+09:40:45.175 [worker] [load_shop_memories] shop=little-loop backend=local (no BACKBOARD_API_KEY): 1 relevant memories for 1 items
+09:40:45.226 [worker] [retrieve_candidates] 60 items -> 37 (item, recall) pairs (top-3)
+09:40:45.262 [worker] [check_item] #0 Convertible Bedside Sleeper with Play Ya -> 27027:match
+09:40:45.263 [worker] [check_item] #1 attempt=1 invalid model output -> retry
+09:40:45.266 [worker] [check_item] #2 Baby Bath Seat with Suction Cups -> 27018:match
+09:40:45.272 [worker] [check_item] #3 attempt=1 invalid model output -> retry
+09:40:45.354 [worker] [check_item] #6 attempt=1 invalid model output -> retry
+09:40:45.362 [worker] [check_item] #9 attempt=1 invalid model output -> retry
+09:40:45.813 [worker] [check_item] #26 attempt=1 model hung (chaos) - stops heartbeating
+09:40:45.909 [worker] [check_item] #29 attempt=1 invalid model output -> retry
+09:40:46.268 [worker] [check_item] #1 101 Dalmatians Faux Leather Coin Purse -> 27028:match (attempt 2)
+09:40:46.276 [worker] [check_item] #3 Baby Sesame Street Elmo Silicone Teether -> clear (attempt 2)
+09:40:46.365 [worker] [check_item] #33 attempt=1 invalid model output -> retry
+09:40:46.371 [worker] [check_item] #9 attempt=2 invalid model output -> retry
+09:40:46.377 [worker] [check_item] #6 Kids Kitchen Standing Tower -> clear (attempt 2)
+09:40:46.646 [worker] [check_item] #41 attempt=1 invalid model output -> retry
+09:40:46.913 [worker] [check_item] #29 attempt=2 model hung (chaos) - stops heartbeating
+09:40:47.376 [worker] [check_item] #33 attempt=2 model hung (chaos) - stops heartbeating
+09:40:47.403 [worker] [check_item] #9 Lights & Sounds Fire Truck Activity Boar -> clear (attempt 3)
+09:40:47.464 [worker] [check_item] #54 attempt=1 model hung (chaos) - stops heartbeating
+09:40:47.518 [worker] [check_item] #56 6-Drawer Kids Dresser -> 27020:match
+09:40:47.838 [worker] [check_item] #41 Vintage Charm Dollhouse -> clear (attempt 2)
+09:40:56.807 [worker] [check_item] #26 Long John Pajamas -> clear (attempt 2)
+09:40:57.909 [worker] [check_item] #29 Magna-Tiles Classic 32-Piece Set -> clear (attempt 3)
+09:40:58.842 [worker] [check_item] #54 Pull String Silicone Busy Toy -> clear (attempt 2)
+09:40:58.853 [worker] [check_item] #33 Omni 360 Baby Carrier -> clear (attempt 3)
+09:40:58.967 [worker] [compose_card] card_2026-10-15_little-loop: 4 DO NOT SELL, 0 CHECK LABEL, 0 memories applied
+09:40:59.015 [worker] [publish_card] wrote agent/cards/weekly-sweep-manual-1792210243-little-loop.json
+09:40:59.209 [worker] [load_inventory] shop=flip-garage: 30 items
+09:40:59.278 [worker] [load_shop_memories] shop=flip-garage backend=local (no BACKBOARD_API_KEY): 1 relevant memories for 2 items
+09:40:59.343 [worker] [retrieve_candidates] 30 items -> 18 (item, recall) pairs (top-3)
+09:40:59.395 [worker] [check_item] #0 Thermal Laminator 13 inch -> 27024:match
+09:40:59.539 [worker] [check_item] #9 attempt=1 invalid model output -> retry
+09:40:59.672 [worker] [check_item] #13 attempt=1 model hung (chaos) - stops heartbeating
+09:40:59.675 [worker] [check_item] #14 attempt=1 invalid model output -> retry
+09:40:59.790 [worker] [check_item] #19 attempt=1 invalid model output -> retry
+09:40:59.989 [worker] [check_item] #25 attempt=1 invalid model output -> retry
+09:41:00.070 [worker] [check_item] #26 attempt=1 invalid model output -> retry
+09:41:00.544 [worker] [check_item] #9 attempt=2 model hung (chaos) - stops heartbeating
+09:41:00.685 [worker] [check_item] #14 Artisan Stand Mixer 5qt -> clear (attempt 2)
+09:41:00.753 [worker] [check_item] #19 attempt=2 invalid model output -> retry
+09:41:00.849 [worker] [check_item] #28 Six-Drawer Dresser -> 27020:match
+09:41:00.971 [worker] [check_item] #25 attempt=2 invalid model output -> retry
+09:41:01.058 [worker] [check_item] #26 attempt=2 invalid model output -> retry
+09:41:01.832 [worker] [check_item] #19 20V Cordless String Trimmer -> clear (attempt 3)
+09:41:02.241 [worker] [check_item] #25 attempt=3 invalid model output -> retry
+09:41:02.310 [worker] [check_item] #26 Fire Pit Tabletop -> clear (attempt 3)
+09:41:04.313 [worker] [check_item] #25 Echo Dot (5th Gen) -> clear (attempt 4, HEURISTIC FALLBACK)
+09:41:10.165 [worker] [check_item] #13 18V ONE+ Impact Driver -> clear (attempt 2)
+09:41:11.549 [worker] [check_item] #9 Pilot Trimmer Mower -> 27016:check (attempt 3)
+09:41:11.646 [worker] [compose_card] card_2026-10-15_flip-garage: 2 DO NOT SELL, 1 CHECK LABEL, 0 memories applied
+09:41:11.692 [worker] [publish_card] wrote agent/cards/weekly-sweep-manual-1792210243-flip-garage.json

@@ -1,0 +1,127 @@
+$ RECALLDESK_CHAOS=1 python -m agent.worker   # other terminal: fake CPSC 503s, model hangs, invalid JSON
+$ python -m agent.run_check little-loop
+started check-little-loop-2026-10-17-9772
+--- t+  2.1s
+[OK] load_inventory         completed attempt=1  60 items from the shop's inventory file
+[OK] load_specs             completed attempt=1  591 recalls (corpus AB); data/recalls/recalls.jsonl; specs: heuristic
+[OK] load_shop_memories     completed attempt=1  1 relevant memories; backend=local (no BACKBOARD_API_KEY)
+[..] check_items            running   attempt=1  retrieving candidates for 60 items
+[  ] scan_ebay_store        pending   attempt=0
+[  ] compose_card           pending   attempt=0
+[  ] publish_card           pending   attempt=0
+--- t+  8.9s
+[OK] load_inventory         completed attempt=1  60 items from the shop's inventory file
+[OK] load_specs             completed attempt=1  591 recalls (corpus AB); data/recalls/recalls.jsonl; specs: heuristic
+[OK] load_shop_memories     completed attempt=1  1 relevant memories; backend=local (no BACKBOARD_API_KEY)
+[..] check_items            running   attempt=1  0/60 items (176 item x recall pairs)
+[  ] scan_ebay_store        pending   attempt=0
+[  ] compose_card           pending   attempt=0
+[  ] publish_card           pending   attempt=0
+--- t+ 10.9s
+[OK] load_inventory         completed attempt=1  60 items from the shop's inventory file
+[OK] load_specs             completed attempt=1  591 recalls (corpus AB); data/recalls/recalls.jsonl; specs: heuristic
+[OK] load_shop_memories     completed attempt=1  1 relevant memories; backend=local (no BACKBOARD_API_KEY)
+[..] check_items            running   attempt=3  28/60 items (176 item x recall pairs)
+[  ] scan_ebay_store        pending   attempt=0
+[  ] compose_card           pending   attempt=0
+[  ] publish_card           pending   attempt=0
+--- t+ 12.9s
+[OK] load_inventory         completed attempt=1  60 items from the shop's inventory file
+[OK] load_specs             completed attempt=1  591 recalls (corpus AB); data/recalls/recalls.jsonl; specs: heuristic
+[OK] load_shop_memories     completed attempt=1  1 relevant memories; backend=local (no BACKBOARD_API_KEY)
+[..] check_items            running   attempt=3  42/60 items (176 item x recall pairs)
+[  ] scan_ebay_store        pending   attempt=0
+[  ] compose_card           pending   attempt=0
+[  ] publish_card           pending   attempt=0
+--- t+ 14.9s
+[OK] load_inventory         completed attempt=1  60 items from the shop's inventory file
+[OK] load_specs             completed attempt=1  591 recalls (corpus AB); data/recalls/recalls.jsonl; specs: heuristic
+[OK] load_shop_memories     completed attempt=1  1 relevant memories; backend=local (no BACKBOARD_API_KEY)
+[..] check_items            running   attempt=4  48/60 items (176 item x recall pairs)
+[  ] scan_ebay_store        pending   attempt=0
+[  ] compose_card           pending   attempt=0
+[  ] publish_card           pending   attempt=0
+--- t+ 17.0s
+[OK] load_inventory         completed attempt=1  60 items from the shop's inventory file
+[OK] load_specs             completed attempt=1  591 recalls (corpus AB); data/recalls/recalls.jsonl; specs: heuristic
+[OK] load_shop_memories     completed attempt=1  1 relevant memories; backend=local (no BACKBOARD_API_KEY)
+[..] check_items            running   attempt=4  56/60 items (176 item x recall pairs)
+[  ] scan_ebay_store        pending   attempt=0
+[  ] compose_card           pending   attempt=0
+[  ] publish_card           pending   attempt=0
+--- t+ 21.0s
+[OK] load_inventory         completed attempt=1  60 items from the shop's inventory file
+[OK] load_specs             completed attempt=1  591 recalls (corpus AB); data/recalls/recalls.jsonl; specs: heuristic
+[OK] load_shop_memories     completed attempt=1  1 relevant memories; backend=local (no BACKBOARD_API_KEY)
+[..] check_items            running   attempt=4  59/60 items (176 item x recall pairs)
+[  ] scan_ebay_store        pending   attempt=0
+[  ] compose_card           pending   attempt=0
+[  ] publish_card           pending   attempt=0
+--- t+ 25.3s
+[OK] load_inventory         completed attempt=1  60 items from the shop's inventory file
+[OK] load_specs             completed attempt=1  591 recalls (corpus AB); data/recalls/recalls.jsonl; specs: heuristic
+[OK] load_shop_memories     completed attempt=1  1 relevant memories; backend=local (no BACKBOARD_API_KEY)
+[OK] check_items            completed attempt=4  60/60 items, 176 pairs; retrieval: ml.infer.retrieve
+       -> 8 item(s) needed retries; 3 answered by HEURISTIC FALLBACK after invalid model output
+[--] scan_ebay_store        skipped   attempt=1  source=skipped (no eBay store configured for this shop)
+[OK] compose_card           completed attempt=1  7 DO NOT SELL, 10 CHECK LABEL
+[OK] publish_card           completed attempt=1  card_2026-10-15_little-loop
+--- t+ 25.5s  workflow=completed
+[OK] load_inventory         completed attempt=1  60 items from the shop's inventory file
+[OK] load_specs             completed attempt=1  591 recalls (corpus AB); data/recalls/recalls.jsonl; specs: heuristic
+[OK] load_shop_memories     completed attempt=1  1 relevant memories; backend=local (no BACKBOARD_API_KEY)
+[OK] check_items            completed attempt=4  60/60 items, 176 pairs; retrieval: ml.infer.retrieve
+       -> 8 item(s) needed retries; 3 answered by HEURISTIC FALLBACK after invalid model output
+[--] scan_ebay_store        skipped   attempt=1  source=skipped (no eBay store configured for this shop)
+[OK] compose_card           completed attempt=1  7 DO NOT SELL, 10 CHECK LABEL
+[OK] publish_card           completed attempt=1  card_2026-10-15_little-loop
+
+=== RECALL CARD card_2026-10-15_little-loop  Little Loop Kids Consignment  (week of 2026-10-15) ===
+  6 new recalls this week | 60 items checked | model: heuristic-rules-v1 (heuristic, no model key) (+3 item(s) by heuristic fallback)
+  DO NOT SELL (7)
+    x Papablic Convertible Bedside Sleeper with Play Yard (model PAPA03001AI)  -> CPSC 27027: Papablic, of USA Recalls Convertible Bedside Sleepers Due to Risk of S
+        why: Recalled identifier PAPA03001AI appears in the listing. Hazard: The bedside sleepers with play yard extensions violate the mandatory.
+        remedy: Stop using; refund
+    x Primark 101 Dalmatians Faux Leather Coin Purse (model 2595301)  -> CPSC 27028: Primark Recalls 101 Dalmatians Faux Leather Children’s Coin Purses Due
+        why: Recalled identifier 2595301 appears in the listing. Hazard: The coin purses contain higher phthalate concentration levels. Phthalates can.
+        remedy: Stop using; refund
+    x ONTHEWEI Baby Bath Seat with Suction Cups (model MY002)  -> CPSC 27018: ONTHEWEI Recalls Baby Bath Seats Due to Risk of Serious Injury or Deat
+        why: Recalled identifier MY002 appears in the listing. Hazard: tip over while in use, posing a risk of serious.
+        remedy: Stop using; refund
+    x Skip Hop Baby Sesame Street Elmo Silicone Teether (model 9R263210)  -> CPSC 26739: Skip Hop Recalls Baby Sesame Street Elmo Silicone Teethers Due to Risk
+        why: Recalled identifier 9R263210 appears in the listing. Hazard: The black eyes can detach from the recalled teether if.
+        remedy: Stop using; refund
+    x Taleco Gear Baby Swing (model swing-1)  -> CPSC 26688: Taleco Gear Recalls Baby Jumpers, Baby Swings and 2-in-1 Baby Jumper &
+        why: Recalled identifier swing-1 appears in the listing. Hazard: The baby jumper, baby swing and 2-in-1 baby jumper &.
+        remedy: Stop using; refund
+    x Mangohood Kids Kitchen Standing Tower (model LT003)  -> CPSC 26655: Mangohood Direct Kids Kitchen Standing Towers Recalled Due to Risk of 
+        why: Recalled identifier LT003 appears in the listing. Hazard: collapse or tip over while in use, and a child's.
+        remedy: Stop using; repair
+    x Romorgniz 6-Drawer Kids Dresser  -> CPSC 27020: Romorgniz Recalls Six-Drawer Dressers Due to Risk of Serious Injury or
+        why: Names the recalled Romorgniz product; recall covers all units. Hazard: The recalled dressers are unstable if they are not anchored.
+        remedy: Stop using; refund
+  CHECK LABEL (10)
+    ? Sweet Cubby Kids Loungewear Set (shirt + shorts)  -> CPSC 26752
+        look for: lot/date code 272779; sold 2025-06 to 2026-05. "Batch No.: 272779" and the size are printed on the sewn-in neck label and on the seam label.
+    ? Love To Dream Portable Sleep Machine with Night Light (model LTD-SM23)  -> CPSC 26798
+        look for: model no. LTD-SM23; lot/date code 7W15TN; sold 2025-02 to 2026-09
+    ? Melissa & Doug Lights & Sounds Fire Truck Activity Board  -> CPSC 26780
+        look for: lot/date code 25100, 25150, 26064; sold 2025-07 to 2026-08. On the bottom of the toy, "Melissa & Doug" is embossed on the battery compartment box as are two dat
+    ? HABA Rainbow Rattle Grasping Toy  -> CPSC 26719
+        look for: model no. 2012261001; lot/date code 0925; sold 2025-12 to 2026-07. Each HABA Rainbow Rattle Grasping and Teething Toy can be identified by the product batch cod
+    ? 5Color Kids Bike Helmet and Pads Set  -> CPSC 26789
+        look for: model no. YD-001; lot/date code YD-260320. “Model No.: YD-001,” “Lot/Ref: YD-260320” and “Date 2026/03/20” are printed on a label on the inside of the helmet an
+    ? Skip Hop Explore & More Baby's View 3-Stage Activity Center  -> CPSC 23117
+        look for: model no. 307150; UPC 879674025721; sold 2016-06 to 2022-12. The style number for the Silver Lining Cloud Activity Gym is 307150 and the UPC number is 879674025
+    ? Generic Pull String Silicone Busy Toy  -> CPSC 26635
+        look for: lot/date code DS250238; sold 2025-05 to 2026-04. The brand name and "Pulling Toy" is printed on the front of the product packaging, and the batch number DS25023
+    ? Little Loves & Co. Kids Drawstring Jogger Set  -> CPSC 26724
+        look for: sold 2025-05 to 2026-07. The model number and date code are printed on the neck tag.
+    ? OCOOPA Rechargeable Hand Warmer  -> CPSC 26659
+        look for: model no. UT3053, UT3056, ZLS-118, ZLS-118S...; sold 2018-09 to 2026-05. The model number and three-digit batch number are printed on the hand warmers' undersid
+    ? Woodure Wooden Toddler Learning Tower  -> CPSC 26658
+        look for: model no. WD1764, WD1357, WD1720; sold 2024-07 to 2026-06
+  SHOP MEMORIES APPLIED (1)
+    * local_c6322c2c9d: Shop correction: 'HARPPA Nordi Foldable Toddler Tower' is NOT the recalled product for CPSC recall 26651. Ours is the 2022 one - consignor's receipt s
+  note: 3 item(s) were classified by the heuristic fallback after the model kept returning invalid JSON
+  workflow: check-little-loop-2026-10-17-9772   memory: local (no BACKBOARD_API_KEY)

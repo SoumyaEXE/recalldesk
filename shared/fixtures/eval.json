@@ -1,0 +1,134 @@
+{
+ "placeholder": true,
+ "note": "PLACEHOLDER - every number is 0 until the ML agent writes ml/results/eval.json (human blind gold labels on held-out recalls). Do not quote.",
+ "test_size": 0,
+ "generated_at": "2026-10-17T04:19:32Z",
+ "gold": "human (blind)",
+ "models": [
+  {
+   "name": "Qwen3.5-397B-A17B (teacher)",
+   "role": "teacher",
+   "acc": 0,
+   "acc_ci": [
+    0,
+    0
+   ],
+   "macro_f1": 0,
+   "risky_caught": "0/0",
+   "false_alarms": "0/0",
+   "json_valid": 0,
+   "p50_latency_ms": 0,
+   "cost_per_1k_usd": 0
+  },
+  {
+   "name": "Qwen3.5-4B (base)",
+   "role": "base",
+   "acc": 0,
+   "acc_ci": [
+    0,
+    0
+   ],
+   "macro_f1": 0,
+   "risky_caught": "0/0",
+   "false_alarms": "0/0",
+   "json_valid": 0,
+   "p50_latency_ms": 0,
+   "cost_per_1k_usd": 0
+  },
+  {
+   "name": "Qwen3.5-4B (base, guided prompt)",
+   "role": "base_guided",
+   "acc": 0,
+   "acc_ci": [
+    0,
+    0
+   ],
+   "macro_f1": 0,
+   "risky_caught": "0/0",
+   "false_alarms": "0/0",
+   "json_valid": 0,
+   "p50_latency_ms": 0,
+   "cost_per_1k_usd": 0
+  },
+  {
+   "name": "qwen3.5-4b-recalldesk-lora",
+   "role": "lora",
+   "acc": 0,
+   "acc_ci": [
+    0,
+    0
+   ],
+   "macro_f1": 0,
+   "risky_caught": "0/0",
+   "false_alarms": "0/0",
+   "json_valid": 0,
+   "p50_latency_ms": 0,
+   "cost_per_1k_usd": 0
+  },
+  {
+   "name": "heuristic-rules",
+   "role": "heuristic",
+   "acc": 0,
+   "acc_ci": [
+    0,
+    0
+   ],
+   "macro_f1": 0,
+   "risky_caught": "0/0",
+   "false_alarms": "0/0",
+   "json_valid": 0,
+   "p50_latency_ms": 0,
+   "cost_per_1k_usd": 0
+  }
+ ],
+ "paired": [
+  {
+   "a": "lora",
+   "b": "base",
+   "gain": 0,
+   "ci": [
+    0,
+    0
+   ],
+   "only_a": 0,
+   "only_b": 0,
+   "p": 1
+  }
+ ],
+ "confusion": {
+  "lora": {
+   "labels": [
+    "match",
+    "check",
+    "no_match"
+   ],
+   "matrix": [
+    [
+     0,
+     0,
+     0
+    ],
+    [
+     0,
+     0,
+     0
+    ],
+    [
+     0,
+     0,
+     0
+    ]
+   ]
+  }
+ },
+ "training": {
+  "base_model": "Qwen/Qwen3.5-4B",
+  "rank": 32,
+  "steps": 0,
+  "epochs": 0,
+  "lr": 0,
+  "loss_curve": [],
+  "test_nll": []
+ },
+ "examples": []
+}

@@ -1,0 +1,38 @@
+[
+ {
+  "shop_id": "little-loop",
+  "shop_name": "Little Loop Kids Consignment",
+  "kind": "kids consignment shop",
+  "fictional": true,
+  "watched": true,
+  "inventory_csv": "fixtures_src/little_loop_inventory.csv",
+  "ebay_seller": null,
+  "card_footer": "Printed by RecallDesk. Before you list it, check it.",
+  "corpus": "AB",
+  "corpus_note": "A = all CPSC recalls since 2026-07-18; B = children's-product recalls since 2023-01-01 (resale shops face old recalls too)",
+  "ebay_store_queries": [
+   "baby",
+   "toddler",
+   "kids"
+  ],
+  "ebay_seller_note": "Set ebay_seller to the shop's own eBay username to scan its live store weekly via SerpApi (_sasl + _saslop=1; one search per query in ebay_store_queries, cached in data/serp/)."
+ },
+ {
+  "shop_id": "flip-garage",
+  "shop_name": "Flip Garage (eBay household & tools flipper)",
+  "kind": "eBay flipper",
+  "fictional": true,
+  "watched": true,
+  "inventory_csv": "fixtures_src/flip_garage_inventory.csv",
+  "ebay_seller": null,
+  "ebay_seller_note": "Set ebay_seller to the shop's own eBay username to scan its live store weekly via SerpApi (_sasl + _saslop=1; one search per query in ebay_store_queries, cached in data/serp/).",
+  "card_footer": "Printed by RecallDesk. Before you list it, check it.",
+  "corpus": "A",
+  "corpus_note": "A = all CPSC recalls since 2026-07-18; B = children's-product recalls since 2023-01-01 (resale shops face old recalls too)",
+  "ebay_store_queries": [
+   "tool",
+   "grill",
+   "speaker"
+  ]
+ }
+]

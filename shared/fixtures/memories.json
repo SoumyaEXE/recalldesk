@@ -1,0 +1,35 @@
+[
+ {
+  "memory_id": "local_c6322c2c9d",
+  "shop_id": "little-loop",
+  "text": "Shop correction: 'HARPPA Nordi Foldable Toddler Tower' is NOT the recalled product for CPSC recall 26651. Ours is the 2022 one - consignor's receipt shows it was bought new in March 2022, before the Sept 2023 - June 2026 sale window in the recall. Checked by Maya at intake. [recall=26651 verdict=no_match]",
+  "recall_number": "26651",
+  "correct_verdict": "no_match",
+  "item": "HARPPA Nordi Foldable Toddler Tower",
+  "note": "Ours is the 2022 one - consignor's receipt shows it was bought new in March 2022, before the Sept 2023 - June 2026 sale window in the recall. Checked by Maya at intake.",
+  "created_at": "2026-10-17T04:05:56Z",
+  "backend": "local (no BACKBOARD_API_KEY)"
+ },
+ {
+  "memory_id": "local_92d2eba779",
+  "shop_id": "little-loop",
+  "text": "Shop correction: 'Melissa & Doug Lights & Sounds Fire Truck Activity Board' is NOT the recalled product for CPSC recall 26780. Date wheel reads 24/11, outside the recalled 25/4, 25/5, 26/3. [recall=26780 verdict=no_match]",
+  "recall_number": "26780",
+  "correct_verdict": "no_match",
+  "item": "Melissa & Doug Lights & Sounds Fire Truck Activity Board",
+  "note": "Date wheel reads 24/11, outside the recalled 25/4, 25/5, 26/3.",
+  "created_at": "2026-10-17T04:18:50Z",
+  "backend": "local (no BACKBOARD_API_KEY)"
+ },
+ {
+  "memory_id": "local_9b5d4639f9",
+  "shop_id": "flip-garage",
+  "text": "Shop correction: 'Louisville Ladder Attic Stairway Ladder' is NOT the recalled product for CPSC recall 26661. Ours is a Werner pull-down with no gas struts; checked inside the attic door. [recall=26661 verdict=no_match]",
+  "recall_number": "26661",
+  "correct_verdict": "no_match",
+  "item": "Louisville Ladder Attic Stairway Ladder",
+  "note": "Ours is a Werner pull-down with no gas struts; checked inside the attic door.",
+  "created_at": "2026-10-17T04:08:26Z",
+  "backend": "local (no BACKBOARD_API_KEY)"
+ }
+]

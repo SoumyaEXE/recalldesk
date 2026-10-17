@@ -1,0 +1,129 @@
+{
+ "id": "card_2026-10-15_flip-garage",
+ "week_of": "2026-10-15",
+ "shop_id": "flip-garage",
+ "shop_name": "Flip Garage (eBay household & tools flipper)",
+ "new_recalls": 6,
+ "items_checked": 30,
+ "do_not_sell": [
+  {
+   "item": "Scotch Thermal Laminator 13 inch (model TL1302Z)",
+   "recall_number": "27024",
+   "recall_title": "3M Company Recalls Scotch™ Thermal Laminators Due to Risk of Serious Injury or Death from Fire Hazard",
+   "why": "Recalled identifier TL1302Z appears in the listing. Hazard: overheat, posing a fire hazard.",
+   "remedy": "Stop using; refund",
+   "source": "heuristic"
+  },
+  {
+   "item": "Cambridge Audio Yoyo (M) Portable Bluetooth Speaker",
+   "recall_number": "26731",
+   "recall_title": "Audio Partnership Recalls Cambridge Audio Yoyo (M) Portable Bluetooth Speakers Due to Fire Hazard",
+   "why": "Names the recalled Cambridge Audio product; recall covers all units. Hazard: The lithium-ion batteries in the Cambridge Audio Yoyo (M) Portable.",
+   "remedy": "Stop using; refund",
+   "source": "heuristic"
+  },
+  {
+   "item": "Goal Zero YETI 3000X Portable Power Station",
+   "recall_number": "26712",
+   "recall_title": "Goal Zero Recalls YETI 3000X Power Stations Due to Serious Risk of Injury from Fire and Burn Hazards",
+   "why": "Names the recalled Goal Zero product; recall covers all units. Hazard: overheat, posing a risk of serious injury from fire and.",
+   "remedy": "Stop using; repair",
+   "source": "heuristic"
+  },
+  {
+   "item": "BenQ GV31 Portable Projector (model GV31)",
+   "recall_number": "26647",
+   "recall_title": "BenQ America Recalls GV31 Portable Projectors Due to Risk of Serious Injury or Death from Fire and Burn Hazards",
+   "why": "Recalled identifier GV31 appears in the listing. Hazard: overheat, posing a risk of serious injury or death from.",
+   "remedy": "Stop using; repair, replace",
+   "source": "heuristic"
+  },
+  {
+   "item": "HotHands Rechargeable Hand Warmer (model H163650)",
+   "recall_number": "27011",
+   "recall_title": "Kobayashi Recalls Rechargeable Hand Warmers Due to Risk of Serious Injury from Fire and Burn Hazards",
+   "why": "Recalled identifier H163650 appears in the listing. Hazard: The lithium-ion battery and electrical components in the recalled hand.",
+   "remedy": "Stop using; refund",
+   "source": "heuristic"
+  },
+  {
+   "item": "Romorgniz Six-Drawer Dresser",
+   "recall_number": "27020",
+   "recall_title": "Romorgniz Recalls Six-Drawer Dressers Due to Risk of Serious Injury or Death from Tip-Over and Entrapment Hazards; Violate Mandatory Standard for Clothing Storage Units",
+   "why": "Names the recalled Romorgniz product; recall covers all units. Hazard: The recalled dressers are unstable if they are not anchored.",
+   "remedy": "Stop using; refund",
+   "source": "heuristic"
+  }
+ ],
+ "check_label": [
+  {
+   "item": "Char-Broil Bistro Pro Electric Grill",
+   "recall_number": "26773",
+   "look_for": "model no. 25302145, 25302146, 25302147, 25302148...; lot/date code 2510; sold 2025-10 to 2026-06. The product label listing the model and serial number, including a four-digit manufacturing date code in year and month (YYMM) format, is located on the bottom shelf of full-size grills and on the side ",
+   "recall_title": "Char-Broil Recalls Bistro Pro Electric Grills Due to Risk of Electric Shock",
+   "source": "heuristic"
+  },
+  {
+   "item": "Hampton Bay Halwin 52-Inch Ceiling Fan",
+   "recall_number": "26702",
+   "look_for": "model no. AK396H-MBK, AK396H-BN; UPC 840059614922, 840059615370; sold 2023-01 to 2025-10. UPCs \"840059614922\" or \"840059615370\" are located on the product packaging, the rating label located on the inside of fan mounting plate (same label as the serial number), and the warranty registration card pac",
+   "recall_title": "Hampton Bay Halwin 52-Inch Ceiling Fans Recalled Due to Impact and Injury Hazards; Manufactured by Youngo Limited",
+   "source": "heuristic"
+  },
+  {
+   "item": "Galanz Retro Mini Refrigerator 3.1 cu ft",
+   "recall_number": "26649",
+   "look_for": "model no. BCD-215V-62H, GLR76TRDER, GLR76TBKER, GLR76TBEER...; sold 2019-01 to 2022-09. \"Galanz,\" the model number and the date code, in YYYYMM format, are printed on a white label on the upper left-hand corner on the back of the unit.",
+   "recall_title": "Galanz Americas Recalls Retro Refrigerators Due to Risk of Serious Injury or Death from Fire and Burn Hazards; One Death Reported",
+   "source": "heuristic"
+  },
+  {
+   "item": "DR Power Equipment Pilot Trimmer Mower",
+   "recall_number": "27016",
+   "look_for": "model no. T4X1076DMN, T4X1076DMNR, T4X1076DMNSD, T4X1176DMN...; sold 2022-11 to 2026-07. The model numbers are printed on a label located on the side of the product's frame.",
+   "recall_title": "DR Power Equipment Recalls Pilot and Premier Trimmer Mowers Due to Risk of Serious Injury or Death from Fire and Burn Hazards",
+   "source": "heuristic"
+  },
+  {
+   "item": "DR Power Equipment Pilot Trimmer Mower",
+   "recall_number": "26648",
+   "look_for": "model no. WM25030DEN, WM25030DMN, WM25030DMNR, MAX30...; sold 2024-09 to 2025-09. The model and serial number are printed on the left side of the mower in front of the rear wheel.",
+   "recall_title": "DR Power Equipment Recalls Lawn Mowers Due to Risk of Serious Injury or Death from Laceration Hazard; Violate Mandatory Standard for Lawn Mowers",
+   "source": "heuristic"
+  },
+  {
+   "item": "Cooluli 10-Liter Mini Fridge",
+   "recall_number": "26685",
+   "look_for": "lot/date code 1535, 1200000, 1202080; sold 2019-01 to 2024-10. The model (ITEM #:) and batch numbers are printed on a label on the inside of the minifridge door.",
+   "recall_title": "Cooluli Recalls 10-Liter and 15-Liter Minifridges Due to Fire and Burn Hazards",
+   "source": "heuristic"
+  }
+ ],
+ "applied_memories": [
+  {
+   "memory_id": "local_9b5d4639f9",
+   "text": "Shop correction: 'Louisville Ladder Attic Stairway Ladder' is NOT the recalled product for CPSC recall 26661. Ours is a Werner pull-down with no gas struts; checked inside the attic door. [recall=26661 verdict=no_match]",
+   "item": "Louisville Ladder Attic Stairway Ladder",
+   "recall_number": "26661",
+   "model_verdict": "check",
+   "applied_verdict": "no_match",
+   "backend": "local (no BACKBOARD_API_KEY)"
+  }
+ ],
+ "workflow_id": "check-flip-garage-2026-10-17-7dbd",
+ "model": "heuristic-rules-v1 (heuristic, no model key)",
+ "generated_at": "2026-10-17T04:17:01.476Z",
+ "notes": [],
+ "memory_backend": "local (no BACKBOARD_API_KEY)",
+ "store_scan": {
+  "source": "skipped (no eBay store configured for this shop)",
+  "listings_seen": 0,
+  "searches_spent": 0,
+  "skipped": true,
+  "attempt": 1
+ },
+ "actions": {
+  "match": "DO NOT SELL",
+  "check": "CHECK LABEL"
+ }
+}

@@ -1,0 +1,123 @@
+$ python -m agent.demo_crash --shop little-loop --kill-after 18 --delay 1.2
+[demo t+  0.4s] Temporal server: localhost:7233  (the event history is the source of truth, not the worker)
+[demo t+  0.4s] model: heuristic / heuristic-rules-v1 (heuristic, no model key) + 1.2s simulated latency per item
+[demo t+  0.4s] 1) starting worker #1
+    worker#1 | 09:46:17.865 [worker] worker pid=16408 up: temporal=localhost:7233 queue=recalldesk-demo-crash-4420 provider=heuristic model=heuristic-rules-v1 (heuristic, no model key) memory=local (no BACKBOARD_API_KEY) chaos=off sentry=off
+[demo t+  4.6s] 2) started InventoryCheckWorkflow id=check-little-loop-2026-10-17-7a6f-crashdemo shop=little-loop (whole inventory)
+    worker#1 | 09:46:20.937 [worker] [load_inventory] shop=little-loop: 60 items
+    worker#1 | 09:46:21.308 [worker] [load_spec_set] shop=little-loop corpus=AB: 591 recalls (data/recalls/recalls.jsonl; specs: 0 teacher + 591 heuristic)
+    worker#1 | 09:46:21.508 [worker] [load_shop_memories] shop=little-loop backend=local (no BACKBOARD_API_KEY): 1 relevant memories for 1 items
+    worker#1 | 09:46:23.863 [worker] [retrieve_candidates] 60 items -> 176 (item, recall) pairs (top-3)
+    worker#1 | 09:46:24.705 [worker] [check_item] #1 101 Dalmatians Faux Leather Coin Purse -> 27028:match
+    worker#1 | 09:46:24.821 [worker] [check_item] #5 Kids Loungewear Set (shirt + shorts) -> 26752:check
+    worker#1 | 09:46:25.089 [worker] [check_item] #3 Baby Sesame Street Elmo Silicone Teether -> 26739:match
+    worker#1 | 09:46:25.272 [worker] [check_item] #2 Baby Bath Seat with Suction Cups -> 27018:match
+    worker#1 | 09:46:25.538 [worker] [check_item] #0 Convertible Bedside Sleeper with Play Ya -> 27027:match
+    worker#1 | 09:46:25.638 [worker] [check_item] #4 Baby Swing -> 26688:match
+    worker#1 | 09:46:26.100 [worker] [check_item] #6 Kids Kitchen Standing Tower -> 26655:match
+    worker#1 | 09:46:26.414 [worker] [check_item] #9 Lights & Sounds Fire Truck Activity Boar -> 26780:check
+    worker#1 | 09:46:26.783 [worker] [check_item] #8 Portable Sleep Machine with Night Light -> 26798:check
+    worker#1 | 09:46:26.797 [worker] [check_item] #11 Kids Bike Helmet and Pads Set -> 26789:check
+    worker#1 | 09:46:27.095 [worker] [check_item] #10 Rainbow Rattle Grasping Toy -> 26719:check
+    worker#1 | 09:46:27.557 [worker] [check_item] #13 Explore & More Baby's View 3-Stage Activ -> 23117:check
+
+[demo t+ 12.4s] 3) progress before crash: check_items 19/60 items (176 item x recall pairs)
+   [OK] load_inventory         completed attempt=1  60 items from the shop's inventory file
+   [OK] load_specs             completed attempt=1  591 recalls (corpus AB); data/recalls/recalls.jsonl; specs: 0 teacher + 591 heuristic
+   [OK] load_shop_memories     completed attempt=1  1 relevant memories; backend=local (no BACKBOARD_API_KEY)
+   [..] check_items            running   attempt=1  19/60 items (176 item x recall pairs)
+   [  ] scan_ebay_store        pending   attempt=0
+   [  ] compose_card           pending   attempt=0
+   [  ] publish_card           pending   attempt=0
+
+[demo t+ 12.4s] 4) [CRASH] hard-killing worker #1 (pid 16408) in the middle of check_items - no graceful shutdown
+[demo t+ 12.6s]    worker #1 is dead. No process is running the agent right now.
+[demo t+ 12.6s]    Temporal says: status=RUNNING, history length=151, 6 check_item activities in flight (orphaned)
+[demo t+ 12.6s]    waiting 3.0s of downtime...
+
+[demo t+ 15.6s] 5) starting worker #2 (fresh process, no memory of worker #1)
+[demo t+ 15.7s]    it replays the event history: finished activities are NOT re-run; orphaned in-flight ones are
+[demo t+ 15.7s]    retried once their 10s heartbeat timeout fires.
+    worker#2 | 09:46:33.407 [worker] worker pid=20396 up: temporal=localhost:7233 queue=recalldesk-demo-crash-4420 provider=heuristic model=heuristic-rules-v1 (heuristic, no model key) memory=local (no BACKBOARD_API_KEY) chaos=off sentry=off
+    worker#2 | 09:46:39.488 [worker] [check_item] #20 Antilop High Chair with Tray -> clear (attempt 2)
+    worker#2 | 09:46:40.058 [worker] [check_item] #21 Swing Down Bed Rail -> clear (attempt 2)
+    worker#2 | 09:46:40.916 [worker] [check_item] #22 BassiNest Swivel Sleeper Essentia -> clear (attempt 2)
+    worker#2 | 09:46:41.036 [worker] [check_item] #23 Rest Sound Machine & Night Light -> clear (attempt 2)
+    worker#2 | 09:46:41.507 [worker] [check_item] #25 Organic Cotton Footed Sleeper -> clear (attempt 2)
+    worker#2 | 09:46:41.786 [worker] [check_item] #24 Zip Sleep & Play Footed Sleeper -> clear (attempt 2)
+    worker#2 | 09:46:47.393 [worker] [check_item] #54 Pull String Silicone Busy Toy -> 26635:check
+    worker#2 | 09:46:47.550 [worker] [check_item] #56 6-Drawer Kids Dresser -> 27020:match
+    worker#2 | 09:46:47.709 [worker] [check_item] #57 Rechargeable Hand Warmer -> 26659:check
+    worker#2 | 09:46:47.852 [worker] [check_item] #59 Wooden Toddler Learning Tower -> 26658:check
+    worker#2 | 09:46:47.889 [worker] [check_item] #55 Kids Drawstring Jogger Set -> 26724:check
+    worker#2 | 09:46:48.578 [worker] [compose_card] card_2026-10-15_little-loop: 7 DO NOT SELL, 10 CHECK LABEL, 1 memories applied
+    worker#2 | 09:46:48.626 [worker] [publish_card] wrote agent/cards/check-little-loop-2026-10-17-7a6f-crashdemo.json
+
+[demo t+ 33.2s] 6) workflow COMPLETED after the crash:
+   [OK] load_inventory         completed attempt=1  60 items from the shop's inventory file
+   [OK] load_specs             completed attempt=1  591 recalls (corpus AB); data/recalls/recalls.jsonl; specs: 0 teacher + 591 heuristic
+   [OK] load_shop_memories     completed attempt=1  1 relevant memories; backend=local (no BACKBOARD_API_KEY)
+   [OK] check_items            completed attempt=2  60/60 items, 176 pairs; retrieval: ml.infer.retrieve
+          -> 6 item(s) needed retries
+   [--] scan_ebay_store        skipped   attempt=1  source=skipped (no eBay store configured for this shop)
+   [OK] compose_card           completed attempt=1  7 DO NOT SELL, 10 CHECK LABEL
+   [OK] publish_card           completed attempt=1  card_2026-10-15_little-loop
+
+[demo t+ 33.2s] 7) proof from Temporal event history:
+[demo t+ 33.2s]    check_item activities scheduled     : 60 (60 distinct ids - one per item, none scheduled twice)
+[demo t+ 33.2s]    completed before the crash          : 20  (kept; NOT re-run by worker #2)
+[demo t+ 33.2s]    completed after restart             : 40
+[demo t+ 33.2s]    activities completed twice          : 0
+[demo t+ 33.2s]    check_item attempts >= 2 (retried)  : 6  (were in flight when worker #1 died)
+[demo t+ 33.2s]    total history events                : 392
+   
+   === RECALL CARD card_2026-10-15_little-loop  Little Loop Kids Consignment  (week of 2026-10-15) ===
+     6 new recalls this week | 60 items checked | model: heuristic-rules-v1 (heuristic, no model key)
+     DO NOT SELL (7)
+       x Papablic Convertible Bedside Sleeper with Play Yard (model PAPA03001AI)  -> CPSC 27027: Papablic, of USA Recalls Convertible Bedside Sleepers Due to Risk of S
+           why: Recalled identifier PAPA03001AI appears in the listing. Hazard: The bedside sleepers with play yard extensions violate the mandatory.
+           remedy: Stop using; refund
+       x Primark 101 Dalmatians Faux Leather Coin Purse (model 2595301)  -> CPSC 27028: Primark Recalls 101 Dalmatians Faux Leather Children’s Coin Purses Due
+           why: Recalled identifier 2595301 appears in the listing. Hazard: The coin purses contain higher phthalate concentration levels. Phthalates can.
+           remedy: Stop using; refund
+       x ONTHEWEI Baby Bath Seat with Suction Cups (model MY002)  -> CPSC 27018: ONTHEWEI Recalls Baby Bath Seats Due to Risk of Serious Injury or Deat
+           why: Recalled identifier MY002 appears in the listing. Hazard: tip over while in use, posing a risk of serious.
+           remedy: Stop using; refund
+       x Skip Hop Baby Sesame Street Elmo Silicone Teether (model 9R263210)  -> CPSC 26739: Skip Hop Recalls Baby Sesame Street Elmo Silicone Teethers Due to Risk
+           why: Recalled identifier 9R263210 appears in the listing. Hazard: The black eyes can detach from the recalled teether if.
+           remedy: Stop using; refund
+       x Taleco Gear Baby Swing (model swing-1)  -> CPSC 26688: Taleco Gear Recalls Baby Jumpers, Baby Swings and 2-in-1 Baby Jumper &
+           why: Recalled identifier swing-1 appears in the listing. Hazard: The baby jumper, baby swing and 2-in-1 baby jumper &.
+           remedy: Stop using; refund
+       x Mangohood Kids Kitchen Standing Tower (model LT003)  -> CPSC 26655: Mangohood Direct Kids Kitchen Standing Towers Recalled Due to Risk of 
+           why: Recalled identifier LT003 appears in the listing. Hazard: collapse or tip over while in use, and a child's.
+           remedy: Stop using; repair
+       x Romorgniz 6-Drawer Kids Dresser  -> CPSC 27020: Romorgniz Recalls Six-Drawer Dressers Due to Risk of Serious Injury or
+           why: Names the recalled Romorgniz product; recall covers all units. Hazard: The recalled dressers are unstable if they are not anchored.
+           remedy: Stop using; refund
+     CHECK LABEL (10)
+       ? Sweet Cubby Kids Loungewear Set (shirt + shorts)  -> CPSC 26752
+           look for: lot/date code 272779; sold 2025-06 to 2026-05. "Batch No.: 272779" and the size are printed on the sewn-in neck label and on the seam label.
+       ? Love To Dream Portable Sleep Machine with Night Light (model LTD-SM23)  -> CPSC 26798
+           look for: model no. LTD-SM23; lot/date code 7W15TN; sold 2025-02 to 2026-09
+       ? Melissa & Doug Lights & Sounds Fire Truck Activity Board  -> CPSC 26780
+           look for: lot/date code 25100, 25150, 26064; sold 2025-07 to 2026-08. On the bottom of the toy, "Melissa & Doug" is embossed on the battery compartment box as are two dat
+       ? HABA Rainbow Rattle Grasping Toy  -> CPSC 26719
+           look for: model no. 2012261001; lot/date code 0925; sold 2025-12 to 2026-07. Each HABA Rainbow Rattle Grasping and Teething Toy can be identified by the product batch cod
+       ? 5Color Kids Bike Helmet and Pads Set  -> CPSC 26789
+           look for: model no. YD-001; lot/date code YD-260320. “Model No.: YD-001,” “Lot/Ref: YD-260320” and “Date 2026/03/20” are printed on a label on the inside of the helmet an
+       ? Skip Hop Explore & More Baby's View 3-Stage Activity Center  -> CPSC 23117
+           look for: model no. 307150; UPC 879674025721; sold 2016-06 to 2022-12. The style number for the Silver Lining Cloud Activity Gym is 307150 and the UPC number is 879674025
+       ? Generic Pull String Silicone Busy Toy  -> CPSC 26635
+           look for: lot/date code DS250238; sold 2025-05 to 2026-04. The brand name and "Pulling Toy" is printed on the front of the product packaging, and the batch number DS25023
+       ? Little Loves & Co. Kids Drawstring Jogger Set  -> CPSC 26724
+           look for: sold 2025-05 to 2026-07. The model number and date code are printed on the neck tag.
+       ? OCOOPA Rechargeable Hand Warmer  -> CPSC 26659
+           look for: model no. UT3053, UT3056, ZLS-118, ZLS-118S...; sold 2018-09 to 2026-05. The model number and three-digit batch number are printed on the hand warmers' undersid
+       ? Woodure Wooden Toddler Learning Tower  -> CPSC 26658
+           look for: model no. WD1764, WD1357, WD1720; sold 2024-07 to 2026-06
+     SHOP MEMORIES APPLIED (1)
+       * local_c6322c2c9d: Shop correction: 'HARPPA Nordi Foldable Toddler Tower' is NOT the recalled product for CPSC recall 26651. Ours is the 2022 one - consignor's receipt s
+     workflow: check-little-loop-2026-10-17-7a6f-crashdemo   memory: local (no BACKBOARD_API_KEY)
+[demo t+ 33.5s]    workers that touched this run: ['16408@MAVERICK', '20396@MAVERICK']  resumed_after_crash=True
+[demo t+ 33.6s] RESULT: PASS - no activity ran to completion twice

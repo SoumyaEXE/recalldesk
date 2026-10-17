@@ -1,0 +1,4 @@
+$ python <scratch test>  # scan_ebay_store via temporalio.testing.ActivityEnvironment, seller set; 1) no key  2) SerpApi forced to 429
+[scan_ebay_store] SerpApi HTTP 429: Your account has run out of searches. -> snapshot (SerpApi quota/429, not retried; no cached store snapshot)
+no key: snapshot (no SERPAPI_API_KEY; nothing cached for this store) 0
+429: snapshot (SerpApi quota/429, not retried; no cached store snapshot) 0

@@ -1,218 +1,264 @@
 [
  {
-  "workflow_id": "inventory-check-demo-shop-2026-10-16T14-02",
+  "workflow_id": "check-little-loop-2026-10-17-4aa7",
   "workflow_type": "InventoryCheckWorkflow",
-  "shop_id": "demo-shop",
+  "shop_id": "little-loop",
   "status": "completed",
-  "started_at": "2026-10-16T14:02:00Z",
-  "ended_at": "2026-10-16T14:02:34.400Z",
+  "started_at": "2026-10-17T04:19:09Z",
+  "ended_at": "2026-10-17T04:19:12Z",
   "steps": [
+   {
+    "name": "load_inventory",
+    "status": "completed",
+    "attempt": 1,
+    "started_at": "2026-10-17T04:19:09.355Z",
+    "ended_at": "2026-10-17T04:19:09.404Z",
+    "error": null,
+    "note": "60 items from the shop's inventory file"
+   },
+   {
+    "name": "load_specs",
+    "status": "completed",
+    "attempt": 1,
+    "started_at": "2026-10-17T04:19:09.404Z",
+    "ended_at": "2026-10-17T04:19:09.439Z",
+    "error": null,
+    "note": "591 recalls (corpus AB); data/recalls/recalls.jsonl; specs: 0 teacher + 591 heuristic"
+   },
    {
     "name": "load_shop_memories",
     "status": "completed",
     "attempt": 1,
-    "started_at": "2026-10-16T14:02:00.200Z",
-    "ended_at": "2026-10-16T14:02:01.100Z",
+    "started_at": "2026-10-17T04:19:09.439Z",
+    "ended_at": "2026-10-17T04:19:09.503Z",
     "error": null,
-    "note": "Backboard: 2 memories retrieved for demo-shop"
+    "note": "2 relevant memories; backend=local (no BACKBOARD_API_KEY)"
+   },
+   {
+    "name": "check_items",
+    "status": "completed",
+    "attempt": 1,
+    "started_at": "2026-10-17T04:19:09.503Z",
+    "ended_at": "2026-10-17T04:19:12.261Z",
+    "error": null,
+    "note": "60/60 items, 176 pairs; retrieval: ml.infer.retrieve"
+   },
+   {
+    "name": "scan_ebay_store",
+    "status": "skipped",
+    "attempt": 1,
+    "started_at": "2026-10-17T04:19:12.261Z",
+    "ended_at": "2026-10-17T04:19:12.300Z",
+    "error": null,
+    "note": "source=skipped (no eBay store configured for this shop)"
+   },
+   {
+    "name": "compose_card",
+    "status": "completed",
+    "attempt": 1,
+    "started_at": "2026-10-17T04:19:12.300Z",
+    "ended_at": "2026-10-17T04:19:12.332Z",
+    "error": null,
+    "note": "7 DO NOT SELL, 9 CHECK LABEL"
+   },
+   {
+    "name": "publish_card",
+    "status": "completed",
+    "attempt": 1,
+    "started_at": "2026-10-17T04:19:12.332Z",
+    "ended_at": "2026-10-17T04:19:12.366Z",
+    "error": null,
+    "note": "card_2026-10-15_little-loop"
+   }
+  ],
+  "workers": [
+   "8232@MAVERICK"
+  ],
+  "resumed_after_crash": false,
+  "history_events": 257,
+  "retries": 0,
+  "card_id": "card_2026-10-15_little-loop",
+  "summary": {
+   "card_id": "card_2026-10-15_little-loop",
+   "do_not_sell": 7,
+   "check_label": 9,
+   "items_checked": 60,
+   "applied_memories": 2
+  }
+ },
+ {
+  "workflow_id": "check-flip-garage-2026-10-17-7dbd",
+  "workflow_type": "InventoryCheckWorkflow",
+  "shop_id": "flip-garage",
+  "status": "completed",
+  "started_at": "2026-10-17T04:16:59Z",
+  "ended_at": "2026-10-17T04:17:01Z",
+  "steps": [
+   {
+    "name": "load_inventory",
+    "status": "completed",
+    "attempt": 1,
+    "started_at": "2026-10-17T04:16:59.876Z",
+    "ended_at": "2026-10-17T04:16:59.956Z",
+    "error": null,
+    "note": "30 items from the shop's inventory file"
+   },
+   {
+    "name": "load_specs",
+    "status": "completed",
+    "attempt": 1,
+    "started_at": "2026-10-17T04:16:59.956Z",
+    "ended_at": "2026-10-17T04:17:00.198Z",
+    "error": null,
+    "note": "151 recalls (corpus A); data/recalls/recalls.jsonl; specs: 0 teacher + 151 heuristic"
+   },
+   {
+    "name": "load_shop_memories",
+    "status": "completed",
+    "attempt": 1,
+    "started_at": "2026-10-17T04:17:00.198Z",
+    "ended_at": "2026-10-17T04:17:00.297Z",
+    "error": null,
+    "note": "1 relevant memories; backend=local (no BACKBOARD_API_KEY)"
+   },
+   {
+    "name": "check_items",
+    "status": "completed",
+    "attempt": 1,
+    "started_at": "2026-10-17T04:17:00.297Z",
+    "ended_at": "2026-10-17T04:17:01.420Z",
+    "error": null,
+    "note": "30/30 items, 81 pairs; retrieval: ml.infer.retrieve"
+   },
+   {
+    "name": "scan_ebay_store",
+    "status": "skipped",
+    "attempt": 1,
+    "started_at": "2026-10-17T04:17:01.420Z",
+    "ended_at": "2026-10-17T04:17:01.476Z",
+    "error": null,
+    "note": "source=skipped (no eBay store configured for this shop)"
+   },
+   {
+    "name": "compose_card",
+    "status": "completed",
+    "attempt": 1,
+    "started_at": "2026-10-17T04:17:01.476Z",
+    "ended_at": "2026-10-17T04:17:01.523Z",
+    "error": null,
+    "note": "6 DO NOT SELL, 6 CHECK LABEL"
+   },
+   {
+    "name": "publish_card",
+    "status": "completed",
+    "attempt": 1,
+    "started_at": "2026-10-17T04:17:01.523Z",
+    "ended_at": "2026-10-17T04:17:01.579Z",
+    "error": null,
+    "note": "card_2026-10-15_flip-garage"
+   }
+  ],
+  "workers": [
+   "13004@MAVERICK"
+  ],
+  "resumed_after_crash": false,
+  "history_events": 152,
+  "retries": 0,
+  "card_id": "card_2026-10-15_flip-garage",
+  "summary": {
+   "card_id": "card_2026-10-15_flip-garage",
+   "do_not_sell": 6,
+   "check_label": 6,
+   "items_checked": 30,
+   "applied_memories": 1
+  }
+ },
+ {
+  "workflow_id": "check-little-loop-2026-10-17-7a6f-crashdemo",
+  "workflow_type": "InventoryCheckWorkflow",
+  "shop_id": "little-loop",
+  "status": "completed",
+  "started_at": "2026-10-17T04:16:20Z",
+  "ended_at": "2026-10-17T04:16:48Z",
+  "steps": [
+   {
+    "name": "load_inventory",
+    "status": "completed",
+    "attempt": 1,
+    "started_at": "2026-10-17T04:16:20.894Z",
+    "ended_at": "2026-10-17T04:16:20.957Z",
+    "error": null,
+    "note": "60 items from the shop's inventory file"
+   },
+   {
+    "name": "load_specs",
+    "status": "completed",
+    "attempt": 1,
+    "started_at": "2026-10-17T04:16:20.957Z",
+    "ended_at": "2026-10-17T04:16:21.324Z",
+    "error": null,
+    "note": "591 recalls (corpus AB); data/recalls/recalls.jsonl; specs: 0 teacher + 591 heuristic"
+   },
+   {
+    "name": "load_shop_memories",
+    "status": "completed",
+    "attempt": 1,
+    "started_at": "2026-10-17T04:16:21.324Z",
+    "ended_at": "2026-10-17T04:16:21.527Z",
+    "error": null,
+    "note": "1 relevant memories; backend=local (no BACKBOARD_API_KEY)"
    },
    {
     "name": "check_items",
     "status": "completed",
     "attempt": 2,
-    "started_at": "2026-10-16T14:02:01.200Z",
-    "ended_at": "2026-10-16T14:02:31.400Z",
-    "error": "attempt 1: model returned invalid JSON for 1 pair (retried)",
-    "note": "120 items × top-5 recalls (BM25) = 600 pairs; 8 flagged"
+    "started_at": "2026-10-17T04:16:21.527Z",
+    "ended_at": "2026-10-17T04:16:48.488Z",
+    "error": "worker crashed mid-step; in-flight activities resumed on a fresh worker (finished ones kept from event history)",
+    "note": "60/60 items, 176 pairs; retrieval: ml.infer.retrieve"
    },
    {
     "name": "scan_ebay_store",
-    "status": "completed",
+    "status": "skipped",
     "attempt": 1,
-    "started_at": "2026-10-16T14:02:31.500Z",
-    "ended_at": "2026-10-16T14:02:33.000Z",
+    "started_at": "2026-10-17T04:16:48.488Z",
+    "ended_at": "2026-10-17T04:16:48.536Z",
     "error": null,
-    "note": "source=snapshot (SerpApi quota reserved for the weekly sweep)"
+    "note": "source=skipped (no eBay store configured for this shop)"
    },
    {
     "name": "compose_card",
     "status": "completed",
     "attempt": 1,
-    "started_at": "2026-10-16T14:02:33.100Z",
-    "ended_at": "2026-10-16T14:02:33.900Z",
+    "started_at": "2026-10-17T04:16:48.536Z",
+    "ended_at": "2026-10-17T04:16:48.593Z",
     "error": null,
-    "note": "3 DO NOT SELL · 5 CHECK LABEL · 2 memories applied"
+    "note": "7 DO NOT SELL, 10 CHECK LABEL"
    },
    {
     "name": "publish_card",
     "status": "completed",
     "attempt": 1,
-    "started_at": "2026-10-16T14:02:34.000Z",
-    "ended_at": "2026-10-16T14:02:34.400Z",
+    "started_at": "2026-10-17T04:16:48.593Z",
+    "ended_at": "2026-10-17T04:16:48.640Z",
     "error": null,
-    "note": "card_2026-10-15_demo-shop"
+    "note": "card_2026-10-15_little-loop"
    }
   ],
-  "retries": 1,
-  "resumed_after_crash": false,
-  "history_events": 41,
-  "card_id": "card_2026-10-15_demo-shop",
-  "placeholder": true
- },
- {
-  "workflow_id": "weekly-recall-sweep-2026-10-15",
-  "workflow_type": "WeeklyRecallSweep",
-  "status": "completed",
-  "started_at": "2026-10-15T18:00:04Z",
-  "ended_at": "2026-10-15T18:02:37.100Z",
-  "steps": [
-   {
-    "name": "fetch_new_recalls",
-    "status": "completed",
-    "attempt": 3,
-    "started_at": "2026-10-15T18:00:04.000Z",
-    "ended_at": "2026-10-15T18:00:08.800Z",
-    "error": "attempts 1–2: CPSC API HTTP 503 (backoff 2s, 4s)",
-    "note": "6 new recalls since 2026-10-08"
-   },
-   {
-    "name": "extract_spec",
-    "status": "completed",
-    "attempt": 1,
-    "started_at": "2026-10-15T18:00:09.000Z",
-    "ended_at": "2026-10-15T18:00:56.600Z",
-    "error": null,
-    "note": "6 specs from the teacher (Qwen3.5-397B-A17B)"
-   },
-   {
-    "name": "load_shop_memories",
-    "status": "completed",
-    "attempt": 1,
-    "started_at": "2026-10-15T18:00:56.800Z",
-    "ended_at": "2026-10-15T18:00:57.600Z",
-    "error": null,
-    "note": "3 shops watched"
-   },
-   {
-    "name": "check_items",
-    "status": "completed",
-    "attempt": 1,
-    "started_at": "2026-10-15T18:00:57.700Z",
-    "ended_at": "2026-10-15T18:02:25.000Z",
-    "error": "worker crashed at 96s; resumed on worker-2 from event history (no activity re-run)",
-    "note": "3 shops, 342 items"
-   },
-   {
-    "name": "scan_ebay_store",
-    "status": "completed",
-    "attempt": 1,
-    "started_at": "2026-10-15T18:02:25.200Z",
-    "ended_at": "2026-10-15T18:02:34.900Z",
-    "error": null,
-    "note": "12 SerpApi searches (6 cached)"
-   },
-   {
-    "name": "compose_card",
-    "status": "completed",
-    "attempt": 1,
-    "started_at": "2026-10-15T18:02:35.000Z",
-    "ended_at": "2026-10-15T18:02:36.300Z",
-    "error": null,
-    "note": "3 cards"
-   },
-   {
-    "name": "publish_card",
-    "status": "completed",
-    "attempt": 1,
-    "started_at": "2026-10-15T18:02:36.400Z",
-    "ended_at": "2026-10-15T18:02:37.100Z",
-    "error": null,
-    "note": "3 cards published"
-   }
-  ],
-  "retries": 2,
-  "resumed_after_crash": true,
   "workers": [
-   "worker-1",
-   "worker-2"
+   "16408@MAVERICK",
+   "20396@MAVERICK"
   ],
-  "history_events": 118,
-  "placeholder": true
- },
- {
-  "workflow_id": "weekly-recall-sweep-2026-10-08",
-  "workflow_type": "WeeklyRecallSweep",
-  "status": "completed",
-  "started_at": "2026-10-08T18:00:03Z",
-  "ended_at": "2026-10-08T18:02:54.500Z",
-  "steps": [
-   {
-    "name": "fetch_new_recalls",
-    "status": "completed",
-    "attempt": 1,
-    "started_at": "2026-10-08T18:00:03.000Z",
-    "ended_at": "2026-10-08T18:00:05.100Z",
-    "error": null,
-    "note": "8 new recalls since 2026-10-01"
-   },
-   {
-    "name": "extract_spec",
-    "status": "completed",
-    "attempt": 1,
-    "started_at": "2026-10-08T18:00:05.300Z",
-    "ended_at": "2026-10-08T18:01:07.000Z",
-    "error": null,
-    "note": "8 specs"
-   },
-   {
-    "name": "load_shop_memories",
-    "status": "completed",
-    "attempt": 1,
-    "started_at": "2026-10-08T18:01:07.100Z",
-    "ended_at": "2026-10-08T18:01:08.000Z",
-    "error": null,
-    "note": null
-   },
-   {
-    "name": "check_items",
-    "status": "completed",
-    "attempt": 1,
-    "started_at": "2026-10-08T18:01:08.100Z",
-    "ended_at": "2026-10-08T18:02:33.200Z",
-    "error": null,
-    "note": "3 shops, 330 items"
-   },
-   {
-    "name": "scan_ebay_store",
-    "status": "completed",
-    "attempt": 1,
-    "started_at": "2026-10-08T18:02:33.300Z",
-    "ended_at": "2026-10-08T18:02:52.800Z",
-    "error": null,
-    "note": "source=snapshot (SerpApi 429; not retried)"
-   },
-   {
-    "name": "compose_card",
-    "status": "completed",
-    "attempt": 1,
-    "started_at": "2026-10-08T18:02:52.900Z",
-    "ended_at": "2026-10-08T18:02:54.000Z",
-    "error": null,
-    "note": null
-   },
-   {
-    "name": "publish_card",
-    "status": "completed",
-    "attempt": 1,
-    "started_at": "2026-10-08T18:02:54.100Z",
-    "ended_at": "2026-10-08T18:02:54.500Z",
-    "error": null,
-    "note": null
-   }
-  ],
-  "retries": 0,
-  "resumed_after_crash": false,
-  "history_events": 97,
-  "placeholder": true
+  "resumed_after_crash": true,
+  "history_events": 392,
+  "retries": 1,
+  "card_id": "card_2026-10-15_little-loop",
+  "summary": {
+   "card_id": "card_2026-10-15_little-loop",
+   "do_not_sell": 7,
+   "check_label": 10,
+   "items_checked": 60,
+   "applied_memories": 1
+  }
  }
 ]

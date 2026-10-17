@@ -1,0 +1,11 @@
+$ python -m agent.schedule describe
+schedule recalldesk-weekly-sweep: paused=False actions_taken=0
+spec: day_of_week=(ScheduleRange(start=4, end=4, step=1),) hour=(ScheduleRange(start=14, end=14, step=1),) America/New_York
+next runs: 2026-10-22T18:00:00+00:00, 2026-10-29T18:00:00+00:00, 2026-11-05T19:00:00+00:00
+$ python -m agent.schedule trigger
+triggered recalldesk-weekly-sweep - see GET /api/runs or the Temporal UI (http://localhost:8233)
+$ python -m agent.schedule describe
+schedule recalldesk-weekly-sweep: paused=False actions_taken=1
+spec: day_of_week=(ScheduleRange(start=4, end=4, step=1),) hour=(ScheduleRange(start=14, end=14, step=1),) America/New_York
+next runs: 2026-10-22T18:00:00+00:00, 2026-10-29T18:00:00+00:00, 2026-11-05T19:00:00+00:00
+recent: 2026-10-17T04:13:38.134882+00:00 weekly-sweep-2026-10-17T04:13:38Z

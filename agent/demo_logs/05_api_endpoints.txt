@@ -1,0 +1,83 @@
+$ curl localhost:8000/api/health
+{"ok":true,"temporal":true,"temporal_address":"localhost:7233","model":{"provider":"heuristic","classifier":"ml.infer","model":"heuristic-rules-v1 (heuristic, no model key)"},"memory_backend":"local (no BACKBOARD_API_KEY)","keys":{"TINKER_API_KEY":false,"SERPAPI_API_KEY":false,"BACKBOARD_API_KEY":false,"SENTRY_DSN":false},"chaos":false,"data":{"recalls":true,"teacher_specs":false,"eval":false,"scan":false}}
+[HTTP 200]
+
+$ curl localhost:8000/api/recalls?since=2026-10-15
+[{"recall_number":"27029","recall_id":11025,"recall_date":"2026-10-15","title":"usOpal Recalls Xalirium Portable Bed Rails Due to Risk of Serious Injury or Death from Entrapment and Asphyxiation; Violate Mandatory Standard for Adult Portable Bed Rails","description":"This recall involves Xalirium-branded adult portable bed rails. They have a white frame with black foam rubber grips and a black fabric pouch. The bed rails measure about 17.15 inches high, 4.33 inches wide and 1.99 inches long. \"Xalirium\" is printed on the label of the product packaging. Only bed rails without vertical bars inside the opening are included in this recall.","url":"https://www.cpsc.gov/Recalls/2027/usOpal-Recalls-Xalirium-Portable-Bed-Rails-Due-to-Risk-of-Serious-Injury-or-Death-from-Entrapment-and-Asphyxiation-Violate-Mandatory-Standard-for-Adult-Portable-Bed-Rails","product_names":["Xalirium Adult Portable
+
+$ curl localhost:8000/api/recalls?childrens=true&limit=1
+[{"recall_number":"27028","recall_id":11027,"recall_date":"2026-10-15","title":"Primark Recalls 101 Dalmatians Faux Leather Children’s Coin Purses Due to Phthalate Levels and Risk of Ingestion","description":"This recall involves the Primark 101 Dalmatians Faux Leather Coin Purse, Model No. 2595301. The coin purse is black and has a picture of a dalmatian and \"101 Dalmatians\" printed on the front. The model number is located on the product tag attached to the zip puller.","url":"https://www.cpsc.gov/Recalls/2027/Primark-Recalls-101-Dalmatians-Faux-Leather-Childrens-Coin-Purses-Due-to-Phthalate-Levels-and-Risk-of-Ingestion","product_names":["101 Dalmatians Faux Leather Coin Purses"],"units":"About 2,100","hazards":["The coin purses contain higher phthalate concentration levels. Phthalates can be harmful if young children are exposed to sufficient amounts, including through ingestion, 
+
+$ curl localhost:8000/api/scan
+{"placeholder":true,"note":"PLACEHOLDER - no SerpApi eBay scan has run yet. Real numbers replace this when ml/ writes ml/results/scan_summary.json. Recall list below is real (CPSC, since 2026-07-18).","recalls_scanned":0,"searches_spent":0,"listings_seen":0,"flagged_match":0,"flagged_check":0,"human_verified_match":0,"childrens_flagged":0,"by_recall":[{"recall_number":"27029","title":"usOpal Recalls Xalirium Portable Bed Rails Due to Risk of Serious Injury or Death from Entrapment and Asphyxiation; Violate Mandatory Standard for Adult Portable Bed Rails","listings":0,"match":0,"check":0,"examples":[],"is_childrens":false},{"recall_number":"27028","title":"Primark Recalls 101 Dalmatians Faux Leather Children’s Coin Purses Due to Phthalate Levels and Risk of Ingestion","listings":0,"match":0,"check":0,"examples":[],"is_childrens":true},{"recall_number":"27027","title":"Papablic, of USA R
+
+$ curl localhost:8000/api/scan/27027
+{"recall_number":"27027","listings":[],"source":"none yet","placeholder":true,"summary":{"recall_number":"27027","title":"Papablic, of USA Recalls Convertible Bedside Sleepers Due to Risk of Serious Injury or Death from Entrapment, Suffocation and Fall Hazards; Violate Mandatory Standard for Play Yards","listings":0,"match":0,"check":0,"examples":[],"is_childrens":true},"note":"no eBay listings scanned for this recall yet (SerpApi scan pending)"}
+[HTTP 200]
+
+$ curl -X POST /api/check {"shop_id":"demo-shop","items":[]}
+{"workflow_id":"check-little-loop-2026-10-17-8452","mode":"temporal"}
+
+$ curl -X POST localhost:8000/api/check -H content-type: application/json -d {"shop_id":"pop-up","items":[{"name":"Thermal Laminator","brand":"Scotch","model":"TL1302Z"},{"name":"Elmo teether","brand":"Skip Hop"},{"name":"wooden puzzle","brand":"Melissa & Doug"}]}
+{"workflow_id":"check-pop-up-2026-10-17-4887","mode":"temporal"}
+[HTTP 200]
+
+$ curl -X POST localhost:8000/api/shops/little-loop/corrections -H content-type: application/json -d {"listing_or_item":"Melissa & Doug Lights & Sounds Fire Truck Activity Board","recall_number":"26780","correct_verdict":"no_match","note":"Date wheel reads 24/11, outside the recalled 25/4, 25/5, 26/3."}
+{"memory_id":"local_92d2eba779","backend":"local (no BACKBOARD_API_KEY)","text":"Shop correction: 'Melissa & Doug Lights & Sounds Fire Truck Activity Board' is NOT the recalled product for CPSC recall 26780. Date wheel reads 24/11, outside the recalled 25/4, 25/5, 26/3. [recall=26780 verdict=no_match]"}
+[HTTP 200]
+
+$ curl localhost:8000/api/shops/demo-shop/memories
+[{"memory_id":"local_c6322c2c9d","shop_id":"little-loop","text":"Shop correction: 'HARPPA Nordi Foldable Toddler Tower' is NOT the recalled product for CPSC recall 26651. Ours is the 2022 one - consignor's receipt shows it was bought new in March 2022, before the Sept 2023 - June 2026 sale window in the recall. Checked by Maya at intake. [recall=26651 verdict=no_match]","recall_number":"26651","correct_verdict":"no_match","item":"HARPPA Nordi Foldable Toddler Tower","note":"Ours is the 2022 one - consignor's receipt shows it was bought new in March 2022, before the Sept 2023 - June 2026 sale window in the recall. Checked by Maya at intake.","created_at":"2026-10-17T04:05:56Z","backend":"local (no BACKBOARD_API_KEY)"},{"memory_id":"local_92d2eba779","shop_id":"little-loop","text":"Shop correction: 'Melissa & Doug Lights & Sounds Fire Truck Activity Board' is NOT the recalled product for C
+
+$ curl localhost:8000/api/runs?limit=2
+[{"workflow_id":"check-pop-up-2026-10-17-4887","workflow_type":"InventoryCheckWorkflow","shop_id":"pop-up","status":"running","started_at":"2026-10-17T04:18:50Z","ended_at":null,"steps":[{"name":"load_specs","status":"running","attempt":1,"started_at":"2026-10-17T04:18:50.176Z","ended_at":null,"error":null,"note":null},{"name":"load_shop_memories","status":"pending","attempt":0,"started_at":null,"ended_at":null,"error":null,"note":null},{"name":"check_items","status":"pending","attempt":0,"started_at":null,"ended_at":null,"error":null,"note":null},{"name":"scan_ebay_store","status":"pending","attempt":0,"started_at":null,"ended_at":null,"error":null,"note":null},{"name":"compose_card","status":"pending","attempt":0,"started_at":null,"ended_at":null,"error":null,"note":null},{"name":"publish_card","status":"pending","attempt":0,"started_at":null,"ended_at":null,"error":null,"note":null}],
+
+$ curl localhost:8000/api/eval
+{"placeholder":true,"note":"PLACEHOLDER - every number is 0 until the ML agent writes ml/results/eval.json (human blind gold labels on held-out recalls). Do not quote.","test_size":0,"generated_at":"2026-10-17T04:17:04Z","gold":"human (blind)","models":[{"name":"Qwen3.5-397B-A17B (teacher)","role":"teacher","acc":0,"acc_ci":[0,0],"macro_f1":0,"risky_caught":"0/0","false_alarms":"0/0","json_valid":0,"p50_latency_ms":0,"cost_per_1k_usd":0},{"name":"Qwen3.5-4B (base)","role":"base","acc":0,"acc_ci":[0,0],"macro_f1":0,"risky_caught":"0/0","false_alarms":"0/0","json_valid":0,"p50_latency_ms":0,"cost_per_1k_usd":0},{"name":"Qwen3.5-4B (base, guided prompt)","role":"base_guided","acc":0,"acc_ci":[0,0],"macro_f1":0,"risky_caught":"0/0","false_alarms":"0/0","json_valid":0,"p50_latency_ms":0,"cost_per_1k_usd":0},{"name":"qwen3.5-4b-recalldesk-lora","role":"lora","acc":0,"acc_ci":[0,0],"macro_f1":0
+
+$ curl localhost:8000/api/shops
+[{"shop_id":"little-loop","shop_name":"Little Loop Kids Consignment","kind":"kids consignment shop","fictional":true,"watched":true,"ebay_seller":null,"card_footer":"Printed by RecallDesk. Before you list it, check it.","corpus":"AB","corpus_note":"A = all CPSC recalls since 2026-07-18; B = children's-product recalls since 2023-01-01 (resale shops face old recalls too)","ebay_store_queries":["baby","toddler","kids"],"ebay_seller_note":"Set ebay_seller to the shop's own eBay username to scan its live store weekly via SerpApi (_sasl + _saslop=1; one search per query in ebay_store_queries, cached in data/serp/).","items":60},{"shop_id":"flip-garage","shop_name":"Flip Garage (eBay household & tools flipper)","kind":"eBay flipper","fictional":true,"watched":true,"ebay_seller":null,"ebay_seller_note":"Set ebay_seller to the shop's own eBay username to scan its live store weekly via SerpApi (_s
+
+$ curl localhost:8000/api/cards/latest?shop_id=demo-shop
+{"id":"card_2026-10-15_little-loop","week_of":"2026-10-15","shop_id":"little-loop","shop_name":"Little Loop Kids Consignment","new_recalls":6,"items_checked":60,"do_not_sell":[{"item":"Papablic Convertible Bedside Sleeper with Play Yard (model PAPA03001AI)","recall_number":"27027","recall_title":"Papablic, of USA Recalls Convertible Bedside Sleepers Due to Risk of Serious Injury or Death from Entrapment, Suffocation and Fall Hazards; Violate Mandatory Standard for Play Yards","why":"Recalled identifier PAPA03001AI appears in the listing. Hazard: The bedside sleepers with play yard extensions violate the mandatory.","remedy":"Stop using; refund","source":"heuristic"},{"item":"Primark 101 Dalmatians Faux Leather Coin Purse (model 2595301)","recall_number":"27028","recall_title":"Primark Recalls 101 Dalmatians Faux Leather Children’s Coin Purses Due to Phthalate Levels and Risk of Ingesti
+
+$ curl localhost:8000/api/cards/check-little-loop-2026-10-17-8452
+{"status":"completed","steps":[{"name":"load_inventory","status":"completed","attempt":1,"started_at":"2026-10-17T04:18:49.872Z","ended_at":"2026-10-17T04:18:49.937Z","error":null,"note":"60 items from the shop's inventory file"},{"name":"load_specs","status":"completed","attempt":1,"started_at":"2026-10-17T04:18:49.937Z","ended_at":"2026-10-17T04:18:50.105Z","error":null,"note":"591 recalls (corpus AB); data/recalls/recalls.jsonl; specs: 0 teacher + 591 heuristic"},{"name":"load_shop_memories","status":"completed","attempt":1,"started_at":"2026-10-17T04:18:50.105Z","ended_at":"2026-10-17T04:18:50.259Z","error":null,"note":"1 relevant memories; backend=local (no BACKBOARD_API_KEY)"},{"name":"check_items","status":"completed","attempt":1,"started_at":"2026-10-17T04:18:50.259Z","ended_at":"2026-10-17T04:18:53.371Z","error":null,"note":"60/60 items, 176 pairs; retrieval: ml.infer.retrieve"}
+
+$ curl localhost:8000/api/cards/nope-123
+{"detail":"workflow not found"}
+[HTTP 404]
+
+$ curl -X POST localhost:8000/api/check -H content-type: application/json -d {"shop_id":"Bad Id!"}
+{"detail":[{"type":"string_pattern_mismatch","loc":["body","shop_id"],"msg":"String should match pattern '^[a-z0-9][a-z0-9-]*$'","input":"Bad Id!","ctx":{"pattern":"^[a-z0-9][a-z0-9-]*$"}}]}
+[HTTP 422]
+
+access-control-allow-origin: http://localhost:3000
+$ # after POST /api/shops/little-loop/corrections (Fire Truck, 26780 -> no_match), run the check again:
+$ curl -X POST /api/check {"shop_id":"demo-shop","items":[]}  then GET /api/cards/<id>
+{
+ "status": "completed",
+ "card_id": "card_2026-10-15_little-loop",
+ "do_not_sell": 7,
+ "check_label": 9,
+ "applied_memories": [
+  {
+   "memory_id": "local_c6322c2c9d",
+   "text": "Shop correction: 'HARPPA Nordi Foldable Toddler Tower' is NOT the recalled product for CPSC recall 26651. Ours is the 2022 one - consignor's receipt shows it was bought new in March 2022, before the Sept 2023 - June 2026 sale window in the recall. Checked by Maya at intake. [recall=26651 verdict=no_match]",
+   "item": "HARPPA Nordi Foldable Toddler Tower",
+   "recall_number": "26651",
+   "model_verdict": "check",
+   "applied_verdict": "no_match",
+   "backend": "local (no BACKBOARD_API_KEY)"
+  },
+  {
+   "memory_id": "local_92d2eba779",
+   "text": "Shop correction: 'Melissa & Doug Lights & Sounds Fire Truck Activity Board' is NOT the recalled product for CPSC recall 26780. Date wheel reads 24/11, outside the recalled 25/4, 25/5, 26/3. [recall=26780 verdict=no_match]",
+   "item": "Melissa & Doug Lights & Sounds Fire Truck Activity Board",
+   "recall_number": "26780",
+   "model_verdict": "check",
+   "applied_verdict": "no_match",
+   "backend": "local (no BACKBOARD_API_KEY)"
+  }
+ ]
+}

@@ -1,0 +1,58 @@
+# Render Blueprint for RecallDesk: New -> Blueprint -> pick this repo.
+#
+#   recalldesk-agent  Python web service: Temporal dev server + worker + FastAPI in ONE container.
+#                     The Thursday 14:00 America/New_York Schedule is created on boot (--schedule).
+#   recalldesk-web    Static Next.js export of the dashboard, pointed at the agent. If the agent is asleep
+#                     or down, the dashboard falls back to the bundled real-data fixtures (web/public/fixtures).
+#
+# Secrets are `sync: false`: Render asks for them on first deploy. Every one is optional - with none set the
+# agent runs the heuristic provider, the local memory store and the committed CPSC snapshot, all labelled.
+#
+# Honest tradeoff: the Temporal dev server keeps its SQLite DB on the container's ephemeral disk, so runs
+# survive a *worker* crash (agent/demo_crash.py) but not a redeploy. For real durability set
+# TEMPORAL_ADDRESS / TEMPORAL_NAMESPACE / TEMPORAL_API_KEY (Temporal Cloud) and change the start command to
+# `python -m agent.dev --no-server --schedule --host 0.0.0.0 --api-port $PORT`.
+services:
+  - type: web
+    name: recalldesk-agent
+    runtime: python
+    plan: starter            # dev server + worker + API fit in 512 MB; the Tinker client + tokenizer may need standard
+    region: oregon
+    buildCommand: >-
+      pip install --upgrade pip &&
+      pip install --extra-index-url https://download.pytorch.org/whl/cpu -r agent/requirements-tinker.txt
+    startCommand: python -m agent.dev --schedule --host 0.0.0.0 --api-port $PORT
+    healthCheckPath: /api/health
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.7
+      - key: TINKER_API_KEY          # LoRA sampling (provider=tinker); model path is committed in ml/results/model_path.txt
+        sync: false
+      - key: SERPAPI_API_KEY         # weekly eBay store scan (cached, budget-capped)
+        sync: false
+      - key: BACKBOARD_API_KEY       # per-shop correction memories
+        sync: false
+      - key: SENTRY_DSN              # optional tracing (gen_ai spans per classify call)
+        sync: false
+      # Unset = tinker when TINKER_API_KEY + a model path exist, else heuristic. Set "heuristic" for zero spend.
+      - key: RECALLDESK_MODEL_PROVIDER
+        sync: false
+      # *.onrender.com origins are already allowed by CORS; add exact extra origins (comma-separated) here.
+      - key: RECALLDESK_CORS_ORIGINS
+        value: ""
+
+  - type: web
+    name: recalldesk-web
+    runtime: static
+    buildCommand: >-
+      cd web && npm ci &&
+      STATIC_EXPORT=1 NEXT_PUBLIC_API_BASE=https://$AGENT_HOST npm run build
+    staticPublishPath: web/out
+    envVars:
+      - key: AGENT_HOST
+        fromService:
+          type: web
+          name: recalldesk-agent
+          property: host
+      - key: NODE_VERSION
+        value: 22.12.0

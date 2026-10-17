@@ -1,0 +1,71 @@
+09:48:33.937 [dev] starting Temporal dev server on :7233 (UI http://localhost:8233) - first run downloads the CLI...
+time=2026-10-17T09:48:34.130 level=ERROR msg="Queue reader unable to retrieve tasks" shard-id=1 address=127.0.0.1:57558 component=outbound-queue-processor queue-reader-id=0 error="shard status unknown"
+Temporal CLI 1.9.1 (Server 1.32.0, UI 2.54.1)
+
+Temporal Server:      localhost:7233
+Temporal Persistence: C:\Users\Soumya\Desktop\DEV\recalldesk\agent\state\temporal-dev.db
+Temporal UI:          http://localhost:8233
+Temporal Metrics:     http://localhost:57555/metrics
+09:48:34.574 [dev] Temporal dev server ready on localhost:7233
+09:48:34.574 [dev] spawning worker: -m agent.worker
+09:48:34.581 [dev] spawning api: -m uvicorn agent.api:app --host 0.0.0.0 --port 8000 --log-level warning
+09:48:34.586 [dev] API on http://localhost:8000  (try /api/health, /api/recalls, POST /api/check)
+schedule recalldesk-weekly-sweep already exists
+09:48:35.932 [worker] worker pid=8232 up: temporal=localhost:7233 queue=recalldesk provider=heuristic model=heuristic-rules-v1 (heuristic, no model key) memory=local (no BACKBOARD_API_KEY) chaos=off sentry=off
+09:48:44.941 [api] connected to Temporal at localhost:7233
+09:48:49.871 [api] started InventoryCheckWorkflow check-little-loop-2026-10-17-8452 shop=little-loop items=inventory
+09:48:49.916 [worker] [load_inventory] shop=little-loop: 60 items
+09:48:50.095 [worker] [load_spec_set] shop=little-loop corpus=AB: 591 recalls (data/recalls/recalls.jsonl; specs: 0 teacher + 591 heuristic)
+09:48:50.172 [api] started InventoryCheckWorkflow check-pop-up-2026-10-17-4887 shop=pop-up items=3
+09:48:50.242 [worker] [load_shop_memories] shop=little-loop backend=local (no BACKBOARD_API_KEY): 1 relevant memories for 1 items
+09:48:50.486 [api] memory local_92d2eba779 added for little-loop (local (no BACKBOARD_API_KEY)): recall 26780 -> no_match
+09:48:51.864 [worker] [retrieve_candidates] 60 items -> 176 (item, recall) pairs (top-3)
+09:48:51.880 [worker] [load_spec_set] shop=pop-up corpus=A: 151 recalls (data/recalls/recalls.jsonl; specs: 0 teacher + 151 heuristic)
+09:48:51.941 [worker] [load_shop_memories] shop=pop-up backend=local (no BACKBOARD_API_KEY): 0 relevant memories for 0 items
+09:48:51.946 [worker] [check_item] #0 Convertible Bedside Sleeper with Play Ya -> 27027:match
+09:48:51.950 [worker] [check_item] #1 101 Dalmatians Faux Leather Coin Purse -> 27028:match
+09:48:51.952 [worker] [check_item] #2 Baby Bath Seat with Suction Cups -> 27018:match
+09:48:51.957 [worker] [check_item] #3 Baby Sesame Street Elmo Silicone Teether -> 26739:match
+09:48:51.969 [worker] [check_item] #5 Kids Loungewear Set (shirt + shorts) -> 26752:check
+09:48:52.011 [worker] [check_item] #4 Baby Swing -> 26688:match
+09:48:52.050 [worker] [retrieve_candidates] 3 items -> 4 (item, recall) pairs (top-3)
+09:48:52.099 [worker] [check_item] #0 Thermal Laminator -> 27024:match
+09:48:52.100 [worker] [check_item] #1 Elmo teether -> 26739:check
+09:48:52.166 [worker] [check_item] #6 Kids Kitchen Standing Tower -> 26655:match
+09:48:52.172 [worker] [check_item] #8 Portable Sleep Machine with Night Light -> 26798:check
+09:48:52.180 [worker] [check_item] #10 Rainbow Rattle Grasping Toy -> 26719:check
+09:48:52.194 [worker] [check_item] #11 Kids Bike Helmet and Pads Set -> 26789:check
+09:48:52.197 [worker] [check_item] #9 Lights & Sounds Fire Truck Activity Boar -> 26780:check
+09:48:52.244 [worker] [compose_card] card_2026-10-15_pop-up: 1 DO NOT SELL, 1 CHECK LABEL, 0 memories applied
+09:48:52.312 [worker] [publish_card] wrote agent/cards/check-pop-up-2026-10-17-4887.json
+09:48:52.398 [worker] [check_item] #13 Explore & More Baby's View 3-Stage Activ -> 23117:check
+09:48:53.262 [worker] [check_item] #54 Pull String Silicone Busy Toy -> 26635:check
+09:48:53.264 [worker] [check_item] #55 Kids Drawstring Jogger Set -> 26724:check
+09:48:53.265 [worker] [check_item] #56 6-Drawer Kids Dresser -> 27020:match
+09:48:53.269 [worker] [check_item] #57 Rechargeable Hand Warmer -> 26659:check
+09:48:53.274 [worker] [check_item] #59 Wooden Toddler Learning Tower -> 26658:check
+09:48:53.425 [worker] [compose_card] card_2026-10-15_little-loop: 7 DO NOT SELL, 10 CHECK LABEL, 1 memories applied
+09:48:53.462 [worker] [publish_card] wrote agent/cards/check-little-loop-2026-10-17-8452.json
+09:49:09.354 [api] started InventoryCheckWorkflow check-little-loop-2026-10-17-4aa7 shop=little-loop items=inventory
+09:49:09.389 [worker] [load_inventory] shop=little-loop: 60 items
+09:49:09.428 [worker] [load_spec_set] shop=little-loop corpus=AB: 591 recalls (data/recalls/recalls.jsonl; specs: 0 teacher + 591 heuristic)
+09:49:09.486 [worker] [load_shop_memories] shop=little-loop backend=local (no BACKBOARD_API_KEY): 2 relevant memories for 5 items
+09:49:11.005 [worker] [retrieve_candidates] 60 items -> 176 (item, recall) pairs (top-3)
+09:49:11.056 [worker] [check_item] #0 Convertible Bedside Sleeper with Play Ya -> 27027:match
+09:49:11.060 [worker] [check_item] #1 101 Dalmatians Faux Leather Coin Purse -> 27028:match
+09:49:11.062 [worker] [check_item] #2 Baby Bath Seat with Suction Cups -> 27018:match
+09:49:11.066 [worker] [check_item] #3 Baby Sesame Street Elmo Silicone Teether -> 26739:match
+09:49:11.070 [worker] [check_item] #4 Baby Swing -> 26688:match
+09:49:11.086 [worker] [check_item] #5 Kids Loungewear Set (shirt + shorts) -> 26752:check
+09:49:11.169 [worker] [check_item] #6 Kids Kitchen Standing Tower -> 26655:match
+09:49:11.171 [worker] [check_item] #8 Portable Sleep Machine with Night Light -> 26798:check
+09:49:11.177 [worker] [check_item] #11 Kids Bike Helmet and Pads Set -> 26789:check
+09:49:11.182 [worker] [check_item] #10 Rainbow Rattle Grasping Toy -> 26719:check
+09:49:11.280 [worker] [check_item] #13 Explore & More Baby's View 3-Stage Activ -> 23117:check
+09:49:12.175 [worker] [check_item] #54 Pull String Silicone Busy Toy -> 26635:check
+09:49:12.176 [worker] [check_item] #55 Kids Drawstring Jogger Set -> 26724:check
+09:49:12.179 [worker] [check_item] #56 6-Drawer Kids Dresser -> 27020:match
+09:49:12.181 [worker] [check_item] #59 Wooden Toddler Learning Tower -> 26658:check
+09:49:12.191 [worker] [check_item] #57 Rechargeable Hand Warmer -> 26659:check
+09:49:12.322 [worker] [compose_card] card_2026-10-15_little-loop: 7 DO NOT SELL, 9 CHECK LABEL, 2 memories applied
+09:49:12.356 [worker] [publish_card] wrote agent/cards/check-little-loop-2026-10-17-4aa7.json

@@ -1,0 +1,71 @@
+started check-flip-garage-2026-10-17-7dbd
+--- t+  0.9s
+[OK] load_inventory         completed attempt=1  30 items from the shop's inventory file
+[OK] load_specs             completed attempt=1  151 recalls (corpus A); data/recalls/recalls.jsonl; specs: 0 teacher + 151 heuristic
+[OK] load_shop_memories     completed attempt=1  1 relevant memories; backend=local (no BACKBOARD_API_KEY)
+[..] check_items            running   attempt=1  6/30 items (81 item x recall pairs)
+[  ] scan_ebay_store        pending   attempt=0
+[  ] compose_card           pending   attempt=0
+[  ] publish_card           pending   attempt=0
+--- t+  1.6s
+[OK] load_inventory         completed attempt=1  30 items from the shop's inventory file
+[OK] load_specs             completed attempt=1  151 recalls (corpus A); data/recalls/recalls.jsonl; specs: 0 teacher + 151 heuristic
+[OK] load_shop_memories     completed attempt=1  1 relevant memories; backend=local (no BACKBOARD_API_KEY)
+[OK] check_items            completed attempt=1  30/30 items, 81 pairs; retrieval: ml.infer.retrieve
+[..] scan_ebay_store        running   attempt=1
+[  ] compose_card           pending   attempt=0
+[  ] publish_card           pending   attempt=0
+--- t+  2.4s
+[OK] load_inventory         completed attempt=1  30 items from the shop's inventory file
+[OK] load_specs             completed attempt=1  151 recalls (corpus A); data/recalls/recalls.jsonl; specs: 0 teacher + 151 heuristic
+[OK] load_shop_memories     completed attempt=1  1 relevant memories; backend=local (no BACKBOARD_API_KEY)
+[OK] check_items            completed attempt=1  30/30 items, 81 pairs; retrieval: ml.infer.retrieve
+[--] scan_ebay_store        skipped   attempt=1  source=skipped (no eBay store configured for this shop)
+[OK] compose_card           completed attempt=1  6 DO NOT SELL, 6 CHECK LABEL
+[OK] publish_card           completed attempt=1  card_2026-10-15_flip-garage
+--- t+  2.5s  workflow=completed
+[OK] load_inventory         completed attempt=1  30 items from the shop's inventory file
+[OK] load_specs             completed attempt=1  151 recalls (corpus A); data/recalls/recalls.jsonl; specs: 0 teacher + 151 heuristic
+[OK] load_shop_memories     completed attempt=1  1 relevant memories; backend=local (no BACKBOARD_API_KEY)
+[OK] check_items            completed attempt=1  30/30 items, 81 pairs; retrieval: ml.infer.retrieve
+[--] scan_ebay_store        skipped   attempt=1  source=skipped (no eBay store configured for this shop)
+[OK] compose_card           completed attempt=1  6 DO NOT SELL, 6 CHECK LABEL
+[OK] publish_card           completed attempt=1  card_2026-10-15_flip-garage
+
+=== RECALL CARD card_2026-10-15_flip-garage  Flip Garage (eBay household & tools flipper)  (week of 2026-10-15) ===
+  6 new recalls this week | 30 items checked | model: heuristic-rules-v1 (heuristic, no model key)
+  DO NOT SELL (6)
+    x Scotch Thermal Laminator 13 inch (model TL1302Z)  -> CPSC 27024: 3M Company Recalls Scotch™ Thermal Laminators Due to Risk of Serious I
+        why: Recalled identifier TL1302Z appears in the listing. Hazard: overheat, posing a fire hazard.
+        remedy: Stop using; refund
+    x Cambridge Audio Yoyo (M) Portable Bluetooth Speaker  -> CPSC 26731: Audio Partnership Recalls Cambridge Audio Yoyo (M) Portable Bluetooth 
+        why: Names the recalled Cambridge Audio product; recall covers all units. Hazard: The lithium-ion batteries in the Cambridge Audio Yoyo (M) Portable.
+        remedy: Stop using; refund
+    x Goal Zero YETI 3000X Portable Power Station  -> CPSC 26712: Goal Zero Recalls YETI 3000X Power Stations Due to Serious Risk of Inj
+        why: Names the recalled Goal Zero product; recall covers all units. Hazard: overheat, posing a risk of serious injury from fire and.
+        remedy: Stop using; repair
+    x BenQ GV31 Portable Projector (model GV31)  -> CPSC 26647: BenQ America Recalls GV31 Portable Projectors Due to Risk of Serious I
+        why: Recalled identifier GV31 appears in the listing. Hazard: overheat, posing a risk of serious injury or death from.
+        remedy: Stop using; repair, replace
+    x HotHands Rechargeable Hand Warmer (model H163650)  -> CPSC 27011: Kobayashi Recalls Rechargeable Hand Warmers Due to Risk of Serious Inj
+        why: Recalled identifier H163650 appears in the listing. Hazard: The lithium-ion battery and electrical components in the recalled hand.
+        remedy: Stop using; refund
+    x Romorgniz Six-Drawer Dresser  -> CPSC 27020: Romorgniz Recalls Six-Drawer Dressers Due to Risk of Serious Injury or
+        why: Names the recalled Romorgniz product; recall covers all units. Hazard: The recalled dressers are unstable if they are not anchored.
+        remedy: Stop using; refund
+  CHECK LABEL (6)
+    ? Char-Broil Bistro Pro Electric Grill  -> CPSC 26773
+        look for: model no. 25302145, 25302146, 25302147, 25302148...; lot/date code 2510; sold 2025-10 to 2026-06. The product label listing the model and serial number, includi
+    ? Hampton Bay Halwin 52-Inch Ceiling Fan  -> CPSC 26702
+        look for: model no. AK396H-MBK, AK396H-BN; UPC 840059614922, 840059615370; sold 2023-01 to 2025-10. UPCs "840059614922" or "840059615370" are located on the product packa
+    ? Galanz Retro Mini Refrigerator 3.1 cu ft  -> CPSC 26649
+        look for: model no. BCD-215V-62H, GLR76TRDER, GLR76TBKER, GLR76TBEER...; sold 2019-01 to 2022-09. "Galanz," the model number and the date code, in YYYYMM format, are prin
+    ? DR Power Equipment Pilot Trimmer Mower  -> CPSC 27016
+        look for: model no. T4X1076DMN, T4X1076DMNR, T4X1076DMNSD, T4X1176DMN...; sold 2022-11 to 2026-07. The model numbers are printed on a label located on the side of the pro
+    ? DR Power Equipment Pilot Trimmer Mower  -> CPSC 26648
+        look for: model no. WM25030DEN, WM25030DMN, WM25030DMNR, MAX30...; sold 2024-09 to 2025-09. The model and serial number are printed on the left side of the mower in front
+    ? Cooluli 10-Liter Mini Fridge  -> CPSC 26685
+        look for: lot/date code 1535, 1200000, 1202080; sold 2019-01 to 2024-10. The model (ITEM #:) and batch numbers are printed on a label on the inside of the minifridge door
+  SHOP MEMORIES APPLIED (1)
+    * local_9b5d4639f9: Shop correction: 'Louisville Ladder Attic Stairway Ladder' is NOT the recalled product for CPSC recall 26661. Ours is a Werner pull-down with no gas s
+  workflow: check-flip-garage-2026-10-17-7dbd   memory: local (no BACKBOARD_API_KEY)

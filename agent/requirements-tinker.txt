@@ -1,0 +1,5 @@
+# Backend + the Tinker sampling client for the LoRA (provider=tinker). torch comes from the CPU wheel index:
+#   pip install --extra-index-url https://download.pytorch.org/whl/cpu -r agent/requirements-tinker.txt
+-r requirements.txt
+tinker==0.33.1
+tinker_cookbook==0.5.7

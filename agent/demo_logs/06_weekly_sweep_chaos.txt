@@ -1,0 +1,56 @@
+$ python -m agent.run_check sweep --since 2026-10-08   # WeeklyRecallSweep, chaos worker
+started weekly-sweep-manual-1792210243
+--- t+  3.0s
+[OK] fetch_new_recalls      completed attempt=1  14 recalls; source=cpsc-live
+[OK] extract_specs          completed attempt=1  14/14 specs; 14 cached teacher spec
+[..] check_shop:little-loop running   attempt=1
+[  ] check_shop:flip-garage pending   attempt=0
+--- t+ 18.2s
+[OK] fetch_new_recalls      completed attempt=1  14 recalls; source=cpsc-live
+[OK] extract_specs          completed attempt=1  14/14 specs; 14 cached teacher spec
+[OK] check_shop:little-loop completed attempt=1  card_2026-10-15_little-loop: 4 DO NOT SELL, 0 CHECK LABEL (child weekly-sweep-manual-1792210243-little-loop)
+[..] check_shop:flip-garage running   attempt=1
+--- t+ 30.3s
+[OK] fetch_new_recalls      completed attempt=1  14 recalls; source=cpsc-live
+[OK] extract_specs          completed attempt=1  14/14 specs; 14 cached teacher spec
+[OK] check_shop:little-loop completed attempt=1  card_2026-10-15_little-loop: 4 DO NOT SELL, 0 CHECK LABEL (child weekly-sweep-manual-1792210243-little-loop)
+[OK] check_shop:flip-garage completed attempt=1  card_2026-10-15_flip-garage: 2 DO NOT SELL, 1 CHECK LABEL (child weekly-sweep-manual-1792210243-flip-garage)
+--- t+ 30.4s  workflow=completed
+[OK] fetch_new_recalls      completed attempt=1  14 recalls; source=cpsc-live
+[OK] extract_specs          completed attempt=1  14/14 specs; 14 cached teacher spec
+[OK] check_shop:little-loop completed attempt=1  card_2026-10-15_little-loop: 4 DO NOT SELL, 0 CHECK LABEL (child weekly-sweep-manual-1792210243-little-loop)
+[OK] check_shop:flip-garage completed attempt=1  card_2026-10-15_flip-garage: 2 DO NOT SELL, 1 CHECK LABEL (child weekly-sweep-manual-1792210243-flip-garage)
+{'since': '2026-10-08', 'new_recalls': 14, 'cards': {'little-loop': 'card_2026-10-15_little-loop', 'flip-garage': 'card_2026-10-15_flip-garage'}, 'children': ['weekly-sweep-manual-1792210243-little-loop', 'weekly-sweep-manual-1792210243-flip-garage']}
+
+=== RECALL CARD card_2026-10-15_little-loop  Little Loop Kids Consignment  (week of 2026-10-15) ===
+  14 new recalls this week | 60 items checked | model: heuristic-rules-v1 (heuristic, no model key)
+  DO NOT SELL (4)
+    x Papablic Convertible Bedside Sleeper with Play Yard (model PAPA03001AI)  -> CPSC 27027: Papablic, of USA Recalls Convertible Bedside Sleepers Due to Risk of S
+        why: Recalled identifier PAPA03001AI appears in the listing. Hazard: The bedside sleepers with play yard extensions violate the mandatory.
+        remedy: Stop using; refund
+    x Primark 101 Dalmatians Faux Leather Coin Purse (model 2595301)  -> CPSC 27028: Primark Recalls 101 Dalmatians Faux Leather Children’s Coin Purses Due
+        why: Recalled identifier 2595301 appears in the listing. Hazard: The coin purses contain higher phthalate concentration levels. Phthalates can.
+        remedy: Stop using; refund
+    x ONTHEWEI Baby Bath Seat with Suction Cups (model MY002)  -> CPSC 27018: ONTHEWEI Recalls Baby Bath Seats Due to Risk of Serious Injury or Deat
+        why: Recalled identifier MY002 appears in the listing. Hazard: tip over while in use, posing a risk of serious.
+        remedy: Stop using; refund
+    x Romorgniz 6-Drawer Kids Dresser  -> CPSC 27020: Romorgniz Recalls Six-Drawer Dressers Due to Risk of Serious Injury or
+        why: Names the recalled Romorgniz product; recall covers all units. Hazard: The recalled dressers are unstable if they are not anchored.
+        remedy: Stop using; refund
+  CHECK LABEL (0)
+  workflow: weekly-sweep-manual-1792210243-little-loop   memory: local (no BACKBOARD_API_KEY)
+
+=== RECALL CARD card_2026-10-15_flip-garage  Flip Garage (eBay household & tools flipper)  (week of 2026-10-15) ===
+  14 new recalls this week | 30 items checked | model: heuristic-rules-v1 (heuristic, no model key) (+1 item(s) by heuristic fallback)
+  DO NOT SELL (2)
+    x Scotch Thermal Laminator 13 inch (model TL1302Z)  -> CPSC 27024: 3M Company Recalls Scotch™ Thermal Laminators Due to Risk of Serious I
+        why: Recalled identifier TL1302Z appears in the listing. Hazard: overheat, posing a fire hazard.
+        remedy: Stop using; refund
+    x Romorgniz Six-Drawer Dresser  -> CPSC 27020: Romorgniz Recalls Six-Drawer Dressers Due to Risk of Serious Injury or
+        why: Names the recalled Romorgniz product; recall covers all units. Hazard: The recalled dressers are unstable if they are not anchored.
+        remedy: Stop using; refund
+  CHECK LABEL (1)
+    ? DR Power Equipment Pilot Trimmer Mower  -> CPSC 27016
+        look for: model no. T4X1076DMN, T4X1076DMNR, T4X1076DMNSD, T4X1176DMN...; sold 2022-11 to 2026-07. The model numbers are printed on a label located on the side of the pro
+  note: 1 item(s) were classified by the heuristic fallback after the model kept returning invalid JSON
+  workflow: weekly-sweep-manual-1792210243-flip-garage   memory: local (no BACKBOARD_API_KEY)
