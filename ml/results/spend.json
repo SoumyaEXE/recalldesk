@@ -37,9 +37,23 @@
       "completion_tokens": 16457,
       "est_usd": 0.1086,
       "at": "2026-10-17T05:23:00+00:00"
+    },
+    "train_tinker": {
+      "model": "Qwen/Qwen3.5-4B",
+      "train_tokens": 2833834,
+      "heldout_forward_tokens": 402900,
+      "est_usd": 2.3855,
+      "at": "2026-10-17T06:43:36+00:00"
+    },
+    "eval_lora": {
+      "model": "Qwen/Qwen3.5-4B",
+      "prompt_tokens": 117146,
+      "completion_tokens": 16528,
+      "est_usd": 0.0553,
+      "at": "2026-10-17T06:46:02+00:00"
     }
   },
-  "total_est_usd": 9.8487,
+  "total_est_usd": 12.2895,
   "serpapi_searches_spent": 235,
   "note": "Tinker $ = token counts x list prices (models.json snapshot 2026-10-17); not an invoice. SerpApi searches are counted, not priced (plan-dependent)."
 }

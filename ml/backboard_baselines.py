@@ -86,7 +86,8 @@ def main() -> None:
         return
     from ml.eval import load_test, messages_for
 
-    rows, _gold, ctx = load_test("human")
+    # predictions only need the test pairs, not their grades; ml.eval --rebuild-only scores them against gold later
+    rows, _gold, ctx = load_test("teacher")
     if args.limit:
         rows = rows[: args.limit]
     PREDS.mkdir(parents=True, exist_ok=True)
