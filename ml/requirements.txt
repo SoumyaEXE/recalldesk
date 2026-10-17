@@ -1,0 +1,11 @@
+# Python 3.12. Install:
+#   python -m uv venv --python 3.12 ml/.venv
+#   python -m uv pip install --python ml/.venv/Scripts/python.exe -r ml/requirements.txt
+tinker==0.33.1
+tinker_cookbook==0.5.7   # renderers / tokenizers / LoRA LR helper (pulls torch, transformers)
+pydantic>=2.7
+httpx>=0.27
+numpy>=1.26
+python-dotenv>=1.0
+fastapi>=0.110
+uvicorn>=0.29

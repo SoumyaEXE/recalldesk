@@ -1,0 +1,75 @@
+{
+  "generated_at": "2026-10-17",
+  "since_a": "2026-07-18",
+  "since_b": "2023-01-01",
+  "total_unique": 591,
+  "A": {
+    "recalls": 151,
+    "childrens": 48,
+    "with_regex_ids": 90,
+    "childrens_with_regex_ids": 30,
+    "with_upcs": 4,
+    "with_images": 151,
+    "mean_regex_ids": 1.89,
+    "retailers_mentioning": {
+      "Amazon": 86,
+      "Walmart": 19,
+      "Target": 8,
+      "Wayfair": 7,
+      "Temu": 6,
+      "Home Depot": 4,
+      "SHEIN": 4,
+      "Costco": 3,
+      "Lowe's": 3,
+      "Etsy": 2,
+      "eBay": 1
+    },
+    "sold_online": 119
+  },
+  "B": {
+    "recalls": 488,
+    "childrens": 488,
+    "with_regex_ids": 241,
+    "childrens_with_regex_ids": 241,
+    "with_upcs": 11,
+    "with_images": 488,
+    "mean_regex_ids": 1.24,
+    "retailers_mentioning": {
+      "Amazon": 288,
+      "Walmart": 67,
+      "Target": 37,
+      "Temu": 15,
+      "SHEIN": 12,
+      "Wayfair": 9,
+      "Etsy": 8,
+      "AliExpress": 5,
+      "TikTok Shop": 4,
+      "Costco": 2,
+      "eBay": 2,
+      "Lowe's": 1
+    },
+    "sold_online": 346
+  },
+  "A_and_B": 48,
+  "A_by_week": {
+    "2026-W30": 7,
+    "2026-W31": 15,
+    "2026-W32": 17,
+    "2026-W33": 18,
+    "2026-W34": 7,
+    "2026-W35": 11,
+    "2026-W36": 13,
+    "2026-W37": 12,
+    "2026-W38": 14,
+    "2026-W39": 11,
+    "2026-W40": 12,
+    "2026-W41": 8,
+    "2026-W42": 6
+  },
+  "B_by_year": {
+    "2023": 100,
+    "2024": 91,
+    "2025": 128,
+    "2026": 169
+  }
+}
