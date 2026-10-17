@@ -63,6 +63,9 @@ def load_test(gold_src: str) -> tuple[list[dict], dict[str, str], dict]:
         gold = {}
         for r in read_jsonl(GOLD / "labels.jsonl"):
             gold[r["pair_id"]] = r["label"]  # newest row wins
+    elif gold_src == "targets":
+        # teacher labels with LABELING.md rule 7 enforced by code (ml.enforce_rules) - the training-target definition
+        gold = {r["pair_id"]: r["verdict"]["verdict"] for r in read_jsonl(LABELED / "targets.jsonl") if r.get("valid")}
     else:
         gold = {r["pair_id"]: r["verdict"]["verdict"] for r in read_jsonl(LABELED / "teacher.jsonl") if r.get("valid")}
     rows = [t for t in test if t["pair_id"] in gold]
@@ -340,7 +343,7 @@ def build_eval(rows, gold, ctx, gold_src: str) -> tuple[dict, dict]:
         pass
     ev = {
         "test_size": len(rows), "generated_at": now_iso(),
-        "gold": "human (blind)" if gold_src == "human" else "teacher (PROVISIONAL - not human gold)",
+        "gold": {"human": "human (blind)", "targets": "teacher + rule 7 by code (not human)"}.get(gold_src, "teacher (PROVISIONAL - not human gold)"),
         "gold_dist": dict(Counter(gold[r["pair_id"]] for r in rows)),
         "test_recalls": len({r["recall_number"] for r in rows}),
         "test_childrens_pairs": sum(bool(r.get("is_childrens")) for r in rows),
@@ -363,7 +366,7 @@ def main() -> None:
     utf8_stdout()
     ap = argparse.ArgumentParser()
     ap.add_argument("--roles", default="auto", help="comma list: heuristic,base,base_guided,lora,teacher")
-    ap.add_argument("--gold", default="human", choices=["human", "teacher"])
+    ap.add_argument("--gold", default="human", choices=["human", "targets", "teacher"])
     ap.add_argument("--concurrency", type=int, default=8)
     ap.add_argument("--rebuild-only", action="store_true")
     ap.add_argument("--rerun-teacher", action="store_true")

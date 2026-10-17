@@ -1,10 +1,10 @@
 {
   "test_size": 293,
-  "generated_at": "2026-10-17T06:46:02+00:00",
-  "gold": "teacher (PROVISIONAL - not human gold)",
+  "generated_at": "2026-10-17T06:48:36+00:00",
+  "gold": "teacher + rule 7 by code (not human)",
   "gold_dist": {
-    "no_match": 221,
-    "check": 72
+    "no_match": 255,
+    "check": 38
   },
   "test_recalls": 20,
   "test_childrens_pairs": 180,
@@ -16,20 +16,20 @@
       "role": "teacher",
       "model": "Qwen/Qwen3.5-397B-A17B",
       "n": 293,
-      "acc": 1.0,
+      "acc": 0.884,
       "acc_ci": [
-        1.0,
-        1.0
+        0.8464,
+        0.9181
       ],
-      "macro_f1": 0.6667,
+      "macro_f1": 0.5398,
       "f1_by_class": {
         "match": 0.0,
-        "check": 1.0,
-        "no_match": 1.0
+        "check": 0.6909,
+        "no_match": 0.9286
       },
-      "risky_caught": "72/72",
-      "false_alarms": "0/221",
-      "childrens_acc": 1.0,
+      "risky_caught": "38/38",
+      "false_alarms": "34/255",
+      "childrens_acc": 0.85,
       "json_valid": 1.0,
       "p50_latency_ms": 2710.4,
       "p95_latency_ms": 3497.0,
@@ -45,20 +45,20 @@
       "role": "base",
       "model": "Qwen/Qwen3.5-4B",
       "n": 293,
-      "acc": 0.6007,
+      "acc": 0.5119,
       "acc_ci": [
-        0.5427,
-        0.6553
+        0.4573,
+        0.57
       ],
-      "macro_f1": 0.4052,
+      "macro_f1": 0.3166,
       "f1_by_class": {
         "match": 0.0,
-        "check": 0.5278,
-        "no_match": 0.6879
+        "check": 0.3077,
+        "no_match": 0.6421
       },
-      "risky_caught": "65/72",
-      "false_alarms": "89/221",
-      "childrens_acc": 0.5611,
+      "risky_caught": "34/38",
+      "false_alarms": "120/255",
+      "childrens_acc": 0.4278,
       "json_valid": 0.9522,
       "p50_latency_ms": 2699.4,
       "p95_latency_ms": 3709.22,
@@ -73,20 +73,20 @@
       "role": "base_guided",
       "model": "Qwen/Qwen3.5-4B",
       "n": 293,
-      "acc": 0.7065,
+      "acc": 0.6246,
       "acc_ci": [
-        0.6552,
-        0.7577
+        0.57,
+        0.6792
       ],
-      "macro_f1": 0.4571,
+      "macro_f1": 0.3727,
       "f1_by_class": {
         "match": 0.0,
-        "check": 0.5972,
-        "no_match": 0.7742
+        "check": 0.3842,
+        "no_match": 0.734
       },
-      "risky_caught": "65/72",
-      "false_alarms": "77/221",
-      "childrens_acc": 0.6556,
+      "risky_caught": "36/38",
+      "false_alarms": "106/255",
+      "childrens_acc": 0.5278,
       "json_valid": 1.0,
       "p50_latency_ms": 2292.4,
       "p95_latency_ms": 3206.94,
@@ -101,20 +101,20 @@
       "role": "lora",
       "model": "Qwen/Qwen3.5-4B",
       "n": 293,
-      "acc": 0.8294,
+      "acc": 0.9181,
       "acc_ci": [
-        0.785,
-        0.8703
+        0.884,
+        0.9488
       ],
-      "macro_f1": 0.4802,
+      "macro_f1": 0.5457,
       "f1_by_class": {
         "match": 0.0,
-        "check": 0.5455,
-        "no_match": 0.895
+        "check": 0.6842,
+        "no_match": 0.9529
       },
-      "risky_caught": "30/72",
-      "false_alarms": "8/221",
-      "childrens_acc": 0.8056,
+      "risky_caught": "26/38",
+      "false_alarms": "12/255",
+      "childrens_acc": 0.9333,
       "json_valid": 1.0,
       "p50_latency_ms": 2766.3,
       "p95_latency_ms": 3575.64,
@@ -130,20 +130,20 @@
       "role": "heuristic",
       "model": "heuristic",
       "n": 293,
-      "acc": 0.7747,
+      "acc": 0.8635,
       "acc_ci": [
-        0.727,
-        0.8225
+        0.8225,
+        0.901
       ],
-      "macro_f1": 0.4283,
+      "macro_f1": 0.4749,
       "f1_by_class": {
         "match": 0.0,
-        "check": 0.4211,
-        "no_match": 0.8638
+        "check": 0.5,
+        "no_match": 0.9246
       },
-      "risky_caught": "26/72",
-      "false_alarms": "18/221",
-      "childrens_acc": 0.7333,
+      "risky_caught": "22/38",
+      "false_alarms": "22/255",
+      "childrens_acc": 0.8611,
       "json_valid": 1.0,
       "p50_latency_ms": 0.1,
       "p95_latency_ms": 0.23,
@@ -157,38 +157,38 @@
     {
       "a": "lora",
       "b": "base",
-      "gain": 0.2287,
+      "gain": 0.4061,
       "ci": [
-        0.1536,
-        0.3038
+        0.3379,
+        0.471
       ],
-      "only_a": 105,
-      "only_b": 38,
+      "only_a": 132,
+      "only_b": 13,
       "p": 0.0
     },
     {
       "a": "lora",
       "b": "base_guided",
-      "gain": 0.1229,
+      "gain": 0.2935,
       "ci": [
-        0.0546,
-        0.1945
+        0.232,
+        0.3549
       ],
-      "only_a": 74,
-      "only_b": 38,
-      "p": 0.000861
+      "only_a": 99,
+      "only_b": 13,
+      "p": 0.0
     },
     {
       "a": "lora",
       "b": "teacher",
-      "gain": -0.1706,
+      "gain": 0.0341,
       "ci": [
-        -0.215,
-        -0.1297
+        -0.0137,
+        0.0819
       ],
-      "only_a": 0,
-      "only_b": 50,
-      "p": 0.0
+      "only_a": 30,
+      "only_b": 20,
+      "p": 0.202639
     },
     {
       "a": "lora",
@@ -205,26 +205,26 @@
     {
       "a": "base_guided",
       "b": "base",
-      "gain": 0.1058,
+      "gain": 0.1126,
       "ci": [
-        0.0683,
-        0.1468
+        0.0751,
+        0.1536
       ],
       "only_a": 35,
-      "only_b": 4,
+      "only_b": 2,
       "p": 0.0
     },
     {
       "a": "teacher",
       "b": "heuristic",
-      "gain": 0.2253,
+      "gain": 0.0205,
       "ci": [
-        0.1775,
-        0.273
+        -0.0341,
+        0.0751
       ],
-      "only_a": 66,
-      "only_b": 0,
-      "p": 0.0
+      "only_a": 36,
+      "only_b": 30,
+      "p": 0.538583
     }
   ],
   "confusion": {
@@ -242,12 +242,12 @@
         ],
         [
           0,
-          72,
+          38,
           0
         ],
         [
           0,
-          0,
+          34,
           221
         ]
       ],
@@ -266,14 +266,14 @@
           0
         ],
         [
-          8,
-          57,
-          6
+          6,
+          28,
+          3
         ],
         [
-          2,
-          87,
-          119
+          4,
+          116,
+          122
         ]
       ],
       "invalid": 14
@@ -292,13 +292,13 @@
         ],
         [
           2,
-          63,
-          7
+          34,
+          2
         ],
         [
           1,
-          76,
-          144
+          105,
+          149
         ]
       ],
       "invalid": 0
@@ -317,13 +317,13 @@
         ],
         [
           0,
-          30,
-          42
+          26,
+          12
         ],
         [
           0,
-          8,
-          213
+          12,
+          243
         ]
       ],
       "invalid": 0
@@ -342,13 +342,13 @@
         ],
         [
           2,
-          24,
-          46
+          20,
+          16
         ],
         [
           0,
-          18,
-          203
+          22,
+          233
         ]
       ],
       "invalid": 0
@@ -2059,30 +2059,26 @@
       }
     },
     {
-      "pair_id": "p_26792_404941540349",
-      "listing_title": "for Samsung Galaxy S24 Plus Extend Battery Case Wireless Charging Power Bank",
-      "recall_title": "NEWDERY Power Banks Recalled Due to Fire and Burn Hazards; Risk of Serious Injury; Sold on Amazon",
-      "recall_number": "26792",
-      "gold": "check",
-      "base": "no_match",
-      "lora": "check",
-      "teacher": "check",
-      "heuristic": "check",
+      "pair_id": "p_26298_127611966403",
+      "listing_title": "Rechargeable Hover Soccer Ball LED Lights Air Power Indoor Outdoor Toy Kids 3+",
+      "recall_title": "TheKiddoSpace Recalls LED Soccer Hover Balls Due to Serious Risk of Injury from Burn Hazard; Violates Mandatory Standard for Toys",
+      "recall_number": "26298",
+      "gold": "no_match",
+      "base": "check",
+      "lora": "no_match",
+      "teacher": "no_match",
+      "heuristic": "no_match",
       "base_verdict": {
-        "verdict": "no_match",
-        "identifiers_found": [
-          "NEWDERY"
-        ],
-        "conflicts": [
-          "The listing describes a 'Battery Case' for the Samsung Galaxy S24 Plus, whereas the recall specifically targets the 'ZHX-PB22' power bank model with black body and yellow cables"
-        ],
-        "reason": "The recalled product is a specific power bank model (ZHX-PB22) with distinct physical features, while the listing describes a different accessory (a battery case) for a different device."
-      },
-      "lora_verdict": {
         "verdict": "check",
         "identifiers_found": [],
         "conflicts": [],
-        "reason": "Listing mentions brand and product type but lacks the specific model number ZHX-PB22 or date code to confirm it is the recalled unit."
+        "reason": "The listing matches the brand and general product type but lacks specific identifiers like model number, size, or color to confirm if it falls within the recalled 5.5-inch range."
+      },
+      "lora_verdict": {
+        "verdict": "no_match",
+        "identifiers_found": [],
+        "conflicts": [],
+        "reason": "Generic look-alike: no brand and no recalled identifier in the listing."
       }
     }
   ],
