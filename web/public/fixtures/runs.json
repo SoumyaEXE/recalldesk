@@ -174,84 +174,21 @@
   }
  },
  {
-  "workflow_id": "check-little-loop-2026-10-17-7a6f-crashdemo",
+  "workflow_id": "check-little-loop-2026-10-17-71e2-crashdemo",
   "workflow_type": "InventoryCheckWorkflow",
   "shop_id": "little-loop",
   "status": "completed",
-  "started_at": "2026-10-17T04:16:20Z",
-  "ended_at": "2026-10-17T04:16:48Z",
-  "steps": [
-   {
-    "name": "load_inventory",
-    "status": "completed",
-    "attempt": 1,
-    "started_at": "2026-10-17T04:16:20.894Z",
-    "ended_at": "2026-10-17T04:16:20.957Z",
-    "error": null,
-    "note": "60 items from the shop's inventory file"
-   },
-   {
-    "name": "load_specs",
-    "status": "completed",
-    "attempt": 1,
-    "started_at": "2026-10-17T04:16:20.957Z",
-    "ended_at": "2026-10-17T04:16:21.324Z",
-    "error": null,
-    "note": "591 recalls (corpus AB); data/recalls/recalls.jsonl; specs: 0 teacher + 591 heuristic"
-   },
-   {
-    "name": "load_shop_memories",
-    "status": "completed",
-    "attempt": 1,
-    "started_at": "2026-10-17T04:16:21.324Z",
-    "ended_at": "2026-10-17T04:16:21.527Z",
-    "error": null,
-    "note": "1 relevant memories; backend=local (no BACKBOARD_API_KEY)"
-   },
-   {
-    "name": "check_items",
-    "status": "completed",
-    "attempt": 2,
-    "started_at": "2026-10-17T04:16:21.527Z",
-    "ended_at": "2026-10-17T04:16:48.488Z",
-    "error": "worker crashed mid-step; in-flight activities resumed on a fresh worker (finished ones kept from event history)",
-    "note": "60/60 items, 176 pairs; retrieval: ml.infer.retrieve"
-   },
-   {
-    "name": "scan_ebay_store",
-    "status": "skipped",
-    "attempt": 1,
-    "started_at": "2026-10-17T04:16:48.488Z",
-    "ended_at": "2026-10-17T04:16:48.536Z",
-    "error": null,
-    "note": "source=skipped (no eBay store configured for this shop)"
-   },
-   {
-    "name": "compose_card",
-    "status": "completed",
-    "attempt": 1,
-    "started_at": "2026-10-17T04:16:48.536Z",
-    "ended_at": "2026-10-17T04:16:48.593Z",
-    "error": null,
-    "note": "7 DO NOT SELL, 10 CHECK LABEL"
-   },
-   {
-    "name": "publish_card",
-    "status": "completed",
-    "attempt": 1,
-    "started_at": "2026-10-17T04:16:48.593Z",
-    "ended_at": "2026-10-17T04:16:48.640Z",
-    "error": null,
-    "note": "card_2026-10-15_little-loop"
-   }
-  ],
+  "started_at": "2026-10-17T04:09:12Z",
+  "ended_at": "2026-10-17T04:09:41Z",
+  "steps": [],
+  "note": "progress unavailable (RPCError) - waiting for a worker",
   "workers": [
-   "16408@MAVERICK",
-   "20396@MAVERICK"
+   "9148@MAVERICK",
+   "4620@MAVERICK"
   ],
   "resumed_after_crash": true,
-  "history_events": 392,
-  "retries": 1,
+  "history_events": 395,
+  "retries": 0,
   "card_id": "card_2026-10-15_little-loop",
   "summary": {
    "card_id": "card_2026-10-15_little-loop",

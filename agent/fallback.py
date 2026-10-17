@@ -103,11 +103,20 @@ def _product_type(recall: dict) -> str:
 
 def label_hint(recall: dict) -> str:
     """The sentence that says where the deciding identifier lives (label / tag / sticker / packaging)."""
-    for sent in re.split(r"(?<=[.!?])\s+", recall.get("description", "")):
-        if re.search(r"\b(printed|located|found|stamped|embossed|sewn|label|tag|sticker)\b", sent, re.I) and \
-                re.search(r"\b(model|item|batch|lot|date|code|number|serial|upc|style)\b", sent, re.I):
-            return sent.strip()[:240]
+    sents = re.split(r"(?<=[.!?])\s+", recall.get("description") or "")
+    # narrow pass first (label / tag / sticker sentences), then a wider pass (engraved, underside, back of ...)
+    for where, what in ((_WHERE_NARROW, _WHAT_NARROW), (_WHERE_WIDE, _WHAT_WIDE)):
+        for sent in sents:
+            if where.search(sent) and what.search(sent):
+                return sent.strip()[:240]
     return ""
+
+
+_WHERE_NARROW = re.compile(r"\b(printed|located|found|stamped|embossed|sewn|label|tag|sticker)\b", re.I)
+_WHAT_NARROW = re.compile(r"\b(model|item|batch|lot|date|code|number|serial|upc|style)\b", re.I)
+_WHERE_WIDE = re.compile(r"\b(printed|located|found|stamped|embossed|engraved|etched|molded|moulded|imprinted|sewn|"
+                         r"label|tag|sticker|underside|bottom of|back of|inside of)\b", re.I)
+_WHAT_WIDE = re.compile(r"\b(model|item|batch|lot|date|code|number|serial|upc|style|sku)\b", re.I)
 
 
 def heuristic_spec(recall: dict) -> RecallSpec:

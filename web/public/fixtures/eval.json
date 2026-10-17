@@ -1,153 +1,164 @@
 {
- "placeholder": true,
- "note": "Placeholder until the Tinker LoRA run and blind human labels land in ml/results/eval.json.",
- "test_size": 220,
- "generated_at": "2026-10-17T00:00:00Z",
- "gold": "human (blind)",
+ "test_size": 293,
+ "generated_at": "2026-10-17T05:23:01+00:00",
+ "gold": "teacher (PROVISIONAL - not human gold)",
+ "gold_dist": {
+  "no_match": 221,
+  "check": 72
+ },
+ "test_recalls": 20,
+ "test_childrens_pairs": 180,
+ "teacher_model": "Qwen/Qwen3.5-397B-A17B",
+ "student_model": "Qwen/Qwen3.5-4B",
  "models": [
   {
    "name": "Qwen3.5-397B-A17B (teacher)",
    "role": "teacher",
-   "acc": 0.882,
+   "model": "Qwen/Qwen3.5-397B-A17B",
+   "n": 293,
+   "acc": 1.0,
    "acc_ci": [
-    0.836,
-    0.923
+    1.0,
+    1.0
    ],
-   "macro_f1": 0.861,
-   "risky_caught": "98/104",
-   "false_alarms": "13/116",
-   "json_valid": 1,
-   "p50_latency_ms": 2840,
-   "cost_per_1k_usd": 1.9
+   "macro_f1": 0.6667,
+   "f1_by_class": {
+    "match": 0.0,
+    "check": 1.0,
+    "no_match": 1.0
+   },
+   "risky_caught": "72/72",
+   "false_alarms": "0/221",
+   "childrens_acc": 1.0,
+   "json_valid": 1.0,
+   "p50_latency_ms": 2710.4,
+   "p95_latency_ms": 3497.0,
+   "avg_tokens_in": 1061.5,
+   "avg_tokens_out": 60.0,
+   "cost_per_1k_usd": 2.2017,
+   "pending": false,
+   "note": "verdicts reused from teacher labeling run (first attempt only)",
+   "prompt": "teacher"
   },
   {
-   "name": "Qwen3.5-4B + LoRA (ours)",
-   "role": "lora",
-   "acc": 0.859,
-   "acc_ci": [
-    0.809,
-    0.9
-   ],
-   "macro_f1": 0.834,
-   "risky_caught": "96/104",
-   "false_alarms": "17/116",
-   "json_valid": 1,
-   "p50_latency_ms": 410,
-   "cost_per_1k_usd": 0.06
-  },
-  {
-   "name": "Qwen3.5-4B (base, guided JSON)",
-   "role": "base_guided",
-   "acc": 0.714,
-   "acc_ci": [
-    0.65,
-    0.773
-   ],
-   "macro_f1": 0.662,
-   "risky_caught": "82/104",
-   "false_alarms": "31/116",
-   "json_valid": 1,
-   "p50_latency_ms": 450,
-   "cost_per_1k_usd": 0.06
-  },
-  {
-   "name": "Qwen3.5-4B (base)",
+   "name": "Qwen3.5-4B base",
    "role": "base",
-   "acc": 0.632,
+   "model": "Qwen/Qwen3.5-4B",
+   "n": 293,
+   "acc": 0.6007,
    "acc_ci": [
-    0.568,
-    0.695
+    0.5427,
+    0.6553
    ],
-   "macro_f1": 0.571,
-   "risky_caught": "77/104",
-   "false_alarms": "38/116",
-   "json_valid": 0.91,
-   "p50_latency_ms": 430,
-   "cost_per_1k_usd": 0.06
+   "macro_f1": 0.4052,
+   "f1_by_class": {
+    "match": 0.0,
+    "check": 0.5278,
+    "no_match": 0.6879
+   },
+   "risky_caught": "65/72",
+   "false_alarms": "89/221",
+   "childrens_acc": 0.5611,
+   "json_valid": 0.9522,
+   "p50_latency_ms": 2699.4,
+   "p95_latency_ms": 3709.22,
+   "avg_tokens_in": 399.8,
+   "avg_tokens_out": 88.3,
+   "cost_per_1k_usd": 0.2207,
+   "pending": false,
+   "prompt": "student"
   },
   {
-   "name": "Identifier rules (regex)",
+   "name": "Qwen3.5-4B base + teacher's rulebook",
+   "role": "base_guided",
+   "model": "Qwen/Qwen3.5-4B",
+   "n": 293,
+   "acc": 0.7065,
+   "acc_ci": [
+    0.6552,
+    0.7577
+   ],
+   "macro_f1": 0.4571,
+   "f1_by_class": {
+    "match": 0.0,
+    "check": 0.5972,
+    "no_match": 0.7742
+   },
+   "risky_caught": "65/72",
+   "false_alarms": "77/221",
+   "childrens_acc": 0.6556,
+   "json_valid": 1.0,
+   "p50_latency_ms": 2292.4,
+   "p95_latency_ms": 3206.94,
+   "avg_tokens_in": 951.8,
+   "avg_tokens_out": 56.2,
+   "cost_per_1k_usd": 0.3705,
+   "pending": false,
+   "prompt": "guided"
+  },
+  {
+   "name": "identifier/keyword rules (no model)",
    "role": "heuristic",
-   "acc": 0.586,
+   "model": "heuristic",
+   "n": 293,
+   "acc": 0.7747,
    "acc_ci": [
-    0.523,
-    0.65
+    0.727,
+    0.8225
    ],
-   "macro_f1": 0.47,
-   "risky_caught": "51/104",
-   "false_alarms": "6/116",
-   "json_valid": 1,
-   "p50_latency_ms": 1,
-   "cost_per_1k_usd": 0
+   "macro_f1": 0.4283,
+   "f1_by_class": {
+    "match": 0.0,
+    "check": 0.4211,
+    "no_match": 0.8638
+   },
+   "risky_caught": "26/72",
+   "false_alarms": "18/221",
+   "childrens_acc": 0.7333,
+   "json_valid": 1.0,
+   "p50_latency_ms": 0.1,
+   "p95_latency_ms": 0.23,
+   "avg_tokens_in": 0.0,
+   "avg_tokens_out": 0.0,
+   "cost_per_1k_usd": 0.0,
+   "pending": false
   },
   {
-   "name": "Llama 3.3 70B (via Backboard)",
-   "role": "backboard:llama-3.3-70b",
-   "acc": 0.791,
-   "acc_ci": [
-    0.736,
-    0.841
-   ],
-   "macro_f1": 0.752,
-   "risky_caught": "90/104",
-   "false_alarms": "24/116",
-   "json_valid": 0.98,
-   "p50_latency_ms": 1620,
-   "cost_per_1k_usd": 0.42
+   "name": "Qwen3.5-4B + RecallDesk LoRA",
+   "role": "lora",
+   "model": "Qwen/Qwen3.5-4B",
+   "pending": true,
+   "acc": null
   }
  ],
  "paired": [
   {
-   "a": "lora",
+   "a": "base_guided",
    "b": "base",
-   "gain": 0.227,
+   "gain": 0.1058,
    "ci": [
-    0.164,
-    0.291
+    0.0683,
+    0.1468
    ],
-   "only_a": 58,
-   "only_b": 8,
-   "p": 1.2e-10
+   "only_a": 35,
+   "only_b": 4,
+   "p": 0.0
   },
   {
-   "a": "lora",
-   "b": "base_guided",
-   "gain": 0.145,
-   "ci": [
-    0.086,
-    0.205
-   ],
-   "only_a": 41,
-   "only_b": 9,
-   "p": 0.0000041
-  },
-  {
-   "a": "lora",
-   "b": "teacher",
-   "gain": -0.023,
-   "ci": [
-    -0.064,
-    0.018
-   ],
-   "only_a": 11,
-   "only_b": 16,
-   "p": 0.44
-  },
-  {
-   "a": "lora",
+   "a": "teacher",
    "b": "heuristic",
-   "gain": 0.273,
+   "gain": 0.2253,
    "ci": [
-    0.205,
-    0.341
+    0.1775,
+    0.273
    ],
-   "only_a": 70,
-   "only_b": 10,
-   "p": 2e-12
+   "only_a": 66,
+   "only_b": 0,
+   "p": 0.0
   }
  ],
  "confusion": {
-  "lora": {
+  "teacher": {
    "labels": [
     "match",
     "check",
@@ -155,21 +166,22 @@
    ],
    "matrix": [
     [
-     38,
-     4,
-     1
+     0,
+     0,
+     0
     ],
     [
-     5,
-     49,
-     7
+     0,
+     72,
+     0
     ],
     [
-     2,
-     12,
-     102
+     0,
+     0,
+     221
     ]
-   ]
+   ],
+   "invalid": 0
   },
   "base": {
    "labels": [
@@ -179,214 +191,278 @@
    ],
    "matrix": [
     [
-     29,
+     0,
+     0,
+     0
+    ],
+    [
      8,
+     57,
      6
     ],
     [
-     11,
-     29,
-     21
+     2,
+     87,
+     119
+    ]
+   ],
+   "invalid": 14
+  },
+  "base_guided": {
+   "labels": [
+    "match",
+    "check",
+    "no_match"
+   ],
+   "matrix": [
+    [
+     0,
+     0,
+     0
     ],
     [
-     9,
-     26,
-     81
+     2,
+     63,
+     7
+    ],
+    [
+     1,
+     76,
+     144
     ]
-   ]
+   ],
+   "invalid": 0
+  },
+  "heuristic": {
+   "labels": [
+    "match",
+    "check",
+    "no_match"
+   ],
+   "matrix": [
+    [
+     0,
+     0,
+     0
+    ],
+    [
+     2,
+     24,
+     46
+    ],
+    [
+     0,
+     18,
+     203
+    ]
+   ],
+   "invalid": 0
   }
  },
  "training": {
   "base_model": "Qwen/Qwen3.5-4B",
   "rank": 32,
-  "steps": 300,
-  "epochs": 3,
-  "lr": 0.0002,
-  "loss_curve": [
-   [
-    0,
-    2.15
-   ],
-   [
-    10,
-    1.833
-   ],
-   [
-    20,
-    1.607
-   ],
-   [
-    30,
-    1.379
-   ],
-   [
-    40,
-    1.227
-   ],
-   [
-    50,
-    1.08
-   ],
-   [
-    60,
-    0.924
-   ],
-   [
-    70,
-    0.807
-   ],
-   [
-    80,
-    0.712
-   ],
-   [
-    90,
-    0.638
-   ],
-   [
-    100,
-    0.61
-   ],
-   [
-    110,
-    0.561
-   ],
-   [
-    120,
-    0.511
-   ],
-   [
-    130,
-    0.44
-   ],
-   [
-    140,
-    0.425
-   ],
-   [
-    150,
-    0.406
-   ],
-   [
-    160,
-    0.368
-   ],
-   [
-    170,
-    0.333
-   ],
-   [
-    180,
-    0.333
-   ],
-   [
-    190,
-    0.304
-   ],
-   [
-    200,
-    0.319
-   ],
-   [
-    210,
-    0.298
-   ],
-   [
-    220,
-    0.269
-   ],
-   [
-    230,
-    0.29
-   ],
-   [
-    240,
-    0.264
-   ],
-   [
-    250,
-    0.258
-   ],
-   [
-    260,
-    0.243
-   ],
-   [
-    270,
-    0.238
-   ],
-   [
-    280,
-    0.239
-   ],
-   [
-    290,
-    0.261
-   ],
-   [
-    300,
-    0.238
-   ]
-  ],
-  "test_nll": [
-   [
-    0,
-    1.42
-   ],
-   [
-    100,
-    0.61
-   ],
-   [
-    200,
-    0.43
-   ],
-   [
-    300,
-    0.39
-   ]
-  ]
+  "steps": 0,
+  "epochs": 0,
+  "lr": null,
+  "batch_size": null,
+  "train_examples": null,
+  "loss_curve": [],
+  "test_nll": [],
+  "model_path": null
  },
  "examples": [
   {
-   "pair_id": "p_27027_02",
-   "listing_title": "Papablic 3-in-1 Bassinet Bedside Sleeper Gray — gently used",
-   "recall_title": "Papablic, of USA Recalls Convertible Bedside Sleepers Due to Risk of Serious Injury or Death from Entrapment, Suffocation and Fall Hazards; Violate Mandatory Standard for Play Yards",
+   "pair_id": "p_26298_287393243046",
+   "listing_title": "Floating Hover Soccer Ball LED Light Up Kids Toy Foam Bumpers Rechargeable",
+   "recall_title": "TheKiddoSpace Recalls LED Soccer Hover Balls Due to Serious Risk of Injury from Burn Hazard; Violates Mandatory Standard for Toys",
+   "recall_number": "26298",
+   "gold": "check",
+   "base": "match",
+   "lora": null,
+   "teacher": "check",
+   "heuristic": "no_match",
+   "base_verdict": {
+    "verdict": "match",
+    "identifiers_found": [],
+    "conflicts": [],
+    "reason": "The listing describes the exact product name and key features of the recalled item, and since the recall covers all units of this product name, it is a match."
+   },
+   "lora_verdict": null
+  },
+  {
+   "pair_id": "p_26499_406893895821",
+   "listing_title": "ORB Funkee Rac Shape Shifting Car Purple Squishy Stretch Squeeze Stress Toy NEW",
+   "recall_title": "Orb Funkee Squeeze Toys Recalled Due to Risk of Serious Injury or Death from Asbestos Exposure; Imported by The Orb Factory",
+   "recall_number": "26499",
    "gold": "check",
    "base": "no_match",
-   "lora": "check"
+   "lora": null,
+   "teacher": "check",
+   "heuristic": "check",
+   "base_verdict": {
+    "verdict": "no_match",
+    "identifiers_found": [],
+    "conflicts": [
+     "The listing describes a 'Rac Shape Shifting Car' toy, which contradicts the recalled 'Funkee' monkey toy product line and model numbers.",
+     "The listing does not contain any of the specific recalled identifiers (model numbers 17451, 41929, or date code 3102491A)."
+    ],
+    "reason": "The listed product is a different toy (a car) than the recalled product (a monkey squeeze toy)."
+   },
+   "lora_verdict": null
   },
   {
-   "pair_id": "p_26780_01",
-   "listing_title": "Melissa & Doug Lights and Sound Fire Truck Activity Board",
-   "recall_title": "Melissa & Doug Recalls Fire Truck Activity Board Toys Due to Risk of Serious Injury from Choking Hazard; Sold Exclusively at Target",
+   "pair_id": "p_26562_117324066741",
+   "listing_title": "PULL STRING TOY Montessori GoPo Toys Fine Motor Skills Baby Educational New",
+   "recall_title": "GOPO Toys Recalls Pull String Teething Toys Due to Risk of Serious Injury or Death from Choking; Violate Mandatory Standard for Toys",
+   "recall_number": "26562",
    "gold": "check",
    "base": "match",
-   "lora": "check"
+   "lora": null,
+   "teacher": "check",
+   "heuristic": "check",
+   "base_verdict": {
+    "verdict": "match",
+    "identifiers_found": [
+     "GoPo Toys"
+    ],
+    "conflicts": [],
+    "reason": "The listing matches the recalled brand and product type, and since the recall covers all units of this product line, the seller must verify the specific batch number before listing."
+   },
+   "lora_verdict": null
   },
   {
-   "pair_id": "p_26739_03",
-   "listing_title": "Skip Hop Zoo Teether Owl Silicone",
-   "recall_title": "Skip Hop Recalls Baby Sesame Street Elmo Silicone Teethers Due to Risk of Serious Injury or Death from Choking Hazard",
-   "gold": "no_match",
+   "pair_id": "p_26672_137848611003",
+   "listing_title": "Easter LED Finger Lights 28 Pack with Cards Space Astronaut Glow Kids Party",
+   "recall_title": "Syera Projecting Finger Light Toys Recalled Due to Risk of Serious Injury from Battery Ingestion; Violate Mandatory Standard for Toys; Sold on TEMU by Senyu",
+   "recall_number": "26672",
+   "gold": "check",
    "base": "match",
-   "lora": "no_match"
+   "lora": null,
+   "teacher": "check",
+   "heuristic": "no_match",
+   "base_verdict": {
+    "verdict": "match",
+    "identifiers_found": [
+     "28 Pack",
+     "Space Astronaut",
+     "LED Finger Lights"
+    ],
+    "conflicts": [],
+    "reason": "The listing matches the recalled product name, type, and specific sold window (28-pack) despite the absence of a specific model number."
+   },
+   "lora_verdict": null
   },
   {
-   "pair_id": "p_27024_02",
-   "listing_title": "Scotch TL901X Thermal Laminator 9\"",
-   "recall_title": "3M Company Recalls Scotch Thermal Laminators Due to Risk of Serious Injury or Death from Fire Hazard",
-   "gold": "no_match",
+   "pair_id": "p_26672_147593890148",
+   "listing_title": "Lot of 14 Astronaut LED Light Up Finger Lights Space Party Favors Novelty READ",
+   "recall_title": "Syera Projecting Finger Light Toys Recalled Due to Risk of Serious Injury from Battery Ingestion; Violate Mandatory Standard for Toys; Sold on TEMU by Senyu",
+   "recall_number": "26672",
+   "gold": "check",
    "base": "match",
-   "lora": "no_match"
+   "lora": null,
+   "teacher": "check",
+   "heuristic": "no_match",
+   "base_verdict": {
+    "verdict": "match",
+    "identifiers_found": [
+     "Astronaut LED Light Up Finger Lights"
+    ],
+    "conflicts": [],
+    "reason": "The listing describes the exact recalled product line without any excluded variants or missing identifiers."
+   },
+   "lora_verdict": null
   },
   {
-   "pair_id": "p_26688_02",
-   "listing_title": "Taleco Gear 2-in-1 Baby Swing & Jumper Pink",
+   "pair_id": "p_26688_237111743985",
+   "listing_title": "2 in 1 Baby Jumper Swing, Toddler Swing 6 Months to 6 Years Pink",
    "recall_title": "Taleco Gear Recalls Baby Jumpers, Baby Swings and 2-in-1 Baby Jumper & Swings Due to Risk of Serious Injury or Death from Fall and Strangulation Hazards",
-   "gold": "match",
-   "base": "check",
-   "lora": "match"
+   "recall_number": "26688",
+   "gold": "check",
+   "base": "match",
+   "lora": null,
+   "teacher": "check",
+   "heuristic": "no_match",
+   "base_verdict": {
+    "verdict": "match",
+    "identifiers_found": [
+     "2 in 1 Baby Jumper Swing"
+    ],
+    "conflicts": [],
+    "reason": "The listing describes a '2 in 1 Baby Jumper Swing' which matches the recalled product line and model type, and the color 'Pink' is within the specified recalled variants."
+   },
+   "lora_verdict": null
+  },
+  {
+   "pair_id": "p_26688_356640277201",
+   "listing_title": "Taleco Gear Toddler Swing, 3-in-1 Swing Sets for Backyard, Baby Swing Outdoor...",
+   "recall_title": "Taleco Gear Recalls Baby Jumpers, Baby Swings and 2-in-1 Baby Jumper & Swings Due to Risk of Serious Injury or Death from Fall and Strangulation Hazards",
+   "recall_number": "26688",
+   "gold": "check",
+   "base": "no_match",
+   "lora": null,
+   "teacher": "check",
+   "heuristic": "check",
+   "base_verdict": {
+    "verdict": "no_match",
+    "identifiers_found": [],
+    "conflicts": [
+     "The listing describes a '3-in-1 Swing Set' for the backyard, whereas the recall specifically covers 'Baby Jumpers' and 'Baby Swings' sold between 2021-04 and 2026-07, which are distinct products.",
+     "The listing does not mention the recalled model numbers 'jumper-01' or 'swing-1'.",
+     "The product type (outdoor swing set) and configuration (3-in-1) do not match the recalled items (baby jumper/swing)."
+    ],
+    "reason": "The listing describes a different product (outdoor 3-in-1 swing set) than the recalled items (baby jumper/swing)."
+   },
+   "lora_verdict": null
+  },
+  {
+   "pair_id": "p_26727_237122765571",
+   "listing_title": "4-in-1 Montessori Baby Toy Set with Pull-String Teether Stacking Blocks | Sta...",
+   "recall_title": "Montessori Baby Toy Sets Recalled Due to Risk of Serious Injury or Death from Choking; Violate Mandatory Standard for Toys; Sold on Amazon by Chillife Official",
+   "recall_number": "26727",
+   "gold": "check",
+   "base": "no_match",
+   "lora": null,
+   "teacher": "check",
+   "heuristic": "no_match",
+   "base_verdict": {
+    "verdict": "no_match",
+    "identifiers_found": [],
+    "conflicts": [
+     "Listing specifies a '4-in-1' set while the recall covers a '5-in-1' set, and the listing title does not contain the recalled model number 'CHILLIFE01' or the specific 'off-white disc with blue ball' description.",
+     "The listing title ends abruptly ('Sta...') but lacks the specific recalled identifiers or the exact product description required to confirm it is the recalled item."
+    ],
+    "reason": "The listing describes a different product configuration (4-in-1 vs 5-in-1) and lacks the specific recalled model number or visual identifiers."
+   },
+   "lora_verdict": null
   }
+ ],
+ "split": {
+  "seed": 0,
+  "per_recall_cap": 15,
+  "recalls_with_listings": 237,
+  "groups": 233,
+  "train_recalls": 217,
+  "test_recalls": 20,
+  "train_pairs": 3007,
+  "test_pairs": 293,
+  "test_childrens_recalls": 12,
+  "train_childrens_recalls": 122,
+  "test_childrens_pairs": 180,
+  "train_pairs_dropped_listing_overlap": 115,
+  "test_recalls_by_corpus": {
+   "B": 6,
+   "A+B": 6,
+   "A": 8
+  },
+  "recall_overlap_train_test": 0,
+  "listing_overlap_train_test": 0
+ },
+ "notes": [
+  "Gold = blind human labels from ml/label_ui (no model output shown); test recalls never appear in train.",
+  "Single attempt, temperature 0; invalid JSON counts as wrong. risky = gold in {match, check}.",
+  "acc_ci = 10,000-sample bootstrap 95% CI; paired p = exact two-sided McNemar on discordant pairs.",
+  "base/lora use the short student prompt; base_guided adds the teacher's long rulebook; the teacher also sees the CPSC description.",
+  "Cost = measured tokens x Tinker list prices (models.json 2026-10-17); latency = wall-clock per request."
  ]
 }

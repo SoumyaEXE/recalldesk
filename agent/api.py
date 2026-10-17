@@ -114,6 +114,35 @@ async def health():
 
 # ----------------------------------------------------------------------------------------- recalls
 _RECALL_CACHE: dict = {}
+_MODEL_KINDS = ("model", "item", "style", "sku", "part", "product_id", "ref")
+_WHERE = re.compile(r"\b(printed|located|found|stamped|embossed|engraved|etched|molded|moulded|imprinted|sewn|"
+                    r"label|tag|sticker|underside|bottom of|back of|inside of)\b", re.I)
+_WHAT = re.compile(r"\b(model|item|batch|lot|date|code|number|serial|upc|style|sku)\b", re.I)
+
+
+def _ids_only_in_description(r: dict) -> bool:
+    """docs/charts/README.md "buried" definition (73 of 151 for corpus A): a model/item/style/SKU/part/product-id/ref
+    number appears in the description (ml.regex_ids typed extraction, exclusions dropped) and none of them is in the
+    title or product names."""
+    from ml.regex_ids import extract_ids_typed, norm_id
+
+    ms = [x["id"] for x in extract_ids_typed(r.get("description") or "", r.get("upcs") or [])
+          if not x["excluded"] and x["kind"] in _MODEL_KINDS]
+    hay = norm_id((r.get("title") or "") + " " + " ".join(r.get("product_names") or []))
+    return bool(ms) and not any(norm_id(m) in hay for m in ms)
+
+
+def _where_to_look(r: dict) -> str | None:
+    """fallback.label_hint, widened to 'engraved/etched/molded/underside...' (e.g. Woodure 26658)."""
+    from agent.fallback import label_hint
+
+    hint = label_hint(r)
+    if hint:
+        return hint
+    for sent in re.split(r"(?<=[.!?])\s+", r.get("description") or ""):
+        if _WHERE.search(sent) and _WHAT.search(sent):
+            return sent.strip()[:240]
+    return None
 
 
 def _recalls_with_specs() -> tuple[list[dict], str]:
@@ -125,17 +154,16 @@ def _recalls_with_specs() -> tuple[list[dict], str]:
     if _RECALL_CACHE.get("key") != key:
         rows, src = load_corpus(since="2023-01-01")
         if src == "shared/fixtures/recalls.json":
-            out = rows  # fixtures already carry their spec
+            out = [{**r, "ids_only_in_description": _ids_only_in_description(r)} for r in rows]  # spec already in
         else:
-            from agent.fallback import label_hint
-
             out = []
             for r in rows:
                 spec, ssrc = ml_bridge.spec_for(r, allow_model=False)
                 sd = spec.model_dump()
                 sd["spec_source"] = "teacher" if "teacher" in ssrc else ("hand-checked" if "hand" in ssrc else "heuristic")
-                sd["look_for"] = label_hint(r) or None
-                out.append({**r, "spec": sd, "spec_source_detail": ssrc})
+                sd["look_for"] = _where_to_look(r)
+                out.append({**r, "spec": sd, "spec_source_detail": ssrc,
+                            "ids_only_in_description": _ids_only_in_description(r)})
         out.sort(key=lambda r: (r.get("recall_date", ""), r.get("recall_number", "")), reverse=True)
         _RECALL_CACHE.update(key=key, rows=out, src=src)
     return _RECALL_CACHE["rows"], _RECALL_CACHE["src"]
