@@ -7,7 +7,9 @@ scan / re-train / re-eval, then re-render.
 
 Every section carries a `status`:
     real         the source file exists and is not marked placeholder
-    provisional  eval.json exists but is scored against teacher labels, not human gold
+    provisional  eval.json exists but is scored against RAW teacher labels (no rule 7). The project's answer key
+                 is "teacher + rule 7 by code (not human)" (data/labeled/targets.jsonl): that is final, so it is
+                 `real` and pages show a small "answer key: teacher + rule 7, not human" footnote instead.
     placeholder  the source file is missing or has "placeholder": true. The section is then filled with
                  ILLUSTRATIVE values from PLACEHOLDER below, and every page that uses it draws a
                  "PLACEHOLDER - NOT REAL DATA" watermark (common.js). Never quote a placeholder image.
@@ -201,7 +203,9 @@ def build_scan() -> dict:
 # ============================================================================ eval + training
 def build_eval() -> dict:
     ev, st = load_json("eval", RES / "eval.json")
-    if st == "real" and ev and "teacher" in str(ev.get("gold", "")).lower():
+    gold_s = str((ev or {}).get("gold", "")).lower()
+    answer_key = "human" if gold_s.startswith("human") else "targets" if "rule 7" in gold_s else "teacher"
+    if st == "real" and ev and answer_key == "teacher":  # raw teacher labels, no rule 7: not the final key
         st = "provisional"
         SOURCES["eval"]["status"] = "provisional"
         SOURCES["eval"]["why"] = f'gold = {ev.get("gold")}'
@@ -236,7 +240,7 @@ def build_eval() -> dict:
     ex_status = st
     if ex is None:
         ex, ex_status = PLACEHOLDER["example"], "placeholder"
-    return {"status": st, "test_size": test_size, "gold": gold,
+    return {"status": st, "test_size": test_size, "gold": gold, "answer_key": answer_key,
             "test_recalls": (ev or {}).get("test_recalls"), "gold_dist": (ev or {}).get("gold_dist"),
             "models": {r: {k: m.get(k) for k in ("name", "role", "model", "n", "acc", "acc_ci", "macro_f1",
                                                  "risky_caught", "false_alarms", "json_valid", "p50_latency_ms",
@@ -268,7 +272,13 @@ def build_spend() -> dict:
         sp, st = PLACEHOLDER["spend"], "placeholder"
         return {"status": st, "stages": sp["stages"], "total": sp["total"],
                 "searches": sp["serpapi_searches_spent"], "note": "placeholder"}
-    return {"status": st, "stages": sp["stages"], "total": sp.get("total_est_usd", 0),
+    stages, total = dict(sp["stages"]), sp.get("total_est_usd", 0)
+    # the first teacher labelling run (before rule 7) was discarded but paid for: spend.v1.json keeps it
+    v1, v1st = load_json("spend_v1", RES / "spend.v1.json")
+    if v1st == "real" and (v1 or {}).get("stages", {}).get("teacher_label"):
+        stages = {"teacher_label_v1_discarded": v1["stages"]["teacher_label"], **stages}
+        total = round(total + v1["stages"]["teacher_label"].get("est_usd", 0), 4)
+    return {"status": st, "stages": stages, "total": total,
             "searches": sp.get("serpapi_searches_spent", 0), "note": sp.get("note", "")}
 
 
@@ -279,7 +289,8 @@ def secs(ts: str) -> float:
 
 
 def build_crash() -> dict:
-    p = LOGS / "04_crash_resume.txt"
+    # newest numbered transcript wins (LoRA re-runs are 11_crash_resume_lora.txt; heuristic ones moved to heuristic/)
+    p = next(iter(sorted(LOGS.glob("*crash_resume*.txt"), reverse=True)), LOGS / "04_crash_resume.txt")
     if not p.exists():
         SOURCES["crash"] = {"path": rel(p), "status": "placeholder", "why": "file missing"}
         return {"status": "placeholder"}
@@ -396,7 +407,8 @@ def build_memory() -> dict:
                          "status": "real", "why": ""}
     # the correction request/response (05_api_endpoints.txt) gives the shop's own words
     note = item = None
-    api = LOGS / "05_api_endpoints.txt"
+    api = next((q for q in sorted(LOGS.glob("*.txt"), reverse=True)
+                if "/corrections" in q.read_text(encoding="utf-8", errors="replace")), LOGS / "05_api_endpoints.txt")
     if api.exists():
         t = api.read_text(encoding="utf-8", errors="replace")
         m = re.search(r"/corrections .*?-d (\{.*?\})\s*\n(\{.*?\})\s*\n", t)

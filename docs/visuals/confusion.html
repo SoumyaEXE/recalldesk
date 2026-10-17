@@ -24,13 +24,13 @@
   const NAME = { base: "Qwen3.5-4B base", lora: "Qwen3.5-4B + RecallDesk LoRA" };
   const LAB = ["match", "check", "no_match"];
   const diag = (m) => m[0][0] + m[1][1] + m[2][2], sum = (m) => m.flat().reduce((a, b) => a + b, 0);
-  document.getElementById("kicker").textContent = `Held-out test · ${E.test_size} pairs · rows = human label, columns = model verdict`;
+  document.getElementById("kicker").textContent = `Held-out test · ${E.test_size} pairs · rows = answer key (teacher + rule 7), columns = model verdict`;
   const b = E.confusion.base && E.confusion.base.matrix, l = E.confusion.lora && E.confusion.lora.matrix;
   document.getElementById("h1").textContent = b && l
     ? `Where the errors go: the base clears ${b[0][2] + b[1][2]} risky listings; the LoRA clears ${l[0][2] + l[1][2]}`
     : "Confusion matrices";
   document.getElementById("sub").textContent =
-    `Each cell counts pairs. Shading is the share of that row, so a dark diagonal means the model agrees with the human. The right-hand column of the top two rows is the dangerous one: a risky listing marked clear.`;
+    `Each cell counts pairs. Shading is the share of that row, so a dark diagonal means the model agrees with the answer key. The right-hand column of the top two rows is the dangerous one: a risky listing marked clear.`;
 
   const cell = 66, gx = 92, gy = 54, Wm = gx + cell * 3;
   const blue = (t) => { // ink-blue sequential, 0 -> paper, 1 -> #2b5fab
@@ -62,7 +62,7 @@
   const H = gy + cell * 3 + 10, W = roles.length * (Wm + 44);
   document.getElementById("chart").innerHTML = `<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="Confusion matrices for ${roles.join(" and ")}">${s}</svg>`;
   document.getElementById("foot").innerHTML = b && l
-    ? `Dashed red = a recalled or check-worthy listing cleared. Gold no_match marked risky (bottom row, first two columns): base ${b[2][0] + b[2][1]}, LoRA ${l[2][0] + l[2][1]}. Gold match called check still lands on the card, as CHECK LABEL.`
+    ? `Dashed red = a recalled or check-worthy listing cleared. Key no_match marked risky (bottom row, first two columns): base ${b[2][0] + b[2][1]}, LoRA ${l[2][0] + l[2][1]}. Key match called check still lands on the card, as CHECK LABEL.`
     : "";
   RDV.mark(["eval"]);
 })();

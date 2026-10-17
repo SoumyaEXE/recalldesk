@@ -574,11 +574,11 @@
   },
   "childrens": {
    "New": 5424,
-   "Pre-Owned": 1396,
    "Open box": 42,
-   "For parts": 6,
+   "Pre-Owned": 1396,
    "Not stated": 31,
-   "Other": 2
+   "Other": 2,
+   "For parts": 6
   },
   "exact_id_hits": {
    "New": 35,
@@ -620,32 +620,31 @@
   "top": "Fire / burn"
  },
  "results-bars": {
-  "status": "placeholder"
+  "status": "real"
  },
  "risky-caught-units": {
-  "status": "placeholder"
+  "status": "real"
  },
  "confusion-pair": {
-  "status": "placeholder"
+  "status": "real"
  },
  "cost-per-1k": {
-  "status": "placeholder"
+  "status": "real"
  },
  "loss-curve": {
-  "status": "placeholder"
+  "status": "real"
  },
  "latency": {
-  "status": "placeholder"
+  "status": "real"
  },
  "flagged-by-recall": {
   "status": "placeholder"
  },
  "label-distribution": {
-  "status": "placeholder",
+  "status": "real",
   "counts": {
-   "match": 40,
-   "check": 60,
-   "no_match": 120
+   "no_match": 255,
+   "check": 38
   }
  },
  "generated_from": {

@@ -30,12 +30,12 @@
   const rows = E.order.map((r) => ({ r, ...M[r], sub: SUB[r] || (r.startsWith("backboard:") ? "open-weight baseline via Backboard" : "") }))
     .filter((d) => d.acc != null).sort((a, b) => b.acc - a.acc);
   const L = M.lora, B = M.base;
-  document.getElementById("kicker").textContent = `Held-out recalls · ${E.test_size} (recall, listing) pairs · graded by blind human labels`;
+  document.getElementById("kicker").textContent = `Held-out recalls · ${E.test_size} (recall, listing) pairs · graded vs teacher + rule 7 (code)`;
   document.getElementById("h1").textContent = L && B
     ? `Fine-tuning moved the 4B from ${B.acc.toFixed(3)} to ${L.acc.toFixed(3)} accuracy, at ${RDV.money(L.cost_per_1k_usd)} per 1,000 listings`
     : `Accuracy by model on held-out recalls`;
   document.getElementById("sub").textContent =
-    `Three-way verdict (match / check / no_match) against a human's blind label. The test recalls never appear in training. One attempt per pair, temperature 0; invalid JSON counts as wrong.`;
+    `Three-way verdict (match / check / no_match) against the answer key: the teacher's label with rule 7 enforced by code (not a human). The test recalls never appear in training. One attempt per pair, temperature 0; invalid JSON counts as wrong.`;
 
   const W = 718, LW = 262, x0 = LW, barW = 330, costX = W, top0 = 30, rowH = 54, barH = 20;
   const H = top0 + rows.length * rowH + 26, sx = (v) => x0 + v * barW;

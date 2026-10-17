@@ -51,12 +51,12 @@
   const vk = (v) => (v && v.verdict) || v;
   document.getElementById("kicker").textContent = `One held-out pair · ${X.pair_id}`;
   document.getElementById("h1").textContent = vk(X.base_verdict) !== X.gold && vk(X.lora_verdict) === X.gold
-    ? `Same listing, same prompt. The base said ${vk(X.base_verdict)}; the fine-tuned model said ${vk(X.lora_verdict)}, like the human.`
+    ? `Same listing, same prompt. The base said ${vk(X.base_verdict)}; the fine-tuned model said ${vk(X.lora_verdict)}, like the answer key.`
     : `Same listing, same prompt: base vs fine-tuned`;
   document.getElementById("rk").textContent = `CPSC recall ${X.recall_number || ""}`;
   document.getElementById("rt").textContent = X.recall_title;
   document.getElementById("lt").textContent = X.listing_title;
-  document.getElementById("gold").innerHTML = `Human label (blind): ${RDV.stamp(X.gold, X.gold === "no_match" ? "no match" : null)} <span class="mono" style="color:#797262">${X.gold}</span>`;
+  document.getElementById("gold").innerHTML = `Answer key (teacher + rule 7): ${RDV.stamp(X.gold, X.gold === "no_match" ? "no match" : null)} <span class="mono" style="color:#797262">${X.gold}</span>`;
   const pretty = (v) => {
     let t = esc(JSON.stringify(v, null, 2));
     t = t.replace(/(&quot;[a-z_]+&quot;):/g, '<span class="k">$1</span>:');
@@ -69,10 +69,10 @@
     const ok = k === X.gold;
     const r = document.getElementById(p + "r");
     r.className = "res " + (ok ? "ok" : "bad");
-    r.textContent = ok ? "✓ agrees with the human label" : (X.gold !== "no_match" && k === "no_match" ? "✗ clears a risky listing" : "✗ disagrees with the human label");
+    r.textContent = ok ? "✓ agrees with the answer key" : (X.gold !== "no_match" && k === "no_match" ? "✗ clears a risky listing" : "✗ disagrees with the answer key");
   });
   document.getElementById("foot").textContent =
-    `The model sees only the compact recall spec and the listing text (title, subtitle, condition, eBay extensions), never the gold label. Code, not the model, then maps match → DO NOT SELL and check → CHECK LABEL.`;
+    `The model sees only the compact recall spec and the listing text (title, subtitle, condition, eBay extensions), never the answer-key label. Code, not the model, then maps match → DO NOT SELL and check → CHECK LABEL.`;
   RDV.mark(["example"]);
 })();
 </script>

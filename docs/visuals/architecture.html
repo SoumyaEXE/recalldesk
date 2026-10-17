@@ -9,7 +9,7 @@
 <body>
 <div id="frame">
   <div class="kicker">How it works · what runs where</div>
-  <h1>The big model teaches. The small model reads. Code decides. A human grades.</h1>
+  <h1>The big model teaches, the small model reads, code decides.</h1>
   <div class="chart" id="chart"></div>
   <div class="src"><span>Numbers: data/recalls, ml/results/*.json (shown only once real) · activities + retry policies: agent/workflows.py, agent/activities.py</span><span class="brand">RECALLDESK</span></div>
 </div>
@@ -23,7 +23,7 @@
   const W = 718, H = 624;
   const TAG = {
     CPSC: ["#e9e4d6", "#423e35"], TINKER: ["#d9e4f3", "#213f6f"], SERPAPI: ["#fff4d6", "#6b4700"],
-    BACKBOARD: ["#dcefee", "#175f5f"], CODE: ["#f5f2e9", "#5b5548"], HUMAN: ["#1d1c19", "#ffffff"], PAPER: ["#fdeaea", "#8a0c1f"],
+    BACKBOARD: ["#dcefee", "#175f5f"], CODE: ["#f5f2e9", "#5b5548"], PAPER: ["#fdeaea", "#8a0c1f"],
   };
   const T_ = (x, y, txt, o = {}) => `<text x="${x}" y="${y}" font-size="${o.size || 12}" font-weight="${o.w || 400}" fill="${o.fill || C.ink}" ${o.anchor ? `text-anchor="${o.anchor}"` : ""} ${o.mono ? RDV.MONO : ""} ${o.notice ? RDV.NOTICE : ""} ${o.ls ? `letter-spacing="${o.ls}"` : ""}>${txt}</text>`;
   function box(x, y, w, h, tag, title, lines, o = {}) {
@@ -41,7 +41,7 @@
   const arrow = (x1, y1, x2, y2, o = {}) =>
     `<path d="${o.d || `M${x1},${y1} L${x2},${y2}`}" fill="none" stroke="${o.col || "#5b5548"}" stroke-width="1.5" ${o.dash ? 'stroke-dasharray="4 3"' : ""} marker-end="url(#ah${o.m || 0})"/>` +
     (o.label ? T_(o.lx, o.ly, o.label, { size: 10.5, fill: o.lcol || C.ink3, anchor: o.la || "middle", w: o.lw || 400 }) : "");
-  let s = `<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="Offline: CPSC recalls, teacher specs on Tinker, SerpApi eBay search, pairs, teacher labels, Tinker LoRA on Qwen3.5-4B, human blind labels grade the test pairs. Weekly Temporal schedule: fetch_new_recalls, extract_spec, load_shop_memories from Backboard, retrieve and check_item, scan_ebay_store, compose_card, publish_card; the shop's corrections go back into Backboard.">${defs}`;
+  let s = `<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="Offline: CPSC recalls, teacher specs on Tinker, SerpApi eBay search, pairs, teacher labels, Tinker LoRA on Qwen3.5-4B, graded vs teacher + rule 7 (code) on held-out recalls. Weekly Temporal schedule: fetch_new_recalls, extract_spec, load_shop_memories from Backboard, retrieve and check_item, scan_ebay_store, compose_card, publish_card; the shop's corrections go back into Backboard.">${defs}`;
 
   // ---------------- zone A: once, offline
   const zAh = 318;
@@ -53,7 +53,7 @@
   s += box(X(1), r1, bw, bh, "TINKER", "Teacher writes a spec", ["Qwen3.5-397B-A17B, once per recall", "brand, model nos., dates, queries"]);
   s += box(X(2), r1, bw, bh, "SERPAPI", "Search eBay for each", [real("scan") ? `${n(sc.searches_spent)} searches · ${n(sc.listings_seen)} listings` : "engine=ebay, 1 search per recall", "every response cached, never re-spent"]);
   s += box(X(2), r2, bw, bh, "CODE", "(recall, listing) pairs", ["split by recall: test recalls", "never appear in training"]);
-  s += box(X(1), r2, bw, bh, "TINKER", "Teacher labels the pairs", ["match / check / no_match + reason", "strict JSON, same rulebook as humans"]);
+  s += box(X(1), r2, bw, bh, "TINKER", "Teacher labels the pairs", ["match / check / no_match + reason", "strict JSON; code enforces rule 7"]);
   s += box(X(0), r2, bw, bh, "TINKER", "LoRA student", [`Qwen3.5-4B, rank ${tr.rank || 32}` + (real("training") && tr.steps ? ` · ${tr.steps} steps` : ""),
     real("spend") && sp.stages.train_tinker ? `training cost ${RDV.money(sp.stages.train_tinker.est_usd)}` : "trained on the teacher's JSON"], { hi: true });
   const my1 = r1 + bh / 2, my2 = r2 + bh / 2;
@@ -62,11 +62,11 @@
   s += arrow(X(2) + bw / 2, r1 + bh, X(2) + bw / 2, r2 - 3);
   s += arrow(X(2), my2, X(1) + bw + 3, my2);
   s += arrow(X(1), my2, X(0) + bw + 3, my2, { label: "train", lx: (X(0) + bw + X(1)) / 2, ly: my2 - 7, col: C.ours, m: 1, lcol: C.ours, lw: 600 });
-  // human grades
+  // grading: answer key = teacher labels + rule 7 enforced by code (no human grader)
   const hy = r2 + bh + 12;
   s += `<rect x="${X(1)}" y="${hy}" width="${X(2) + bw - X(1)}" height="30" rx="6" fill="#1d1c19"/>`;
-  s += T_(X(1) + 10, hy + 19.5, "HUMAN", { size: 9.5, w: 700, fill: "#efcf78", mono: true, ls: "0.05em" });
-  s += T_(X(1) + 62, hy + 19.5, real("eval") ? `blind gold labels on ${n(ev.test_size)} test pairs grade every model` : "blind gold labels on the held-out test pairs grade every model", { size: 11.5, w: 600, fill: "#ffffff" });
+  s += T_(X(1) + 10, hy + 19.5, "EVAL", { size: 9.5, w: 700, fill: "#efcf78", mono: true, ls: "0.05em" });
+  s += T_(X(1) + 52, hy + 19.5, real("eval") && ev.test_recalls ? `graded vs teacher + rule 7 (code) on ${n(ev.test_recalls)} held-out recalls` : "graded vs teacher + rule 7 (code) on held-out recalls", { size: 11.5, w: 600, fill: "#ffffff" });
   s += arrow(X(1) - 3, hy + 15, X(0) + bw / 2, r2 + bh + 3, { d: `M${X(1) - 3},${hy + 15} L${X(0) + bw / 2},${hy + 15} L${X(0) + bw / 2},${r2 + bh + 3}`, col: "#1d1c19", label: "grade", lx: X(0) + bw / 2 + 30, ly: hy + 11 });
 
   // ---------------- zone B: weekly Temporal sweep
@@ -102,7 +102,7 @@
   s += arrow(CX(1), m2, CX(0) + pw + 4, m2);
   // LoRA serves check_item
   s += arrow(0, 0, 0, 0, { d: `M${X(0) + 34},${r2 + bh + 1} L${X(0) + 34},${zAh + 17} L${CX(3) + cw / 2},${zAh + 17} L${CX(3) + cw / 2},${q1 - 3}`, col: C.ours, dash: true, m: 1, label: "the LoRA serves every check (Tinker sampler, or any OpenAI-compatible server)", lx: CX(3) + cw / 2 - 8, ly: zAh + 13, la: "end", lcol: C.ours, lw: 600 });
-  // human correction loop
+  // shop correction loop
   const ly = q1 + ch + 30;
   s += arrow(0, 0, 0, 0, { d: `M${CX(0) + pw / 2},${q2 - 10} L${CX(0) + pw / 2},${ly} L${CX(2) + cw / 2},${ly} L${CX(2) + cw / 2},${q1 + ch + 3}`, col: "#175f5f", dash: true, m: 2 });
   s += T_(CX(0) + pw / 2 + 8, ly - 6, "the shop corrects a verdict → Backboard memory → next run", { size: 11, w: 600, fill: "#175f5f" });

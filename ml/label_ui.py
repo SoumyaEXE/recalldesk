@@ -1,4 +1,5 @@
-"""Blind human labeling UI for the gold test set.
+"""Blind human labeling UI for an optional audit of the test set (not used for the reported eval numbers,
+which are graded against teacher + rule 7 by code; see ml/eval.py --gold).
 
     python -m ml.label_ui                # http://localhost:8765  (test split)
     python -m ml.label_ui --port 8765 --split test

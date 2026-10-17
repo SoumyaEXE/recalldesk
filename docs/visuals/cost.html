@@ -27,6 +27,7 @@
   const LABEL = {
     spec_extract: ["Teacher: recall → spec", "one RecallSpec per CPSC recall"],
     spec_extract_live: ["Teacher: live specs", "new recalls in the weekly sweep"],
+    teacher_label_v1_discarded: ["Teacher: first labels (discarded)", "before rule 7; relabelled"],
     teacher_label: ["Teacher: label pairs", "match / check / no_match for every pair"],
     train_tinker: ["LoRA training", "rank-32 SFT + held-out NLL per epoch"],
   };
@@ -59,7 +60,7 @@
     [T && T.cost_per_1k_usd != null ? RDV.money(T.cost_per_1k_usd) : "n/a", "teacher: per 1,000 listings read", ""],
   ];
   document.getElementById("tiles").innerHTML = tiles.map(([v, l, k]) => `<div class="tile ${k}"><b>${v}</b><span>${l}</span></div>`).join("");
-  document.getElementById("foot").innerHTML = `Not included: Backboard credits for the baseline models and memory, and the human labelling time (~${RD.eval.test_size || "n"} test pairs). ${S.status === "real" ? RDV.esc(S.note || "") : ""}`;
+  document.getElementById("foot").innerHTML = `Not included: Backboard credits for the baseline models and memory, and any human review time (none was spent: the answer key is teacher + rule 7). ${S.status === "real" ? RDV.esc(S.note || "") : ""}`;
   RDV.mark(["spend", "eval"]);
 })();
 </script>

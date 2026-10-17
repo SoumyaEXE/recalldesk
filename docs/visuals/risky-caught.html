@@ -18,7 +18,7 @@
   <div class="legend" id="legend"></div>
   <div class="chart" id="chart"></div>
   <p class="foot" id="foot"></p>
-  <div class="src"><span>Source: ml/results/eval.json → confusion (rows = human gold, cols = model) · risky = gold match or check</span><span class="brand">RECALLDESK</span></div>
+  <div class="src"><span>Source: ml/results/eval.json → confusion (rows = answer key: teacher + rule 7 by code, cols = model) · risky = key match or check</span><span class="brand">RECALLDESK</span></div>
 </div>
 <script src="data.js"></script>
 <script src="common.js"></script>
@@ -34,9 +34,9 @@
     ? `The base 4B waved through ${tot("base") - hit("base")} of ${tot("base")} risky listings. After fine-tuning, ${tot("lora") - hit("lora")}.`
     : `Risky listings caught`;
   document.getElementById("sub").textContent =
-    `A listing is risky when the human said it is the recalled product (match) or needs a label check (check). "Caught" means the model put it on the card as DO NOT SELL or CHECK LABEL instead of clearing it.`;
+    `A listing is risky when the answer key (teacher + rule 7, not a human) says it is the recalled product (match) or needs a label check (check). "Caught" means the model put it on the card as DO NOT SELL or CHECK LABEL instead of clearing it.`;
   document.getElementById("legend").innerHTML =
-    `<span>${RDV.icon("match", 13)} gold match, caught</span><span>${RDV.icon("check", 13)} gold check, caught</span>` +
+    `<span>${RDV.icon("match", 13)} key match, caught</span><span>${RDV.icon("check", 13)} key check, caught</span>` +
     `<span>${RDV.icon("match", 13, "outline")}${RDV.icon("check", 13, "outline")} missed: model said no_match</span>`;
 
   const W = 718, LW = 0, per = 40, gap = 17.4, r = 6.4;
@@ -59,7 +59,7 @@
   document.getElementById("chart").innerHTML = `<svg width="${W}" height="${y}" viewBox="0 0 ${W} ${y}" role="img" aria-label="Risky pairs caught: ${roles.map((r) => name[r] + " " + hit(r) + " of " + tot(r)).join("; ")}">${s}</svg>`;
   const fa = (role) => (E.models[role] ? E.models[role].false_alarms : null);
   document.getElementById("foot").innerHTML =
-    `The price of catching more: false alarms (gold no_match put on the card) go from ${fa("base") || "n/a"} for the base to ${fa("lora") || "n/a"} for the LoRA. For a resale shop a false alarm costs a look at a label; a miss can put a recalled product back on a shelf.`;
+    `The price of catching more: false alarms (key no_match put on the card) go from ${fa("base") || "n/a"} for the base to ${fa("lora") || "n/a"} for the LoRA. For a resale shop a false alarm costs a look at a label; a miss can put a recalled product back on a shelf.`;
   RDV.mark(["eval"]);
 })();
 </script>

@@ -4,7 +4,8 @@
 
 Every (recall, listing) found by that recall's search is classified (not just the top-15 used for pairs).
 Verdicts are cached in ml/results/scan_preds.<provider>.jsonl so reruns don't re-spend. human_verified_match
-counts flagged pairs whose blind human gold label is also "match" (the post only quotes human-verified numbers).
+counts flagged pairs whose blind human label (ml.label_ui -> data/gold/labels.jsonl) is also "match". No human review
+has been done for this project yet, so it is 0: every flag is a model verdict, not a confirmed recall.
 """
 from __future__ import annotations
 
@@ -93,7 +94,10 @@ def main() -> None:
         "classifier": {"provider": prov, "model": next(iter(cache.values()), {}).get("model"),
                        "specs": specs_path().name},
         "by_recall": out_rows, "generated_at": now_iso(),
-        "note": "flagged_* are model verdicts; only human_verified_match is checked by a person (blind gold labels).",
+        "note": ("flagged_* are model verdicts, not confirmed recalls. human_verified_match counts flags a person "
+                 "confirmed in the blind label UI"
+                 + (f" ({human_checked} flags reviewed)." if human_checked
+                    else "; no human review has been done yet, so it is 0.")),
     }
     write_json(RESULTS / "scan_summary.json", summary)
     print({k: v for k, v in summary.items() if k not in ("by_recall",)})

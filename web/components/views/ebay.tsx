@@ -211,13 +211,22 @@ export function EbayView() {
         <KpiCard index={0} icon={RiSearch2Line} tone="gray" label="Searches spent" value={s?.searches_spent ?? null} loading={scan.loading} status={s ? `${num(s.recalls_scanned)} recalls` : undefined} caption="Every response cached; none re-spent" />
         <KpiCard index={1} icon={RiEyeLine} tone="blue" label="Listings seen" value={s?.listings_seen ?? null} loading={scan.loading} status="Read by the 4B" caption="Titles, condition, item specifics" />
         <KpiCard index={2} icon={RiErrorWarningLine} tone="red" label="Flagged" value={flagged} loading={scan.loading} status="Model" caption={s ? `${num(s.flagged_match)} match · ${num(s.flagged_check)} check` : undefined} />
-        <KpiCard index={3} icon={RiShieldCheckLine} tone="green" label="Human-verified matches" value={s?.human_verified_match ?? null} loading={scan.loading} status="Quoted" caption={s ? `${num(s.childrens_flagged)} children's flags` : undefined} />
+        <KpiCard index={3} icon={RiShieldCheckLine} tone="green" label="Human-verified matches" value={s?.human_verified_match ?? null} loading={scan.loading} status={s?.human_reviewed_flags ? "Reviewed" : "No review yet"} caption={s ? `${num(s.childrens_flagged)} children's flags` : undefined} />
       </KpiRow>
 
       <div className="mb-5 flex items-start gap-3 rounded-xl border border-info-border bg-info-surface px-4 py-3">
         <IconTile icon={RiShieldCheckLine} tone="blue" size="sm" className="bg-card" />
         <p className="pt-1 text-body-2-regular text-text-secondary">
-          <span className="font-semibold text-text-primary">Numbers verified by a human.</span> The model flags; a person opened each flagged listing and confirmed it against the CPSC text. We only quote human-verified matches. Seller names are hashed, and we don&apos;t contact or report sellers.
+          {s?.human_reviewed_flags ? (
+            <>
+              <span className="font-semibold text-text-primary">{num(s.human_verified_match)} of {num(s.human_reviewed_flags)} reviewed flags confirmed by a human.</span> Every other flag is a model verdict, not a confirmed recall.
+            </>
+          ) : (
+            <>
+              <span className="font-semibold text-text-primary">human_verified = 0 — no human review yet.</span> Every flag here is a model verdict, not a confirmed recall; a person still has to open the listing and check it against the CPSC text.
+            </>
+          )}{" "}
+          Seller names are hashed, and we don&apos;t contact or report sellers.
           {s?.placeholder && s.note && <span className="mt-1 block text-caption-1-regular text-caution-text">{s.note}</span>}
         </p>
       </div>

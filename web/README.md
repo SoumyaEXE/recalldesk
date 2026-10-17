@@ -18,7 +18,7 @@ npm run shots                     # ../docs/screenshots (server on :3000; BASE=.
 | `/` | **Overview**: KPI row (new recalls this Thursday, items checked, do not sell, check label), this week's card as a table (row → item-vs-recall drawer), next-sweep countdown (Temporal schedule), posted this Thursday, eBay teaser, activity feed |
 | `/inventory` | The shop's items with verdict pills, Status/Category filters, **Import CSV** / **Paste items** dialogs, live `InventoryCheckWorkflow` step panel, item drawer with "Not a match? Correct this" (Backboard memory + toast). `?new=1` opens the paste dialog |
 | `/recalls` | Every CPSC recall since Jul 18; tiles (151 / 48 children's / 73 with the model no. only in the fine print, from `ids_only_in_description`); drawer with CPSC text (IDs highlighted) vs extracted spec, where to look, remedy. `?open=<recall #>` |
-| `/ebay` | eBay monitor: searches, listings seen, flagged, human-verified; per-recall rows expand into listing cards (seller hash only) |
+| `/ebay` | eBay monitor: searches, listings seen, flagged, human-verified (0: no human review yet); per-recall rows expand into listing cards (seller hash only) |
 | `/cards` | Weekly card history + the printable notice (prints on exactly one Letter page) |
 | `/memory` | Shop memory (Backboard corrections), applied-this-week counts, remove (UI only: no delete API) |
 | `/runs` | Temporal runs table + drawer: waterfall, activity timeline, retry / crash-resume badges, "Open in Temporal UI". `?open=<workflow id>` |

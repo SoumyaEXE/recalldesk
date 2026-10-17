@@ -8,8 +8,9 @@ claims the brand matches when the listing names no brand. Code decides that case
                             AND  fewer than 2 distinctive product-name words appear
   -> target becomes no_match ("generic look-alike").
 
-Only TRAINING TARGETS change (data/labeled/targets.jsonl). The teacher is still scored on its raw output
-(data/labeled/teacher.jsonl) and the human gold labels never see any of this.
+targets.jsonl is both the TRAINING TARGET (train pairs) and the eval ANSWER KEY (test pairs; ml.eval --gold targets,
+eval.json gold = "teacher + rule 7 by code (not human)"). The raw teacher output stays in data/labeled/teacher.jsonl.
+No human labels were collected; ml.label_ui (data/gold/labels.jsonl) is only an optional audit.
 
     python -m ml.enforce_rules            # writes targets.jsonl + targets_stats.json
 """

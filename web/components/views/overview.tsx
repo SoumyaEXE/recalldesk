@@ -309,7 +309,7 @@ export function OverviewView() {
             </div>
             <div className="flex items-center justify-between gap-2 border-t border-line bg-subtle px-5 py-2.5">
               <span className="flex items-center gap-1.5 text-caption-1-regular text-text-tertiary">
-                <Dot tone={scan.placeholder ? "amber" : "green"} /> {scan.placeholder ? "Scan pending · placeholder" : "Human-verified numbers"}
+                <Dot tone={scan.placeholder ? "amber" : "green"} /> {scan.placeholder ? "Scan pending · placeholder" : "Model verdicts · no human review yet"}
               </span>
               <Link href="/ebay" className="inline-flex items-center gap-1 text-caption-1-semibold text-accent-600 hover:underline">
                 Open <RiArrowRightLine className="size-3.5" aria-hidden />

@@ -20,7 +20,7 @@ runs every Thursday after CPSC posts: fetch new recalls → specs → re-check e
 (5) **Backboard** stores each shop's corrections as memories ("ours is the 2019 model, not recalled"), retrieved semantically and applied
 by code, and is the one-key harness for comparing other open-weight models as baselines. Then it goes quiet until next Thursday.
 
-**Rule of the build: the big model teaches, the small model reads, code decides, a human grades.**
+**Rule of the build: the big model teaches, the small model reads, code decides.**
 
 ## Repo layout (each owner touches only their dir)
 ```
@@ -95,13 +95,18 @@ Card mapping: match → **DO NOT SELL**, check → **CHECK LABEL**, no_match →
 - `data/pairs/pairs.jsonl`: `{"pair_id","recall_number","listing_id","split":"train|test"}`.
 - **Split by recall** (held-out recalls never appear in train), stratified by is_childrens, seed 0. ~25–30 test recalls, ~200–250 test pairs.
 - Teacher labels for ALL pairs: `data/labeled/teacher.jsonl` (`{"pair_id","verdict":MatchVerdict,"latency_ms","tokens_in","tokens_out"}`).
-- **Gold** = human labels on test pairs only, via the blind labeling UI (`python -m ml.label_ui`, http://localhost:8765, keys 1/2/3, s=skip, u=undo):
-  `data/gold/labels.jsonl` `{"pair_id","label":"match|check|no_match","note","labeled_at"}`. The UI never shows any model output.
-- Training target = teacher JSON on train pairs (no human labels in train).
+- **Gold (answer key) — CHANGED:** no human gold labels were collected. The answer key for `ml/results/eval.json` is
+  `"gold": "teacher + rule 7 by code (not human)"` = `data/labeled/targets.jsonl` (teacher labels with LABELING.md rule 7
+  enforced by `ml/enforce_rules.py`) on the test pairs (`python -m ml.eval --gold targets`, the default).
+  Raw teacher output stays in `data/labeled/teacher.jsonl` (v1 archived as `teacher.v1.jsonl`).
+- The blind labeling UI still exists for an optional human audit (`python -m ml.label_ui`, http://localhost:8765, keys 1/2/3,
+  s=skip, u=undo -> `data/gold/labels.jsonl` `{"pair_id","label":"match|check|no_match","note","labeled_at"}`; never shows
+  model output; `ml.eval --gold human` scores against it). It was **not** used for the reported numbers.
+- Training target = the same `targets.jsonl` on train pairs (no human labels anywhere).
 
 ## `ml/results/eval.json`
 ```json
-{"test_size":220,"generated_at":"ISO","gold":"human (blind)",
+{"test_size":293,"generated_at":"ISO","gold":"teacher + rule 7 by code (not human)",
  "models":[{"name":"Qwen3.5-397B-A17B (teacher)","role":"teacher","acc":0,"acc_ci":[0,0],"macro_f1":0,"risky_caught":"x/y","false_alarms":"x/y",
             "json_valid":1.0,"p50_latency_ms":0,"cost_per_1k_usd":0}, {"role":"base"}, {"role":"base_guided"}, {"role":"lora"}, {"role":"heuristic"},
            {"role":"backboard:<model>"} ],
@@ -119,7 +124,8 @@ Stats: 10,000-sample bootstrap CIs, exact McNemar on discordant pairs (copy the 
  "human_verified_match":0,"childrens_flagged":0,"by_recall":[{"recall_number","title","listings","match","check","examples":["listing_id"]}],
  "generated_at":"ISO"}
 ```
-The post only quotes numbers that a human verified, and says so.
+`human_verified_match` counts flags a person confirmed in the label UI; no human review has been done, so it is 0 and
+every flag is a model verdict. The post says so and never calls a flag confirmed recalled stock.
 
 ## Backend API (FastAPI, http://localhost:8000)
 - `GET /api/health`

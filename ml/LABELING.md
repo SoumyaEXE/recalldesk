@@ -1,7 +1,8 @@
 # RecallDesk labeling guide
 
-One rulebook for the human gold labels (`python -m ml.label_ui`) and the teacher model
-(`ml/prompts.py` embeds the same definitions and rules). Every pair is one **CPSC recall** and one
+One rulebook for the teacher model (`ml/prompts.py` embeds the same definitions and rules) and for any human audit
+labels (`python -m ml.label_ui`; none were collected: the eval answer key is the teacher's labels with rule 7 enforced
+by code, `data/labeled/targets.jsonl`). Every pair is one **CPSC recall** and one
 **eBay listing** (or inventory row). The question is: *should a reseller stop and not list this item?*
 
 ## The three labels

@@ -89,7 +89,7 @@ function ConfusionGrid({ name, c }: { name: string; c?: Confusion }) {
       <table className="w-full table-fixed border-separate border-spacing-0.5 text-caption-1-medium">
         <thead>
           <tr>
-            <th className="w-[64px] text-start text-caption-2-medium text-text-tertiary">gold ↓</th>
+            <th className="w-[64px] text-start text-caption-2-medium text-text-tertiary">key ↓</th>
             {c.labels.map((l) => (
               <th key={l} scope="col" className="pb-1 text-center text-caption-2-medium text-text-tertiary">
                 {VLABEL[l]}
@@ -110,7 +110,7 @@ function ConfusionGrid({ name, c }: { name: string; c?: Confusion }) {
                   return (
                     <td
                       key={j}
-                      title={`gold ${VLABEL[c.labels[i]]}, model ${VLABEL[c.labels[j]]}: ${v} (${pct(share)})`}
+                      title={`answer key ${VLABEL[c.labels[i]]}, model ${VLABEL[c.labels[j]]}: ${v} (${pct(share)})`}
                       className={cx("h-11 rounded-md text-center text-body-2-semibold tabular-nums", share > 0.5 ? "text-white" : "text-text-primary", i === j && "ring-1 ring-line-strong")}
                       style={{ background: `color-mix(in oklab, var(--rd-seq) ${Math.round(6 + share * 88)}%, var(--rd-card))` }}
                     >
@@ -232,7 +232,11 @@ export function LabView() {
     const m = all.find((x) => x.role === role);
     return m ? roleLabel(m) : role;
   };
-  const provisional = /provisional|not human/i.test(data?.gold ?? "");
+  // eval.json gold: "teacher + rule 7 by code (not human)" is the project's final answer key; only raw teacher
+  // labels (no rule 7) are provisional.
+  const goldS = data?.gold ?? "";
+  const provisional = /provisional/i.test(goldS) || (/teacher/i.test(goldS) && !/rule 7/i.test(goldS));
+  const notHuman = !!goldS && !/^human/i.test(goldS);
 
   return (
     <Page>
@@ -242,14 +246,19 @@ export function LabView() {
             <Pill size="sm" tone="blue" dot>
               Tinker · LoRA fine-tune
             </Pill>
-            {provisional && <DemoBadge>Gold is provisional</DemoBadge>}
+            {provisional && <DemoBadge>Answer key is provisional</DemoBadge>}
+            {notHuman && !provisional && (
+              <Pill size="sm" tone="gray">
+                Answer key: teacher + rule 7 · not human
+              </Pill>
+            )}
             <DemoBadge show={placeholder}>Placeholder numbers</DemoBadge>
           </>
         }
         title="Model Lab"
         description={
           data
-            ? `The big model teaches, the small model reads. ${data.test_size} held-out (recall, listing) pairs from recalls the student never saw in training, graded by ${data.gold}. 10,000-sample bootstrap CIs; exact McNemar on discordant pairs.`
+            ? `The big model teaches, the small model reads. ${data.test_size} held-out (recall, listing) pairs from recalls the student never saw in training, graded against ${data.gold}. 10,000-sample bootstrap CIs; exact McNemar on discordant pairs.`
             : "Loading evaluation…"
         }
       />
@@ -263,7 +272,7 @@ export function LabView() {
         <div className="flex flex-col gap-5">
           <KpiRow>
             <KpiCard index={0} icon={RiShieldCheckLine} tone="blue" label={`${best ? short(best) : "Best"} accuracy`} display={best ? pct(best.acc, 1) : "—"} status={lora ? "Ours" : "LoRA pending"} caption={best ? `95% CI ${pct(best.acc_ci[0])}–${pct(best.acc_ci[1])}` : undefined} />
-            <KpiCard index={1} icon={RiFlaskLine} tone="green" label="Risky caught" display={best?.risky_caught ?? "—"} status="Recall" caption="Gold match or check, flagged" />
+            <KpiCard index={1} icon={RiFlaskLine} tone="green" label="Risky caught" display={best?.risky_caught ?? "—"} status="Recall" caption="Key match or check, flagged" />
             <KpiCard index={2} icon={RiCoinsLine} tone="amber" label="Cost / 1k checks" display={best ? usd(best.cost_per_1k_usd) : "—"} status="Tinker" caption={teacher ? `Teacher ${usd(teacher.cost_per_1k_usd)}` : undefined} />
             <KpiCard index={3} icon={RiTimerFlashLine} tone="gray" label="p50 latency" display={best ? `${Math.round(best.p50_latency_ms).toLocaleString()} ms` : "—"} status="Per pair" caption={teacher ? `Teacher ${Math.round(teacher.p50_latency_ms).toLocaleString()} ms` : undefined} />
           </KpiRow>
@@ -285,7 +294,7 @@ export function LabView() {
               </div>
             </Card>
             <Card>
-              <CardHeader title="Risky caught vs false alarms" description="Of the pairs that are risky (gold match or check), how many each model flagged; and how often it flagged a clear one." />
+              <CardHeader title="Risky caught vs false alarms" description="Of the pairs that are risky (answer key match or check), how many each model flagged; and how often it flagged a clear one." />
               <RiskChart models={models} />
             </Card>
           </div>
@@ -302,7 +311,7 @@ export function LabView() {
           </div>
 
           <Card>
-            <CardHeader title="Confusion matrices" description="Rows are gold labels; cell shade is the share of that row." />
+            <CardHeader title="Confusion matrices" description="Rows are the answer key (teacher + rule 7, not human); cell shade is the share of that row." />
             <div className="grid gap-6 px-5 pb-5 sm:grid-cols-2 xl:grid-cols-4">
               {Object.entries(data.confusion).map(([role, c]) => (
                 <ConfusionGrid key={role} name={label(role)} c={c} />
@@ -407,7 +416,7 @@ export function LabView() {
 
           {data.examples.length > 0 && (
             <Card>
-              <CardHeader title="Where the models disagree" description="Held-out pairs, human (or provisional) gold vs each model." />
+              <CardHeader title="Where the models disagree" description="Held-out pairs, answer key vs each model." />
               <ul className="flex flex-col border-t border-line">
                 {data.examples.slice(0, 8).map((e) => (
                   <li key={e.pair_id} className="grid gap-3 border-b border-line px-5 py-3 last:border-b-0 md:grid-cols-[minmax(0,1fr)_auto] md:items-center">
@@ -418,7 +427,7 @@ export function LabView() {
                     <dl className="grid grid-cols-3 gap-2 md:w-[400px]">
                       {(
                         [
-                          ["Gold", e.gold],
+                          ["Key", e.gold],
                           ["Base", e.base],
                           ["LoRA", e.lora],
                         ] as const
@@ -435,7 +444,7 @@ export function LabView() {
             </Card>
           )}
           <p className="text-caption-1-regular text-text-tertiary">
-            Generated {formatDate(data.generated_at)} · gold: {data.gold}
+            Generated {formatDate(data.generated_at)} · answer key: {data.gold}. The blind label UI exists for a human audit but was not used for these numbers.
           </p>
         </div>
       )}

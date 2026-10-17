@@ -7,7 +7,7 @@ const PIPELINE = [
   { who: "Big model teaches", what: "Qwen3.5-397B-A17B on Tinker turns each CPSC recall into an identification spec (brand, model numbers, sold window, where the label is) and labels training pairs." },
   { who: "Small model reads", what: "A LoRA on Qwen3.5-4B, trained on Tinker, reads one listing or inventory item against one recall and answers match, check or no match, in strict JSON." },
   { who: "Code decides", what: "Identifiers are checked in code, shop memories from Backboard are applied by code, and Temporal runs it every Thursday with retries and crash recovery." },
-  { who: "A human grades", what: "The test set is labelled blind by a person. The eBay numbers we publish are the ones a person verified." },
+  { who: "Graded on held-out recalls", what: "The test set is graded against the teacher's labels with rule 7 enforced by code, not by a person. No eBay flag has been human-reviewed yet (human_verified = 0)." },
 ];
 
 const NOT = [
@@ -93,7 +93,7 @@ export function AboutView() {
           </p>
         </section>
 
-        <Panel title="How it works" description="The big model teaches, the small model reads, code decides, a human grades.">
+        <Panel title="How it works" description="The big model teaches, the small model reads, code decides.">
           <ol className="grid gap-4 sm:grid-cols-2">
             {PIPELINE.map((s, i) => (
               <li key={s.who} className="flex gap-3">

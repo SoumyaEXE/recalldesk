@@ -1,11 +1,16 @@
-"""Evaluate every classifier on the held-out TEST pairs against blind HUMAN gold labels.
+"""Evaluate every classifier on the held-out TEST pairs against the answer key.
+
+Answer key (--gold, default targets) = teacher labels + LABELING.md rule 7 enforced by code (ml/enforce_rules.py ->
+data/labeled/targets.jsonl). No human labels were collected for the reported numbers; --gold human scores against
+data/gold/labels.jsonl from the blind label UI (ml.label_ui) if someone runs a human audit.
 
     python -m ml.eval                              # all roles that can run (Tinker roles need TINKER_API_KEY)
     python -m ml.eval --roles heuristic            # free, no key
     python -m ml.eval --roles base,base_guided     # baselines before training
     python -m ml.eval --roles lora                 # after ml.train_tinker (reads ml/results/model_path.txt)
     python -m ml.eval --rebuild-only               # just rebuild eval.json from cached preds
-    python -m ml.eval --gold teacher               # PROVISIONAL: score vs teacher labels before humans are done
+    python -m ml.eval --gold teacher               # raw teacher labels (no rule 7) as the answer key
+    python -m ml.eval --gold human                 # human audit labels from ml.label_ui (none collected yet)
 
 Roles: heuristic (rules) | base (Qwen3.5-4B, short student prompt) | base_guided (4B + the teacher's long
 rulebook) | lora (4B + RecallDesk LoRA, short prompt) | teacher (Qwen3.5-397B-A17B, long prompt + CPSC text;
@@ -70,8 +75,8 @@ def load_test(gold_src: str) -> tuple[list[dict], dict[str, str], dict]:
         gold = {r["pair_id"]: r["verdict"]["verdict"] for r in read_jsonl(LABELED / "teacher.jsonl") if r.get("valid")}
     rows = [t for t in test if t["pair_id"] in gold]
     if not rows:
-        raise SystemExit("no gold labels for test pairs yet - label with: python -m ml.label_ui "
-                         "(or pass --gold teacher for a PROVISIONAL score)")
+        raise SystemExit(f"no {gold_src} labels for test pairs yet (human: python -m ml.label_ui; "
+                         "targets: python -m ml.enforce_rules)")
     ctx = {"recalls": {r["recall_number"]: r for r in load_recalls("AB")}, "specs": load_specs(),
            "listings": load_listings()}
     return rows, gold, ctx
@@ -343,7 +348,7 @@ def build_eval(rows, gold, ctx, gold_src: str) -> tuple[dict, dict]:
         pass
     ev = {
         "test_size": len(rows), "generated_at": now_iso(),
-        "gold": {"human": "human (blind)", "targets": "teacher + rule 7 by code (not human)"}.get(gold_src, "teacher (PROVISIONAL - not human gold)"),
+        "gold": {"human": "human (blind)", "targets": "teacher + rule 7 by code (not human)"}.get(gold_src, "teacher, no rule 7 (not human)"),
         "gold_dist": dict(Counter(gold[r["pair_id"]] for r in rows)),
         "test_recalls": len({r["recall_number"] for r in rows}),
         "test_childrens_pairs": sum(bool(r.get("is_childrens")) for r in rows),
@@ -351,7 +356,14 @@ def build_eval(rows, gold, ctx, gold_src: str) -> tuple[dict, dict]:
         "models": models, "paired": paired, "confusion": confusion, "training": training,
         "examples": pick_examples(rows, gold, by_role, ctx), "split": split_stats,
         "notes": [
-            "Gold = blind human labels from ml/label_ui (no model output shown); test recalls never appear in train.",
+            {"human": "Gold = blind human labels from ml/label_ui (no model output shown); test recalls never appear "
+                      "in train.",
+             "targets": "Answer key = teacher (Qwen3.5-397B-A17B) labels + LABELING.md rule 7 enforced by code "
+                        "(ml/enforce_rules.py -> data/labeled/targets.jsonl), the same definition as the training "
+                        "targets - NOT human labels. The blind label UI (ml.label_ui) exists for a human audit but "
+                        "was not used for these numbers. Test recalls never appear in train.",
+             }.get(gold_src, "Answer key = raw teacher labels (data/labeled/teacher.jsonl, no rule 7) - NOT human labels. "
+                             "Test recalls never appear in train."),
             "Single attempt, temperature 0; invalid JSON counts as wrong. risky = gold in {match, check}.",
             "acc_ci = 10,000-sample bootstrap 95% CI; paired p = exact two-sided McNemar on discordant pairs.",
             "base/lora use the short student prompt; base_guided adds the teacher's long rulebook; the teacher also "
@@ -366,7 +378,7 @@ def main() -> None:
     utf8_stdout()
     ap = argparse.ArgumentParser()
     ap.add_argument("--roles", default="auto", help="comma list: heuristic,base,base_guided,lora,teacher")
-    ap.add_argument("--gold", default="human", choices=["human", "targets", "teacher"])
+    ap.add_argument("--gold", default="targets", choices=["human", "targets", "teacher"])
     ap.add_argument("--concurrency", type=int, default=8)
     ap.add_argument("--rebuild-only", action="store_true")
     ap.add_argument("--rerun-teacher", action="store_true")

@@ -105,6 +105,7 @@ export interface ScanSummary {
   flagged_match: number;
   flagged_check: number;
   human_verified_match: number;
+  human_reviewed_flags?: number;
   childrens_flagged: number;
   by_recall: ScanByRecall[];
   generated_at: string;

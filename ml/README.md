@@ -3,7 +3,9 @@
 A large open-weight **teacher** (`Qwen/Qwen3.5-397B-A17B` on Tinker) does two jobs. It turns each CPSC recall
 into a `RecallSpec`, and it labels (recall, eBay listing) pairs as `match | check | no_match`. Then a
 **student** (`Qwen/Qwen3.5-4B`, LoRA rank 32 on Tinker) is trained on those labels. Every classifier is
-scored against **blind human gold labels** on held-out recalls. The definitions are in `ml/LABELING.md`.
+scored on held-out recalls against the **answer key = teacher labels + rule 7 enforced by code (not human)**
+(`data/labeled/targets.jsonl`, built by `ml/enforce_rules.py`). No human labels were collected. The definitions are in
+`ml/LABELING.md`.
 
 | role | Tinker id | notes |
 |---|---|---|
@@ -33,8 +35,9 @@ Nothing needs a key at import time.
 | 3 | `$PY -m ml.serp_scan --dry-run --corpus A` | none | the planned queries and a count of searches to spend | free |
 | 3s | `$PY -m ml.serp_scan --corpus A --max-searches 150` | SerpApi | `data/serp/*.json` (raw, gitignored), `data/listings/{listings,search_index}.jsonl` | 150 searches |
 | 4 | `$PY -m ml.make_pairs` | none | `data/pairs/pairs.jsonl`, `data/splits/{train,test}.jsonl`, `split_stats.json` | free |
-| 5 | `$PY -m ml.label_ui` | none | Opens http://localhost:8765 so a human can label the ~220 test pairs into `data/gold/labels.jsonl` | ~40-60 min of human time |
-| 6 | `$PY -m ml.teacher_label` | Tinker | `data/labeled/teacher.jsonl` (every pair) | ~$0.002 per pair (about $4.5 for 2.2k pairs) |
+| 5 | `$PY -m ml.label_ui` | none | Optional human audit: opens http://localhost:8765 to label the test pairs blind into `data/gold/labels.jsonl`. **Not used for the reported numbers** | ~40-60 min of human time |
+| 6 | `$PY -m ml.teacher_label` | Tinker | `data/labeled/teacher.jsonl` (raw teacher output, every pair; v1 archived as `teacher.v1.jsonl`) | ~$0.002 per pair (about $4.5 for 2.2k pairs) |
+| 6b | `$PY -m ml.enforce_rules` | none | `data/labeled/targets.jsonl`: teacher + rule 7 by code = training targets (train pairs) and the answer key (test pairs) | free |
 | 7 | `$PY -m ml.eval --roles heuristic,teacher,base,base_guided` | Tinker | baselines in `ml/results/eval.json` | ~$0.1 |
 | 8 | `$PY -m ml.train_tinker` (`--dry-run` first) | Tinker | `ml/results/model_path.txt`, `training.json` | ~$1-2 |
 | 9 | `$PY -m ml.eval --roles lora` | Tinker | final `eval.json`, `predictions.jsonl`, `preds/*.jsonl` | ~$0.05 |
@@ -42,8 +45,8 @@ Nothing needs a key at import time.
 | 11 | `$PY -m ml.scan_summary --provider tinker` (or `heuristic`) | Tinker (optional) | `ml/results/scan_summary.json` (the headline) | ~$0.3 per 1k listings |
 | opt | `$PY -m ml.download_adapter --peft` | Tinker | local PEFT adapter for vLLM, SGLang or llama.cpp | free |
 
-Steps 5 and 6 are independent of each other. Labeling can start as soon as step 4 has run. If you want a score
-before the humans finish, `ml.eval --gold teacher` gives a provisional one, clearly marked in `eval.json`. Spend
+`ml.eval` scores against `--gold targets` by default (the answer key above). `--gold teacher` scores against the raw
+teacher labels, and `--gold human` against `data/gold/labels.jsonl` if someone runs the step-5 audit. Spend
 estimates are tracked in `ml/results/spend.json`, priced from the Tinker list prices in `models.json` on 2026-10-17.
 Token sizes were measured with the Qwen3.5 tokenizer:
 
@@ -114,11 +117,16 @@ hits = retrieve("Woodure kitchen tower WD1720", specs_dict, k=5)  # BM25; exact 
 - The split is **by recall**: test recalls never appear in train. It is stratified by `is_childrens` with seed 0,
   and at least half the test recalls are children's. Re-issued recalls that share a query or product name stay
   in the same split. Train pairs that reuse a test listing are dropped.
-- Gold is human and blind. The UI shows no model output; the only highlighting is the deterministic regex ids.
+- The answer key (`eval.json` `gold` = "teacher + rule 7 by code (not human)") is the teacher's label with
+  LABELING.md rule 7 enforced by code (`ml/enforce_rules.py` -> `data/labeled/targets.jsonl`). It is the same definition
+  as the training targets, so the scores measure how faithfully a model reproduces the rulebook on recalls it never
+  saw, not agreement with a person. No human labels were collected. The blind label UI (`ml.label_ui`, no model output
+  shown, only the deterministic regex ids highlighted) is available for a human audit but was not used for these
+  numbers.
 - Each pair gets a single attempt at temperature 0, and invalid JSON counts as wrong. We report:
   - acc, with a 10,000-sample bootstrap 95% CI
   - macro-F1
-  - risky_caught (gold in {match, check} → predicted match or check)
+  - risky_caught (answer key in {match, check} → predicted match or check)
   - false_alarms
   - json_valid
   - p50 and p95 latency
@@ -126,6 +134,21 @@ hits = retrieve("Woodure kitchen tower WD1720", specs_dict, k=5)  # BM25; exact 
   - confusion matrices
 - Paired comparisons use an **exact two-sided McNemar** test on discordant pairs, plus a paired bootstrap CI of the
   accuracy gain. The pairs compared are lora vs base, base_guided, teacher and heuristic, and each Backboard model.
-- The training target is the teacher's JSON on train pairs. No human labels are used in training. Held-out NLL
-  is computed against the teacher's targets on test pairs at step 0 and after each epoch. Weights are taken from
-  the final epoch, not picked using the test set.
+- The training target is the same teacher + rule 7 JSON (`targets.jsonl`) on train pairs. No human labels are used
+  anywhere. Held-out NLL is computed against those targets on test pairs at step 0 and after each epoch. Weights are
+  taken from the final epoch, not picked using the test set.
+
+## Results (held-out recalls, 293 pairs, `ml/results/eval.json`)
+Answer key: teacher + rule 7 by code, **not human** (255 no_match, 38 check, 0 match on the test pairs).
+
+| Model | Accuracy (95% CI) | Risky caught | False alarms | $ / 1k |
+| --- | --- | --- | --- | --- |
+| Qwen3.5-4B base | 0.512 (0.46-0.57) | 34 / 38 | 120 / 255 | $0.22 |
+| Qwen3.5-4B base + teacher's rulebook | 0.625 (0.57-0.68) | 36 / 38 | 106 / 255 | $0.37 |
+| Identifier / keyword heuristic | 0.864 (0.82-0.90) | 22 / 38 | 22 / 255 | $0 |
+| **Qwen3.5-4B + RecallDesk LoRA** | **0.918 (0.88-0.95)** | 26 / 38 | **12 / 255** | **$0.19** |
+| Qwen3.5-397B teacher (raw, before rule 7) | 0.884 (0.85-0.92) | 38 / 38 | 34 / 255 | $2.20 |
+
+LoRA vs base: +40.6 pts, exact McNemar p < 0.001. LoRA vs teacher: +3.4 pts, p = 0.20 (not significant). Because the
+key is derived from the teacher, these numbers measure rulebook fidelity, not human-verified accuracy; the step-5
+label UI is there for anyone who wants to audit them.

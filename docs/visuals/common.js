@@ -73,9 +73,16 @@ window.RDV = (function () {
       if (st === "placeholder") { worst = "placeholder"; whys.push(`${src.path || s}${src.why ? " (" + src.why + ")" : ""}`); }
       else if (st === "provisional" && worst !== "placeholder") { worst = "provisional"; whys.push(`${src.path || s}: ${src.why || "provisional"}`); }
     });
+    // Real eval scored against the project's answer key (teacher + rule 7 by code): a footnote, not a watermark.
+    const usesEval = sections.some((s) => s === "eval" || s === "example");
+    if (usesEval && worst !== "placeholder" && RD.eval && RD.eval.answer_key !== "human") {
+      const src = frame.querySelector(".src span:not(.brand)");
+      const note = RD.eval.answer_key === "targets" ? "answer key: teacher + rule 7, not human" : "answer key: raw teacher labels, not human";
+      if (src) src.innerHTML += ` · <b>${note}</b>`;
+    }
     if (worst === "real") return worst;
     const ph = worst === "placeholder";
-    const word = ph ? "PLACEHOLDER · NOT REAL DATA" : "PROVISIONAL · TEACHER GOLD, NOT HUMAN";
+    const word = ph ? "PLACEHOLDER · NOT REAL DATA" : "PROVISIONAL · RAW TEACHER LABELS";
     const col = ph ? "#c8102e" : "#b07a00";
     const w = frame.offsetWidth, h = frame.offsetHeight;
     let t = "";

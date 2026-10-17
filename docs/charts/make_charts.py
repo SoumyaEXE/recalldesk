@@ -5,9 +5,11 @@
 
 Idempotent: it only READS data/ and ml/results/ (and the raw SerpApi cache data/serp/*.json, never spending a search),
 then overwrites the PNGs. Charts a-f are built from real CPSC + SerpApi data. Charts in group g come from
-ml/results/* and data/gold/labels.jsonl; while those files are missing (or marked "placeholder": true) they use the
-illustrative values from docs/visuals/build_data.py and carry a red PLACEHOLDER watermark. eval.json graded against
-teacher labels instead of human gold is drawn with an amber PROVISIONAL watermark.
+ml/results/*; while those files are missing (or marked "placeholder": true) they use the illustrative values from
+docs/visuals/build_data.py and carry a red PLACEHOLDER watermark. The project's answer key is eval.json
+gold = "teacher + rule 7 by code (not human)" (data/labeled/targets.jsonl): that is final, so those charts are real and
+their source line says "answer key: teacher + rule 7 (code), not human". Only eval.json graded against RAW teacher
+labels (no rule 7) is drawn with an amber PROVISIONAL watermark.
 
 Seller names never leave this script: only titles, conditions and counts are read from the cache.
 Setup (once):
@@ -164,7 +166,7 @@ class Frame:
         if self.status in ("placeholder", "provisional"):
             word, col = ("PLACEHOLDER", C["stop"]) if self.status == "placeholder" else ("PROVISIONAL", C["amber"])
             badge = "PLACEHOLDER · NOT REAL DATA" if self.status == "placeholder" else \
-                "PROVISIONAL · TEACHER-GRADED"
+                "PROVISIONAL · RAW TEACHER LABELS"
             self.fig.text(0.5, 0.48, word, fontfamily=FONTS["notice"], fontsize=88, fontweight=700, color=col,
                           alpha=0.16, rotation=18, ha="center", va="center", zorder=100)
             self.fig.text(1 - 0.5 / W, (self.h - 0.32) / self.h, badge, fontfamily=FONTS["mono"], fontsize=7.5,
@@ -621,7 +623,7 @@ def eval_source(P: dict):
                                                   for m in ev.get("models", [])):
         return {"models": P["models"], "confusion": P["confusion"], "paired": P["paired"], "test_size": 220,
                 "training": P["training"], "gold": "placeholder"}, "placeholder"
-    st = "provisional" if "teacher" in str(ev.get("gold", "")).lower() else "real"
+    st = "provisional" if answer_key(ev) == "teacher" else "real"  # teacher + rule 7 = the final answer key
     ev["models"] = [m for m in ev["models"] if m.get("acc") is not None and not m.get("pending")]
     return ev, st
 
@@ -649,9 +651,18 @@ def frac(s) -> tuple[int, int]:
         return 0, 0
 
 
+def answer_key(ev) -> str:
+    g = str((ev or {}).get("gold", "")).lower()
+    return "human" if g.startswith("human") else "targets" if "rule 7" in g else "teacher" if "teacher" in g else "none"
+
+
 def res_src(st, files):
-    return f"Source: {files} (RecallDesk); gold = " + ("blind human labels" if st == "real" else
-                                                       "teacher labels" if st == "provisional" else "none yet")
+    if st == "placeholder":
+        return f"Source: {files} (RecallDesk); answer key: none yet"
+    key = answer_key(load_json(RES / "eval.json"))
+    return f"Source: {files} (RecallDesk); answer key: " + {
+        "human": "blind human labels", "targets": "teacher + rule 7 (code), not human",
+        "teacher": "raw teacher labels, not human"}.get(key, "n/a")
 
 
 def chart_results_bars(P):
@@ -708,12 +719,13 @@ def chart_risky_units(P):
     lr = next((x for x in rows if x[0] == "lora"), rows[-1])
     br = next((x for x in rows if x[0] == "base"), rows[0])
     caught = lambda row: sum(c for _, c, _ in row[1])  # noqa: E731
-    fr = Frame(h, "Risky = a human said match or check",
+    fr = Frame(h, "Risky = the answer key says match or check",
                f"Risky listings caught: {caught(br)} of {tot} for the base 4B, {caught(lr)} of {tot} after fine-tuning",
-               "Each square is one held-out pair a human labelled match (red) or check (amber). Filled = the model "
+               "Each square is one held-out pair the answer key (teacher + rule 7 by code) calls match (red) or "
+               "check (amber). Filled = the model "
                "flagged it (match or check); hollow = the model cleared it, the miss that puts stock on a shelf.",
                res_src(st, "ml/results/eval.json confusion"), status=st)
-    legend_row(fr, [(C["stop"], "gold match, flagged"), (C["amber"], "gold check, flagged"),
+    legend_row(fr, [(C["stop"], "key match, flagged"), (C["amber"], "key check, flagged"),
                     (C["bg"], "hollow = cleared (missed)")], fr.top - 0.05)
     y = fr.top - 0.4
     for role, parts in rows:
@@ -746,8 +758,8 @@ def chart_confusion_pair(P):
     a, b = "base", "lora"
     if not ((conf.get(a) or {}).get("matrix") and (conf.get(b) or {}).get("matrix")):
         conf, st = P["confusion"], "placeholder"
-    fr = Frame(4.5, "Confusion matrices, same held-out pairs", "Where the base 4B and the LoRA disagree with a human",
-               "Rows = human label, columns = model verdict. The top-right cells (risky listing cleared as no_match) "
+    fr = Frame(4.5, "Confusion matrices, same held-out pairs", "Where the base 4B and the LoRA disagree with the answer key",
+               "Rows = answer key (teacher + rule 7 by code), columns = model verdict. The top-right cells (risky listing cleared as no_match) "
                "are the expensive mistake; the bottom-left ones cost a look at a sticker.",
                res_src(st, "ml/results/eval.json confusion"), status=st)
     import numpy as np  # noqa: PLC0415
@@ -776,7 +788,7 @@ def chart_confusion_pair(P):
         ax.set_title(names.get(role, role), fontsize=10, fontweight=600, color=C["ink"], loc="left")
         ax.set_xlabel("model verdict", fontsize=8)
         if k == 0:
-            ax.set_ylabel("human label", fontsize=8)
+            ax.set_ylabel("answer key", fontsize=8)
     return fr.save("confusion-pair"), {"status": st}
 
 
@@ -880,7 +892,9 @@ def chart_flagged_by_recall(P):
                f"{sc.get('flagged_match', 0)} DO NOT SELL and {sc.get('flagged_check', 0)} CHECK LABEL flags across "
                f"{sc.get('listings_seen', 0):,} listings",
                f"Top recalls by flagged listings (classifier: {(sc.get('classifier') or {}).get('model', 'n/a')}). "
-               f"Flags are model verdicts; {sc.get('human_verified_match', 0)} were confirmed by a human.",
+               "Flags are model verdicts, not confirmed recalls; " + (
+                   f"{sc.get('human_verified_match', 0)} of {sc['human_reviewed_flags']} reviewed were confirmed by a "
+                   "human." if sc.get("human_reviewed_flags") else "no human review yet (human_verified = 0)."),
                "Source: ml/results/scan_summary.json (RecallDesk) over SerpApi eBay results, fetched 2026-10-17",
                status=st, notes="● = children's product recall.")
     legend_row(fr, [(C["stop"], "DO NOT SELL (match)"), (C["amber"], "CHECK LABEL (check)")], fr.top - 0.05)
@@ -901,26 +915,41 @@ def chart_flagged_by_recall(P):
 
 
 def chart_label_distribution(P):
-    gold = read_jsonl(DATA / "gold" / "labels.jsonl")
-    # last label per pair wins (undo/relabel)
-    last = {}
-    for g in gold:
-        if g.get("label") in LABELS:
-            last[g["pair_id"]] = g
-    st = "real" if last else "placeholder"
-    if last:
+    # The answer key the reported numbers use: eval.json gold_dist (teacher + rule 7 by code on the test pairs).
+    # Human labels from ml.label_ui (data/gold/labels.jsonl) are only used if eval.json was graded against them.
+    ev = load_json(RES / "eval.json") or {}
+    key = answer_key(ev)
+    cnt, st = Counter(), "placeholder"
+    if key == "human":
+        last = {}
+        for g in read_jsonl(DATA / "gold" / "labels.jsonl"):  # last label per pair wins (undo/relabel)
+            if g.get("label") in LABELS:
+                last[g["pair_id"]] = g
         cnt = Counter(g["label"] for g in last.values())
-        ts = sorted(g.get("labeled_at") or "" for g in last.values())
-        note = f"{len(last)} pairs labelled blind in ml.label_ui ({ts[0][:16]} to {ts[-1][:16]} UTC)."
+    elif ev.get("gold_dist") and not ev.get("placeholder"):
+        cnt = Counter({k: int(v) for k, v in ev["gold_dist"].items()})
+    if sum(cnt.values()):
+        st = "real" if key in ("human", "targets") else "provisional"
     else:
         cnt = Counter({"match": 40, "check": 60, "no_match": 120})
-        note = "Illustrative counts until data/gold/labels.jsonl exists."
+    title, how, src = {
+        "human": ("The answer key: blind human labels on held-out pairs",
+                  "Labelled one at a time with keys 1/2/3 in ml.label_ui, no model output on screen.",
+                  "Source: data/gold/labels.jsonl (RecallDesk label UI)"),
+        "teacher": ("The answer key: raw teacher labels on held-out pairs",
+                    "Qwen3.5-397B-A17B teacher labels, before rule 7 is enforced. Not human labels.",
+                    "Source: ml/results/eval.json gold_dist (RecallDesk)"),
+    }.get(key, ("The answer key: teacher + rule 7 (code) on held-out pairs",
+                "Qwen3.5-397B-A17B teacher labels with LABELING.md rule 7 enforced by code (ml/enforce_rules.py), "
+                "the same definition as the training targets. No human labels were collected.",
+                "Source: ml/results/eval.json gold_dist <- data/labeled/targets.jsonl (RecallDesk)"))
+    note = ("Illustrative counts until ml/results/eval.json exists." if st == "placeholder" else
+            "Not human: the blind label UI (ml.label_ui) exists for an audit but was not used." if key != "human" else "")
     n = sum(cnt.values())
-    fr = Frame(3.6, "The answer key: blind human labels on held-out pairs",
+    fr = Frame(3.6, title,
                f"{n} test pairs: {cnt['match']} match, {cnt['check']} check, {cnt['no_match']} no_match",
-               "Labelled one at a time with keys 1/2/3, no model output on screen. Card action: match = DO NOT SELL, "
-               "check = CHECK LABEL, no_match = not shown.",
-               "Source: data/gold/labels.jsonl (RecallDesk label UI)", status=st, notes=note)
+               how + " Card action: match = DO NOT SELL, check = CHECK LABEL, no_match = not shown.",
+               src, status=st, notes=note)
     ax = fr.axes(left=1.5, right=0.8, top_pad=0.05, bottom_pad=0.38)
     rows = [("match", "DO NOT SELL", C["stop"]), ("check", "CHECK LABEL", C["amber"]), ("no_match", "clear", C["clear"])]
     for i, (lab, act, col) in enumerate(rows):

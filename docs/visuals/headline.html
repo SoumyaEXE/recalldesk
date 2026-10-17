@@ -31,16 +31,22 @@
 (function () {
   const S = RD.scan, C = RDV.C, n = RDV.n;
   const flagged = (S.flagged_match || 0) + (S.flagged_check || 0);
+  const reviewed = (S.human_reviewed_flags || 0) > 0;  // no human review has been done yet for this project
   document.getElementById("kicker").textContent = `SerpApi eBay scan · ${n(S.searches_spent)} searches · ${n(S.recalls_scanned)} CPSC recalls since July 18`;
   document.getElementById("h1").textContent =
-    `${n(S.listings_seen)} live eBay listings, checked against ${n(S.recalls_scanned)} recalls. ${n(S.human_verified_match)} are the recalled product, confirmed by a human.`;
+    reviewed
+      ? `${n(S.listings_seen)} live eBay listings, checked against ${n(S.recalls_scanned)} recalls. ${n(S.human_verified_match)} are the recalled product, confirmed by a human.`
+      : `${n(S.listings_seen)} live eBay listings, checked against ${n(S.recalls_scanned)} recalls. The model flagged ${n(flagged)} for a closer look.`;
   document.getElementById("sub").textContent =
-    `One eBay search per recall, built from the teacher's spec (brand + product + model number). Every listing was read by the classifier; the flagged ones were then reviewed by a person, blind to the model's answer.`;
+    `One eBay search per recall, built from the teacher's spec (brand + product + model number). Every listing was read by the classifier. ` +
+    (reviewed ? `The flagged ones were then reviewed by a person, blind to the model's answer.` : `No human has reviewed the flags yet, so none is claimed as confirmed recalled stock.`);
   const tiles = [
     [n(S.listings_seen), "live listings seen", "", null],
     [n(S.flagged_match), "flagged by the model", "stop", "match"],
     [n(S.flagged_check), "flagged by the model", "check", "check"],
-    [n(S.human_verified_match), `confirmed recalled by a human${S.human_reviewed_flags ? ` (of ${n(S.human_reviewed_flags)} reviewed)` : ""}`, "key", null],
+    reviewed
+      ? [n(S.human_verified_match), `confirmed recalled by a human (of ${n(S.human_reviewed_flags)} reviewed)`, "key", null]
+      : ["0", "human_verified = 0 · no human review yet", "key", null],
     [n(S.childrens_flagged), `flags on children's recalls${S.childrens_recalls_with_flags ? `, across ${n(S.childrens_recalls_with_flags)} recalls` : ""}`, "", null],
   ];
   document.getElementById("tiles").innerHTML = tiles.map(([v, l, k, kind]) =>
@@ -68,7 +74,9 @@
   document.getElementById("chart").innerHTML = rows.length ? s : `<p class="foot">No flagged listings.</p>`;
   const cls = S.classifier || {};
   document.getElementById("foot").innerHTML =
-    `Flags are model verdicts (classifier: ${RDV.esc(cls.model || cls.provider || "n/a")}). Only the "confirmed by a human" number was checked by a person, and it is the only one the post quotes as recalled stock. Seller usernames are hashed; no listing is linked.`;
+    `Flags are model verdicts (classifier: ${RDV.esc(cls.model || cls.provider || "n/a")}), not confirmed recalls. ` +
+    (reviewed ? `Only the "confirmed by a human" number was checked by a person. ` : `No flag has been checked by a person yet (human_verified = 0). `) +
+    `Seller usernames are hashed; no listing is linked.`;
   RDV.mark(["scan"]);
 })();
 </script>
