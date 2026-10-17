@@ -1,9 +1,9 @@
 import type { Metadata, Viewport } from "next";
-import { Barlow_Condensed, IBM_Plex_Mono, Public_Sans } from "next/font/google";
+import { Barlow_Condensed, IBM_Plex_Mono, Inter } from "next/font/google";
 import "@/styles/globals.css";
 import { AppShell } from "@/components/rd/app-shell";
 
-const sans = Public_Sans({ variable: "--font-public", subsets: ["latin"], display: "swap" });
+const sans = Inter({ variable: "--font-inter", subsets: ["latin"], display: "swap" });
 const mono = IBM_Plex_Mono({ variable: "--font-plex-mono", subsets: ["latin"], weight: ["400", "500", "600"], display: "swap" });
 const notice = Barlow_Condensed({ variable: "--font-barlow", subsets: ["latin"], weight: ["500", "600", "700"], display: "swap" });
 
@@ -18,13 +18,13 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#fbfaf5" },
-    { media: "(prefers-color-scheme: dark)", color: "#161512" },
+    { media: "(prefers-color-scheme: light)", color: "#f3f4f6" },
+    { media: "(prefers-color-scheme: dark)", color: "#07090e" },
   ],
 };
 
-// Runs before paint: stored theme, else the OS preference.
-const themeScript = `(function(){try{var k='boardui:theme',t=localStorage.getItem(k);if(t!=='dark'&&t!=='light'){t=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';localStorage.setItem(k,t);}document.documentElement.classList.toggle('dark',t==='dark');}catch(e){}})();`;
+// Runs before paint: stored theme, else light (light is the primary theme; dark is a toggle in the account menu).
+const themeScript = `(function(){try{var t=localStorage.getItem('boardui:theme');document.documentElement.classList.toggle('dark',t==='dark');}catch(e){}})();`;
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
@@ -32,7 +32,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
-      <body className="min-h-full font-sans">
+      <body className="min-h-full bg-canvas font-sans text-text-primary">
         <AppShell>{children}</AppShell>
       </body>
     </html>

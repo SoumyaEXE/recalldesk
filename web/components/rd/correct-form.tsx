@@ -6,6 +6,7 @@ import { Button } from "@/components/base/buttons/button";
 import { postCorrection } from "@/lib/api";
 import { VERDICT_LABEL } from "@/lib/format";
 import type { Verdict } from "@/lib/types";
+import { toast } from "@/components/ui/toast";
 import { cx } from "@/utils/cx";
 import { VerdictGlyph } from "./verdict";
 
@@ -13,8 +14,22 @@ import { VerdictGlyph } from "./verdict";
  * "Not a match? / Correct this" — sends the shop's correction to Backboard as a
  * memory (POST /api/shops/{shop}/corrections) and shows the memory id it got.
  */
-export function CorrectThis({ item, recallNumber, current, shopId, compact = false }: { item: string; recallNumber: string; current: Verdict; shopId?: string; compact?: boolean }) {
-  const [open, setOpen] = useState(false);
+export function CorrectThis({
+  item,
+  recallNumber,
+  current,
+  shopId,
+  compact = false,
+  defaultOpen = false,
+}: {
+  item: string;
+  recallNumber: string;
+  current: Verdict;
+  shopId?: string;
+  compact?: boolean;
+  defaultOpen?: boolean;
+}) {
+  const [open, setOpen] = useState(defaultOpen);
   const [verdict, setVerdict] = useState<Verdict>(current === "no_match" ? "check" : "no_match");
   const [note, setNote] = useState("");
   const [busy, setBusy] = useState(false);
@@ -26,7 +41,7 @@ export function CorrectThis({ item, recallNumber, current, shopId, compact = fal
       <p className="rd-no-print flex flex-wrap items-center gap-1.5 text-caption-1-medium text-text-secondary" role="status">
         <RiBrainLine className="size-3.5 text-accent-600" aria-hidden />
         Saved to shop memory
-        <code className="rounded bg-background-secondary-default px-1 font-mono text-caption-1-medium text-text-primary">{saved.memory_id}</code>
+        <code className="rounded bg-subtle px-1 font-mono text-caption-1-medium text-text-primary">{saved.memory_id}</code>
         {saved.local && <span className="text-text-tertiary">(stored in this browser: API offline)</span>}
       </p>
     );
@@ -51,7 +66,7 @@ export function CorrectThis({ item, recallNumber, current, shopId, compact = fal
   const options: Verdict[] = (["no_match", "check", "match"] as Verdict[]).filter((v) => v !== current);
   return (
     <form
-      className="rd-no-print flex flex-col gap-2 rounded-xl border border-border-button-default bg-background-secondary-default p-3"
+      className="rd-no-print flex flex-col gap-2 rounded-xl border border-line bg-subtle p-3"
       onSubmit={async (e) => {
         e.preventDefault();
         setBusy(true);
@@ -61,6 +76,11 @@ export function CorrectThis({ item, recallNumber, current, shopId, compact = fal
         );
         setBusy(false);
         setSaved({ memory_id: res.memory_id, local: res.source !== "live" });
+        toast({
+          title: "Saved to shop memory",
+          description: `${res.source === "live" ? "Backboard" : "This browser (API offline)"} · memory ${res.memory_id}. Applied on the next check.`,
+          status: "success",
+        });
       }}
     >
       <fieldset className="flex flex-wrap items-center gap-1.5">
@@ -70,7 +90,7 @@ export function CorrectThis({ item, recallNumber, current, shopId, compact = fal
             key={v}
             className={cx(
               "inline-flex cursor-pointer items-center gap-1.5 rounded-lg border px-2 py-1 text-caption-1-semibold has-focus-visible:ring-2 has-focus-visible:ring-border-focus-ring",
-              verdict === v ? "border-accent-500 bg-background-primary-default text-text-primary" : "border-border-button-default text-text-secondary hover:bg-background-primary-default",
+              verdict === v ? "border-accent-500 bg-card text-text-primary ring-2 ring-accent-500/15" : "border-line text-text-secondary hover:bg-card",
             )}
           >
             <input type="radio" name={`v-${noteId}`} value={v} checked={verdict === v} onChange={() => setVerdict(v)} className="sr-only" />
@@ -88,7 +108,7 @@ export function CorrectThis({ item, recallNumber, current, shopId, compact = fal
         value={note}
         onChange={(e) => setNote(e.target.value)}
         placeholder="e.g. Ours is the 2019 model, label says HANS0001 — not recalled."
-        className="w-full resize-y rounded-lg border border-border-button-default bg-background-primary-default px-2.5 py-2 text-body-2-regular text-text-primary outline-none placeholder:text-text-placeholder focus-visible:ring-2 focus-visible:ring-border-focus-ring"
+        className="w-full resize-y rounded-lg border border-line bg-card px-2.5 py-2 text-body-2-regular text-text-primary outline-none placeholder:text-text-placeholder focus-visible:ring-2 focus-visible:ring-border-focus-ring"
       />
       <div className="flex flex-wrap gap-2">
         <Button type="submit" size="small" leadingIcon={RiCheckLine} disabled={busy}>

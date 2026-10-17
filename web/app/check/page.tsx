@@ -1,8 +1,5 @@
-import type { Metadata } from "next";
-import { CheckView } from "@/components/views/check";
-
-export const metadata: Metadata = { title: "Check items" };
+import { Redirect } from "@/components/rd/redirect";
 
 export default function Page() {
-  return <CheckView />;
+  return <Redirect to="/inventory" />;
 }

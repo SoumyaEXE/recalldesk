@@ -1,3 +1,6 @@
+"use client";
+
+import { useEffect, useRef, type CSSProperties } from "react";
 import { RiBrainLine } from "@remixicon/react";
 import { formatDate, shortTitle } from "@/lib/format";
 import type { RecallCard as Card } from "@/lib/types";
@@ -38,12 +41,76 @@ function Band({ tone, count, title, sub }: { tone: "stop" | "caution"; count: nu
   );
 }
 
+/**
+ * Rough printed height (px at the print root size) of the two-column pull lists,
+ * used to pick a zoom that keeps the notice on one Letter page.
+ */
+function printZoom(card: Card): number {
+  const lines = (t: string | null | undefined, perLine: number) => Math.max(1, Math.ceil((t?.length ?? 0) / perLine));
+  const rows = [
+    ...card.do_not_sell.map((r) => lines(r.item, 52) + 1 + lines(r.why, 58) + 1),
+    ...card.check_label.map((r) => lines(r.item, 52) + 1 + lines(r.look_for, 58)),
+  ];
+  const listLines = rows.reduce((a, b) => a + b, 0) / 2 + rows.length * 0.6;
+  const memLines = card.applied_memories.reduce((a, m) => a + lines(m.text, 120), 0);
+  const est = 230 + listLines * 15 + memLines * 14 + (card.applied_memories.length ? 40 : 0);
+  return Math.max(0.72, Math.min(1, 930 / est));
+}
+
+/** Letter page content height at 11mm margins, in CSS px, minus a little slack. */
+const PAGE_H = 955;
+
+/**
+ * While print styles apply, measure the notice and shrink it (CSS zoom, with a
+ * compensating width) until it fits one Letter page. Runs on the print media
+ * change (real printing and emulated print/PDF); the estimate is the fallback.
+ */
+function useFitToPage(ref: React.RefObject<HTMLElement | null>, estimate: number) {
+  useEffect(() => {
+    const el = ref.current;
+    if (!el || typeof window === "undefined") return;
+    const mq = window.matchMedia("print");
+    const fit = () => {
+      if (!mq.matches) {
+        el.style.setProperty("--rd-print-zoom", estimate.toFixed(3));
+        return;
+      }
+      // Rendered height on paper (the zoomed box is 7.6in wide, whichever space the rect reports in).
+      const heightAt = (z: number) => {
+        el.style.setProperty("--rd-print-zoom", z.toFixed(3));
+        const r = el.getBoundingClientRect();
+        return r.height * (729.6 / (r.width || 729.6));
+      };
+      if (heightAt(1) <= PAGE_H) return;
+      let lo = 0.6;
+      let hi = 1;
+      for (let i = 0; i < 7; i++) {
+        const mid = (lo + hi) / 2;
+        if (heightAt(mid) <= PAGE_H) lo = mid;
+        else hi = mid;
+      }
+      heightAt(lo);
+    };
+    mq.addEventListener("change", fit);
+    window.addEventListener("beforeprint", fit);
+    return () => {
+      mq.removeEventListener("change", fit);
+      window.removeEventListener("beforeprint", fit);
+    };
+  }, [ref, estimate]);
+}
+
 export function RecallCard({ card, correctable = false, className }: { card: Card; correctable?: boolean; className?: string }) {
   const empty = card.do_not_sell.length === 0 && card.check_label.length === 0;
+  const ref = useRef<HTMLElement>(null);
+  const estimate = printZoom(card);
+  useFitToPage(ref, estimate);
   return (
     <article
       aria-label={`Recall check for ${card.shop_name}, week of ${formatDate(card.week_of)}`}
       className={cx("rd-paper-scope rd-print-card relative overflow-hidden rounded-2xl border border-paper-rule bg-paper shadow-card", className)}
+      ref={ref}
+      style={{ "--rd-print-zoom": estimate.toFixed(3) } as CSSProperties}
     >
       <div className="rd-tape h-1.5" aria-hidden />
       {/* Header */}

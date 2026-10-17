@@ -9,7 +9,7 @@
  * Writes (POST /api/check, POST corrections) fall back to an in-browser
  * simulation so the static demo still works end to end, clearly labelled.
  */
-import { matchItems } from "./match";
+import { matchItems, parseInventory } from "./match";
 import type {
   CardStatus,
   Correction,
@@ -29,8 +29,26 @@ export const API_BASE = (process.env.NEXT_PUBLIC_API_BASE ?? "http://localhost:8
 const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 const TIMEOUT_MS = 2500;
 const API_RETRY_AFTER_MS = 15_000;
-export const DEMO_SHOP_ID = "demo-shop";
+export const DEMO_SHOP_ID = "little-loop";
 export const DEMO_SHOP_NAME = "Little Loop Kids Consignment";
+
+export interface Shop {
+  id: string;
+  name: string;
+  short: string;
+  kind: string;
+  email: string;
+  plan: string;
+  initials: string;
+  tone: "blue" | "orange";
+}
+
+/** The two watched demo shops (agent/shops.json). Both are fictional. */
+export const SHOPS: Shop[] = [
+  { id: "little-loop", name: "Little Loop Kids Consignment", short: "Little Loop", kind: "Kids consignment shop", email: "intake@littleloop.shop", plan: "Shop plan", initials: "LL", tone: "blue" },
+  { id: "flip-garage", name: "Flip Garage", short: "Flip Garage", kind: "eBay flipper · household & tools", email: "hello@flipgarage.store", plan: "Shop plan", initials: "FG", tone: "orange" },
+];
+export const shopById = (id: string) => SHOPS.find((s) => s.id === id) ?? SHOPS[0];
 
 export interface Sourced<T> {
   data: T;
@@ -176,15 +194,20 @@ export async function getRuns(): Promise<Sourced<WorkflowRun[]>> {
 }
 
 export async function getMemories(shopId = DEMO_SHOP_ID): Promise<Sourced<Memory[]>> {
-  const r = await load<Memory[]>(`/api/shops/${encodeURIComponent(shopId)}/memories`, "memories.json", undefined, unwrap("memories"));
+  const r = await load<Memory[]>(
+    `/api/shops/${encodeURIComponent(shopId)}/memories`,
+    "memories_by_shop.json",
+    (raw) => (Array.isArray(raw) ? (raw as Memory[]) : ((raw as Record<string, Memory[]>)?.[shopId] ?? [])),
+    unwrap("memories"),
+  );
   if (r.source === "live") return r;
-  return { ...r, data: [...readLocalMemories(), ...r.data] };
+  return { ...r, data: [...readLocalMemories().filter((m) => !m.shop_id || m.shop_id === shopId), ...r.data] };
 }
 
 /** This week's card: latest finished in-browser run → API (latest run with a card) → fixture card. */
-export async function getLatestCard(): Promise<Sourced<CardStatus>> {
+export async function getLatestCard(shopId: string = DEMO_SHOP_ID): Promise<Sourced<CardStatus>> {
   try {
-    const raw = await fromApi<unknown>(`/api/cards/latest?shop_id=${DEMO_SHOP_ID}`);
+    const raw = await fromApi<unknown>(`/api/cards/latest?shop_id=${encodeURIComponent(shopId)}`);
     const st = raw as CardStatus & Partial<RecallCard>;
     const status: CardStatus = st.card ? st : (st as Partial<RecallCard>).do_not_sell ? { status: "completed", card: st as unknown as RecallCard, steps: [] } : st;
     if (status.card) {
@@ -198,7 +221,7 @@ export async function getLatestCard(): Promise<Sourced<CardStatus>> {
   try {
     const runs = unwrap<WorkflowRun[]>("runs")(await fromApi<unknown>("/api/runs"));
     const latest = [...runs]
-      .filter((r) => r.status === "completed" && (r.card_id || r.workflow_type === "InventoryCheckWorkflow"))
+      .filter((r) => r.status === "completed" && (!r.shop_id || r.shop_id === shopId) && (r.card_id || r.workflow_type === "InventoryCheckWorkflow"))
       .sort((a, b) => (b.started_at ?? "").localeCompare(a.started_at ?? ""))[0];
     if (latest) {
       const st = await fromApi<CardStatus>(`/api/cards/${encodeURIComponent(latest.workflow_id)}`);
@@ -211,7 +234,61 @@ export async function getLatestCard(): Promise<Sourced<CardStatus>> {
   } catch {
     /* fall through */
   }
-  return load<CardStatus>(null, "card_status.json");
+  return fixtureCard(shopId);
+}
+
+async function fixtureCard(shopId: string): Promise<Sourced<CardStatus>> {
+  const st = await load<CardStatus>(null, "card_status.json");
+  if (st.data.card?.shop_id === shopId) return st;
+  try {
+    return await load<CardStatus>(null, `card_${shopId}.json`, (raw) => {
+      const r = raw as CardStatus & Partial<RecallCard>;
+      return r.card ? r : { status: "completed", card: r as unknown as RecallCard, steps: [] };
+    });
+  } catch {
+    return st;
+  }
+}
+
+/* ----- inventory (the shop's own item list; same file the backend reads) ---- */
+
+export interface InventoryRow {
+  sku: string;
+  name: string;
+  brand?: string;
+  model?: string;
+  notes?: string;
+  category?: string;
+  price?: string;
+}
+
+const inventoryCache = new Map<string, Promise<InventoryRow[]>>();
+export function getInventory(shopId: string = DEMO_SHOP_ID): Promise<Sourced<InventoryRow[]>> {
+  let p = inventoryCache.get(shopId);
+  if (!p) {
+    p = fetch(`${BASE_PATH}/demo/inventory_${shopId}.csv`)
+      .then((r) => (r.ok ? r.text() : ""))
+      .then(parseInventory);
+    p.catch(() => inventoryCache.delete(shopId));
+    inventoryCache.set(shopId, p);
+  }
+  return p.then((data) => ({ data, source: "fixture" as DataSource, placeholder: false }));
+}
+
+/* ----- health (connected services) ------------------------------------------ */
+
+export interface Health {
+  ok: boolean;
+  temporal?: boolean;
+  temporal_address?: string;
+  model?: unknown;
+  memory_backend?: unknown;
+  keys?: Record<string, boolean>;
+  chaos?: unknown;
+  data?: Record<string, boolean>;
+}
+export function getHealthInfo(): Promise<Health | null> {
+  return fromApi<Health>("/api/health").catch(() => null);
 }
 
 /* ----- writes --------------------------------------------------------------- */
@@ -374,7 +451,7 @@ async function simulateStatus(sim: SimWorkflow): Promise<CardStatus> {
     corrections: readLocalCorrections(),
     memories,
     shopId: sim.shop_id,
-    shopName: sim.shop_id === DEMO_SHOP_ID ? DEMO_SHOP_NAME : sim.shop_id,
+    shopName: shopById(sim.shop_id).name,
     workflowId: sim.workflow_id,
     generatedAt: iso(sim.started + plan(sim.items.length).at(-1)!.end),
   });

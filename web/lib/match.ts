@@ -4,7 +4,7 @@
  * down. The card it produces is labelled "heuristic (in-browser demo)".
  */
 import type { CheckLabel, DoNotSell, InventoryItem, Memory, RecallCard, RecallRecord, Verdict } from "./types";
-import type { LocalCorrection } from "./api";
+import type { InventoryRow, LocalCorrection } from "./api";
 
 const norm = (s: string) =>
   s
@@ -24,7 +24,7 @@ function brandHit(brand: string, text: string): boolean {
   return ` ${norm(text)} `.includes(` ${b} `) || compact(text).includes(compact(b));
 }
 
-function idHit(ids: string[], text: string): string[] {
+export function idHit(ids: string[], text: string): string[] {
   const t = compact(text);
   return ids.filter((id) => {
     const c = compact(id);
@@ -131,7 +131,7 @@ export function parseItems(input: string): InventoryItem[] {
   });
 }
 
-function splitCsv(line: string): string[] {
+export function splitCsv(line: string): string[] {
   const out: string[] = [];
   let cur = "";
   let q = false;
@@ -151,4 +151,21 @@ function splitCsv(line: string): string[] {
   }
   out.push(cur);
   return out;
+}
+
+/** Parse a shop inventory CSV (sku,name,brand,model,notes,category,price). */
+export function parseInventory(input: string): InventoryRow[] {
+  const lines = input.split(/\r?\n/).filter((l) => l.trim());
+  if (lines.length < 2) return [];
+  const header = splitCsv(lines[0]).map((h) => h.trim().toLowerCase());
+  const at = (c: string[], k: string) => {
+    const i = header.indexOf(k);
+    return i >= 0 ? c[i]?.trim() || undefined : undefined;
+  };
+  return lines.slice(1).flatMap((l, n) => {
+    const c = splitCsv(l);
+    const name = at(c, "name");
+    if (!name) return [];
+    return [{ sku: at(c, "sku") ?? `ITEM-${n + 1}`, name, brand: at(c, "brand"), model: at(c, "model"), notes: at(c, "notes"), category: at(c, "category"), price: at(c, "price") }];
+  });
 }

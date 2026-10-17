@@ -1,39 +1,47 @@
 "use client";
 
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useMemo, useState } from "react";
-import { RiCalendarScheduleLine, RiRefreshLine, RiRestartLine } from "@remixicon/react";
-import { Chip } from "@/components/base/badges/chip";
-import { Button } from "@/components/base/buttons/button";
-import { Page, PageHeader, Panel, Stat } from "@/components/rd/app-shell";
-import { PlaceholderNote } from "@/components/rd/data-source-chip";
+import { RiCalendarScheduleLine, RiCheckboxCircleLine, RiExternalLinkLine, RiNodeTree, RiRefreshLine, RiRestartLine, RiTimerLine } from "@remixicon/react";
+import { Button, ButtonLink } from "@/components/base/buttons/button";
+import { Page, PageHeader } from "@/components/rd/app-shell";
 import { StepTimeline } from "@/components/rd/step-timeline";
+import { KpiCard, KpiRow } from "@/components/ui/kpi";
+import { Drawer } from "@/components/ui/overlay";
+import { Card, DemoBadge, EmptyState, Eyebrow, IconTile, Pill } from "@/components/ui/surface";
+import { DataTable, FilterPill, RowTitle, SearchField, Toolbar, type Column } from "@/components/ui/table";
 import { getRuns, isSimulated } from "@/lib/api";
 import { durationMs, formatDate, formatDuration, relativeTime, stepFlag, stepLabel } from "@/lib/format";
 import type { WorkflowRun } from "@/lib/types";
 import { useLoad } from "@/lib/use-load";
 import { cx } from "@/utils/cx";
 
+const TEMPORAL_UI = "http://localhost:8233";
+
+type Run = WorkflowRun & { note?: string; summary?: { do_not_sell?: number; check_label?: number; items_checked?: number; applied_memories?: number } };
+
 function runFlags(run: WorkflowRun) {
   const flags = run.steps.map(stepFlag);
-  return {
-    retries: run.retries ?? run.steps.filter((s) => s.attempt > 1).length,
-    resumed: !!run.resumed_after_crash || flags.includes("resumed"),
-  };
+  return { retries: run.retries ?? run.steps.filter((s) => s.attempt > 1).length, resumed: !!run.resumed_after_crash || flags.includes("resumed") };
 }
 
-function StatusDot({ status }: { status: string }) {
-  const tone = status === "completed" ? "bg-accent-600" : status === "failed" ? "bg-stop-solid" : status === "running" ? "rd-pulse bg-accent-500 text-accent-500" : "bg-foreground-icon-quaternary";
-  return <span className={cx("relative size-2 shrink-0 rounded-full", tone)} aria-hidden />;
+function StatusPill({ status }: { status: string }) {
+  const tone = status === "completed" ? "green" : status === "failed" ? "red" : status === "running" ? "blue" : "gray";
+  return (
+    <Pill size="sm" tone={tone} dot>
+      <span className="capitalize">{status}</span>
+    </Pill>
+  );
 }
 
 function Waterfall({ run }: { run: WorkflowRun }) {
   const starts = run.steps.map((s) => (s.started_at ? new Date(s.started_at).getTime() : NaN)).filter(Number.isFinite);
   const ends = run.steps.map((s) => (s.ended_at ? new Date(s.ended_at).getTime() : NaN)).filter(Number.isFinite);
-  if (!starts.length) return <p className="text-body-2-regular text-text-tertiary">Not started yet.</p>;
+  if (!starts.length) return <p className="text-body-2-regular text-text-tertiary">No step timings recorded for this run.</p>;
   const t0 = Math.min(...starts);
   const span = Math.max(Math.max(...ends, ...starts) + 1 - t0, 1);
   return (
-    <div className="flex flex-col gap-1.5" role="img" aria-label="Step waterfall">
+    <div className="flex flex-col gap-2" role="img" aria-label="Step waterfall">
       {run.steps.map((s, i) => {
         const a = s.started_at ? new Date(s.started_at).getTime() : t0;
         const b = s.ended_at ? new Date(s.ended_at).getTime() : a;
@@ -41,48 +49,174 @@ function Waterfall({ run }: { run: WorkflowRun }) {
         const width = Math.max(1.2, ((b - a) / span) * 100);
         const flag = stepFlag(s);
         return (
-          <div key={i} className="grid grid-cols-[120px_minmax(0,1fr)] items-center gap-3 sm:grid-cols-[160px_minmax(0,1fr)]">
+          <div key={i} className="grid grid-cols-[120px_minmax(0,1fr)_56px] items-center gap-3 sm:grid-cols-[170px_minmax(0,1fr)_64px]">
             <span className="truncate text-caption-1-medium text-text-secondary">{stepLabel(s.name).label}</span>
-            <span className="relative h-4 rounded bg-background-secondary-default">
+            <span className="relative h-5 rounded-md bg-subtle ring-1 ring-line ring-inset">
               <span
                 className={cx(
-                  "absolute inset-y-0 rounded",
-                  s.status === "failed" ? "bg-stop-solid" : flag === "retried" ? "bg-caution-solid" : flag === "resumed" ? "bg-accent-400" : s.status === "completed" ? "bg-accent-600" : "bg-accent-300",
+                  "absolute inset-y-0.5 rounded",
+                  s.status === "failed" ? "bg-stop-solid" : flag === "retried" ? "bg-caution-solid" : flag === "resumed" ? "bg-chart-4" : s.status === "completed" ? "bg-accent-500" : "bg-accent-300",
                 )}
                 style={{ left: `${left}%`, width: `${Math.min(width, 100 - left)}%` }}
                 title={`${s.name}: ${formatDuration(durationMs(s.started_at, s.ended_at))}${s.attempt > 1 ? ` · attempt ${s.attempt}` : ""}`}
               />
             </span>
+            <span className="text-end text-caption-1-regular text-text-tertiary tabular-nums">{formatDuration(durationMs(s.started_at, s.ended_at))}</span>
           </div>
         );
       })}
-      <div className="grid grid-cols-[120px_minmax(0,1fr)] gap-3 sm:grid-cols-[160px_minmax(0,1fr)]">
+      <div className="grid grid-cols-[120px_minmax(0,1fr)_56px] gap-3 sm:grid-cols-[170px_minmax(0,1fr)_64px]">
         <span />
-        <span className="flex justify-between font-mono text-caption-2-regular text-text-tertiary rd-num">
+        <span className="flex justify-between text-caption-2-regular text-text-tertiary tabular-nums">
           <span>0s</span>
           <span>{formatDuration(span)}</span>
         </span>
+        <span />
       </div>
       <p className="mt-1 flex flex-wrap gap-3 text-caption-2-regular text-text-tertiary" aria-hidden>
         <span className="flex items-center gap-1">
-          <span className="size-2 rounded-sm bg-accent-600" /> done
+          <span className="size-2 rounded-sm bg-accent-500" /> done
         </span>
         <span className="flex items-center gap-1">
           <span className="size-2 rounded-sm bg-caution-solid" /> retried
         </span>
         <span className="flex items-center gap-1">
-          <span className="size-2 rounded-sm bg-accent-400" /> resumed after crash
+          <span className="size-2 rounded-sm bg-chart-4" /> resumed after crash
         </span>
       </p>
     </div>
   );
 }
 
+function RunDrawer({ run: current, onClose }: { run: Run | null; onClose: () => void }) {
+  const [kept, setKept] = useState(current);
+  if (current && current !== kept) setKept(current);
+  const run = current ?? kept;
+  const f = run ? runFlags(run) : null;
+  return (
+    <Drawer
+      isOpen={!!current}
+      onOpenChange={(o) => !o && onClose()}
+      width="lg"
+      leading={<IconTile icon={run?.workflow_type === "WeeklyRecallSweep" ? RiCalendarScheduleLine : RiNodeTree} tone={f?.resumed ? "violet" : "blue"} />}
+      title={run?.workflow_type ?? "Workflow"}
+      subtitle={
+        run && (
+          <span className="flex flex-wrap items-center gap-2">
+            <span className="rd-mono break-all text-text-secondary">{run.workflow_id}</span>
+          </span>
+        )
+      }
+      footer={
+        run &&
+        !isSimulated(run.workflow_id) && (
+          <ButtonLink href={`${TEMPORAL_UI}/namespaces/default/workflows/${encodeURIComponent(run.workflow_id)}`} target="_blank" rel="noreferrer" size="small" trailingIcon={RiExternalLinkLine}>
+            Open in Temporal UI
+          </ButtonLink>
+        )
+      }
+    >
+      {run && f && (
+        <div className="flex flex-col gap-6">
+          <div className="flex flex-wrap items-center gap-2">
+            <StatusPill status={run.status} />
+            {f.retries > 0 && (
+              <Pill size="sm" tone="amber" icon={RiRefreshLine}>
+                {f.retries} retr{f.retries === 1 ? "y" : "ies"}
+              </Pill>
+            )}
+            {f.resumed && (
+              <Pill size="sm" tone="violet" icon={RiRestartLine}>
+                Resumed after crash
+              </Pill>
+            )}
+            {isSimulated(run.workflow_id) && <DemoBadge>Simulated in browser</DemoBadge>}
+            {run.placeholder && <DemoBadge>Demo run</DemoBadge>}
+          </div>
+
+          {f.resumed && (
+            <div className="flex items-start gap-3 rounded-xl border border-line bg-subtle p-4">
+              <IconTile icon={RiRestartLine} tone="violet" size="sm" />
+              <div className="min-w-0">
+                <p className="text-body-2-semibold text-text-primary">Worker killed mid-run, resumed on a fresh worker</p>
+                <p className="text-caption-1-regular break-words text-text-secondary">
+                  Temporal replayed the event history on the new worker and carried on. Completed activities did not run twice.
+                  {run.workers?.length ? (
+                    <>
+                      {" "}
+                      Workers: <span className="rd-mono text-text-primary">{run.workers.join(" → ")}</span>
+                    </>
+                  ) : null}
+                </p>
+              </div>
+            </div>
+          )}
+
+          <dl className="grid grid-cols-2 gap-px overflow-hidden rounded-xl border border-line bg-line sm:grid-cols-3">
+            {[
+              { k: "Started", v: formatDate(run.started_at, { month: "short", day: "numeric", hour: "numeric", minute: "2-digit", second: "2-digit" }) },
+              { k: "Duration", v: formatDuration(durationMs(run.started_at, run.ended_at)) },
+              { k: "Activities", v: String(run.steps.length || "—") },
+              { k: "History events", v: run.history_events != null ? String(run.history_events) : "—" },
+              { k: "Shop", v: run.shop_id ?? "all watched" },
+              { k: "Card", v: run.card_id ?? "—" },
+            ].map((x) => (
+              <div key={x.k} className="flex min-w-0 flex-col gap-0.5 bg-card px-4 py-3">
+                <dt className="text-caption-1-medium text-text-tertiary">{x.k}</dt>
+                <dd className="truncate text-body-2-semibold text-text-primary tabular-nums" title={x.v}>
+                  {x.v}
+                </dd>
+              </div>
+            ))}
+          </dl>
+
+          {run.summary && (
+            <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+              {[
+                ["Items checked", run.summary.items_checked, "text-text-primary"],
+                ["Do not sell", run.summary.do_not_sell, "text-stop-text"],
+                ["Check label", run.summary.check_label, "text-caution-text"],
+                ["Memories applied", run.summary.applied_memories, "text-info-text"],
+              ].map(([k, v, c]) => (
+                <div key={k as string} className="rounded-xl border border-line px-3 py-2.5">
+                  <p className="text-caption-1-medium text-text-tertiary">{k as string}</p>
+                  <p className={cx("text-title-2-semibold tabular-nums", c as string)}>{v ?? "—"}</p>
+                </div>
+              ))}
+            </div>
+          )}
+
+          <section className="flex flex-col gap-3">
+            <Eyebrow>Waterfall</Eyebrow>
+            <Waterfall run={run} />
+          </section>
+          <section className="flex flex-col gap-3">
+            <Eyebrow>Activity timeline</Eyebrow>
+            {run.steps.length ? <StepTimeline steps={run.steps} /> : <p className="text-body-2-regular text-text-tertiary">{run.note ?? "Step progress isn't recorded for this run."} The full event history is in the Temporal UI.</p>}
+          </section>
+        </div>
+      )}
+    </Drawer>
+  );
+}
+
 export function RunsView() {
   const { data, loading, reload, placeholder } = useLoad(getRuns, "runs");
-  const runs = useMemo(() => [...(data ?? [])].sort((a, b) => (b.started_at ?? "").localeCompare(a.started_at ?? "")), [data]);
-  const [selectedId, setSelectedId] = useState<string | null>(null);
-  const selected = runs.find((r) => r.workflow_id === selectedId) ?? runs[0];
+  const router = useRouter();
+  const pathname = usePathname();
+  const params = useSearchParams();
+  const openId = params.get("open");
+  const [q, setQ] = useState("");
+  const [type, setType] = useState("all");
+  const runs = useMemo(() => [...((data ?? []) as Run[])].sort((a, b) => (b.started_at ?? "").localeCompare(a.started_at ?? "")), [data]);
+  const filtered = runs.filter((r) => (type === "all" || r.workflow_type === type) && (!q.trim() || `${r.workflow_id} ${r.shop_id ?? ""}`.toLowerCase().includes(q.trim().toLowerCase())));
+  const selected = openId ? (runs.find((r) => r.workflow_id === openId) ?? null) : null;
+  const setOpen = (id: string | null) => {
+    const sp = new URLSearchParams(params.toString());
+    if (id) sp.set("open", id);
+    else sp.delete("open");
+    router.replace(`${pathname}${sp.size ? `?${sp}` : ""}`, { scroll: false });
+  };
 
   const totals = useMemo(() => {
     const t = { runs: runs.length, completed: 0, retries: 0, resumed: 0 };
@@ -94,136 +228,111 @@ export function RunsView() {
     });
     return t;
   }, [runs]);
+  const types = [...new Set(runs.map((r) => r.workflow_type).filter(Boolean) as string[])];
+
+  const columns: Column<Run>[] = [
+    {
+      id: "wf",
+      header: "Workflow",
+      mobile: "primary",
+      width: "36%",
+      sort: (r) => r.workflow_id,
+      cell: (r) => (
+        <RowTitle
+          leading={<IconTile icon={r.workflow_type === "WeeklyRecallSweep" ? RiCalendarScheduleLine : RiNodeTree} tone={runFlags(r).resumed ? "violet" : "blue"} size="sm" />}
+          title={<span className="rd-mono">{r.workflow_id}</span>}
+          sub={r.workflow_type}
+        />
+      ),
+    },
+    { id: "shop", header: "Shop", mobile: "meta", width: "12%", hideBelow: "lg", sort: (r) => r.shop_id ?? "", cell: (r) => <span className="text-body-2-medium text-text-primary">{r.shop_id ?? "all"}</span> },
+    { id: "status", header: "Status", mobile: "badge", width: "12%", sort: (r) => r.status, cell: (r) => <StatusPill status={r.status} /> },
+    {
+      id: "flags",
+      header: "Signals",
+      mobile: "badge",
+      width: "18%",
+      cell: (r) => {
+        const f = runFlags(r);
+        return (
+          <span className="flex flex-wrap gap-1">
+            {f.resumed && (
+              <Pill size="sm" tone="violet" icon={RiRestartLine}>
+                Resumed
+              </Pill>
+            )}
+            {f.retries > 0 && (
+              <Pill size="sm" tone="amber" icon={RiRefreshLine}>
+                {f.retries} retr{f.retries === 1 ? "y" : "ies"}
+              </Pill>
+            )}
+            {isSimulated(r.workflow_id) && <Pill size="sm">Simulated</Pill>}
+            {!f.resumed && !f.retries && !isSimulated(r.workflow_id) && <span className="text-caption-1-regular text-text-tertiary">Clean run</span>}
+          </span>
+        );
+      },
+    },
+    { id: "started", header: "Started", mobile: "meta", width: "12%", sort: (r) => r.started_at ?? "", cell: (r) => <span className="text-body-2-medium whitespace-nowrap text-text-primary">{relativeTime(r.started_at)}</span> },
+    { id: "dur", header: "Duration", mobile: "meta", width: "10%", align: "end", sort: (r) => durationMs(r.started_at, r.ended_at) ?? 0, cell: (r) => <span className="text-body-2-medium text-text-primary tabular-nums">{formatDuration(durationMs(r.started_at, r.ended_at))}</span> },
+  ];
 
   return (
-    <Page wide>
+    <Page>
       <PageHeader
-        eyebrow="Temporal"
+        eyebrow={
+          <>
+            <Pill size="sm" tone="blue" dot>
+              Temporal · WeeklyRecallSweep every Thu 2:00 PM ET
+            </Pill>
+            <DemoBadge show={placeholder}>Includes demo runs</DemoBadge>
+          </>
+        }
         title="Workflow runs"
-        description="WeeklyRecallSweep runs on a Temporal Schedule every Thursday at 2:00 PM ET: fetch new recalls, extract specs, re-check each shop, compose one card. Retries and crash-resumes are shown, not hidden."
+        description="Fetch new recalls, extract specs, re-check each shop, compose one card. Every step is a Temporal activity: retried on bad model output, resumed when a worker dies. Retries and crash-resumes are shown, not hidden."
         actions={
           <>
-            <PlaceholderNote show={placeholder}>Includes demo runs</PlaceholderNote>
             <Button variant="secondary" leadingIcon={RiRefreshLine} onClick={reload}>
               Refresh
             </Button>
+            <ButtonLink href={TEMPORAL_UI} target="_blank" rel="noreferrer" trailingIcon={RiExternalLinkLine}>
+              Temporal UI
+            </ButtonLink>
           </>
         }
       />
 
-      <div className="mb-4 grid grid-cols-2 gap-3 lg:grid-cols-4">
-        <Stat label="Runs" value={loading ? "…" : totals.runs} />
-        <Stat label="Completed" value={loading ? "…" : totals.completed} />
-        <Stat label="Activity retries" value={loading ? "…" : totals.retries} tone="caution" />
-        <Stat label="Resumed after crash" value={loading ? "…" : totals.resumed} tone="ink" />
-      </div>
+      <KpiRow className="mb-6">
+        <KpiCard index={0} icon={RiNodeTree} tone="blue" label="Runs" value={totals.runs} loading={loading} status="Recorded" caption="Sweeps and on-demand checks" />
+        <KpiCard index={1} icon={RiCheckboxCircleLine} tone="green" label="Completed" value={totals.completed} loading={loading} status="Succeeded" caption={totals.runs ? `${Math.round((totals.completed / totals.runs) * 100)}% success` : undefined} />
+        <KpiCard index={2} icon={RiTimerLine} tone="amber" label="Activity retries" value={totals.retries} loading={loading} status="Backoff" caption="Invalid JSON, CPSC 5xx" />
+        <KpiCard index={3} icon={RiRestartLine} tone="violet" label="Resumed after crash" value={totals.resumed} loading={loading} status="Replayed" caption="No activity ran twice" />
+      </KpiRow>
 
-      {loading ? (
-        <div className="grid gap-4 lg:grid-cols-[380px_minmax(0,1fr)]">
-          <div className="h-[420px] animate-pulse rounded-2xl bg-background-secondary-default" />
-          <div className="h-[420px] animate-pulse rounded-2xl bg-background-secondary-default" />
-        </div>
-      ) : (
-        <div className="grid items-start gap-4 lg:grid-cols-[380px_minmax(0,1fr)]">
-          <Panel title="Recent runs" padded={false}>
-            <ul className="flex flex-col p-1.5" role="listbox" aria-label="Workflow runs">
-              {runs.map((r) => {
-                const f = runFlags(r);
-                const active = r.workflow_id === selected?.workflow_id;
-                return (
-                  <li key={r.workflow_id} role="option" aria-selected={active}>
-                    <button
-                      type="button"
-                      onClick={() => setSelectedId(r.workflow_id)}
-                      className={cx(
-                        "flex w-full cursor-pointer flex-col gap-1.5 rounded-xl px-3 py-2.5 text-start outline-none transition-colors focus-visible:ring-2 focus-visible:ring-border-focus-ring",
-                        active ? "bg-background-secondary-default ring-1 ring-border-button-default" : "hover:bg-background-secondary-default/70",
-                      )}
-                    >
-                      <span className="flex items-center gap-2">
-                        <StatusDot status={r.status} />
-                        <span className="min-w-0 flex-1 truncate font-mono text-caption-1-medium text-text-primary">{r.workflow_id}</span>
-                      </span>
-                      <span className="flex flex-wrap items-center gap-1.5 ps-4">
-                        {r.workflow_type && (
-                          <span className="inline-flex items-center gap-1 rounded bg-background-tertiary-default px-1 font-mono text-caption-2-medium text-text-secondary">
-                            {r.workflow_type === "WeeklyRecallSweep" && <RiCalendarScheduleLine className="size-3" aria-hidden />}
-                            {r.workflow_type}
-                          </span>
-                        )}
-                        {f.retries > 0 && (
-                          <Chip variant="caption" color="yellow" className="gap-1 py-0">
-                            <RiRefreshLine className="size-3" aria-hidden /> {f.retries} retr{f.retries === 1 ? "y" : "ies"}
-                          </Chip>
-                        )}
-                        {f.resumed && (
-                          <Chip variant="caption" color="blue" className="gap-1 py-0">
-                            <RiRestartLine className="size-3" aria-hidden /> Resumed
-                          </Chip>
-                        )}
-                        {isSimulated(r.workflow_id) && (
-                          <Chip variant="caption" color="soft" className="py-0">
-                            Simulated
-                          </Chip>
-                        )}
-                        <span className="ms-auto text-caption-1-regular text-text-tertiary">{relativeTime(r.started_at)}</span>
-                      </span>
-                    </button>
-                  </li>
-                );
-              })}
-              {!runs.length && <li className="px-3 py-8 text-center text-body-2-regular text-text-tertiary">No runs yet.</li>}
-            </ul>
-          </Panel>
-
-          {selected && (
-            <Panel
-              key={selected.workflow_id}
-              className="rd-rise"
-              title={<span className="font-mono text-body-2-semibold break-all">{selected.workflow_id}</span>}
-              description={`${selected.workflow_type ?? "Workflow"} · started ${formatDate(selected.started_at, { month: "short", day: "numeric", hour: "2-digit", minute: "2-digit", second: "2-digit" })}`}
-            >
-              <div className="flex flex-col gap-6">
-                {runFlags(selected).resumed && (
-                  <div className="flex items-start gap-3 rounded-xl border border-accent-300 bg-background-secondary-default px-3 py-2.5">
-                    <RiRestartLine className="mt-0.5 size-4 shrink-0 text-ink" aria-hidden />
-                    <div className="flex min-w-0 flex-col gap-0.5">
-                      <p className="text-body-2-semibold text-text-primary">Resumed after worker crash</p>
-                      <p className="text-caption-1-regular break-words text-text-secondary">
-                        The worker was killed mid-run. Temporal replayed the event history on a fresh worker and carried on; completed activities did not run twice.
-                        {selected.workers?.length ? <span className="font-mono"> {selected.workers.join(" → ")}</span> : null}
-                      </p>
-                    </div>
-                  </div>
-                )}
-                <dl className="grid grid-cols-2 gap-3 sm:grid-cols-3 xl:grid-cols-6">
-                  {[
-                    { k: "Status", v: selected.status },
-                    { k: "Duration", v: formatDuration(durationMs(selected.started_at, selected.ended_at)) },
-                    { k: "Activities", v: String(selected.steps.length) },
-                    { k: "Total attempts", v: String(selected.steps.reduce((n, s) => n + Math.max(1, s.attempt), 0)) },
-                    ...(selected.history_events != null ? [{ k: "History events", v: String(selected.history_events) }] : []),
-                    ...(selected.shop_id ? [{ k: "Shop", v: selected.shop_id }] : selected.workers?.length ? [{ k: "Workers", v: String(selected.workers.length) }] : []),
-                  ].map((x) => (
-                    <div key={x.k} className="rounded-xl bg-background-secondary-default px-3 py-2">
-                      <dt className="text-caption-1-medium text-text-tertiary">{x.k}</dt>
-                      <dd className="font-mono text-body-2-semibold break-all text-text-primary capitalize rd-num">{x.v}</dd>
-                    </div>
-                  ))}
-                </dl>
-                <section className="flex flex-col gap-3">
-                  <h3 className="rd-eyebrow text-text-tertiary">Waterfall</h3>
-                  <Waterfall run={selected} />
-                </section>
-                <section className="flex flex-col gap-3">
-                  <h3 className="rd-eyebrow text-text-tertiary">Event timeline</h3>
-                  <StepTimeline steps={selected.steps} />
-                </section>
-              </div>
-            </Panel>
-          )}
-        </div>
-      )}
+      <Card>
+        <Toolbar>
+          <SearchField value={q} onChange={setQ} placeholder="Workflow id or shop" label="Search runs" className="md:max-w-[320px] md:flex-1" />
+          <div className="flex items-center gap-2">
+            <FilterPill label="Type" value={type} onChange={setType} options={[{ value: "all", label: "All" }, ...types.map((t) => ({ value: t, label: t }))]} />
+          </div>
+        </Toolbar>
+        <DataTable
+          caption="Workflow runs"
+          rows={filtered}
+          columns={columns}
+          rowKey={(r) => r.workflow_id}
+          rowLabel={(r) => `Open run ${r.workflow_id}`}
+          onRowOpen={(r) => setOpen(r.workflow_id)}
+          selectedKey={openId}
+          loading={loading}
+          initialSort={{ id: "started", dir: "desc" }}
+          empty={
+            <EmptyState icon={RiNodeTree} title="No runs yet">
+              Run a check from Inventory, or wait for Thursday&apos;s sweep.
+            </EmptyState>
+          }
+        />
+      </Card>
+      <RunDrawer run={selected} onClose={() => setOpen(null)} />
     </Page>
   );
 }

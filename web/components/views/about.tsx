@@ -35,7 +35,7 @@ const PLANS = [
     blurb: "Seasonal kids' sales with hundreds of consignors.",
     features: ["Check every consignor's intake list", "One card per drop-off batch", "Printable pull list for volunteers", "Recalls back to 2023 for older gear"],
     cta: "Check an intake list",
-    href: "/check",
+    href: "/inventory?new=1",
     featured: false,
   },
 ];
@@ -44,14 +44,13 @@ export function AboutView() {
   return (
     <Page>
       <PageHeader
-        eyebrow="About"
         title="Before you list it, check it"
         description="Reselling a recalled product is a federal violation in the US, and recalled baby gear keeps turning up on eBay, Marketplace and Craigslist. CPSC publishes about a dozen recalls every Thursday as long blocks of text, and the model numbers that matter are buried in the description. RecallDesk reads them for you and prints one card."
       />
 
       <div className="flex flex-col gap-6">
         <section aria-labelledby="who-pays" className="flex flex-col gap-3">
-          <h2 id="who-pays" className="rd-notice text-[26px] text-text-primary">
+          <h2 id="who-pays" className="text-title-2-semibold text-text-primary">
             Who pays
           </h2>
           <div className="grid gap-4 md:grid-cols-2">
@@ -60,14 +59,17 @@ export function AboutView() {
                 key={p.name}
                 className={
                   p.featured
-                    ? "rd-ruled flex flex-col gap-4 rounded-2xl border-2 border-accent-600 bg-background-primary-default p-5 ps-12 shadow-card"
-                    : "flex flex-col gap-4 rounded-2xl border border-border-button-default bg-background-primary-default p-5 shadow-card"
+                    ? "relative flex flex-col gap-4 rounded-xl border-2 border-accent-500 bg-card p-6 shadow-card"
+                    : "flex flex-col gap-4 rounded-xl border border-line bg-card p-6 shadow-card"
                 }
               >
                 <div className="flex flex-col gap-1">
-                  <p className="rd-eyebrow text-text-tertiary">{p.name}</p>
+                  <p className="flex items-center gap-2 text-body-2-semibold text-text-secondary">
+                    {p.name}
+                    {p.featured && <span className="rounded-full bg-info-surface px-2 py-0.5 text-caption-2-semibold text-info-text ring-1 ring-info-border ring-inset">Most shops</span>}
+                  </p>
                   <p className="flex items-baseline gap-1.5">
-                    <span className="rd-figure text-[52px] text-text-primary">{p.price}</span>
+                    <span className="rd-highlight text-display-3-semibold tracking-[-0.03em] text-text-primary tabular-nums">{p.price}</span>
                     <span className="text-body-2-medium text-text-secondary">{p.per}</span>
                   </p>
                   <p className="text-body-2-regular text-text-secondary">{p.blurb}</p>
@@ -75,7 +77,7 @@ export function AboutView() {
                 <ul className="flex flex-col gap-2">
                   {p.features.map((f) => (
                     <li key={f} className="flex items-start gap-2 text-body-2-regular text-text-primary">
-                      <RiCheckLine className="mt-0.5 size-4 shrink-0 text-ink" aria-hidden />
+                      <RiCheckLine className="mt-0.5 size-4 shrink-0 text-clear-solid" aria-hidden />
                       {f}
                     </li>
                   ))}
@@ -95,7 +97,7 @@ export function AboutView() {
           <ol className="grid gap-4 sm:grid-cols-2">
             {PIPELINE.map((s, i) => (
               <li key={s.who} className="flex gap-3">
-                <span className="rd-figure flex size-8 shrink-0 items-center justify-center rounded-lg bg-background-secondary-default text-[18px] text-ink">{i + 1}</span>
+                <span className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-info-surface text-body-semibold text-info-text ring-1 ring-info-border ring-inset tabular-nums">{i + 1}</span>
                 <div className="flex flex-col gap-0.5">
                   <p className="text-body-2-semibold text-text-primary">{s.who}</p>
                   <p className="text-body-2-regular text-text-secondary">{s.what}</p>
@@ -149,7 +151,7 @@ export function AboutView() {
               <div key={v} className="flex gap-3">
                 <VerdictGlyph verdict={v} className="mt-0.5 size-6" />
                 <div>
-                  <dt className="rd-notice text-[18px] text-text-primary">{k}</dt>
+                  <dt className="text-body-semibold text-text-primary">{k}</dt>
                   <dd className="text-body-2-regular text-text-secondary">{d}</dd>
                 </div>
               </div>

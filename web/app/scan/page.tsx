@@ -1,8 +1,5 @@
-import type { Metadata } from "next";
-import { ScanView } from "@/components/views/scan";
-
-export const metadata: Metadata = { title: "eBay scan" };
+import { Redirect } from "@/components/rd/redirect";
 
 export default function Page() {
-  return <ScanView />;
+  return <Redirect to="/ebay" />;
 }

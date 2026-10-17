@@ -8,7 +8,7 @@
  *
  * Env: BASE (web), LABEL_BASE, TEMPORAL_UI, CRASH_WF (workflow id substring for the crash run, default "crashdemo").
  * Read-only by design: it never presses a label key in the label UI and never submits a correction.
- * The /check shot does start one InventoryCheckWorkflow for the UI's demo shop (shop_id demo-shop).
+ * The inventory check shot does start one InventoryCheckWorkflow for shop little-loop (the sample intake list).
  */
 import { chromium } from "playwright";
 import fs from "node:fs";
@@ -27,8 +27,14 @@ const wrote = [];
 
 fs.mkdirSync(OUT, { recursive: true });
 
-async function settle(page, ms = 1200) {
+/** Wait for every <img> to finish (CPSC photos can be 2 MB+), capped. */
+async function imagesDone(page, ms = 25_000) {
+  await page.waitForFunction(() => [...document.images].every((i) => i.complete), null, { timeout: ms }).catch(() => {});
+}
+
+async function settle(page, ms = 1400) {
   await page.waitForLoadState("networkidle").catch(() => {});
+  await imagesDone(page);
   await page.waitForTimeout(ms);
 }
 
@@ -73,54 +79,73 @@ async function webShots(browser) {
   let ctx = await ctxFor(browser, 1440, 1000);
   let page = await ctx.newPage();
   page.on("pageerror", (e) => issues.push(`pageerror: ${e.message}`));
+  const main = () => page.locator("main#main");
 
+  // Overview (KPI row, this week's card table, next sweep)
   await page.goto(BASE + "/");
+  await settle(page, 1600);
+  await liveChip(page, "overview");
+  await save(page, "overview-1440", { fullPage: false });
+
+  // The printable card (signature visual) on /cards
+  await page.goto(BASE + "/cards");
   await settle(page, 1500);
-  await liveChip(page, "home");
   const card = page.locator("article[aria-label^='Recall check for']").first();
   await shootEl(page, card, "home-card-1440", { pad: 16, maxH: 3000 });
   await shootEl(page, card, "home-card-1440-top", { pad: 16, maxH: 900 });
 
-  await page.goto(BASE + "/check");
+  // Inventory table, then an item drawer (item vs recall side by side)
+  await page.goto(BASE + "/inventory");
+  await settle(page, 1500);
+  await save(page, "inventory-1440", { fullPage: false });
+  await page.locator("main button[aria-label^='Open ']:visible").first().click();
+  await page.waitForTimeout(800);
+  await imagesDone(page);
+  await save(page, "inventory-drawer-1440", { fullPage: false });
+  await page.keyboard.press("Escape");
+  await page.waitForTimeout(400);
+
+  // A live InventoryCheckWorkflow on the sample intake list (starts one run for shop little-loop)
+  await page.goto(BASE + "/inventory?new=1");
   await settle(page, 800);
   await page.getByRole("button", { name: "Use sample" }).click();
   await page.getByRole("button", { name: /^Check \d+ items?$/ }).click();
-  await page.getByRole("article").first().waitFor({ timeout: 120_000 }).catch(() => issues.push("check run did not finish"));
+  await page.getByRole("heading", { name: "Check complete" }).waitFor({ timeout: 120_000 }).catch(() => issues.push("check run did not finish"));
   await page.waitForTimeout(1200);
-  await shootEl(page, page.locator("main#main"), "check-done-1440", { maxH: 2200 });
+  await shootEl(page, main(), "check-done-1440", { maxH: 2200 });
   const steps = page.locator("ol[aria-label='Workflow steps']").first();
   if (await steps.count()) await shootEl(page, steps, "check-steps-1440", { pad: 20 });
 
-  await page.goto(BASE + "/recalls");
-  await settle(page);
-  // a recall whose identifier is physically hidden (the post's hook): Woodure 26658, "engraved on the underside
-  // of the bottom step". RECALL_SHOT overrides; falls back to the first row.
+  // Recall drawer: an identifier that is physically hidden (the post's hook): Woodure 26658, "engraved on the
+  // underside of the bottom step". RECALL_SHOT overrides.
   const rq = process.env.RECALL_SHOT ?? "26658";
-  const search = page.getByPlaceholder(/Brand, product, model/);
-  if (await search.count()) {
-    await search.fill(rq);
-    await page.waitForTimeout(500);
-  }
-  await page.locator("button[aria-label^='Expand recall']").first().click();
-  await page.waitForLoadState("networkidle").catch(() => {});
-  await page.waitForTimeout(600);
-  await shootEl(page, page.locator("main#main"), "recalls-expanded-1440", { maxH: 1700 });
+  await page.goto(BASE + `/recalls?open=${rq}`);
+  await settle(page, 1200);
+  await save(page, "recalls-expanded-1440", { fullPage: false });
 
-  for (const [name, url, maxH] of [["scan-1440", "/scan", 1700], ["lab-1440", "/lab", 2600]]) {
+  for (const [name, url, maxH] of [
+    ["ebay-1440", "/ebay", 1700],
+    ["lab-1440", "/lab", 2600],
+    ["billing-1440", "/settings/billing", 1400],
+    ["services-1440", "/settings/services", 1400],
+  ]) {
     await page.goto(BASE + url);
     await settle(page, 1500);
-    await liveChip(page, name);
-    await shootEl(page, page.locator("main#main"), name, { maxH });
+    if (name !== "billing-1440") await liveChip(page, name);
+    await shootEl(page, main(), name, { maxH });
+    // legacy name used by docs/MEDIA.md
+    if (name === "ebay-1440") fs.copyFileSync(path.join(OUT, "ebay-1440.png"), path.join(OUT, "scan-1440.png"));
   }
 
+  // Workflow runs: open the crash-resume run in its drawer
   await page.goto(BASE + "/runs");
   await settle(page, 1500);
-  const crashBtn = page.locator("ul[aria-label='Workflow runs'] button", { hasText: CRASH }).first();
+  const crashBtn = page.locator(`main button[aria-label*='${CRASH}']:visible`).first();
   if (await crashBtn.count()) {
     await crashBtn.click();
-    await page.waitForTimeout(800);
+    await page.waitForTimeout(900);
   } else issues.push(`runs: no run matching "${CRASH}" in the list`);
-  await shootEl(page, page.locator("main#main"), "runs-crash-1440", { maxH: 2000 });
+  await save(page, "runs-crash-1440", { fullPage: false });
 
   await page.goto(BASE + "/about");
   await settle(page);
@@ -130,9 +155,11 @@ async function webShots(browser) {
   // 390 mobile: the card
   ctx = await ctxFor(browser, 390, 844);
   page = await ctx.newPage();
-  await page.goto(BASE + "/");
+  await page.goto(BASE + "/cards");
   await settle(page, 1500);
   await shootEl(page, page.locator("article[aria-label^='Recall check for']").first(), "home-card-390", { pad: 8, maxH: 4000 });
+  await page.goto(BASE + "/");
+  await settle(page, 1500);
   await save(page, "home-390-viewport");
   await ctx.close();
 }
