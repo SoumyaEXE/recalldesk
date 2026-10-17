@@ -1,0 +1,558 @@
+{
+ "26651": {
+  "recall_number": "26651",
+  "placeholder": true,
+  "listings": [
+   {
+    "listing_id": "ebay:placeholder-26651-1",
+    "source": "ebay",
+    "title": "HARPPA Nordi Toddler Learning Tower Foldable White",
+    "subtitle": null,
+    "condition": "Brand New",
+    "price": "$70.30",
+    "link": "https://www.ebay.com/sch/i.html?_nkw=HARPPA%20Nordi%20Toddler%20Learning%20Tower%20Foldable%20White",
+    "thumbnail": null,
+    "seller_hash": "s_d82a1f",
+    "item_specifics": {},
+    "query": "HARPPA Nordi Foldable Toddler Tower Stools",
+    "recall_number": "26651",
+    "fetched_at": "2026-10-16T21:14:00Z",
+    "verdict": {
+     "verdict": "check",
+     "identifiers_found": [],
+     "conflicts": [],
+     "reason": "Same HARPPA Nordi tower; check for HANS0002 and whether the repair kit is installed."
+    },
+    "human_verified": false
+   }
+  ]
+ },
+ "26688": {
+  "recall_number": "26688",
+  "placeholder": true,
+  "listings": [
+   {
+    "listing_id": "ebay:placeholder-26688-1",
+    "source": "ebay",
+    "title": "G Taleco Gear Baby Jumper Bouncer Gray jumper-01",
+    "subtitle": null,
+    "condition": "Pre-Owned",
+    "price": "$38.20",
+    "link": "https://www.ebay.com/sch/i.html?_nkw=G%20Taleco%20Gear%20Baby%20Jumper%20Bouncer%20Gray%20jumper-01",
+    "thumbnail": null,
+    "seller_hash": "s_79bcc9",
+    "item_specifics": {},
+    "query": "Taleco Gear G Taleco Gear Baby Jumpers, Baby Swings and 2-in-1 Baby Jumper & Swi",
+    "recall_number": "26688",
+    "fetched_at": "2026-10-16T21:14:00Z",
+    "verdict": {
+     "verdict": "match",
+     "identifiers_found": [
+      "jumper-01"
+     ],
+     "conflicts": [],
+     "reason": "Taleco Gear baby jumper, recalled model jumper-01 named."
+    },
+    "human_verified": true
+   },
+   {
+    "listing_id": "ebay:placeholder-26688-2",
+    "source": "ebay",
+    "title": "Taleco Gear 2-in-1 Baby Swing & Jumper Pink",
+    "subtitle": null,
+    "condition": "Open box",
+    "price": "$127.45",
+    "link": "https://www.ebay.com/sch/i.html?_nkw=Taleco%20Gear%202-in-1%20Baby%20Swing%20%26%20Jumper%20Pink",
+    "thumbnail": null,
+    "seller_hash": "s_bf2b91",
+    "item_specifics": {},
+    "query": "Taleco Gear G Taleco Gear Baby Jumpers, Baby Swings and 2-in-1 Baby Jumper & Swi",
+    "recall_number": "26688",
+    "fetched_at": "2026-10-16T21:14:00Z",
+    "verdict": {
+     "verdict": "match",
+     "identifiers_found": [
+      "2-in-1 Jumper & Swing"
+     ],
+     "conflicts": [],
+     "reason": "Taleco Gear 2-in-1 jumper & swing; all listed units recalled."
+    },
+    "human_verified": true
+   },
+   {
+    "listing_id": "ebay:placeholder-26688-3",
+    "source": "ebay",
+    "title": "Baby Door Jumper Universal Clamp",
+    "subtitle": null,
+    "condition": "Open box",
+    "price": "$28.35",
+    "link": "https://www.ebay.com/sch/i.html?_nkw=Baby%20Door%20Jumper%20Universal%20Clamp",
+    "thumbnail": null,
+    "seller_hash": "s_ce4bbb",
+    "item_specifics": {},
+    "query": "Taleco Gear G Taleco Gear Baby Jumpers, Baby Swings and 2-in-1 Baby Jumper & Swi",
+    "recall_number": "26688",
+    "fetched_at": "2026-10-16T21:14:00Z",
+    "verdict": {
+     "verdict": "no_match",
+     "identifiers_found": [],
+     "conflicts": [],
+     "reason": "Different, unbranded product."
+    },
+    "human_verified": false
+   }
+  ]
+ },
+ "26719": {
+  "recall_number": "26719",
+  "placeholder": true,
+  "listings": [
+   {
+    "listing_id": "ebay:placeholder-26719-1",
+    "source": "ebay",
+    "title": "HABA Rainbow Rattle Teething Toy Wood — Batch 0925",
+    "subtitle": null,
+    "condition": "New (Other)",
+    "price": "$104.91",
+    "link": "https://www.ebay.com/sch/i.html?_nkw=HABA%20Rainbow%20Rattle%20Teething%20Toy%20Wood%20%E2%80%94%20Batch%200925",
+    "thumbnail": null,
+    "seller_hash": "s_812c76",
+    "item_specifics": {},
+    "query": "HABA HABA Rainbow Rattle Grasping and Teething Toy",
+    "recall_number": "26719",
+    "fetched_at": "2026-10-16T21:14:00Z",
+    "verdict": {
+     "verdict": "match",
+     "identifiers_found": [
+      "0925"
+     ],
+     "conflicts": [],
+     "reason": "HABA Rainbow Rattle with recalled batch code 0925."
+    },
+    "human_verified": true
+   },
+   {
+    "listing_id": "ebay:placeholder-26719-2",
+    "source": "ebay",
+    "title": "HABA Rainbow Rattle Grasping Toy, Used",
+    "subtitle": null,
+    "condition": "New (Other)",
+    "price": "$14.67",
+    "link": "https://www.ebay.com/sch/i.html?_nkw=HABA%20Rainbow%20Rattle%20Grasping%20Toy%2C%20Used",
+    "thumbnail": null,
+    "seller_hash": "s_9e67a5",
+    "item_specifics": {},
+    "query": "HABA HABA Rainbow Rattle Grasping and Teething Toy",
+    "recall_number": "26719",
+    "fetched_at": "2026-10-16T21:14:00Z",
+    "verdict": {
+     "verdict": "check",
+     "identifiers_found": [],
+     "conflicts": [],
+     "reason": "Same HABA rattle; batch code not shown."
+    },
+    "human_verified": false
+   }
+  ]
+ },
+ "26739": {
+  "recall_number": "26739",
+  "placeholder": true,
+  "listings": [
+   {
+    "listing_id": "ebay:placeholder-26739-1",
+    "source": "ebay",
+    "title": "Skip Hop Sesame Street Elmo Silicone Teether w/ Crayon Box NWT",
+    "subtitle": null,
+    "condition": "Pre-Owned",
+    "price": "$105.00",
+    "link": "https://www.ebay.com/sch/i.html?_nkw=Skip%20Hop%20Sesame%20Street%20Elmo%20Silicone%20Teether%20w%2F%20Crayon%20Box%20NWT",
+    "thumbnail": null,
+    "seller_hash": "s_2c9b4e",
+    "item_specifics": {},
+    "query": "Skip Hop Baby Sesame Street Elmo Silicone Teethers",
+    "recall_number": "26739",
+    "fetched_at": "2026-10-16T21:14:00Z",
+    "verdict": {
+     "verdict": "match",
+     "identifiers_found": [
+      "Elmo Silicone Teether"
+     ],
+     "conflicts": [],
+     "reason": "Skip Hop Elmo silicone teether; recall covers all units of this product."
+    },
+    "human_verified": true
+   },
+   {
+    "listing_id": "ebay:placeholder-26739-2",
+    "source": "ebay",
+    "title": "Skip Hop Baby Teether Lot — Elmo, Cookie Monster",
+    "subtitle": null,
+    "condition": "New (Other)",
+    "price": "$57.07",
+    "link": "https://www.ebay.com/sch/i.html?_nkw=Skip%20Hop%20Baby%20Teether%20Lot%20%E2%80%94%20Elmo%2C%20Cookie%20Monster",
+    "thumbnail": null,
+    "seller_hash": "s_a8f8c7",
+    "item_specifics": {},
+    "query": "Skip Hop Baby Sesame Street Elmo Silicone Teethers",
+    "recall_number": "26739",
+    "fetched_at": "2026-10-16T21:14:00Z",
+    "verdict": {
+     "verdict": "check",
+     "identifiers_found": [],
+     "conflicts": [],
+     "reason": "Bundle includes an Elmo teether; can't tell if it's the silicone face teether. Check the red tag for 9R263210."
+    },
+    "human_verified": false
+   },
+   {
+    "listing_id": "ebay:placeholder-26739-3",
+    "source": "ebay",
+    "title": "Skip Hop Zoo Teether Owl Silicone",
+    "subtitle": null,
+    "condition": "Brand New",
+    "price": "$30.66",
+    "link": "https://www.ebay.com/sch/i.html?_nkw=Skip%20Hop%20Zoo%20Teether%20Owl%20Silicone",
+    "thumbnail": null,
+    "seller_hash": "s_da00a1",
+    "item_specifics": {},
+    "query": "Skip Hop Baby Sesame Street Elmo Silicone Teethers",
+    "recall_number": "26739",
+    "fetched_at": "2026-10-16T21:14:00Z",
+    "verdict": {
+     "verdict": "no_match",
+     "identifiers_found": [],
+     "conflicts": [],
+     "reason": "Different Skip Hop product line (Zoo), not the Elmo teether."
+    },
+    "human_verified": false
+   }
+  ]
+ },
+ "26780": {
+  "recall_number": "26780",
+  "placeholder": true,
+  "listings": [
+   {
+    "listing_id": "ebay:placeholder-26780-1",
+    "source": "ebay",
+    "title": "Melissa & Doug Lights and Sound Fire Truck Activity Board",
+    "subtitle": null,
+    "condition": "Pre-Owned",
+    "price": "$64.00",
+    "link": "https://www.ebay.com/sch/i.html?_nkw=Melissa%20%26%20Doug%20Lights%20and%20Sound%20Fire%20Truck%20Activity%20Board",
+    "thumbnail": null,
+    "seller_hash": "s_75b358",
+    "item_specifics": {},
+    "query": "Melissa & Doug Lights & Sounds Fire Truck Activity Board",
+    "recall_number": "26780",
+    "fetched_at": "2026-10-16T21:14:00Z",
+    "verdict": {
+     "verdict": "check",
+     "identifiers_found": [],
+     "conflicts": [],
+     "reason": "Same toy; recall is limited to certain date wheels. Check the battery box."
+    },
+    "human_verified": false
+   },
+   {
+    "listing_id": "ebay:placeholder-26780-2",
+    "source": "ebay",
+    "title": "Melissa & Doug Fire Truck Busy Board OET 25150 Target",
+    "subtitle": null,
+    "condition": "Pre-Owned",
+    "price": "$24.56",
+    "link": "https://www.ebay.com/sch/i.html?_nkw=Melissa%20%26%20Doug%20Fire%20Truck%20Busy%20Board%20OET%2025150%20Target",
+    "thumbnail": null,
+    "seller_hash": "s_20e4bd",
+    "item_specifics": {},
+    "query": "Melissa & Doug Lights & Sounds Fire Truck Activity Board",
+    "recall_number": "26780",
+    "fetched_at": "2026-10-16T21:14:00Z",
+    "verdict": {
+     "verdict": "match",
+     "identifiers_found": [
+      "OET 25150"
+     ],
+     "conflicts": [],
+     "reason": "Recalled date code OET 25150 named in the title."
+    },
+    "human_verified": false
+   },
+   {
+    "listing_id": "ebay:placeholder-26780-3",
+    "source": "ebay",
+    "title": "Melissa & Doug Wooden Fire Truck Puzzle",
+    "subtitle": null,
+    "condition": "Open box",
+    "price": "$104.75",
+    "link": "https://www.ebay.com/sch/i.html?_nkw=Melissa%20%26%20Doug%20Wooden%20Fire%20Truck%20Puzzle",
+    "thumbnail": null,
+    "seller_hash": "s_d2dd8b",
+    "item_specifics": {},
+    "query": "Melissa & Doug Lights & Sounds Fire Truck Activity Board",
+    "recall_number": "26780",
+    "fetched_at": "2026-10-16T21:14:00Z",
+    "verdict": {
+     "verdict": "no_match",
+     "identifiers_found": [],
+     "conflicts": [],
+     "reason": "Different Melissa & Doug product (wooden puzzle)."
+    },
+    "human_verified": false
+   }
+  ]
+ },
+ "26798": {
+  "recall_number": "26798",
+  "placeholder": true,
+  "listings": [
+   {
+    "listing_id": "ebay:placeholder-26798-1",
+    "source": "ebay",
+    "title": "Love to Dream Portable Sleep Machine LTD-SM23 Night Light",
+    "subtitle": null,
+    "condition": "Open box",
+    "price": "$142.74",
+    "link": "https://www.ebay.com/sch/i.html?_nkw=Love%20to%20Dream%20Portable%20Sleep%20Machine%20LTD-SM23%20Night%20Light",
+    "thumbnail": null,
+    "seller_hash": "s_abcc91",
+    "item_specifics": {},
+    "query": "Love To Dream Portable Sleep Machines with Night Light model number LTD-SM23 and",
+    "recall_number": "26798",
+    "fetched_at": "2026-10-16T21:14:00Z",
+    "verdict": {
+     "verdict": "check",
+     "identifiers_found": [
+      "LTD-SM23"
+     ],
+     "conflicts": [],
+     "reason": "Model LTD-SM23 named, but recall also needs date code 7W15TN."
+    },
+    "human_verified": false
+   },
+   {
+    "listing_id": "ebay:placeholder-26798-2",
+    "source": "ebay",
+    "title": "Love To Dream Swaddle Up Original Size M",
+    "subtitle": null,
+    "condition": "Pre-Owned",
+    "price": "$128.27",
+    "link": "https://www.ebay.com/sch/i.html?_nkw=Love%20To%20Dream%20Swaddle%20Up%20Original%20Size%20M",
+    "thumbnail": null,
+    "seller_hash": "s_295cc0",
+    "item_specifics": {},
+    "query": "Love To Dream Portable Sleep Machines with Night Light model number LTD-SM23 and",
+    "recall_number": "26798",
+    "fetched_at": "2026-10-16T21:14:00Z",
+    "verdict": {
+     "verdict": "no_match",
+     "identifiers_found": [],
+     "conflicts": [],
+     "reason": "Different Love to Dream product (swaddle)."
+    },
+    "human_verified": false
+   }
+  ]
+ },
+ "27018": {
+  "recall_number": "27018",
+  "placeholder": true,
+  "listings": [
+   {
+    "listing_id": "ebay:placeholder-27018-1",
+    "source": "ebay",
+    "title": "ONTHEWEI Baby Bath Seat Suction Cups Gray MY002",
+    "subtitle": null,
+    "condition": "Pre-Owned",
+    "price": "$14.96",
+    "link": "https://www.ebay.com/sch/i.html?_nkw=ONTHEWEI%20Baby%20Bath%20Seat%20Suction%20Cups%20Gray%20MY002",
+    "thumbnail": null,
+    "seller_hash": "s_4e1adc",
+    "item_specifics": {},
+    "query": "ONTHEWEI ONTHEWEI Baby Bath Seats",
+    "recall_number": "27018",
+    "fetched_at": "2026-10-16T21:14:00Z",
+    "verdict": {
+     "verdict": "match",
+     "identifiers_found": [
+      "MY002"
+     ],
+     "conflicts": [],
+     "reason": "ONTHEWEI bath seat, recalled model MY002."
+    },
+    "human_verified": true
+   },
+   {
+    "listing_id": "ebay:placeholder-27018-2",
+    "source": "ebay",
+    "title": "Baby Bath Seat with Suction Cups & Backrest, Mist Green",
+    "subtitle": null,
+    "condition": "Brand New",
+    "price": "$88.30",
+    "link": "https://www.ebay.com/sch/i.html?_nkw=Baby%20Bath%20Seat%20with%20Suction%20Cups%20%26%20Backrest%2C%20Mist%20Green",
+    "thumbnail": null,
+    "seller_hash": "s_f98b47",
+    "item_specifics": {},
+    "query": "ONTHEWEI ONTHEWEI Baby Bath Seats",
+    "recall_number": "27018",
+    "fetched_at": "2026-10-16T21:14:00Z",
+    "verdict": {
+     "verdict": "check",
+     "identifiers_found": [],
+     "conflicts": [],
+     "reason": "Matches the recalled design and colour; brand not shown."
+    },
+    "human_verified": false
+   }
+  ]
+ },
+ "27024": {
+  "recall_number": "27024",
+  "placeholder": true,
+  "listings": [
+   {
+    "listing_id": "ebay:placeholder-27024-1",
+    "source": "ebay",
+    "title": "Scotch Thermal Laminator TL1302Z 13 inch",
+    "subtitle": null,
+    "condition": "Open box",
+    "price": "$89.51",
+    "link": "https://www.ebay.com/sch/i.html?_nkw=Scotch%20Thermal%20Laminator%20TL1302Z%2013%20inch",
+    "thumbnail": null,
+    "seller_hash": "s_c85dd7",
+    "item_specifics": {},
+    "query": "3M Scotch Thermal Laminators",
+    "recall_number": "27024",
+    "fetched_at": "2026-10-16T21:14:00Z",
+    "verdict": {
+     "verdict": "match",
+     "identifiers_found": [
+      "TL1302Z"
+     ],
+     "conflicts": [],
+     "reason": "Scotch laminator, model TL1302Z in title."
+    },
+    "human_verified": true
+   },
+   {
+    "listing_id": "ebay:placeholder-27024-2",
+    "source": "ebay",
+    "title": "Scotch TL901X Thermal Laminator 9\"",
+    "subtitle": null,
+    "condition": "New (Other)",
+    "price": "$106.28",
+    "link": "https://www.ebay.com/sch/i.html?_nkw=Scotch%20TL901X%20Thermal%20Laminator%209%22",
+    "thumbnail": null,
+    "seller_hash": "s_9e5db3",
+    "item_specifics": {},
+    "query": "3M Scotch Thermal Laminators",
+    "recall_number": "27024",
+    "fetched_at": "2026-10-16T21:14:00Z",
+    "verdict": {
+     "verdict": "no_match",
+     "identifiers_found": [],
+     "conflicts": [],
+     "reason": "Different Scotch model (TL901X), not covered."
+    },
+    "human_verified": false
+   }
+  ]
+ },
+ "27027": {
+  "recall_number": "27027",
+  "placeholder": true,
+  "listings": [
+   {
+    "listing_id": "ebay:placeholder-27027-1",
+    "source": "ebay",
+    "title": "Papablic Bedside Sleeper Bassinet Play Yard Gray Stars Moon PAPA03001AI",
+    "subtitle": null,
+    "condition": "Pre-Owned",
+    "price": "$46.99",
+    "link": "https://www.ebay.com/sch/i.html?_nkw=Papablic%20Bedside%20Sleeper%20Bassinet%20Play%20Yard%20Gray%20Stars%20Moon%20PAPA03001AI",
+    "thumbnail": null,
+    "seller_hash": "s_770891",
+    "item_specifics": {},
+    "query": "Papablic Papablic Bedside Sleepers with Play Yard Extensions",
+    "recall_number": "27027",
+    "fetched_at": "2026-10-16T21:14:00Z",
+    "verdict": {
+     "verdict": "match",
+     "identifiers_found": [
+      "PAPA03001AI"
+     ],
+     "conflicts": [],
+     "reason": "Papablic bedside sleeper, recalled model PAPA03001AI in the title."
+    },
+    "human_verified": true
+   },
+   {
+    "listing_id": "ebay:placeholder-27027-2",
+    "source": "ebay",
+    "title": "Papablic 3-in-1 Bassinet Bedside Sleeper Gray — gently used",
+    "subtitle": null,
+    "condition": "Brand New",
+    "price": "$65.71",
+    "link": "https://www.ebay.com/sch/i.html?_nkw=Papablic%203-in-1%20Bassinet%20Bedside%20Sleeper%20Gray%20%E2%80%94%20gently%20used",
+    "thumbnail": null,
+    "seller_hash": "s_dd7265",
+    "item_specifics": {},
+    "query": "Papablic Papablic Bedside Sleepers with Play Yard Extensions",
+    "recall_number": "27027",
+    "fetched_at": "2026-10-16T21:14:00Z",
+    "verdict": {
+     "verdict": "check",
+     "identifiers_found": [],
+     "conflicts": [],
+     "reason": "Same Papablic bedside sleeper line; model label not shown. Check the label under the mattress pad."
+    },
+    "human_verified": false
+   },
+   {
+    "listing_id": "ebay:placeholder-27027-3",
+    "source": "ebay",
+    "title": "Bedside Sleeper Bassinet Gray Moon & Stars Print, No Brand",
+    "subtitle": null,
+    "condition": "Pre-Owned",
+    "price": "$50.18",
+    "link": "https://www.ebay.com/sch/i.html?_nkw=Bedside%20Sleeper%20Bassinet%20Gray%20Moon%20%26%20Stars%20Print%2C%20No%20Brand",
+    "thumbnail": null,
+    "seller_hash": "s_7182b5",
+    "item_specifics": {},
+    "query": "Papablic Papablic Bedside Sleepers with Play Yard Extensions",
+    "recall_number": "27027",
+    "fetched_at": "2026-10-16T21:14:00Z",
+    "verdict": {
+     "verdict": "check",
+     "identifiers_found": [],
+     "conflicts": [],
+     "reason": "Matches the recalled pattern and colour but no brand or model visible."
+    },
+    "human_verified": false
+   },
+   {
+    "listing_id": "ebay:placeholder-27027-4",
+    "source": "ebay",
+    "title": "Papablic Bassinet Mattress Pad Replacement Sheet",
+    "subtitle": null,
+    "condition": "New (Other)",
+    "price": "$11.15",
+    "link": "https://www.ebay.com/sch/i.html?_nkw=Papablic%20Bassinet%20Mattress%20Pad%20Replacement%20Sheet",
+    "thumbnail": null,
+    "seller_hash": "s_933a1f",
+    "item_specifics": {},
+    "query": "Papablic Papablic Bedside Sleepers with Play Yard Extensions",
+    "recall_number": "27027",
+    "fetched_at": "2026-10-16T21:14:00Z",
+    "verdict": {
+     "verdict": "no_match",
+     "identifiers_found": [],
+     "conflicts": [],
+     "reason": "Accessory only (sheet), not the sleeper."
+    },
+    "human_verified": false
+   }
+  ]
+ }
+}

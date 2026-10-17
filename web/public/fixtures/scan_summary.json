@@ -1,0 +1,1404 @@
+{
+ "placeholder": true,
+ "note": "Placeholder numbers shaped like the real scan. Real counts arrive from ml/results/scan_summary.json.",
+ "recalls_scanned": 151,
+ "searches_spent": 302,
+ "listings_seen": 4143,
+ "flagged_match": 49,
+ "flagged_check": 105,
+ "human_verified_match": 30,
+ "childrens_flagged": 66,
+ "by_recall": [
+  {
+   "recall_number": "26674",
+   "title": "Vanderhall North America Recalls Brawley GTS Electric Recreational Off Highway Vehicles (ROVs) Due to Risk of Serious Injury or Death from Crash Hazard",
+   "is_childrens": false,
+   "listings": 23,
+   "match": 2,
+   "check": 4,
+   "examples": []
+  },
+  {
+   "recall_number": "26733",
+   "title": "Adult Portable Bed Rails Recalled Due to Risk of Serious Injury or Death from Entrapment and Asphyxiation; Violate Mandatory Standard for Adult Portable Bed Rails; Sold on Amazon by Loyoda Direct and Loyoda",
+   "is_childrens": false,
+   "listings": 13,
+   "match": 2,
+   "check": 4,
+   "examples": []
+  },
+  {
+   "recall_number": "27027",
+   "title": "Papablic, of USA Recalls Convertible Bedside Sleepers Due to Risk of Serious Injury or Death from Entrapment, Suffocation and Fall Hazards; Violate Mandatory Standard for Play Yards",
+   "is_childrens": true,
+   "listings": 62,
+   "match": 2,
+   "check": 3,
+   "examples": [
+    "ebay:placeholder-27027-1",
+    "ebay:placeholder-27027-2",
+    "ebay:placeholder-27027-3",
+    "ebay:placeholder-27027-4"
+   ]
+  },
+  {
+   "recall_number": "26639",
+   "title": "Peony Design Recalls Personalized Baby Bibs and Stroller Bags Due to Risk of Serious Injury or Death from Choking Hazard",
+   "is_childrens": true,
+   "listings": 55,
+   "match": 2,
+   "check": 3,
+   "examples": []
+  },
+  {
+   "recall_number": "26753",
+   "title": "SQT Recalls Lontcs Busy Boards Due to Risk of Serious Injury from Lead Poisoning; Violate Federal Lead Paint Ban",
+   "is_childrens": true,
+   "listings": 54,
+   "match": 2,
+   "check": 3,
+   "examples": []
+  },
+  {
+   "recall_number": "26717",
+   "title": "Conair Expands Recall of Cuisinart Grill Brushes Due to Ingestion Hazard; Over 3.6 Million Brushes Now Recalled",
+   "is_childrens": false,
+   "listings": 31,
+   "match": 2,
+   "check": 3,
+   "examples": []
+  },
+  {
+   "recall_number": "26637",
+   "title": "OeyUoc Pool Drain Covers Recalled Due to Risk of Serious Injury or Death from Entrapment and Drowning Hazards; Violate Virginia Graeme Baker Pool & Spa Safety Act; Sold Exclusively on Amazon by Yuanxinxiang",
+   "is_childrens": false,
+   "listings": 23,
+   "match": 2,
+   "check": 3,
+   "examples": []
+  },
+  {
+   "recall_number": "26656",
+   "title": "Mommy's Baby Lovely Deluxe Baby Doll Playsets Recalled Due to Risk of Serious Injury or Death from Choking Hazard; Violate Small Parts Ban; Sold on Temu by TOYHW",
+   "is_childrens": true,
+   "listings": 69,
+   "match": 2,
+   "check": 2,
+   "examples": []
+  },
+  {
+   "recall_number": "26719",
+   "title": "HABA USA Recalls Rainbow Rattle Grasping and Teething Toys Due to Risk of Serious Injury or Death from Choking and Ingestion Hazards",
+   "is_childrens": true,
+   "listings": 55,
+   "match": 2,
+   "check": 1,
+   "examples": [
+    "ebay:placeholder-26719-1",
+    "ebay:placeholder-26719-2"
+   ]
+  },
+  {
+   "recall_number": "27018",
+   "title": "ONTHEWEI Recalls Baby Bath Seats Due to Risk of Serious Injury or Death to Children from Drowning; Violate Mandatory Standard for Infant Bath Seats",
+   "is_childrens": true,
+   "listings": 34,
+   "match": 2,
+   "check": 1,
+   "examples": [
+    "ebay:placeholder-27018-1",
+    "ebay:placeholder-27018-2"
+   ]
+  },
+  {
+   "recall_number": "26796",
+   "title": "Style Homeware Recalls Emerspring Mattresses Due to Risk of Serious Injury or Death from Fire Hazard; Violate Mandatory Standard for Mattress Flammability",
+   "is_childrens": false,
+   "listings": 18,
+   "match": 2,
+   "check": 1,
+   "examples": []
+  },
+  {
+   "recall_number": "26688",
+   "title": "Taleco Gear Recalls Baby Jumpers, Baby Swings and 2-in-1 Baby Jumper & Swings Due to Risk of Serious Injury or Death from Fall and Strangulation Hazards",
+   "is_childrens": true,
+   "listings": 49,
+   "match": 2,
+   "check": 0,
+   "examples": [
+    "ebay:placeholder-26688-1",
+    "ebay:placeholder-26688-2",
+    "ebay:placeholder-26688-3"
+   ]
+  },
+  {
+   "recall_number": "26786",
+   "title": "Toyworld168 Recalls Rainbow Mystery Squishy Bun Toys Due to Risk of Serious Injury or Death from Water Bead Ingestion; Violate Mandatory Standard for Toys",
+   "is_childrens": true,
+   "listings": 25,
+   "match": 2,
+   "check": 0,
+   "examples": []
+  },
+  {
+   "recall_number": "26723",
+   "title": "Steelite Pressure Washers Recalled Due to Risk of Serious Injury or Death from Shock and Electrocution Hazards; Sold on Amazon by Longer 3D",
+   "is_childrens": false,
+   "listings": 24,
+   "match": 2,
+   "check": 0,
+   "examples": []
+  },
+  {
+   "recall_number": "26673",
+   "title": "KC Imports and Exports Recalls Mini Laser Pointer Keychains Due to Risk of Serious Injury or Death from Battery Ingestion; Violate Mandatory Standard for Consumer Products with Button Cell Batteries",
+   "is_childrens": false,
+   "listings": 15,
+   "match": 2,
+   "check": 0,
+   "examples": []
+  },
+  {
+   "recall_number": "26725",
+   "title": "Pressure Washers Recalled Due to Serious Risk of Injury or Death from Shock and Electrocution Hazards; Sold on Amazon by YERYORK",
+   "is_childrens": false,
+   "listings": 14,
+   "match": 2,
+   "check": 0,
+   "examples": []
+  },
+  {
+   "recall_number": "26774",
+   "title": "Colerinsec Recalls Jerify Magnetic Stick Figure Toy Sets Due to Risk of Serious Injury or Death from Magnet Ingestion; Violate Mandatory Standard for Toys",
+   "is_childrens": true,
+   "listings": 28,
+   "match": 1,
+   "check": 4,
+   "examples": []
+  },
+  {
+   "recall_number": "26651",
+   "title": "HARPPA Recalls Nordi Toddler Tower Stools Due to Risk of Serious Injury and Death from Entrapment and Fall Hazards",
+   "is_childrens": true,
+   "listings": 48,
+   "match": 1,
+   "check": 3,
+   "examples": [
+    "ebay:placeholder-26651-1"
+   ]
+  },
+  {
+   "recall_number": "26695",
+   "title": "Mattresses Recalled Due to Risk of Serious Injury or Death from Fire Hazard; Violate Mandatory Standard for Mattress Flammability; Sold on Amazon by Qabefy",
+   "is_childrens": false,
+   "listings": 20,
+   "match": 1,
+   "check": 3,
+   "examples": []
+  },
+  {
+   "recall_number": "26777",
+   "title": "Hayward Industries Recalls Universal Pool Heaters Due to Risk of Serious Injury or Death from Carbon Monoxide Poisoning Hazard.",
+   "is_childrens": false,
+   "listings": 9,
+   "match": 1,
+   "check": 3,
+   "examples": []
+  },
+  {
+   "recall_number": "26739",
+   "title": "Skip Hop Recalls Baby Sesame Street Elmo Silicone Teethers Due to Risk of Serious Injury or Death from Choking Hazard",
+   "is_childrens": true,
+   "listings": 16,
+   "match": 1,
+   "check": 2,
+   "examples": [
+    "ebay:placeholder-26739-1",
+    "ebay:placeholder-26739-2",
+    "ebay:placeholder-26739-3"
+   ]
+  },
+  {
+   "recall_number": "26749",
+   "title": "Victgoal Recalls Bicycle Helmets Due to Risk of Serious Injury or Death from Head Injury; Violate Mandatory Standard for Bicycle Helmets",
+   "is_childrens": false,
+   "listings": 4,
+   "match": 1,
+   "check": 2,
+   "examples": []
+  },
+  {
+   "recall_number": "26780",
+   "title": "Melissa & Doug Recalls Fire Truck Activity Board Toys Due to Risk of Serious Injury from Choking Hazard; Sold Exclusively at Target",
+   "is_childrens": true,
+   "listings": 38,
+   "match": 1,
+   "check": 1,
+   "examples": [
+    "ebay:placeholder-26780-1",
+    "ebay:placeholder-26780-2",
+    "ebay:placeholder-26780-3"
+   ]
+  },
+  {
+   "recall_number": "26776",
+   "title": "Friedrich Air Conditioning Recalls KÜHL Window Air Conditioners Due to Risk of Serious Injury or Death from Fire and Burn Hazards",
+   "is_childrens": false,
+   "listings": 31,
+   "match": 1,
+   "check": 1,
+   "examples": []
+  },
+  {
+   "recall_number": "27019",
+   "title": "Pacearth Direct Recalls PACEARTH Swing Seats Due to Risk of Serious Injury from Fall Hazard",
+   "is_childrens": false,
+   "listings": 18,
+   "match": 1,
+   "check": 1,
+   "examples": []
+  },
+  {
+   "recall_number": "27024",
+   "title": "3M Company Recalls Scotch Thermal Laminators Due to Risk of Serious Injury or Death from Fire Hazard",
+   "is_childrens": false,
+   "listings": 12,
+   "match": 1,
+   "check": 1,
+   "examples": [
+    "ebay:placeholder-27024-1",
+    "ebay:placeholder-27024-2"
+   ]
+  },
+  {
+   "recall_number": "26789",
+   "title": "5Color Recalls Children’s Bicycle Helmet and Pads Sets Due to Risk of Serious Injury or Death from Head Injury; Violate Mandatory Standard for Bicycle Helmets",
+   "is_childrens": true,
+   "listings": 67,
+   "match": 1,
+   "check": 0,
+   "examples": []
+  },
+  {
+   "recall_number": "26669",
+   "title": "Play Yard and Crib Mattresses Recalled Due to Risk of Serious Injury or Death from Entrapment and Fire Hazards; Violate Mandatory Standards for Mattresses; Sold on Amazon by Voomf",
+   "is_childrens": true,
+   "listings": 51,
+   "match": 1,
+   "check": 0,
+   "examples": []
+  },
+  {
+   "recall_number": "26657",
+   "title": "Recall of Cpzzkq Baby Loungers Expanded Due to Risk Serious Injury or Death from Suffocation Hazard; Violate Mandatory Standard for Infant Support Cushions; Sold on Amazon by CetoPMax",
+   "is_childrens": true,
+   "listings": 44,
+   "match": 1,
+   "check": 0,
+   "examples": []
+  },
+  {
+   "recall_number": "27006",
+   "title": "LLK Trading Recalls Mochi Malrang Mystery Dumpling Toys Due to Risk of Serious Injury or Death from Water Bead Ingestion; Violate Mandatory Standard for Toys",
+   "is_childrens": true,
+   "listings": 35,
+   "match": 1,
+   "check": 0,
+   "examples": []
+  },
+  {
+   "recall_number": "26696",
+   "title": "Ritchey Design Recalls Carbon Bicycle Forks Due to Risk of Serious Injury or Death from Fall and Crash Hazards",
+   "is_childrens": false,
+   "listings": 14,
+   "match": 1,
+   "check": 0,
+   "examples": []
+  },
+  {
+   "recall_number": "26712",
+   "title": "Goal Zero Recalls YETI 3000X Power Stations Due to Serious Risk of Injury from Fire and Burn Hazards",
+   "is_childrens": false,
+   "listings": 11,
+   "match": 1,
+   "check": 0,
+   "examples": []
+  },
+  {
+   "recall_number": "26655",
+   "title": "Mangohood Direct Kids Kitchen Standing Towers Recalled Due to Risk of Serious Injury and Death from Entrapment and Fall Hazards; Imported by Hangzhou Xinyanchuangxin",
+   "is_childrens": true,
+   "listings": 10,
+   "match": 1,
+   "check": 0,
+   "examples": []
+  },
+  {
+   "recall_number": "26738",
+   "title": "GIHNJSI Squeezy Dumplings Toys Recalled Due to Serious Ingestion, Choking and Obstruction Hazards; Sold on Amazon by Chenyuanhui",
+   "is_childrens": true,
+   "listings": 29,
+   "match": 0,
+   "check": 4,
+   "examples": []
+  },
+  {
+   "recall_number": "26798",
+   "title": "Love To Dream Recalls Portable Sleep Machines Due to Risk of Injury from Fire and Burn Hazards",
+   "is_childrens": true,
+   "listings": 43,
+   "match": 0,
+   "check": 3,
+   "examples": [
+    "ebay:placeholder-26798-1",
+    "ebay:placeholder-26798-2"
+   ]
+  },
+  {
+   "recall_number": "27010",
+   "title": "Walmart Recalls Over 4.4 Million Expert Grill Brushes Due to Ingestion Hazard",
+   "is_childrens": false,
+   "listings": 39,
+   "match": 0,
+   "check": 3,
+   "examples": []
+  },
+  {
+   "recall_number": "26791",
+   "title": "The Blue Cactus Company Reclining Chair Battery Packs Recalled Due to Fire and Burn Hazards; Sold on Amazon",
+   "is_childrens": false,
+   "listings": 36,
+   "match": 0,
+   "check": 3,
+   "examples": []
+  },
+  {
+   "recall_number": "26735",
+   "title": "Branch Recalls Ergonomic Chairs Due to Fall Hazard",
+   "is_childrens": false,
+   "listings": 19,
+   "match": 0,
+   "check": 3,
+   "examples": []
+  },
+  {
+   "recall_number": "26653",
+   "title": "Jake's Fireworks Recalls World Class Fireworks \"Skull Strobe\" Rockets Due to Risk of Serious Injury from Explosion and Burn Hazards",
+   "is_childrens": false,
+   "listings": 15,
+   "match": 0,
+   "check": 3,
+   "examples": []
+  },
+  {
+   "recall_number": "26668",
+   "title": "Liuqibax Adult Bed Rails Recalled Due to Risk of Serious Injury or Death from Entrapment and Asphyxiation; Violate Mandatory Standard for Adult Portable Bed Rails; Sold on Amazon by Luqiba",
+   "is_childrens": false,
+   "listings": 4,
+   "match": 0,
+   "check": 3,
+   "examples": []
+  },
+  {
+   "recall_number": "26782",
+   "title": "SHEIN Distribution Corporation Recalls Pull and Chew Montessori Teething Toys Due to Risk of Serious Injury or Death from Choking Hazard; Violate Mandatory Standard for Toys",
+   "is_childrens": true,
+   "listings": 63,
+   "match": 0,
+   "check": 2,
+   "examples": []
+  },
+  {
+   "recall_number": "26662",
+   "title": "OKK Trading Recalls Easter LED Headbands Due to Risk of Serious Injury or Death from Battery Ingestion; Violate Mandatory Standard for Toys",
+   "is_childrens": true,
+   "listings": 44,
+   "match": 0,
+   "check": 2,
+   "examples": []
+  },
+  {
+   "recall_number": "27009",
+   "title": "Gobi Heat Recalls Rechargeable Hand Warmers Due to Risk of Serious Injury from Fire and Burn Hazards",
+   "is_childrens": false,
+   "listings": 39,
+   "match": 0,
+   "check": 2,
+   "examples": []
+  },
+  {
+   "recall_number": "27025",
+   "title": "HatsanUSA Recalls Blitz Air Rifles Due to Risk of Serious Injury or Death from Projectile Hazard",
+   "is_childrens": false,
+   "listings": 35,
+   "match": 0,
+   "check": 2,
+   "examples": []
+  },
+  {
+   "recall_number": "27013",
+   "title": "Golden Resale Recalls Portable Camping Showers Due to Risk of Serious Injury or Death from Fire Hazard",
+   "is_childrens": false,
+   "listings": 32,
+   "match": 0,
+   "check": 2,
+   "examples": []
+  },
+  {
+   "recall_number": "26633",
+   "title": "EnHomee 9-Drawer Fabric Dressers Recalled Due to Risk of Serious Injury or Death from Tip-Over and Entrapment Hazards; Violates Mandatory Standard for Clothing Storage Units; Sold on Walmart.com by Raybee-Direct",
+   "is_childrens": false,
+   "listings": 26,
+   "match": 0,
+   "check": 2,
+   "examples": []
+  },
+  {
+   "recall_number": "26737",
+   "title": "OKK Trading Recalls Rainbow Mystery Squishy Bun Toys Due to Risk of Serious Injury or Death from Water Bead Ingestion; Violate Mandatory Standard for Toys",
+   "is_childrens": true,
+   "listings": 5,
+   "match": 0,
+   "check": 2,
+   "examples": []
+  },
+  {
+   "recall_number": "27017",
+   "title": "Decathlon America Recalls Van Rysel GRVL AF Bicycles Due to Risk of Serious Injury or Death from Crash Hazard",
+   "is_childrens": false,
+   "listings": 4,
+   "match": 0,
+   "check": 2,
+   "examples": []
+  },
+  {
+   "recall_number": "26730",
+   "title": "Nanjing Wu Hai Smart Home Appliance Store Recalls Alanca 6-Drawer Dressers Due to Risk of Serious Injury or Death from Tip-Over and Entrapment Hazards; Violate Mandatory Standard for Clothing Storage Units",
+   "is_childrens": false,
+   "listings": 2,
+   "match": 0,
+   "check": 2,
+   "examples": []
+  },
+  {
+   "recall_number": "26727",
+   "title": "Montessori Baby Toy Sets Recalled Due to Risk of Serious Injury or Death from Choking; Violate Mandatory Standard for Toys; Sold on Amazon by Chillife Official",
+   "is_childrens": true,
+   "listings": 2,
+   "match": 0,
+   "check": 2,
+   "examples": []
+  },
+  {
+   "recall_number": "26632",
+   "title": "Trsmima Zipline Kits and Zipline Spring Brakes Recalled Due to Fall and Collision Hazards; Manufactured by Trsmima",
+   "is_childrens": false,
+   "listings": 2,
+   "match": 0,
+   "check": 2,
+   "examples": []
+  },
+  {
+   "recall_number": "27028",
+   "title": "Primark Recalls 101 Dalmatians Faux Leather Children’s Coin Purses Due to Phthalate Levels and Risk of Ingestion",
+   "is_childrens": true,
+   "listings": 52,
+   "match": 0,
+   "check": 1,
+   "examples": []
+  },
+  {
+   "recall_number": "27022",
+   "title": "The Conqueror Recalls Avengers Medals Due to Risk of Serious Injury or Death from Magnet Ingestion; Violate Mandatory Standard for Magnets",
+   "is_childrens": true,
+   "listings": 42,
+   "match": 0,
+   "check": 1,
+   "examples": []
+  },
+  {
+   "recall_number": "26692",
+   "title": "COMMOWNER Pressure Washers Recalled Due to Serious Risk of Injury or Death from Shock and Electrocution Hazards; Imported by AZ Home Concept",
+   "is_childrens": false,
+   "listings": 39,
+   "match": 0,
+   "check": 1,
+   "examples": []
+  },
+  {
+   "recall_number": "26685",
+   "title": "Cooluli Recalls 10-Liter and 15-Liter Minifridges Due to Fire and Burn Hazards",
+   "is_childrens": false,
+   "listings": 38,
+   "match": 0,
+   "check": 1,
+   "examples": []
+  },
+  {
+   "recall_number": "26650",
+   "title": "Golden Link Recalls Fantastic Four Cups and Captain America Popcorn Helmet Containers with LED Lights Due to Risk of Serious Injury or Death from Battery Ingestion Hazard; Violate Mandatory Standard for Consumer Products with Button Cell Batteries",
+   "is_childrens": false,
+   "listings": 38,
+   "match": 0,
+   "check": 1,
+   "examples": []
+  },
+  {
+   "recall_number": "26720",
+   "title": "AudioLineOut Recalls Studio Six Headphone Amplifiers Due to Risk of Serious Injury or Death from Electrocution Hazard",
+   "is_childrens": false,
+   "listings": 35,
+   "match": 0,
+   "check": 1,
+   "examples": []
+  },
+  {
+   "recall_number": "26718",
+   "title": "Diamond Wipes International Recalls MD Wipe Outz Numbing Tattoo Wipes Due to Risk of Serious Injury or Death from Child Poisoning; Violate Mandatory Standard for Child-Resistant Packaging",
+   "is_childrens": false,
+   "listings": 34,
+   "match": 0,
+   "check": 1,
+   "examples": []
+  },
+  {
+   "recall_number": "26755",
+   "title": "Prepared Hero Recalls Fire Spray Canisters Due to Risk of Serious Injury or Death from Fire and Burn Hazards",
+   "is_childrens": false,
+   "listings": 27,
+   "match": 0,
+   "check": 1,
+   "examples": []
+  },
+  {
+   "recall_number": "26740",
+   "title": "Truststone Group Recalls XO Poppy Power Trip Magnetic Wireless Power Banks Due to Fire and Burn Hazards; Sold Exclusively at TJX and Marshalls Stores",
+   "is_childrens": false,
+   "listings": 20,
+   "match": 0,
+   "check": 1,
+   "examples": []
+  },
+  {
+   "recall_number": "26667",
+   "title": "Magnetic Fidget Sliders Recalled Due to Risk of Serious Injury or Death from Magnet Ingestion; Violate Mandatory Standard for Toys; Sold on Amazon by PIXLABBY",
+   "is_childrens": true,
+   "listings": 5,
+   "match": 0,
+   "check": 1,
+   "examples": []
+  },
+  {
+   "recall_number": "26714",
+   "title": "Koorlian Mattresses Recalled Due to Risk of Serious Injury or Death from Fire Hazard; Violate Mandatory Standard for Mattress Flammability; Sold on Amazon by Dream Bedding Technology",
+   "is_childrens": false,
+   "listings": 3,
+   "match": 0,
+   "check": 1,
+   "examples": []
+  },
+  {
+   "recall_number": "26711",
+   "title": "Modine Manufacturing Company Recalls Airedale Heating and Cooling Ventilation Fans Due to Fire Hazard",
+   "is_childrens": false,
+   "listings": 1,
+   "match": 0,
+   "check": 1,
+   "examples": []
+  },
+  {
+   "recall_number": "26697",
+   "title": "Shengsen Prank Sound Makers Recalled Due to Risk of Serious Injury or Death from Battery Ingestion; Violate Mandatory Standard for Consumer Products with Coin Batteries; Imported by Shengsen Toys",
+   "is_childrens": true,
+   "listings": 69,
+   "match": 0,
+   "check": 0,
+   "examples": []
+  },
+  {
+   "recall_number": "26732",
+   "title": "SHEIN Distribution Corporation Recalls Spiral Toys Due to Risk of Serious Injury or Death from Choking Hazard; Violate Small Ball Ban",
+   "is_childrens": true,
+   "listings": 67,
+   "match": 0,
+   "check": 0,
+   "examples": []
+  },
+  {
+   "recall_number": "26752",
+   "title": "Sweet Cubby Recalls Children's Loungewear Sets Due to Risk of Serious Injury or Death from Burn Hazard; Violate Mandatory Standard for Children's Sleepwear",
+   "is_childrens": true,
+   "listings": 64,
+   "match": 0,
+   "check": 0,
+   "examples": []
+  },
+  {
+   "recall_number": "26766",
+   "title": "ZMC Group Expands Recall of Light-Up Children’s Toys Due to Risk of Serious Injury or Death from Battery Ingestion; Violate Mandatory Standard for Toys",
+   "is_childrens": true,
+   "listings": 59,
+   "match": 0,
+   "check": 0,
+   "examples": []
+  },
+  {
+   "recall_number": "26689",
+   "title": "TooyBing Wooden Bead Stacking Toys Recalled Due to Risk of Serious Injury or Death from Choking; Violate Small Parts Ban",
+   "is_childrens": true,
+   "listings": 59,
+   "match": 0,
+   "check": 0,
+   "examples": []
+  },
+  {
+   "recall_number": "27008",
+   "title": "GBYMIUY Recalls Magnetic Stick Figure Toy Sets Due to Risk of Serious Injury or Death from Magnet Ingestion; Violate Mandatory Standard for Toys",
+   "is_childrens": true,
+   "listings": 57,
+   "match": 0,
+   "check": 0,
+   "examples": []
+  },
+  {
+   "recall_number": "26638",
+   "title": "CuddleCubs Creations Teething Toy Sets Recalled Due to Risk of Serious Injury or Death from Choking; Violate Mandatory Standard for Toys; Sold on Amazon by YouRfocus",
+   "is_childrens": true,
+   "listings": 57,
+   "match": 0,
+   "check": 0,
+   "examples": []
+  },
+  {
+   "recall_number": "26761",
+   "title": "Cade California Electronic Recalls Finger Light Toys Due to Risk of Serious Injury or Death from Battery Ingestion; Violate Mandatory Standard for Toys",
+   "is_childrens": true,
+   "listings": 55,
+   "match": 0,
+   "check": 0,
+   "examples": []
+  },
+  {
+   "recall_number": "26658",
+   "title": "Woodure Toddler Kitchen Step Stools Recalled Due to Risk of Serious Injury and Death from Entrapment and Fall Hazards; Imported by Shenzhen Muqiqu Creative Development",
+   "is_childrens": true,
+   "listings": 48,
+   "match": 0,
+   "check": 0,
+   "examples": []
+  },
+  {
+   "recall_number": "26693",
+   "title": "Yamazuki Recalls Youth All-Terrain Vehicles (ATVs) Due to Risk of Serious Injury or Death from Crash Hazard; Violates Mandatory Standard for ATVs",
+   "is_childrens": true,
+   "listings": 46,
+   "match": 0,
+   "check": 0,
+   "examples": []
+  },
+  {
+   "recall_number": "26665",
+   "title": "Wnttmt Baby Walkers Recalled Due to Risk of Serious Injury or Death from Fall and Entrapment Hazards; Violate Mandatory Standard for Infant Walkers; Sold on Amazon by WURUI.BABY",
+   "is_childrens": true,
+   "listings": 45,
+   "match": 0,
+   "check": 0,
+   "examples": []
+  },
+  {
+   "recall_number": "26781",
+   "title": "Regfear Recalls BedsPick Mattresses Due to Risk of Serious Injury or Death from Fire; Violate Mandatory Flammability Standard for Mattresses",
+   "is_childrens": false,
+   "listings": 44,
+   "match": 0,
+   "check": 0,
+   "examples": []
+  },
+  {
+   "recall_number": "26659",
+   "title": "OCOOPA Direct Recalls 1.5 Million Rechargeable Hand Warmers Due to Risk of Serious Injury or Death from Fire and Burn Hazards; One Death Reported; Imported by Shenzhen Street Cat Technology",
+   "is_childrens": false,
+   "listings": 44,
+   "match": 0,
+   "check": 0,
+   "examples": []
+  },
+  {
+   "recall_number": "26670",
+   "title": "A2batt Recalls EEMB Lithium Coin Battery Chargers Due to Risk of Serious Injury or Death from Battery Ingestion; Violate Mandatory Standard for Consumer Products with Coin Batteries",
+   "is_childrens": false,
+   "listings": 43,
+   "match": 0,
+   "check": 0,
+   "examples": []
+  },
+  {
+   "recall_number": "26716",
+   "title": "CCM Hockey U.S. Recalls FMHVR Hybrid Visors and ACCHVR Replacement Visor Accessories Due to Risk of Injury from Laceration or Impact Hazards",
+   "is_childrens": false,
+   "listings": 42,
+   "match": 0,
+   "check": 0,
+   "examples": []
+  },
+  {
+   "recall_number": "26649",
+   "title": "Galanz Americas Recalls Retro Refrigerators Due to Risk of Serious Injury or Death from Fire and Burn Hazards; One Death Reported",
+   "is_childrens": false,
+   "listings": 42,
+   "match": 0,
+   "check": 0,
+   "examples": []
+  },
+  {
+   "recall_number": "27007",
+   "title": "Designs Direct Recalls Cupcakes and Cashmere Brand Three-Light Floor Lamps, Due to Risk of Serious Injury from Fire and Burn Hazards",
+   "is_childrens": false,
+   "listings": 41,
+   "match": 0,
+   "check": 0,
+   "examples": []
+  },
+  {
+   "recall_number": "26788",
+   "title": "ZCK01 Recalls Kesyup Mattresses Due to Risk of Serious Injury or Death from Fire Hazard; Violate Mandatory Standard for Mattress Flammability",
+   "is_childrens": false,
+   "listings": 41,
+   "match": 0,
+   "check": 0,
+   "examples": []
+  },
+  {
+   "recall_number": "26797",
+   "title": "INMO International Technology Limited Recalls INMO Air3 Smart Glasses Due to Risk of Serious Injury or Death from Burn Hazard",
+   "is_childrens": false,
+   "listings": 40,
+   "match": 0,
+   "check": 0,
+   "examples": []
+  },
+  {
+   "recall_number": "27005",
+   "title": "YunHeng Recalls LandTale Bed Rails Due to Risk of Serious Injury or Death from Entrapment and Asphyxiation; Violate Mandatory Standard for Adult Portable Bed Rails",
+   "is_childrens": false,
+   "listings": 39,
+   "match": 0,
+   "check": 0,
+   "examples": []
+  },
+  {
+   "recall_number": "26724",
+   "title": "Little Loves & Co. Recalls Youth Clothing with Drawstrings Due to Risk of Serious Injury or Death from Entrapment Hazard",
+   "is_childrens": true,
+   "listings": 39,
+   "match": 0,
+   "check": 0,
+   "examples": []
+  },
+  {
+   "recall_number": "26794",
+   "title": "Yuyitop Recalls Aitjunz 8-Drawer Dressers Due to Risk of Serious Injury or Death from Tip-Over and Entrapment Hazards; Violate Mandatory Standard for Clothing Storage Units",
+   "is_childrens": false,
+   "listings": 38,
+   "match": 0,
+   "check": 0,
+   "examples": []
+  },
+  {
+   "recall_number": "26763",
+   "title": "Triumph Motorcycles Recalls Closed Course Competition Motorcycles Due to Risk of Serious Injury or Death from Crash Hazard",
+   "is_childrens": false,
+   "listings": 38,
+   "match": 0,
+   "check": 0,
+   "examples": []
+  },
+  {
+   "recall_number": "26645",
+   "title": "15-Drawer Dressers Recalled Due to Risk of Serious Injury or Death from Tip-Over and Entrapment Hazards; Violate Mandatory Standard for Clothing Storage Units; Sold on Amazon by Enhomee-Direct",
+   "is_childrens": false,
+   "listings": 37,
+   "match": 0,
+   "check": 0,
+   "examples": []
+  },
+  {
+   "recall_number": "27026",
+   "title": "Loving Thyself Rocks Recalls Crystal Glass Cups Due to Risk of Serious Injury from Ingestion and Laceration Hazards",
+   "is_childrens": false,
+   "listings": 36,
+   "match": 0,
+   "check": 0,
+   "examples": []
+  },
+  {
+   "recall_number": "26634",
+   "title": "12-Drawer Fabric Dressers Recalled Due to Risk of Serious Injury or Death from Tip-Over and Entrapment Hazards; Violate Mandatory Standard for Clothing Storage Units; Sold on Amazon by Romorgniz",
+   "is_childrens": false,
+   "listings": 35,
+   "match": 0,
+   "check": 0,
+   "examples": []
+  },
+  {
+   "recall_number": "27020",
+   "title": "Romorgniz Recalls Six-Drawer Dressers Due to Risk of Serious Injury or Death from Tip-Over and Entrapment Hazards; Violate Mandatory Standard for Clothing Storage Units",
+   "is_childrens": false,
+   "listings": 34,
+   "match": 0,
+   "check": 0,
+   "examples": []
+  },
+  {
+   "recall_number": "26663",
+   "title": "Winston Porter and Seeday 3-Drawer, 4-Drawer, and 5-Drawer Dressers Recalled Due to Risk of Serious Injury or Death from Tip-Over and Entrapment Hazards; Violate Mandatory Standard for Clothing Storage Units",
+   "is_childrens": false,
+   "listings": 34,
+   "match": 0,
+   "check": 0,
+   "examples": []
+  },
+  {
+   "recall_number": "26636",
+   "title": "Sviyatp Pool Drain Covers Recalled Due to Risk of Serious Injury or Death from Entrapment and Drowning Hazards; Violate Virginia Graeme Baker Pool & Spa Safety Act",
+   "is_childrens": false,
+   "listings": 34,
+   "match": 0,
+   "check": 0,
+   "examples": []
+  },
+  {
+   "recall_number": "27021",
+   "title": "Snow Peak Recalls Propane Fireplace Inserts and Lava Rocks Due to Risk of Serious Injury or Death from Burn and Fire Hazards",
+   "is_childrens": false,
+   "listings": 33,
+   "match": 0,
+   "check": 0,
+   "examples": []
+  },
+  {
+   "recall_number": "27014",
+   "title": "Agrish Reannounces and Expands Recall of Adult Portable Bed Rails Due to Risk of Serious Injury or Death from Entrapment and Asphyxiation; Violate Mandatory Standard for Adult Portable Bed Rails; Additional Units Added",
+   "is_childrens": false,
+   "listings": 33,
+   "match": 0,
+   "check": 0,
+   "examples": []
+  },
+  {
+   "recall_number": "26694",
+   "title": "GigaCloud Technology USA Recalls Merax Murphy Beds Due to Risk of Serious Injury or Death from Impact and Crush Hazards",
+   "is_childrens": false,
+   "listings": 33,
+   "match": 0,
+   "check": 0,
+   "examples": []
+  },
+  {
+   "recall_number": "26701",
+   "title": "Sunnyside Corporation Recalls 1-K Kerosene Heater and Appliance Fuel Containers Due to Risk of Serious Injury or Death from Flash Fire and Burn Hazard; Violates Mandatory Standards for Portable Fuel Containers",
+   "is_childrens": false,
+   "listings": 33,
+   "match": 0,
+   "check": 0,
+   "examples": []
+  },
+  {
+   "recall_number": "26799",
+   "title": "ABC Trading Recalls Light-Up Children’s Toys Due to Risk of Serious Injury or Death from Battery Ingestion; Violate Mandatory Standard for Toys",
+   "is_childrens": true,
+   "listings": 31,
+   "match": 0,
+   "check": 0,
+   "examples": []
+  },
+  {
+   "recall_number": "26713",
+   "title": "JINHEZO Mini Waterproof LED Tea Lights Recalled Due to Risk of Serious Injury or Death from Battery Ingestion; Violate Mandatory Standard for Consumer Products with Button Cell Batteries; Imported by Mystic ZO",
+   "is_childrens": false,
+   "listings": 31,
+   "match": 0,
+   "check": 0,
+   "examples": []
+  },
+  {
+   "recall_number": "26675",
+   "title": "Wichard Groupe North America Recalls Courant Spliced Kalimba Climbing Ropes Due to Risk of Serious Injury or Death from Fall Hazard",
+   "is_childrens": false,
+   "listings": 31,
+   "match": 0,
+   "check": 0,
+   "examples": []
+  },
+  {
+   "recall_number": "26647",
+   "title": "BenQ America Recalls GV31 Portable Projectors Due to Risk of Serious Injury or Death from Fire and Burn Hazards",
+   "is_childrens": false,
+   "listings": 31,
+   "match": 0,
+   "check": 0,
+   "examples": []
+  },
+  {
+   "recall_number": "26726",
+   "title": "Walmart Reannounces Recall of Mainstays Nine-Drawer Fabric Dressers Due to Risk of Serious Injury or Death from Tip-Over and Entrapment Hazards; Walmart Distributed Recalled Dressers Post-Recall; Sold to Consumers Through Liquidators",
+   "is_childrens": false,
+   "listings": 30,
+   "match": 0,
+   "check": 0,
+   "examples": []
+  },
+  {
+   "recall_number": "26676",
+   "title": "Fitueyes Recalls Laziza Dressers Due to Risk of Serious Injury or Death from Tip-Over and Entrapment Hazards; Violate Mandatory Standard for Clothing Storage Units",
+   "is_childrens": false,
+   "listings": 30,
+   "match": 0,
+   "check": 0,
+   "examples": []
+  },
+  {
+   "recall_number": "26677",
+   "title": "Head Watersports Recalls Apeks Second Stage Scuba Regulators Recalled Due to Risk of Serious Injury or Death from Drowning Hazard",
+   "is_childrens": false,
+   "listings": 30,
+   "match": 0,
+   "check": 0,
+   "examples": []
+  },
+  {
+   "recall_number": "27004",
+   "title": "Gazelle USA Recalls Urban Arrow Cargo Electric Bikes Due to Fall Hazard",
+   "is_childrens": false,
+   "listings": 29,
+   "match": 0,
+   "check": 0,
+   "examples": []
+  },
+  {
+   "recall_number": "26686",
+   "title": "Goody King Magnetic Building Cubes and Blocks Recalled Due to Risk of Serious Injury or Death from Magnetic Ingestion Hazard; Imported by Yi Suen Commerce",
+   "is_childrens": false,
+   "listings": 29,
+   "match": 0,
+   "check": 0,
+   "examples": []
+  },
+  {
+   "recall_number": "26754",
+   "title": "Guang Zhou Recalls Wantefully Hair Dryer Brushes Due to Risk of Serious Injury or Death from Electrocution, Shock and Burn Hazards; Violate Federal Regulations",
+   "is_childrens": false,
+   "listings": 26,
+   "match": 0,
+   "check": 0,
+   "examples": []
+  },
+  {
+   "recall_number": "26741",
+   "title": "Clorox Puerto Rico Recalls 6 Million Scented Mistolin and Lestoil Multi-Purpose Cleaners Due to Risk of Exposure to Bacteria",
+   "is_childrens": false,
+   "listings": 26,
+   "match": 0,
+   "check": 0,
+   "examples": []
+  },
+  {
+   "recall_number": "26710",
+   "title": "KTM North America Recalls Off-Road Motorcycles Due to Risk of Serious Injury or Death from Crash Hazard",
+   "is_childrens": false,
+   "listings": 26,
+   "match": 0,
+   "check": 0,
+   "examples": []
+  },
+  {
+   "recall_number": "26775",
+   "title": "Esjay US Recalls Toddler Busy Board Montessori Toys Due to Risk of Serious Injury or Death from Choking; Violates Small Parts Ban",
+   "is_childrens": true,
+   "listings": 25,
+   "match": 0,
+   "check": 0,
+   "examples": []
+  },
+  {
+   "recall_number": "26764",
+   "title": "FJTJBSI Recalls Six-Drawer Dressers Due to Risk of Serious Injury or Death from Tip-Over and Entrapment Hazards; Violate Mandatory Standard for Clothing Storage Units",
+   "is_childrens": false,
+   "listings": 25,
+   "match": 0,
+   "check": 0,
+   "examples": []
+  },
+  {
+   "recall_number": "26736",
+   "title": "Gizoon Direct Recalls Six-Drawer Double Dressers Due to Risk of Serious Injury or Death from Tip-Over and Entrapment Hazards; Violates Mandatory Standard for Clothing Storage Units",
+   "is_childrens": false,
+   "listings": 24,
+   "match": 0,
+   "check": 0,
+   "examples": []
+  },
+  {
+   "recall_number": "27011",
+   "title": "Kobayashi Recalls Rechargeable Hand Warmers Due to Risk of Serious Injury from Fire and Burn Hazards",
+   "is_childrens": false,
+   "listings": 23,
+   "match": 0,
+   "check": 0,
+   "examples": []
+  },
+  {
+   "recall_number": "26750",
+   "title": "Junkins Recalls DHASUWT Hair Dryer Brushes Due to Risk of Serious Injury or Death from Electrocution, and Shock Hazards; Violate Federal Regulations; Smoking and Fire Hazards",
+   "is_childrens": false,
+   "listings": 23,
+   "match": 0,
+   "check": 0,
+   "examples": []
+  },
+  {
+   "recall_number": "26648",
+   "title": "DR Power Equipment Recalls Lawn Mowers Due to Risk of Serious Injury or Death from Laceration Hazard; Violate Mandatory Standard for Lawn Mowers",
+   "is_childrens": false,
+   "listings": 23,
+   "match": 0,
+   "check": 0,
+   "examples": []
+  },
+  {
+   "recall_number": "26778",
+   "title": "JKMAX Recalls Heated Blankets and Heating Pads Due to Fire and Burn Hazards",
+   "is_childrens": false,
+   "listings": 22,
+   "match": 0,
+   "check": 0,
+   "examples": []
+  },
+  {
+   "recall_number": "26734",
+   "title": "Daikin Comfort Technologies Manufacturing Recalls Amana Through-The-Wall Air Conditioners and Heat Pumps Due to Risk of Serious Injury from Fire",
+   "is_childrens": false,
+   "listings": 21,
+   "match": 0,
+   "check": 0,
+   "examples": []
+  },
+  {
+   "recall_number": "26746",
+   "title": "MONDRAKER USA Recalls Mountain Bicycles Equipped with ONOFF S9 Carbon MTB Handlebars Due to Risk of Serious Injury or Death from Fall Hazard",
+   "is_childrens": false,
+   "listings": 21,
+   "match": 0,
+   "check": 0,
+   "examples": []
+  },
+  {
+   "recall_number": "26722",
+   "title": "Excel Industries Recalls Accessory LED Light Kits Due to Risk of Serious Injury from Fire Hazard",
+   "is_childrens": false,
+   "listings": 21,
+   "match": 0,
+   "check": 0,
+   "examples": []
+  },
+  {
+   "recall_number": "26721",
+   "title": "Kmaier Recalls Infant Walkers Due to Risk of Serious Injury or Death from Fall Hazard; Violate Mandatory Standard for Infant Walkers",
+   "is_childrens": true,
+   "listings": 20,
+   "match": 0,
+   "check": 0,
+   "examples": []
+  },
+  {
+   "recall_number": "26700",
+   "title": "Fastbuy Recalls Zimtown Portable Gas and Fuel Cans Due to Risk of Serious Injury or Death from Burn Hazard and Child Poisoning; Violate Mandatory Standard for Portable Fuel Containers",
+   "is_childrens": false,
+   "listings": 17,
+   "match": 0,
+   "check": 0,
+   "examples": []
+  },
+  {
+   "recall_number": "26646",
+   "title": "5-Drawer Dressers Recalled Due to Risk of Serious Injury or Death from Tip-Over and Entrapment Hazards; Violate Mandatory Standard for Clothing Storage Units; Sold on Amazon by KAIFAM",
+   "is_childrens": false,
+   "listings": 17,
+   "match": 0,
+   "check": 0,
+   "examples": []
+  },
+  {
+   "recall_number": "26790",
+   "title": "Hyperfuels Recalls Methanol and Ethanol Fuel Containers Due to Risk of Serious Injury or Death from Child Poisoning and Flame Jetting; Violates Multiple Federal Safety Standards",
+   "is_childrens": false,
+   "listings": 16,
+   "match": 0,
+   "check": 0,
+   "examples": []
+  },
+  {
+   "recall_number": "26779",
+   "title": "LANCHEZ Pressure Washers Recalled Due to Serious Risk of Injury or Death from Shock and Electrocution Hazards",
+   "is_childrens": false,
+   "listings": 16,
+   "match": 0,
+   "check": 0,
+   "examples": []
+  },
+  {
+   "recall_number": "26756",
+   "title": "Dual Fuel Ranges Recalled Due to Risk of Serious Injury or Death from Fire or Explosion Hazards; Manufactured by AGA Rangemaster",
+   "is_childrens": false,
+   "listings": 16,
+   "match": 0,
+   "check": 0,
+   "examples": []
+  },
+  {
+   "recall_number": "26672",
+   "title": "Syera Projecting Finger Light Toys Recalled Due to Risk of Serious Injury from Battery Ingestion; Violate Mandatory Standard for Toys; Sold on TEMU by Senyu",
+   "is_childrens": true,
+   "listings": 16,
+   "match": 0,
+   "check": 0,
+   "examples": []
+  },
+  {
+   "recall_number": "26671",
+   "title": "Little Rawr Pull String Teething Toys Recalled Due to Risk of Serious Injury or Death from Choking; Violate Mandatory Standard for Toys; Sold on Amazon by Okabesini-us",
+   "is_childrens": true,
+   "listings": 15,
+   "match": 0,
+   "check": 0,
+   "examples": []
+  },
+  {
+   "recall_number": "26654",
+   "title": "Joyin Expands Recall of Sloosh Dive Sticks Due to Risk of Serious Injury from Impalement; Violate Federal Dive Sticks Ban",
+   "is_childrens": false,
+   "listings": 15,
+   "match": 0,
+   "check": 0,
+   "examples": []
+  },
+  {
+   "recall_number": "26784",
+   "title": "Sauna360 Recalls Infrared Saunas, Hybrid Infrared Saunas and Infrared Kits Due to Risk of Serious Injury or Death from Fire and Burn Hazards",
+   "is_childrens": false,
+   "listings": 14,
+   "match": 0,
+   "check": 0,
+   "examples": []
+  },
+  {
+   "recall_number": "26773",
+   "title": "Char-Broil Recalls Bistro Pro Electric Grills Due to Risk of Electric Shock",
+   "is_childrens": false,
+   "listings": 13,
+   "match": 0,
+   "check": 0,
+   "examples": []
+  },
+  {
+   "recall_number": "26731",
+   "title": "Audio Partnership Recalls Cambridge Audio Yoyo (M) Portable Bluetooth Speakers Due to Fire Hazard",
+   "is_childrens": false,
+   "listings": 13,
+   "match": 0,
+   "check": 0,
+   "examples": []
+  },
+  {
+   "recall_number": "26691",
+   "title": "Deli Jerry Fuel Containers Recalled Due to Risk of Serious Injury or Death from Burn Hazard and Child Poisoning; Violate Mandatory Standard for Portable Fuel Containers; Sold on Walmart.com by Deli OfficeSupplies",
+   "is_childrens": false,
+   "listings": 13,
+   "match": 0,
+   "check": 0,
+   "examples": []
+  },
+  {
+   "recall_number": "26792",
+   "title": "NEWDERY Power Banks Recalled Due to Fire and Burn Hazards; Risk of Serious Injury; Sold on Amazon",
+   "is_childrens": false,
+   "listings": 12,
+   "match": 0,
+   "check": 0,
+   "examples": []
+  },
+  {
+   "recall_number": "26664",
+   "title": "Magnetic Fidget Sliders Recalled Due to Risk of Serious Injury or Death from Magnet Ingestion; Violate Mandatory Standard for Toys: Sold on Amazon by BUSOHA",
+   "is_childrens": true,
+   "listings": 12,
+   "match": 0,
+   "check": 0,
+   "examples": []
+  },
+  {
+   "recall_number": "26661",
+   "title": "Louisville Ladder Recalls Over One Million Attic Stairway Ladders Due to Risk of Serious Injury or Death from Fall Hazard",
+   "is_childrens": false,
+   "listings": 11,
+   "match": 0,
+   "check": 0,
+   "examples": []
+  },
+  {
+   "recall_number": "27012",
+   "title": "Dollar Tree Stores Recalls Electric Balloon Pumps Due to Burn Hazard",
+   "is_childrens": false,
+   "listings": 10,
+   "match": 0,
+   "check": 0,
+   "examples": []
+  },
+  {
+   "recall_number": "26715",
+   "title": "Workbless Pressure Washers Recalled Due to Risk of Serious Injury or Death from Shock and Electrocution Hazards",
+   "is_childrens": false,
+   "listings": 9,
+   "match": 0,
+   "check": 0,
+   "examples": []
+  },
+  {
+   "recall_number": "27016",
+   "title": "DR Power Equipment Recalls Pilot and Premier Trimmer Mowers Due to Risk of Serious Injury or Death from Fire and Burn Hazards",
+   "is_childrens": false,
+   "listings": 8,
+   "match": 0,
+   "check": 0,
+   "examples": []
+  },
+  {
+   "recall_number": "26687",
+   "title": "Southern Telecom Recalls Brookstone-Branded Tabletop Fire Pits Due to Risk of Serious Burn Injury or Death from Flame Jetting and Fire Hazards",
+   "is_childrens": false,
+   "listings": 8,
+   "match": 0,
+   "check": 0,
+   "examples": []
+  },
+  {
+   "recall_number": "26652",
+   "title": "Heated Sherpa Throws and Blankets Recalled Due to Risk of Serious Injury or Death from Fire and Burn Hazards; Sold on Amazon by OCTROT",
+   "is_childrens": false,
+   "listings": 8,
+   "match": 0,
+   "check": 0,
+   "examples": []
+  },
+  {
+   "recall_number": "27029",
+   "title": "usOpal Recalls Xalirium Portable Bed Rails Due to Risk of Serious Injury or Death from Entrapment and Asphyxiation; Violate Mandatory Standard for Adult Portable Bed Rails",
+   "is_childrens": false,
+   "listings": 7,
+   "match": 0,
+   "check": 0,
+   "examples": []
+  },
+  {
+   "recall_number": "26635",
+   "title": "Aojieni Silicone Recalls Sili Factory Pull String Teething Toys Due to Risk of Serious Injury or Death from Choking; Violate Mandatory Standard for Toys",
+   "is_childrens": true,
+   "listings": 7,
+   "match": 0,
+   "check": 0,
+   "examples": []
+  },
+  {
+   "recall_number": "26702",
+   "title": "Hampton Bay Halwin 52-Inch Ceiling Fans Recalled Due to Impact and Injury Hazards; Manufactured by Youngo Limited",
+   "is_childrens": false,
+   "listings": 6,
+   "match": 0,
+   "check": 0,
+   "examples": []
+  },
+  {
+   "recall_number": "26793",
+   "title": "Xinan Home Recalls WinxMatrs Mattresses Due to Risk of Serious Injury or Death from Fire Hazard; Violate Mandatory Standard for Mattress Flammability",
+   "is_childrens": false,
+   "listings": 5,
+   "match": 0,
+   "check": 0,
+   "examples": []
+  },
+  {
+   "recall_number": "27015",
+   "title": "Giant Bicycle Recalls LED-Light Keys Included with SureLock Bike Lock Sets Due to Risk of Serious Injury or Death from Battery Ingestion; Violates Mandatory Standard for Consumer Products with Button Cell Batteries",
+   "is_childrens": false,
+   "listings": 4,
+   "match": 0,
+   "check": 0,
+   "examples": []
+  },
+  {
+   "recall_number": "27003",
+   "title": "ABC Trading Recalls Squishy Toys Due to Risk of Serious Injury or Death from Water Bead Ingestion; Violate Mandatory Standard for Toys",
+   "is_childrens": true,
+   "listings": 3,
+   "match": 0,
+   "check": 0,
+   "examples": []
+  },
+  {
+   "recall_number": "26748",
+   "title": "Ricky Joy Recalls More Than 2.3 Million Sour Crush Candy Bottles Due to Risk of Serious Injury or Death from Choking Hazard",
+   "is_childrens": false,
+   "listings": 1,
+   "match": 0,
+   "check": 0,
+   "examples": []
+  },
+  {
+   "recall_number": "26699",
+   "title": "SUGIFT Recalls SUGIFT Pressure Washers Due to Serious Risk of Injury or Death from Shock and Electrocution Hazards",
+   "is_childrens": false,
+   "listings": 1,
+   "match": 0,
+   "check": 0,
+   "examples": []
+  },
+  {
+   "recall_number": "26783",
+   "title": "Sauna360 Expands Recall of Tylö Halmstad and Kiruna Hybrid Saunas Due to Fall Hazard; New Remedy Provided",
+   "is_childrens": false,
+   "listings": 0,
+   "match": 0,
+   "check": 0,
+   "examples": []
+  },
+  {
+   "recall_number": "26785",
+   "title": "Tongyang Cycling Recalls Basecamp Bicycle Helmets Due to Risk of Serious Injury or Death from Head Injury; Violate Mandatory Standard for Bicycle Helmets",
+   "is_childrens": false,
+   "listings": 0,
+   "match": 0,
+   "check": 0,
+   "examples": []
+  },
+  {
+   "recall_number": "26690",
+   "title": "DUMOS Nine-Drawer Dressers Recalled Due to Risk of Serious Injury or Death from Tip-Over and Entrapment Hazards; Violate Mandatory Standard for Clothing Storage Units",
+   "is_childrens": false,
+   "listings": 0,
+   "match": 0,
+   "check": 0,
+   "examples": []
+  },
+  {
+   "recall_number": "26698",
+   "title": "CuberShop Magnetic Speed Cubes Recalled Due to Risk of Serious Injury or Death from Magnet Ingestion; Violate Mandatory Standard for Toys; Imported by SKY CUBE HK",
+   "is_childrens": true,
+   "listings": 0,
+   "match": 0,
+   "check": 0,
+   "examples": []
+  }
+ ],
+ "generated_at": "2026-10-16T21:30:00Z"
+}

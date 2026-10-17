@@ -1,0 +1,291 @@
+/* ---------------------------------------------------------------------------
+ * RecallDesk: "safety notice meets shop ledger". Layered on BoardUI theme.css.
+ *
+ *   manila   = warm paper neutral ramp (every BoardUI semantic token inherits it)
+ *   ink      = ledger-ink blue accent (CTAs, focus ring, selected nav)
+ *   stop     = DO NOT SELL   (signal red, always with the octagon glyph)
+ *   caution  = CHECK LABEL   (amber, always with the triangle glyph)
+ *   clear    = no match      (green, circle glyph; rarely shown)
+ * --------------------------------------------------------------------------- */
+
+@theme {
+  --color-neutral-50: #fbfaf5;
+  --color-neutral-100: #f5f2e9;
+  --color-neutral-200: #e9e4d6;
+  --color-neutral-300: #d7d0be;
+  --color-neutral-400: #a9a190;
+  --color-neutral-500: #797262;
+  --color-neutral-600: #5b5548;
+  --color-neutral-700: #423e35;
+  --color-neutral-800: #2a2823;
+  --color-neutral-900: #1d1c19;
+  --color-neutral-925: #161512;
+  --color-neutral-950: #0f0e0c;
+
+  --color-accent-50: #eef3fa;
+  --color-accent-100: #d9e4f3;
+  --color-accent-200: #b3c8e6;
+  --color-accent-300: #85a6d4;
+  --color-accent-400: #5682bf;
+  --color-accent-500: #3565a8;
+  --color-accent-600: #28508c;
+  --color-accent-700: #213f6f;
+  --color-accent-800: #1c3358;
+  --color-accent-900: #172946;
+  --color-accent-950: #0e192c;
+
+  --font-sans: var(--font-public), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --font-notice: var(--font-barlow), "Arial Narrow", "Roboto Condensed", sans-serif;
+}
+
+:root {
+  --rd-stop-solid: #c8102e;
+  --rd-stop-surface: #fdeaea;
+  --rd-stop-text: #8a0c1f;
+  --rd-stop-border: #f1b3b8;
+
+  --rd-caution-solid: #e8a200;
+  --rd-caution-surface: #fff4d6;
+  --rd-caution-text: #6b4700;
+  --rd-caution-border: #efcf78;
+  --rd-caution-ink: #1d1c19;
+
+  --rd-clear-solid: #2e7d4f;
+  --rd-clear-surface: #e5f3ea;
+  --rd-clear-text: #1b5233;
+  --rd-clear-border: #acd6bb;
+
+  --rd-ink: #213f6f;
+  --rd-rule: rgb(53 101 168 / 0.09);
+  --rd-margin: rgb(200 16 46 / 0.22);
+  --rd-paper: #fffdf8;
+
+  /* Charts: emphasis encoding (our model in ink blue, the rest neutral) and a
+   * validated 2-series pair for training curves (dataviz default slots 1-2). */
+  --rd-m-ours: #2b5fab;
+  --rd-m-other: #b9b2a2;
+  --rd-series-1: #2a78d6;
+  --rd-series-2: #eb6834;
+  --rd-seq: #2a78d6;
+  --color-chart-1: #2b5fab;
+  --color-chart-1-active: #214b88;
+  --color-chart-2: #6d4fa3;
+  --color-chart-2-active: #573e85;
+  --color-chart-3: #1f8585;
+  --color-chart-3-active: #176a6a;
+  --color-chart-4: #9a7444;
+  --color-chart-4-active: #7d5d35;
+  --color-chart-5: #a9a190;
+  --color-chart-5-active: #797262;
+}
+
+.dark {
+  --rd-stop-solid: #f0505c;
+  --rd-stop-surface: rgb(240 80 92 / 0.14);
+  --rd-stop-text: #ffb1b6;
+  --rd-stop-border: rgb(240 80 92 / 0.42);
+
+  --rd-caution-solid: #f2b52b;
+  --rd-caution-surface: rgb(242 181 43 / 0.13);
+  --rd-caution-text: #f8d886;
+  --rd-caution-border: rgb(242 181 43 / 0.4);
+
+  --rd-clear-solid: #4fb57c;
+  --rd-clear-surface: rgb(79 181 124 / 0.13);
+  --rd-clear-text: #98dcb5;
+  --rd-clear-border: rgb(79 181 124 / 0.38);
+
+  --rd-ink: #9fbbe4;
+  --rd-rule: rgb(159 187 228 / 0.06);
+  --rd-margin: rgb(240 80 92 / 0.2);
+  --rd-paper: #1d1c19;
+
+  --rd-m-ours: #6b9be0;
+  --rd-m-other: #5d584e;
+  --rd-series-1: #3987e5;
+  --rd-series-2: #d95926;
+  --rd-seq: #3987e5;
+  --color-chart-1: #6b9be0;
+  --color-chart-1-active: #8db3ea;
+  --color-chart-2: #a58ad6;
+  --color-chart-2-active: #bba5e0;
+  --color-chart-3: #48b5b5;
+  --color-chart-3-active: #6cc7c7;
+  --color-chart-4: #c49a62;
+  --color-chart-4-active: #d4b183;
+  --color-chart-5: #6f695d;
+  --color-chart-5-active: #9a9286;
+
+  --color-text-tertiary: #938b7d;
+  --color-text-placeholder: #938b7d;
+}
+
+@theme inline {
+  --color-stop-solid: var(--rd-stop-solid);
+  --color-stop-surface: var(--rd-stop-surface);
+  --color-stop-text: var(--rd-stop-text);
+  --color-stop-border: var(--rd-stop-border);
+  --color-caution-solid: var(--rd-caution-solid);
+  --color-caution-surface: var(--rd-caution-surface);
+  --color-caution-text: var(--rd-caution-text);
+  --color-caution-border: var(--rd-caution-border);
+  --color-caution-ink: var(--rd-caution-ink);
+  --color-clear-solid: var(--rd-clear-solid);
+  --color-clear-surface: var(--rd-clear-surface);
+  --color-clear-text: var(--rd-clear-text);
+  --color-clear-border: var(--rd-clear-border);
+  --color-ink: var(--rd-ink);
+  --color-paper: var(--rd-paper);
+  --color-paper-ink: var(--rd-paper-ink, var(--color-text-primary));
+  --color-paper-ink-2: var(--rd-paper-ink-2, var(--color-text-secondary));
+  --color-paper-ink-3: var(--rd-paper-ink-3, var(--color-text-tertiary));
+  --color-paper-rule: var(--rd-paper-rule, var(--color-separator-border));
+}
+
+/* ----- helpers ------------------------------------------------------------- */
+.rd-num {
+  font-variant-numeric: tabular-nums;
+}
+.rd-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  line-height: 1rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.rd-notice {
+  font-family: var(--font-notice);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+.rd-figure {
+  font-family: var(--font-notice);
+  font-weight: 600;
+  letter-spacing: -0.005em;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+
+/* Ledger paper: faint ruled lines and a red double margin rule. Only behind
+ * hero/card surfaces and empty states, never behind tables or charts. */
+.rd-ruled {
+  background-image:
+    linear-gradient(to right, transparent 0 34px, var(--rd-margin) 34px 35px, transparent 35px 38px, var(--rd-margin) 38px 39px, transparent 39px),
+    repeating-linear-gradient(to bottom, transparent 0 27px, var(--rd-rule) 27px 28px);
+}
+
+/* Hazard-tape edge, used sparingly on the notice header. */
+.rd-tape {
+  background-image: repeating-linear-gradient(-45deg, var(--rd-caution-solid) 0 10px, #1d1c19 10px 20px);
+}
+
+@keyframes rd-pulse-ring {
+  0% { transform: scale(0.8); opacity: 0.7; }
+  100% { transform: scale(2.1); opacity: 0; }
+}
+.rd-pulse::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  background: currentColor;
+  animation: rd-pulse-ring 1.6s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+}
+@keyframes rd-rise {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: none; }
+}
+.rd-rise {
+  animation: rd-rise 420ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .rd-pulse::after { animation: none; opacity: 0; }
+  .rd-rise { animation: none; }
+}
+
+/* Identifier highlight inside CPSC text. */
+.rd-id-mark {
+  background: var(--rd-caution-surface);
+  color: inherit;
+  border-bottom: 2px solid var(--rd-caution-solid);
+  border-radius: 2px;
+  padding: 0 2px;
+  font-family: var(--font-mono);
+  font-size: 0.92em;
+}
+
+/* ----- Paper scope: the card is a physical notice, so it stays ink-on-paper
+ * even in dark mode. --------------------------------------------------------- */
+.rd-paper-scope,
+.dark .rd-paper-scope {
+  --rd-stop-solid: #c8102e;
+  --rd-stop-surface: #fdeaea;
+  --rd-stop-text: #8a0c1f;
+  --rd-stop-border: #f1b3b8;
+  --rd-caution-solid: #e8a200;
+  --rd-caution-surface: #fff4d6;
+  --rd-caution-text: #6b4700;
+  --rd-caution-border: #efcf78;
+  --rd-clear-solid: #2e7d4f;
+  --rd-ink: #213f6f;
+  --rd-rule: rgb(53 101 168 / 0.09);
+  --rd-margin: rgb(200 16 46 / 0.22);
+  --rd-paper: #fffdf8;
+  --rd-paper-ink: #16140f;
+  --rd-paper-ink-2: #4a453b;
+  --rd-paper-ink-3: #7f776a;
+  --rd-paper-rule: #e6e0d2;
+  color: var(--rd-paper-ink);
+  color-scheme: light;
+}
+
+/* ----- Print: the card becomes one notice for the intake desk -------------- */
+@media print {
+  @page {
+    margin: 11mm;
+  }
+  html {
+    font-size: 13px;
+  }
+  html,
+  body {
+    background: #fff !important;
+  }
+  .rd-no-print {
+    display: none !important;
+  }
+  .rd-print-root {
+    padding: 0 !important;
+    margin: 0 !important;
+    max-width: none !important;
+    width: 100% !important;
+  }
+  .rd-print-card {
+    box-shadow: none !important;
+    max-width: none !important;
+    width: 100% !important;
+    border-radius: 6px !important;
+    break-inside: avoid;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+  .rd-print-card .rd-ruled {
+    background-image: none !important;
+  }
+  .rd-print-card .rd-print-hide {
+    display: none !important;
+  }
+}
+
+/* ?clean=1: screenshot mode */
+.rd-clean .rd-source-chip {
+  display: none !important;
+}
+.rd-clean ::-webkit-scrollbar {
+  display: none;
+}
+.rd-clean * {
+  scrollbar-width: none;
+}

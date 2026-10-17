@@ -1,0 +1,218 @@
+[
+ {
+  "workflow_id": "inventory-check-demo-shop-2026-10-16T14-02",
+  "workflow_type": "InventoryCheckWorkflow",
+  "shop_id": "demo-shop",
+  "status": "completed",
+  "started_at": "2026-10-16T14:02:00Z",
+  "ended_at": "2026-10-16T14:02:34.400Z",
+  "steps": [
+   {
+    "name": "load_shop_memories",
+    "status": "completed",
+    "attempt": 1,
+    "started_at": "2026-10-16T14:02:00.200Z",
+    "ended_at": "2026-10-16T14:02:01.100Z",
+    "error": null,
+    "note": "Backboard: 2 memories retrieved for demo-shop"
+   },
+   {
+    "name": "check_items",
+    "status": "completed",
+    "attempt": 2,
+    "started_at": "2026-10-16T14:02:01.200Z",
+    "ended_at": "2026-10-16T14:02:31.400Z",
+    "error": "attempt 1: model returned invalid JSON for 1 pair (retried)",
+    "note": "120 items × top-5 recalls (BM25) = 600 pairs; 8 flagged"
+   },
+   {
+    "name": "scan_ebay_store",
+    "status": "completed",
+    "attempt": 1,
+    "started_at": "2026-10-16T14:02:31.500Z",
+    "ended_at": "2026-10-16T14:02:33.000Z",
+    "error": null,
+    "note": "source=snapshot (SerpApi quota reserved for the weekly sweep)"
+   },
+   {
+    "name": "compose_card",
+    "status": "completed",
+    "attempt": 1,
+    "started_at": "2026-10-16T14:02:33.100Z",
+    "ended_at": "2026-10-16T14:02:33.900Z",
+    "error": null,
+    "note": "3 DO NOT SELL · 5 CHECK LABEL · 2 memories applied"
+   },
+   {
+    "name": "publish_card",
+    "status": "completed",
+    "attempt": 1,
+    "started_at": "2026-10-16T14:02:34.000Z",
+    "ended_at": "2026-10-16T14:02:34.400Z",
+    "error": null,
+    "note": "card_2026-10-15_demo-shop"
+   }
+  ],
+  "retries": 1,
+  "resumed_after_crash": false,
+  "history_events": 41,
+  "card_id": "card_2026-10-15_demo-shop",
+  "placeholder": true
+ },
+ {
+  "workflow_id": "weekly-recall-sweep-2026-10-15",
+  "workflow_type": "WeeklyRecallSweep",
+  "status": "completed",
+  "started_at": "2026-10-15T18:00:04Z",
+  "ended_at": "2026-10-15T18:02:37.100Z",
+  "steps": [
+   {
+    "name": "fetch_new_recalls",
+    "status": "completed",
+    "attempt": 3,
+    "started_at": "2026-10-15T18:00:04.000Z",
+    "ended_at": "2026-10-15T18:00:08.800Z",
+    "error": "attempts 1–2: CPSC API HTTP 503 (backoff 2s, 4s)",
+    "note": "6 new recalls since 2026-10-08"
+   },
+   {
+    "name": "extract_spec",
+    "status": "completed",
+    "attempt": 1,
+    "started_at": "2026-10-15T18:00:09.000Z",
+    "ended_at": "2026-10-15T18:00:56.600Z",
+    "error": null,
+    "note": "6 specs from the teacher (Qwen3.5-397B-A17B)"
+   },
+   {
+    "name": "load_shop_memories",
+    "status": "completed",
+    "attempt": 1,
+    "started_at": "2026-10-15T18:00:56.800Z",
+    "ended_at": "2026-10-15T18:00:57.600Z",
+    "error": null,
+    "note": "3 shops watched"
+   },
+   {
+    "name": "check_items",
+    "status": "completed",
+    "attempt": 1,
+    "started_at": "2026-10-15T18:00:57.700Z",
+    "ended_at": "2026-10-15T18:02:25.000Z",
+    "error": "worker crashed at 96s; resumed on worker-2 from event history (no activity re-run)",
+    "note": "3 shops, 342 items"
+   },
+   {
+    "name": "scan_ebay_store",
+    "status": "completed",
+    "attempt": 1,
+    "started_at": "2026-10-15T18:02:25.200Z",
+    "ended_at": "2026-10-15T18:02:34.900Z",
+    "error": null,
+    "note": "12 SerpApi searches (6 cached)"
+   },
+   {
+    "name": "compose_card",
+    "status": "completed",
+    "attempt": 1,
+    "started_at": "2026-10-15T18:02:35.000Z",
+    "ended_at": "2026-10-15T18:02:36.300Z",
+    "error": null,
+    "note": "3 cards"
+   },
+   {
+    "name": "publish_card",
+    "status": "completed",
+    "attempt": 1,
+    "started_at": "2026-10-15T18:02:36.400Z",
+    "ended_at": "2026-10-15T18:02:37.100Z",
+    "error": null,
+    "note": "3 cards published"
+   }
+  ],
+  "retries": 2,
+  "resumed_after_crash": true,
+  "workers": [
+   "worker-1",
+   "worker-2"
+  ],
+  "history_events": 118,
+  "placeholder": true
+ },
+ {
+  "workflow_id": "weekly-recall-sweep-2026-10-08",
+  "workflow_type": "WeeklyRecallSweep",
+  "status": "completed",
+  "started_at": "2026-10-08T18:00:03Z",
+  "ended_at": "2026-10-08T18:02:54.500Z",
+  "steps": [
+   {
+    "name": "fetch_new_recalls",
+    "status": "completed",
+    "attempt": 1,
+    "started_at": "2026-10-08T18:00:03.000Z",
+    "ended_at": "2026-10-08T18:00:05.100Z",
+    "error": null,
+    "note": "8 new recalls since 2026-10-01"
+   },
+   {
+    "name": "extract_spec",
+    "status": "completed",
+    "attempt": 1,
+    "started_at": "2026-10-08T18:00:05.300Z",
+    "ended_at": "2026-10-08T18:01:07.000Z",
+    "error": null,
+    "note": "8 specs"
+   },
+   {
+    "name": "load_shop_memories",
+    "status": "completed",
+    "attempt": 1,
+    "started_at": "2026-10-08T18:01:07.100Z",
+    "ended_at": "2026-10-08T18:01:08.000Z",
+    "error": null,
+    "note": null
+   },
+   {
+    "name": "check_items",
+    "status": "completed",
+    "attempt": 1,
+    "started_at": "2026-10-08T18:01:08.100Z",
+    "ended_at": "2026-10-08T18:02:33.200Z",
+    "error": null,
+    "note": "3 shops, 330 items"
+   },
+   {
+    "name": "scan_ebay_store",
+    "status": "completed",
+    "attempt": 1,
+    "started_at": "2026-10-08T18:02:33.300Z",
+    "ended_at": "2026-10-08T18:02:52.800Z",
+    "error": null,
+    "note": "source=snapshot (SerpApi 429; not retried)"
+   },
+   {
+    "name": "compose_card",
+    "status": "completed",
+    "attempt": 1,
+    "started_at": "2026-10-08T18:02:52.900Z",
+    "ended_at": "2026-10-08T18:02:54.000Z",
+    "error": null,
+    "note": null
+   },
+   {
+    "name": "publish_card",
+    "status": "completed",
+    "attempt": 1,
+    "started_at": "2026-10-08T18:02:54.100Z",
+    "ended_at": "2026-10-08T18:02:54.500Z",
+    "error": null,
+    "note": null
+   }
+  ],
+  "retries": 0,
+  "resumed_after_crash": false,
+  "history_events": 97,
+  "placeholder": true
+ }
+]

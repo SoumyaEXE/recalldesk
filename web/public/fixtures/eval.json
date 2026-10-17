@@ -1,0 +1,392 @@
+{
+ "placeholder": true,
+ "note": "Placeholder until the Tinker LoRA run and blind human labels land in ml/results/eval.json.",
+ "test_size": 220,
+ "generated_at": "2026-10-17T00:00:00Z",
+ "gold": "human (blind)",
+ "models": [
+  {
+   "name": "Qwen3.5-397B-A17B (teacher)",
+   "role": "teacher",
+   "acc": 0.882,
+   "acc_ci": [
+    0.836,
+    0.923
+   ],
+   "macro_f1": 0.861,
+   "risky_caught": "98/104",
+   "false_alarms": "13/116",
+   "json_valid": 1,
+   "p50_latency_ms": 2840,
+   "cost_per_1k_usd": 1.9
+  },
+  {
+   "name": "Qwen3.5-4B + LoRA (ours)",
+   "role": "lora",
+   "acc": 0.859,
+   "acc_ci": [
+    0.809,
+    0.9
+   ],
+   "macro_f1": 0.834,
+   "risky_caught": "96/104",
+   "false_alarms": "17/116",
+   "json_valid": 1,
+   "p50_latency_ms": 410,
+   "cost_per_1k_usd": 0.06
+  },
+  {
+   "name": "Qwen3.5-4B (base, guided JSON)",
+   "role": "base_guided",
+   "acc": 0.714,
+   "acc_ci": [
+    0.65,
+    0.773
+   ],
+   "macro_f1": 0.662,
+   "risky_caught": "82/104",
+   "false_alarms": "31/116",
+   "json_valid": 1,
+   "p50_latency_ms": 450,
+   "cost_per_1k_usd": 0.06
+  },
+  {
+   "name": "Qwen3.5-4B (base)",
+   "role": "base",
+   "acc": 0.632,
+   "acc_ci": [
+    0.568,
+    0.695
+   ],
+   "macro_f1": 0.571,
+   "risky_caught": "77/104",
+   "false_alarms": "38/116",
+   "json_valid": 0.91,
+   "p50_latency_ms": 430,
+   "cost_per_1k_usd": 0.06
+  },
+  {
+   "name": "Identifier rules (regex)",
+   "role": "heuristic",
+   "acc": 0.586,
+   "acc_ci": [
+    0.523,
+    0.65
+   ],
+   "macro_f1": 0.47,
+   "risky_caught": "51/104",
+   "false_alarms": "6/116",
+   "json_valid": 1,
+   "p50_latency_ms": 1,
+   "cost_per_1k_usd": 0
+  },
+  {
+   "name": "Llama 3.3 70B (via Backboard)",
+   "role": "backboard:llama-3.3-70b",
+   "acc": 0.791,
+   "acc_ci": [
+    0.736,
+    0.841
+   ],
+   "macro_f1": 0.752,
+   "risky_caught": "90/104",
+   "false_alarms": "24/116",
+   "json_valid": 0.98,
+   "p50_latency_ms": 1620,
+   "cost_per_1k_usd": 0.42
+  }
+ ],
+ "paired": [
+  {
+   "a": "lora",
+   "b": "base",
+   "gain": 0.227,
+   "ci": [
+    0.164,
+    0.291
+   ],
+   "only_a": 58,
+   "only_b": 8,
+   "p": 1.2e-10
+  },
+  {
+   "a": "lora",
+   "b": "base_guided",
+   "gain": 0.145,
+   "ci": [
+    0.086,
+    0.205
+   ],
+   "only_a": 41,
+   "only_b": 9,
+   "p": 0.0000041
+  },
+  {
+   "a": "lora",
+   "b": "teacher",
+   "gain": -0.023,
+   "ci": [
+    -0.064,
+    0.018
+   ],
+   "only_a": 11,
+   "only_b": 16,
+   "p": 0.44
+  },
+  {
+   "a": "lora",
+   "b": "heuristic",
+   "gain": 0.273,
+   "ci": [
+    0.205,
+    0.341
+   ],
+   "only_a": 70,
+   "only_b": 10,
+   "p": 2e-12
+  }
+ ],
+ "confusion": {
+  "lora": {
+   "labels": [
+    "match",
+    "check",
+    "no_match"
+   ],
+   "matrix": [
+    [
+     38,
+     4,
+     1
+    ],
+    [
+     5,
+     49,
+     7
+    ],
+    [
+     2,
+     12,
+     102
+    ]
+   ]
+  },
+  "base": {
+   "labels": [
+    "match",
+    "check",
+    "no_match"
+   ],
+   "matrix": [
+    [
+     29,
+     8,
+     6
+    ],
+    [
+     11,
+     29,
+     21
+    ],
+    [
+     9,
+     26,
+     81
+    ]
+   ]
+  }
+ },
+ "training": {
+  "base_model": "Qwen/Qwen3.5-4B",
+  "rank": 32,
+  "steps": 300,
+  "epochs": 3,
+  "lr": 0.0002,
+  "loss_curve": [
+   [
+    0,
+    2.15
+   ],
+   [
+    10,
+    1.833
+   ],
+   [
+    20,
+    1.607
+   ],
+   [
+    30,
+    1.379
+   ],
+   [
+    40,
+    1.227
+   ],
+   [
+    50,
+    1.08
+   ],
+   [
+    60,
+    0.924
+   ],
+   [
+    70,
+    0.807
+   ],
+   [
+    80,
+    0.712
+   ],
+   [
+    90,
+    0.638
+   ],
+   [
+    100,
+    0.61
+   ],
+   [
+    110,
+    0.561
+   ],
+   [
+    120,
+    0.511
+   ],
+   [
+    130,
+    0.44
+   ],
+   [
+    140,
+    0.425
+   ],
+   [
+    150,
+    0.406
+   ],
+   [
+    160,
+    0.368
+   ],
+   [
+    170,
+    0.333
+   ],
+   [
+    180,
+    0.333
+   ],
+   [
+    190,
+    0.304
+   ],
+   [
+    200,
+    0.319
+   ],
+   [
+    210,
+    0.298
+   ],
+   [
+    220,
+    0.269
+   ],
+   [
+    230,
+    0.29
+   ],
+   [
+    240,
+    0.264
+   ],
+   [
+    250,
+    0.258
+   ],
+   [
+    260,
+    0.243
+   ],
+   [
+    270,
+    0.238
+   ],
+   [
+    280,
+    0.239
+   ],
+   [
+    290,
+    0.261
+   ],
+   [
+    300,
+    0.238
+   ]
+  ],
+  "test_nll": [
+   [
+    0,
+    1.42
+   ],
+   [
+    100,
+    0.61
+   ],
+   [
+    200,
+    0.43
+   ],
+   [
+    300,
+    0.39
+   ]
+  ]
+ },
+ "examples": [
+  {
+   "pair_id": "p_27027_02",
+   "listing_title": "Papablic 3-in-1 Bassinet Bedside Sleeper Gray — gently used",
+   "recall_title": "Papablic, of USA Recalls Convertible Bedside Sleepers Due to Risk of Serious Injury or Death from Entrapment, Suffocation and Fall Hazards; Violate Mandatory Standard for Play Yards",
+   "gold": "check",
+   "base": "no_match",
+   "lora": "check"
+  },
+  {
+   "pair_id": "p_26780_01",
+   "listing_title": "Melissa & Doug Lights and Sound Fire Truck Activity Board",
+   "recall_title": "Melissa & Doug Recalls Fire Truck Activity Board Toys Due to Risk of Serious Injury from Choking Hazard; Sold Exclusively at Target",
+   "gold": "check",
+   "base": "match",
+   "lora": "check"
+  },
+  {
+   "pair_id": "p_26739_03",
+   "listing_title": "Skip Hop Zoo Teether Owl Silicone",
+   "recall_title": "Skip Hop Recalls Baby Sesame Street Elmo Silicone Teethers Due to Risk of Serious Injury or Death from Choking Hazard",
+   "gold": "no_match",
+   "base": "match",
+   "lora": "no_match"
+  },
+  {
+   "pair_id": "p_27024_02",
+   "listing_title": "Scotch TL901X Thermal Laminator 9\"",
+   "recall_title": "3M Company Recalls Scotch Thermal Laminators Due to Risk of Serious Injury or Death from Fire Hazard",
+   "gold": "no_match",
+   "base": "match",
+   "lora": "no_match"
+  },
+  {
+   "pair_id": "p_26688_02",
+   "listing_title": "Taleco Gear 2-in-1 Baby Swing & Jumper Pink",
+   "recall_title": "Taleco Gear Recalls Baby Jumpers, Baby Swings and 2-in-1 Baby Jumper & Swings Due to Risk of Serious Injury or Death from Fall and Strangulation Hazards",
+   "gold": "match",
+   "base": "check",
+   "lora": "match"
+  }
+ ]
+}

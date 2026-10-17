@@ -1,0 +1,129 @@
+{
+ "placeholder": true,
+ "status": "completed",
+ "workflow_id": "inventory-check-demo-shop-2026-10-16T14-02",
+ "card": {
+  "id": "card_2026-10-15_demo-shop",
+  "placeholder": true,
+  "week_of": "2026-10-15",
+  "shop_id": "demo-shop",
+  "shop_name": "Little Loop Kids Consignment",
+  "new_recalls": 6,
+  "items_checked": 120,
+  "do_not_sell": [
+   {
+    "item": "Papablic bedside sleeper, gray stars & moon (bin B-14)",
+    "recall_number": "27027",
+    "recall_title": "Papablic, of USA Recalls Convertible Bedside Sleepers Due to Risk of Serious Injury or Death from Entrapment, Suffocation and Fall Hazards; Violate Mandatory Standard for Play Yards",
+    "why": "Mattress can shift and trap a baby; latch can fail and collapse",
+    "remedy": "Stop using; refund from Papablic after destroying it"
+   },
+   {
+    "item": "Skip Hop Elmo silicone teether with crayon box",
+    "recall_number": "26739",
+    "recall_title": "Skip Hop Recalls Baby Sesame Street Elmo Silicone Teethers Due to Risk of Serious Injury or Death from Choking Hazard",
+    "why": "Black eyes detach when frozen; choking",
+    "remedy": "Stop using; gift-card refund at skiphoprecall.com"
+   },
+   {
+    "item": "Taleco Gear baby jumper, gray — seat label jumper-01",
+    "recall_number": "26688",
+    "recall_title": "Taleco Gear Recalls Baby Jumpers, Baby Swings and 2-in-1 Baby Jumper & Swings Due to Risk of Serious Injury or Death from Fall and Strangulation Hazards",
+    "why": "Can tip; straps and seat openings can strangle",
+    "remedy": "Stop using; refund after destroying it"
+   }
+  ],
+  "check_label": [
+   {
+    "item": "Melissa & Doug Lights & Sound Fire Truck",
+    "recall_number": "26780",
+    "recall_title": "Melissa & Doug Recalls Fire Truck Activity Board Toys Due to Risk of Serious Injury from Choking Hazard; Sold Exclusively at Target",
+    "look_for": "Bottom of the battery box: date wheels at 25 + 4 or 5, or 26 + 3. Packaging: OET 25100, 25150 or 26064."
+   },
+   {
+    "item": "HABA rainbow rattle, wooden",
+    "recall_number": "26719",
+    "recall_title": "HABA USA Recalls Rainbow Rattle Grasping and Teething Toys Due to Risk of Serious Injury or Death from Choking and Ingestion Hazards",
+    "look_for": "Batch code 0925 in black on a wooden hemisphere; item no. 2012261001 above the barcode on the backer card."
+   },
+   {
+    "item": "Love to Dream portable sleep machine",
+    "recall_number": "26798",
+    "recall_title": "Love To Dream Recalls Portable Sleep Machines Due to Risk of Injury from Fire and Burn Hazards",
+    "look_for": "Side of the machine (or back of the box): model LTD-SM23 AND date code 7W15TN. Both must match."
+   },
+   {
+    "item": "Baby bath seat with suction cups, gray, no brand on tag",
+    "recall_number": "27018",
+    "recall_title": "ONTHEWEI Recalls Baby Bath Seats Due to Risk of Serious Injury or Death to Children from Drowning; Violate Mandatory Standard for Infant Bath Seats",
+    "look_for": "Label on the back of the seat: \"Model No: MY002\" and a 2026 manufacture date."
+   },
+   {
+    "item": "HARPPA Nordi toddler tower, white",
+    "recall_number": "26651",
+    "recall_title": "HARPPA Recalls Nordi Toddler Tower Stools Due to Risk of Serious Injury and Death from Entrapment and Fall Hazards",
+    "look_for": "Label on the underside of the platform: \"MODEL No.: HANS0002\"."
+   }
+  ],
+  "applied_memories": [
+   {
+    "memory_id": "mem_8f3a21",
+    "text": "Skip Hop items in bin C are the Zoo line, not Sesame Street. Clear them for the Elmo teether recall."
+   },
+   {
+    "memory_id": "mem_c07e94",
+    "text": "Never clear an unbranded bath seat. Always CHECK LABEL."
+   }
+  ],
+  "workflow_id": "inventory-check-demo-shop-2026-10-16T14-02",
+  "model": "qwen3.5-4b-recalldesk-lora",
+  "generated_at": "2026-10-16T14:02:41Z"
+ },
+ "steps": [
+  {
+   "name": "load_shop_memories",
+   "status": "completed",
+   "attempt": 1,
+   "started_at": "2026-10-16T14:02:00.200Z",
+   "ended_at": "2026-10-16T14:02:01.100Z",
+   "error": null,
+   "note": "Backboard: 2 memories retrieved for demo-shop"
+  },
+  {
+   "name": "check_items",
+   "status": "completed",
+   "attempt": 2,
+   "started_at": "2026-10-16T14:02:01.200Z",
+   "ended_at": "2026-10-16T14:02:31.400Z",
+   "error": "attempt 1: model returned invalid JSON for 1 pair (retried)",
+   "note": "120 items × top-5 recalls (BM25) = 600 pairs; 8 flagged"
+  },
+  {
+   "name": "scan_ebay_store",
+   "status": "completed",
+   "attempt": 1,
+   "started_at": "2026-10-16T14:02:31.500Z",
+   "ended_at": "2026-10-16T14:02:33.000Z",
+   "error": null,
+   "note": "source=snapshot (SerpApi quota reserved for the weekly sweep)"
+  },
+  {
+   "name": "compose_card",
+   "status": "completed",
+   "attempt": 1,
+   "started_at": "2026-10-16T14:02:33.100Z",
+   "ended_at": "2026-10-16T14:02:33.900Z",
+   "error": null,
+   "note": "3 DO NOT SELL · 5 CHECK LABEL · 2 memories applied"
+  },
+  {
+   "name": "publish_card",
+   "status": "completed",
+   "attempt": 1,
+   "started_at": "2026-10-16T14:02:34.000Z",
+   "ended_at": "2026-10-16T14:02:34.400Z",
+   "error": null,
+   "note": "card_2026-10-15_demo-shop"
+  }
+ ]
+}

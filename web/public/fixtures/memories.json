@@ -1,0 +1,29 @@
+[
+ {
+  "memory_id": "mem_8f3a21",
+  "shop_id": "demo-shop",
+  "text": "Skip Hop items in bin C are the Zoo line, not Sesame Street. Clear them for the Elmo teether recall.",
+  "recall_number": "26739",
+  "correct_verdict": "no_match",
+  "created_at": "2026-09-04T16:20:00Z",
+  "placeholder": true
+ },
+ {
+  "memory_id": "mem_c07e94",
+  "shop_id": "demo-shop",
+  "text": "Never clear an unbranded bath seat. Always CHECK LABEL.",
+  "recall_number": "27018",
+  "correct_verdict": "check",
+  "created_at": "2026-10-09T15:02:00Z",
+  "placeholder": true
+ },
+ {
+  "memory_id": "mem_51d0b7",
+  "shop_id": "demo-shop",
+  "text": "Our Graco Pack 'n Play stock is all 2022+; the 2019 play-yard recall doesn't apply.",
+  "recall_number": null,
+  "correct_verdict": "no_match",
+  "created_at": "2026-08-21T18:45:00Z",
+  "placeholder": true
+ }
+]

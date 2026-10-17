@@ -155,6 +155,17 @@ The post only quotes numbers that a human verified, and says so.
 - `openai` — any OpenAI-compatible server (`RECALLDESK_BASE_URL`, `RECALLDESK_MODEL`), incl. Tinker's OAI-compatible endpoint
 - `heuristic` — deterministic identifier/keyword rules, zero keys (clearly labelled in UI)
 
+## Additions agreed with the UI (2026-10-17)
+1. `RecallSpec` gains optional `look_for` (where the identifier is physically printed) and `spec_source` (`teacher|heuristic|hand-checked`).
+2. `GET /api/scan/{n}` → `{recall_number, listings: [Listing & {verdict: MatchVerdict, human_verified?: bool}]}`.
+3. `RecallCard.check_label[]` rows also carry `recall_title`.
+4. `GET /api/cards/latest?shop_id=` → latest completed card for a shop.
+5. `/api/runs` items: `{workflow_id, workflow_type, shop_id?, status, started_at, ended_at, steps[], retries?, resumed_after_crash?, workers?, history_events?, card_id?}`.
+6. Memories: `[{memory_id, text, recall_number?, correct_verdict?, created_at}]`; corrections POST returns `{memory_id}`.
+7. Any payload that is not real yet carries top-level `"placeholder": true` (drives the UI's "Demo data" badge). `scan_summary.by_recall[]` may carry `is_childrens`.
+8. Step `note` carries `source=snapshot (...)` for cached fallbacks; `error` containing "crash"/"resumed" marks resumed steps.
+9. API CORS: `http://localhost:3000` + deployed web origin.
+
 ## Fixtures
 Until real results exist, code against `shared/fixtures/*.json` (built from REAL CPSC data + heuristic verdicts).
 The UI must render from `web/public/fixtures/` when the API is down (static demo deploy).
